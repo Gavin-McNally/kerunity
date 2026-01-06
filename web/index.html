@@ -1,0 +1,1303 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kerunity (local)</title>
+
+
+    <style>
+      :root{
+        --bg:#0a0908;
+        --text-main:rgba(247,243,238,0.96);
+        --text-sub:rgba(247,243,238,0.66);
+
+        --amber:#F2E0C1;
+        --green:#8EA898;
+
+        /* Clay / Terracotta (accessible) */
+        --clay:#B85A4C;
+        --clay-pressed:#A65144;
+        --clay-border:rgba(184,90,76,0.45);
+
+        --hairline-warm:rgba(242,224,193,0.10);
+
+        --radius-app:32px;
+        --radius-card:22px;
+
+        --room-bg:rgba(255,255,255,0.032);
+        --room-border:rgba(242,224,193,0.11);
+        --room-sheen:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.00) 55%);
+      }
+
+      *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+      body{
+        margin:0;
+        height:100vh;
+        background:#050403;
+        font-family:-apple-system, BlinkMacSystemFont, "SF Pro Rounded", "Inter", system-ui, sans-serif;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        overflow:hidden;
+        color:var(--text-main);
+      }
+
+      /* App frame */
+      #app-frame{
+        width:100%;
+        max-width:390px;
+        height:100%;
+        max-height:852px;
+        background:var(--bg);
+        border-radius:var(--radius-app);
+        display:flex;
+        flex-direction:column;
+        overflow:hidden;
+        position:relative;
+        box-shadow:0 0 0 1px rgba(255,255,255,0.1), 0 40px 80px rgba(0,0,0,0.65);
+      }
+      #app-frame::before{
+        content:"";
+        position:absolute;
+        inset:-80px;
+        pointer-events:none;
+        background:
+          radial-gradient(520px 420px at 18% 10%, rgba(242,224,193,0.08), transparent 60%),
+          radial-gradient(560px 460px at 85% 18%, rgba(142,168,152,0.06), transparent 62%);
+        filter:blur(24px);
+        opacity:0.6;
+      }
+      #app-content{ position:relative; z-index:1; height:100%; display:flex; flex-direction:column; }
+
+      /* Header */
+      header{
+        padding:20px 20px 12px;
+        padding-top:max(20px, env(safe-area-inset-top));
+        background:linear-gradient(180deg, rgba(10,9,8,0.96), rgba(10,9,8,0.88));
+        border-bottom:1px solid rgba(242,224,193,0.06);
+        flex-shrink:0;
+        z-index:5;
+      }
+      .header-row{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:12px;
+        gap:10px;
+      }
+      .brand{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        font-weight:800;
+        font-size:19px;
+        letter-spacing:-0.02em;
+        color:#fff;
+        white-space:nowrap;
+      }
+      .header-actions{
+        display:flex;
+        align-items:center;
+        gap:8px;
+        flex-shrink:0;
+      }
+
+      /* Buttons */
+      .pill{
+        height:40px;
+        min-width:40px;
+        padding:0 12px;
+        border-radius:999px;
+        border:1px solid rgba(255,255,255,0.10);
+        background:rgba(255,255,255,0.05);
+        color:rgba(255,255,255,0.88);
+        font-size:13px;
+        font-weight:700;
+        cursor:pointer;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+        user-select:none;
+      }
+      .pill:active{ transform:scale(0.98); }
+      .pill[disabled]{ cursor:default; }
+
+      .clay-btn{
+        background:var(--clay);
+        color:#fff;
+        border:1px solid var(--clay-border);
+        font-weight:850;
+        letter-spacing:0.01em;
+        transition:transform .18s ease, background .18s ease;
+      }
+      .clay-btn:active{ transform:scale(0.97); background:var(--clay-pressed); }
+
+      .icon-btn{
+        width:40px;
+        padding:0;
+        justify-content:center;
+      }
+
+      .subtitle{
+        display:flex;
+        align-items:flex-start;
+        gap:10px;
+        font-size:13px;
+        color:rgba(247,243,238,0.70);
+        font-weight:650;
+        line-height:1.4;
+        margin:4px 2px 8px;
+        letter-spacing:-0.01em;
+      }
+      .subtitle::before{
+        content:"";
+        width:8px;
+        height:8px;
+        border-radius:50%;
+        background:var(--amber);
+        box-shadow:0 0 0 3px rgba(242,224,193,0.15);
+        margin-top:5px;
+        flex-shrink:0;
+      }
+
+      /* Canvas + Search */
+      .canvas{
+        flex:1;
+        overflow-y:auto;
+        padding:0 16px 40px;
+        scrollbar-width:none;
+        -ms-overflow-style:none;
+      }
+      .canvas::-webkit-scrollbar{ width:0; height:0; }
+
+      .search-box{ margin:12px 0 24px; position:relative; }
+      .search-input{
+        width:100%;
+        height:56px;
+        background:rgba(255,255,255,0.055);
+        border:1px solid var(--hairline-warm);
+        border-radius:18px;
+        padding:0 50px 0 16px;
+        color:var(--text-main);
+        font-size:16px;
+        font-weight:600;
+        outline:none;
+        transition:box-shadow .18s ease, background .18s ease;
+      }
+      .search-input:focus{
+        box-shadow:0 0 0 3px rgba(242,224,193,0.20);
+        background:rgba(255,255,255,0.08);
+      }
+      .search-input::placeholder{ color:rgba(247,243,238,0.40); }
+
+      .mic-btn{
+        position:absolute;
+        right:8px;
+        top:8px;
+        width:40px;
+        height:40px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:transparent;
+        border:none;
+        color:rgba(255,255,255,0.55);
+        cursor:pointer;
+        border-radius:12px;
+      }
+      .mic-btn:active{ background:rgba(255,255,255,0.06); }
+      .mic-btn.listening{ color:rgba(242,224,193,0.95); }
+
+      .search-hint{
+        margin-top:12px;
+        padding-left:6px;
+        font-size:12px;
+        color:rgba(247,243,238,0.45);
+        font-weight:700;
+      }
+      .search-hint strong{ color:var(--amber); font-weight:850; }
+
+      .coach-line{
+        margin-top:10px;
+        padding-left:6px;
+        font-size:12px;
+        font-weight:700;
+        color:rgba(247,243,238,0.60);
+        line-height:1.4;
+        display:flex;
+        gap:10px;
+      }
+      .coach-line::before{
+        content:"";
+        width:8px;
+        height:8px;
+        border-radius:50%;
+        background:rgba(142,168,152,0.85);
+        box-shadow:0 0 0 3px rgba(142,168,152,0.15);
+        margin-top:4px;
+        flex-shrink:0;
+      }
+
+      /* Sections */
+      .section-label{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:8px 12px;
+        border-radius:999px;
+        background:rgba(10,9,8,0.8);
+        border:1px solid rgba(242,224,193,0.15);
+        color:rgba(247,243,238,0.85);
+        font-size:13px;
+        font-weight:850;
+        letter-spacing:-0.01em;
+        margin:24px 0 -12px 10px;
+        position:relative;
+        z-index:1;
+      }
+      .dot-green{
+        width:8px;
+        height:8px;
+        background:#8EA898;
+        border-radius:50%;
+        box-shadow:0 0 0 3px rgba(142,168,152,0.15);
+      }
+
+      .room-container{
+        background:var(--room-bg);
+        border:1px solid var(--room-border);
+        border-radius:26px;
+        padding:20px 14px 14px;
+        margin-bottom:16px;
+        position:relative;
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+        min-height:80px;
+      }
+      .room-container::before{
+        content:"";
+        position:absolute;
+        inset:0;
+        border-radius:inherit;
+        background:var(--room-sheen);
+        opacity:0.8;
+        pointer-events:none;
+      }
+
+      .card{
+        background:rgba(255,255,255,0.06);
+        border-radius:16px;
+        padding:16px;
+        border:1px solid rgba(255,255,255,0.06);
+        position:relative;
+        z-index:1;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+        min-height:110px;
+        cursor:pointer;
+        transition:transform .12s ease, background .12s ease;
+      }
+      .card:active{ background:rgba(255,255,255,0.09); transform:scale(0.985); }
+
+      .glyph{
+        width:38px;
+        height:38px;
+        border-radius:10px;
+        background:rgba(255,255,255,0.08);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin-bottom:10px;
+        color:rgba(255,255,255,0.92);
+      }
+      .card-title{ font-size:15px; font-weight:850; line-height:1.2; color:rgba(255,255,255,0.94); margin-bottom:2px; }
+      .card-sub{ font-size:12px; font-weight:650; color:rgba(255,255,255,0.52); }
+
+      /* Bottom Sheet (Urgent + Info) */
+      .sheet-backdrop{
+        position:absolute;
+        inset:0;
+        background:rgba(0,0,0,0.6);
+        backdrop-filter:blur(4px);
+        z-index:100;
+        opacity:0;
+        pointer-events:none;
+        transition:opacity .24s ease;
+      }
+      .sheet-backdrop.active{ opacity:1; pointer-events:auto; }
+      .sheet{
+        position:absolute;
+        bottom:0; left:0; right:0;
+        background:#18181A;
+        border-radius:28px 28px 0 0;
+        padding:24px 20px calc(24px + env(safe-area-inset-bottom));
+        transform:translateY(100%);
+        transition:transform .34s cubic-bezier(0.32,0.72,0,1);
+        border-top:1px solid rgba(255,255,255,0.10);
+      }
+      .sheet-backdrop.active .sheet{ transform:translateY(0); }
+
+      .sheet-title{
+        color:var(--clay);
+        font-size:18px;
+        font-weight:900;
+        margin-bottom:18px;
+        display:flex;
+        gap:10px;
+        align-items:center;
+        letter-spacing:-0.01em;
+      }
+
+      .urgent-row{
+        width:100%;
+        display:flex;
+        align-items:center;
+        gap:14px;
+        padding:14px 12px;
+        background:rgba(255,255,255,0.04);
+        border-radius:14px;
+        border:1px solid rgba(255,255,255,0.06);
+        margin-bottom:8px;
+        text-align:left;
+        color:#fff;
+        cursor:pointer;
+      }
+      .urgent-row:active{ background:rgba(255,255,255,0.08); }
+      .u-icon{
+        width:32px;
+        height:32px;
+        border-radius:8px;
+        background:rgba(184,90,76,0.18);
+        color:#fff;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-shrink:0;
+      }
+
+      /* ===== Crisis Card FULL SCREEN SCREEN ===== */
+      .stepdown-backdrop{
+        position:absolute;
+        inset:0;
+        z-index:130;
+        background:rgba(0,0,0,0.62);
+        backdrop-filter:blur(8px);
+        opacity:0;
+        pointer-events:none;
+        transition:opacity .22s ease;
+      }
+      .stepdown-backdrop.active{
+        opacity:1;
+        pointer-events:auto;
+      }
+      .stepdown-screen{
+        position:absolute;
+        inset:0;
+        background:#18181A;
+        display:flex;
+        flex-direction:column;
+        padding:22px 18px calc(22px + env(safe-area-inset-bottom));
+        opacity:0;
+        transform:translateY(10px);
+        transition:opacity .22s ease, transform .22s ease;
+      }
+      .stepdown-backdrop.active .stepdown-screen{
+        opacity:1;
+        transform:translateY(0);
+      }
+
+      .stepdown-body{
+        flex:1;
+        overflow:auto;
+        padding:12px 0 10px;
+        scrollbar-width:none;
+        -ms-overflow-style:none;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+      }
+      .stepdown-body::-webkit-scrollbar{ width:0; height:0; }
+
+      .crisis-card{
+        width:100%;
+        border-radius:22px;
+        background:linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.03));
+        border:1px solid rgba(255,255,255,0.08);
+        padding:22px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.35);
+        min-height:52vh;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+      }
+
+      .kicker{
+        font-size:12px;
+        font-weight:900;
+        color:rgba(255,255,255,0.46);
+        text-transform:uppercase;
+        letter-spacing:0.06em;
+        margin-bottom:10px;
+      }
+      .say-text{
+        font-size:20px;
+        font-weight:900;
+        line-height:1.30;
+        letter-spacing:-0.02em;
+      }
+      .divider{
+        height:1px;
+        background:rgba(255,255,255,0.07);
+        margin:18px 0;
+      }
+      .do-text{
+        font-size:15px;
+        font-weight:750;
+        color:rgba(255,255,255,0.80);
+        line-height:1.55;
+      }
+
+      .stepdown-footer{
+        padding-top:12px;
+        border-top:1px solid rgba(255,255,255,0.06);
+        background:linear-gradient(180deg, rgba(24,24,26,0), rgba(24,24,26,0.92) 18%, rgba(24,24,26,1));
+      }
+
+      .muted-link{
+        background:none;
+        border:none;
+        width:100%;
+        margin-top:14px;
+        text-decoration:underline;
+        font-size:12px;
+        color:rgba(255,255,255,0.40);
+        font-weight:750;
+        cursor:pointer;
+      }
+
+      .listen-btn{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        height:40px;
+        padding:0 12px;
+        border-radius:999px;
+        border:1px solid rgba(255,255,255,0.10);
+        background:rgba(255,255,255,0.05);
+        color:rgba(255,255,255,0.86);
+        font-weight:850;
+        cursor:pointer;
+        white-space:nowrap;
+      }
+      .listen-btn.speaking{
+        border-color:rgba(242,224,193,0.40);
+        color:rgba(242,224,193,0.98);
+        background:rgba(242,224,193,0.10);
+      }
+
+      /* Large text mode (Aa) */
+      #app-frame.large-text .brand{ font-size:21px; }
+      #app-frame.large-text .subtitle{ font-size:14.5px; }
+      #app-frame.large-text .pill{ height:44px; font-size:14px; }
+      #app-frame.large-text .icon-btn{ width:44px; }
+      #app-frame.large-text .search-input{ height:62px; font-size:18px; }
+      #app-frame.large-text .card-title{ font-size:16.5px; }
+      #app-frame.large-text .card-sub{ font-size:13px; }
+      #app-frame.large-text .section-label{ font-size:14px; }
+      #app-frame.large-text .kicker{ font-size:13px; }
+      #app-frame.large-text .say-text{ font-size:22px; }
+      #app-frame.large-text .do-text{ font-size:16.5px; }
+      #app-frame.large-text #stepdown-title{ font-size:24px !important; }
+
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce){
+        .sheet-backdrop, .stepdown-backdrop, .sheet, .stepdown-screen, .card, .pill{ transition:none !important; }
+      }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* ACCESSIBILITY / LARGE TEXT MODE OVERRIDES */
+      #app-frame.large-text .room-container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      #app-frame.large-text .card {
+        flex-direction: row;
+        align-items: center;
+        padding: 24px 20px;
+        min-height: auto;
+        gap: 18px;
+      }
+      #app-frame.large-text .card .glyph {
+        margin-bottom: 0;
+        width: 52px;
+        height: 52px;
+        flex-shrink: 0;
+      }
+      #app-frame.large-text .card-title {
+        font-size: 22px;
+        margin-bottom: 0;
+      }
+      #app-frame.large-text .card-sub {
+        display: none !important;
+      }
+
+      /* Typography & UI Scaling */
+      #app-frame.large-text .brand { font-size: 24px; }
+      #app-frame.large-text .subtitle { font-size: 17px; line-height: 1.5; margin-bottom: 12px; }
+      #app-frame.large-text header { padding-bottom: 24px; }
+
+      #app-frame.large-text .search-input { height: 76px; font-size: 24px; padding-left: 20px; }
+      #app-frame.large-text .pill { height: 54px; font-size: 16px; padding: 0 22px; }
+      #app-frame.large-text .icon-btn { width: 54px; }
+      #app-frame.large-text .section-label { font-size: 16px; padding: 12px 18px; margin-top: 30px; }
+
+      /* Crisis / Stepdown Scaling */
+      #app-frame.large-text #stepdown-title { font-size: 36px !important; margin-bottom: 16px; }
+      #app-frame.large-text .kicker { font-size: 16px; margin-bottom: 14px; }
+      #app-frame.large-text .say-text { font-size: 34px; line-height: 1.25; }
+      #app-frame.large-text .do-text { font-size: 24px; line-height: 1.45; }
+      #app-frame.large-text .divider { margin: 24px 0; }
+
+      /* Urgent Sheet Scaling */
+      #app-frame.large-text .sheet-title { font-size: 28px; margin-bottom: 24px; }
+      #app-frame.large-text .urgent-row { padding: 24px; gap: 18px; }
+      #app-frame.large-text .urgent-row .u-icon { width: 48px; height: 48px; }
+      /* Target label in urgent row */
+      #app-frame.large-text .urgent-row > div:nth-child(2) > div:first-child {
+        font-size: 22px !important;
+        line-height: 1.3 !important;
+      }
+      /* Hide subtext in urgent row */
+      #app-frame.large-text .urgent-row > div:nth-child(2) > div:last-child {
+        display: none !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app-frame">
+      <div id="app-content">
+        <header>
+          <div class="header-row">
+            <div class="brand">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2E0C1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+                <path d="M8 11h8"></path>
+                <path d="M12 7v8"></path>
+              </svg>
+              <span>Kerunity</span>
+            </div>
+
+            <div class="header-actions">
+              <!-- FIX 1: Aa now wired -->
+              <button class="pill" id="text-toggle" type="button" aria-label="Toggle large text" aria-pressed="false">
+                Aa
+              </button>
+
+              <!-- FIX 2: Info now wired -->
+              <button class="pill icon-btn" id="info-open" type="button" aria-label="Info and disclaimer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 16v-4"></path>
+                  <path d="M12 8h.01"></path>
+                </svg>
+              </button>
+
+              <button class="pill clay-btn" type="button" id="urgent-open">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                  <path d="M12 9v4"></path>
+                  <path d="M12 17h.01"></path>
+                </svg>
+                Urgent Help
+              </button>
+            </div>
+          </div>
+
+          <div class="subtitle">
+            Start here. Tap a situation for calm words to say.
+          </div>
+        </header>
+
+        <div class="canvas">
+          <div class="search-box">
+            <input id="query" type="text" class="search-input" placeholder="Tell me what’s happening…">
+            <button id="mic-btn" class="mic-btn" type="button" aria-label="Speak">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" x2="12" y1="19" y2="22"></line>
+              </svg>
+            </button>
+
+            <div class="search-hint">
+              Try:
+              <strong>“Refusing meds”</strong>
+              •
+              <strong>“Wants to go home”</strong>
+            </div>
+            <div class="coach-line">
+              I’ll give you words to use — one step at a time.
+            </div>
+            <button class="muted-link" type="button" id="urgent-open-2">
+              Not sure if it’s urgent? Tap Urgent Help
+            </button>
+          </div>
+
+          <div id="common-home-section">
+            <div class="section-label">
+              <div class="dot-green"></div>
+              Common situations
+            </div>
+            <div id="grid-container" class="room-container"></div>
+          </div>
+        </div>
+
+        <!-- Crisis Card FULL SCREEN -->
+        <div id="stepdown-overlay" class="stepdown-backdrop" aria-hidden="true">
+          <div class="stepdown-screen" role="dialog" aria-modal="true" aria-label="Crisis Card">
+            <div style="width:36px;height:4px;background:rgba(255,255,255,0.20);border-radius:2px;margin:0 auto 14px;"></div>
+
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+              <div>
+                <div style="font-size:12px;font-weight:900;color:rgba(255,255,255,0.48);text-transform:uppercase;letter-spacing:0.06em;">
+                  Crisis Card
+                </div>
+                <div id="stepdown-title" style="margin-top:6px;font-size:22px;font-weight:950;letter-spacing:-0.02em;">
+                  Situation
+                </div>
+              </div>
+
+              <div style="display:flex;gap:8px;align-items:center;">
+                <!-- FIX 3: Speaker/Listen always present + working -->
+                <button id="listen-btn" class="listen-btn" type="button" aria-label="Listen to this step">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M11 5 6 9H2v6h4l5 4V5Z"></path>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                  </svg>
+                  <span class="listen-label">Listen</span>
+                </button>
+
+                <button id="stepdown-close" class="pill icon-btn" type="button" aria-label="Close">
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin:14px 2px 6px;">
+              <div id="stepdown-progress" style="font-size:12px;font-weight:900;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.06em;">
+                Step 1 of 4
+              </div>
+              <div id="stepdown-dots" style="display:flex;gap:6px;"></div>
+            </div>
+
+            <div class="stepdown-body">
+              <div class="crisis-card">
+                <div class="kicker">Words to say</div>
+                <div id="stepdown-say" class="say-text">…</div>
+
+                <div class="divider"></div>
+
+                <div class="kicker">Do this</div>
+                <div id="stepdown-do" class="do-text">…</div>
+              </div>
+            </div>
+
+            <div class="stepdown-footer">
+              <div style="display:flex;gap:10px;">
+                <button id="stepdown-back" class="pill" type="button" style="flex:1;">
+                  Back
+                </button>
+                <button id="stepdown-next" class="pill clay-btn" type="button" style="flex:1;justify-content:center;">
+                  Next
+                </button>
+              </div>
+              <button id="stepdown-done" type="button" style="width:100%;padding:14px;background:transparent;color:rgba(255,255,255,0.52);font-weight:900;border:none;margin-top:8px;cursor:pointer;">
+                Done
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Urgent bottom sheet -->
+        <div id="urgent-overlay" class="sheet-backdrop" aria-hidden="true">
+          <div class="sheet" role="dialog" aria-modal="true" aria-label="Urgent Help">
+            <div style="width:36px;height:4px;background:rgba(255,255,255,0.20);border-radius:2px;margin:0 auto 20px;"></div>
+
+            <div class="sheet-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                <path d="M12 9v4"></path>
+                <path d="M12 17h.01"></path>
+              </svg>
+              URGENT HELP
+            </div>
+
+            <div style="display:flex;gap:12px;margin-bottom:18px;">
+              <button id="call-999" type="button" class="pill" style="flex:1;height:auto;padding:14px;border-radius:16px;background:#fff;color:#000;border:none;font-weight:900;flex-direction:column;">
+                <span style="font-size:20px;font-weight:950;line-height:1;">
+                  999
+                </span>
+                <span style="font-size:11px;opacity:0.65;text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;">
+                  Emergency
+                </span>
+              </button>
+
+              <button id="call-111" type="button" class="pill" style="flex:1;height:auto;padding:14px;border-radius:16px;background:#007AFF;color:#fff;border:none;font-weight:900;flex-direction:column;">
+                <span style="font-size:20px;font-weight:950;line-height:1;">
+                  111
+                </span>
+                <span style="font-size:11px;opacity:0.85;text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;">
+                  Medical Advice
+                </span>
+              </button>
+            </div>
+
+            <div style="font-size:12px;font-weight:950;color:rgba(255,255,255,0.40);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;padding-left:4px;">
+              Safety Checks
+            </div>
+
+            <!-- wired to urgent decks -->
+            <div id="urgent-grid-sheet"></div>
+
+            <button id="urgent-close" type="button" style="width:100%;padding:14px;background:transparent;color:rgba(255,255,255,0.5);font-weight:850;border:none;margin-top:10px;cursor:pointer;">
+              Cancel
+            </button>
+          </div>
+        </div>
+
+        <!-- Info / Disclaimer sheet -->
+        <div id="info-overlay" class="sheet-backdrop" aria-hidden="true">
+          <div class="sheet" role="dialog" aria-modal="true" aria-label="Info and disclaimer">
+            <div style="width:36px;height:4px;background:rgba(255,255,255,0.20);border-radius:2px;margin:0 auto 20px;"></div>
+
+            <div class="sheet-title" style="color:var(--amber);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 16v-4"></path>
+                <path d="M12 8h.01"></path>
+              </svg>
+              INFO
+            </div>
+
+            <div style="color:rgba(255,255,255,0.86);font-weight:800;line-height:1.5;margin-bottom:12px;">
+              Kerunity gives calm, step-by-step guidance for carers.
+            </div>
+
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:14px;line-height:1.5;color:rgba(255,255,255,0.78);font-weight:700;">
+              <div style="margin-bottom:10px;">
+                • If there is immediate danger, call
+                <strong>999</strong>
+                .
+              </div>
+              <div style="margin-bottom:10px;">
+                • This is guidance — not medical advice or a diagnosis.
+              </div>
+              <div style="margin-bottom:10px;">
+                • Keep everyone safe. If you need to step away, do that.
+              </div>
+              <div>
+                • Use
+                <strong>Urgent Help</strong>
+                for safety checks and escalation steps.
+              </div>
+            </div>
+
+            <button id="info-close" type="button" style="width:100%;padding:14px;background:transparent;color:rgba(255,255,255,0.55);font-weight:900;border:none;margin-top:12px;cursor:pointer;">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* =========================
+         DATA
+      ========================== */
+      const DATA = {
+        refusing_meds: { label: "Refusing meds", sub: "Won't take pills" },
+        wants_home:    { label: "Wants to go home", sub: "Confused about location" },
+        asking_mom:    { label: "Asking for mom", sub: "Deceased relative" },
+        stealing:      { label: "Accusing of stealing", sub: "Items 'missing'" },
+        shadowing:     { label: "Shadowing", sub: "Following you constantly" },
+        hygiene:       { label: "Refusing hygiene", sub: "Won't wash/change" }
+      };
+
+      const CRISIS_DECKS = {
+        refusing_meds:{ title:"Refusing meds", steps:[
+          { say:"It’s okay — we don’t have to do this right now.", do:"Lower the pressure. Relax shoulders. Speak slower than normal." },
+          { say:"Can we take a sip of water first, then decide?", do:"Offer a tiny ‘first step’ and a choice (water / tea / juice)." },
+          { say:"Would you like to take it with me, or would you prefer later?", do:"Give two acceptable options. Avoid arguing about ‘you must’." },
+          { say:"Thank you. That’s enough for now — we’ll check again later.", do:"Close warmly. If still no, step away and return in 10–20 mins." }
+        ]},
+        wants_home:{ title:"Wants to go home", steps:[
+          { say:"I hear you — you want to go home. Tell me what home feels like.", do:"Validate and invite description. Don’t correct location facts." },
+          { say:"Let’s get you comfortable first, then we’ll make a plan.", do:"Move to comfort: chair, drink, loo, warmer/blanket." },
+          { say:"Shall we check the time and do it after a cup of tea?", do:"Use a short delay + familiar ritual. Keep it calm and simple." },
+          { say:"You’re safe with me. We’ll sort it together.", do:"Close with safety + togetherness. Reduce stimulation." }
+        ]},
+        asking_mom:{ title:"Asking for mom", steps:[
+          { say:"You miss her. Tell me about her.", do:"Join the emotion. Don’t say ‘she’s dead’ if it escalates." },
+          { say:"What would she want you to do right now?", do:"Redirect toward a safe action (sit, tea, photo, music)." },
+          { say:"Let’s do something that would make her proud.", do:"Small task: fold towel, water plant, look at album." },
+          { say:"I’m here with you. You’re not on your own.", do:"Close with reassurance and presence." }
+        ]},
+        stealing:{ title:"Accusing of stealing", steps:[
+          { say:"That sounds really worrying. Let’s look together.", do:"Validate. Avoid defending yourself or debating." },
+          { say:"Where did you last remember seeing it?", do:"Turn into a ‘search mission’ with gentle questions." },
+          { say:"Let’s check the usual safe places first.", do:"Go to 2–3 common spots only. Keep pace slow." },
+          { say:"If it’s not here, we’ll leave it and try again later.", do:"Close without ‘you’re wrong’. Offer a calming reset." }
+        ]},
+        shadowing:{ title:"Shadowing", steps:[
+          { say:"You’re okay — I’m here. Let’s do this together.", do:"Reassure first. Keep tone warm, not hurried." },
+          { say:"Can you sit here while I do one small thing?", do:"Give a ‘job’: hold towel, watch kettle, fold cloth." },
+          { say:"I’ll be back in two minutes. Watch the timer for me.", do:"Use a timer + clear promise. Return when you say you will." },
+          { say:"Thank you. You did great helping me.", do:"Praise the helper role. Repeat predictable routine." }
+        ]},
+        hygiene:{ title:"Refusing hygiene", steps:[
+          { say:"No problem — we can do this gently.", do:"Remove pressure. Avoid ‘you have to’ language." },
+          { say:"Would you like a warm cloth wash instead of a full wash?", do:"Offer a smaller option: face/hands first." },
+          { say:"Do you want the bathroom warmer, or a towel warmed?", do:"Fix discomfort triggers: cold room, lighting, privacy." },
+          { say:"That’s enough for now — we’ll stop there.", do:"Close early with success. Short wins beat battles." }
+        ]}
+      };
+
+      const URGENT_ITEMS = [
+        { key:"unresponsive", label:"Unresponsive", sub:"Won't wake up" },
+        { key:"breathing",    label:"Breathing trouble", sub:"Gasping / Choking" },
+        { key:"stroke",       label:"Stroke signs", sub:"Face, Arms, Speech" },
+        { key:"fall",         label:"Bad fall", sub:"Head injury / Pain" }
+      ];
+
+      const URGENT_DECKS = {
+        unresponsive:{ title:"Unresponsive", steps:[
+          { say:"If they won’t wake up, treat this as an emergency.", do:"Call 999. Put phone on speaker. Follow operator instructions." },
+          { say:"Check breathing.", do:"If not breathing normally, start CPR if trained. Don’t delay calling 999." },
+          { say:"Keep them safe while help arrives.", do:"Place in recovery position if breathing. Keep warm. Stay with them." }
+        ]},
+        breathing:{ title:"Breathing trouble", steps:[
+          { say:"Breathing trouble can become critical quickly.", do:"Call 999 if severe or sudden. If choking, encourage coughing." },
+          { say:"Reduce panic + sit upright.", do:"Loosen tight clothing. Open a window. Speak calmly and slowly." },
+          { say:"If symptoms persist or worsen, escalate.", do:"Call 111 for advice if mild but ongoing. Call 999 if severe." }
+        ]},
+        stroke:{ title:"Stroke signs", steps:[
+          { say:"Treat stroke signs as emergency.", do:"Call 999 immediately. Note the time symptoms started." },
+          { say:"Use FAST check.", do:"Face droop, Arm weakness, Speech problems — Time to call." },
+          { say:"Keep them safe and still.", do:"Do not give food/drink. Stay with them until help arrives." }
+        ]},
+        fall:{ title:"Bad fall", steps:[
+          { say:"If head injury, severe pain, or can’t move—assume urgent.", do:"Call 999 if you suspect serious injury or confusion after fall." },
+          { say:"Don’t rush them to stand.", do:"Check pain, bleeding, and alertness. Keep them warm." },
+          { say:"If minor and stable, seek advice.", do:"Call 111 for guidance. Monitor for worsening symptoms." }
+        ]}
+      };
+
+      /* =========================
+         ICONS
+      ========================== */
+      function getIcon(name){
+        const icons = {
+          help: `<circle cx="12" cy="12" r="10"></circle>
+                 <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                 <line x1="12" x2="12.01" y1="17" y2="17"></line>`,
+          alert: `<circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" x2="12" y1="8" y2="12"></line>
+                  <line x1="12" x2="12.01" y1="16" y2="16"></line>`
+        };
+        return icons[name] || icons.help;
+      }
+
+      /* =========================
+         RENDER
+      ========================== */
+      function renderHome(){
+        const grid = document.getElementById("grid-container");
+        const keys = Object.keys(DATA);
+
+        grid.innerHTML = keys.map(k => {
+          const item = DATA[k];
+          return `
+            <div class="card" role="button" tabindex="0" data-key="${k}">
+              <div class="glyph">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  ${getIcon("help")}
+                </svg>
+              </div>
+              <div>
+                <div class="card-title">${item.label}</div>
+                <div class="card-sub">${item.sub}</div>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      function renderUrgentSheet(){
+        const list = document.getElementById("urgent-grid-sheet");
+        list.innerHTML = URGENT_ITEMS.map(it => `
+          <div class="urgent-row" role="button" tabindex="0" data-urgent="${it.key}">
+            <div class="u-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                ${getIcon("alert")}
+              </svg>
+            </div>
+            <div>
+              <div style="font-weight:950;font-size:15px;line-height:1.2;">${it.label}</div>
+              <div style="font-size:12px;opacity:0.62;font-weight:750;">${it.sub}</div>
+            </div>
+            <div style="margin-left:auto;opacity:0.28;font-size:18px;">›</div>
+          </div>
+        `).join("");
+      }
+
+      /* =========================
+         OVERLAYS
+      ========================== */
+      function isOpen(id){
+        const el = document.getElementById(id);
+        return !!el && el.classList.contains("active");
+      }
+
+      function setBodyLock(lock){
+        document.body.style.overflow = lock ? "hidden" : "";
+      }
+
+      function toggleUrgent(show){
+        const el = document.getElementById("urgent-overlay");
+        if(!el) return;
+        el.classList.toggle("active", !!show);
+        el.setAttribute("aria-hidden", show ? "false" : "true");
+        setBodyLock(show || isOpen("stepdown-overlay") || isOpen("info-overlay"));
+      }
+
+      function toggleInfo(show){
+        const el = document.getElementById("info-overlay");
+        if(!el) return;
+        el.classList.toggle("active", !!show);
+        el.setAttribute("aria-hidden", show ? "false" : "true");
+        setBodyLock(show || isOpen("stepdown-overlay") || isOpen("urgent-overlay"));
+      }
+
+      function toggleStepdown(show){
+        const el = document.getElementById("stepdown-overlay");
+        if(!el) return;
+        el.classList.toggle("active", !!show);
+        el.setAttribute("aria-hidden", show ? "false" : "true");
+        setBodyLock(show || isOpen("urgent-overlay") || isOpen("info-overlay"));
+        if(!show) stopSpeak();
+      }
+
+      /* =========================
+         STEP FLOW (single engine)
+      ========================== */
+      let activeDecks = null;   // CRISIS_DECKS or URGENT_DECKS
+      let activeKey = null;
+      let stepIndex = 0;
+
+      function openDeck(decks, key){
+        if(!decks[key]) return;
+        activeDecks = decks;
+        activeKey = key;
+        stepIndex = 0;
+        renderStep();
+        toggleStepdown(true);
+      }
+
+      function renderStep(){
+        const deck = activeDecks?.[activeKey];
+        if(!deck) return;
+
+        const step = deck.steps[stepIndex];
+        document.getElementById("stepdown-title").textContent = deck.title;
+        document.getElementById("stepdown-progress").textContent = `Step ${stepIndex+1} of ${deck.steps.length}`;
+        document.getElementById("stepdown-say").textContent = step.say;
+        document.getElementById("stepdown-do").textContent = step.do;
+
+        const dots = document.getElementById("stepdown-dots");
+        dots.innerHTML = deck.steps.map((_, i) => {
+          const on = i === stepIndex;
+          return `<div style="width:8px;height:8px;border-radius:999px;background:${on ? "rgba(242,224,193,0.95)" : "rgba(255,255,255,0.18)"};"></div>`;
+        }).join("");
+
+        const back = document.getElementById("stepdown-back");
+        const next = document.getElementById("stepdown-next");
+        back.disabled = stepIndex === 0;
+        back.style.opacity = back.disabled ? "0.35" : "1";
+
+        const isLast = stepIndex === deck.steps.length - 1;
+        next.textContent = isLast ? "Finish" : "Next";
+
+        stopSpeak(); // stop speech when step changes
+      }
+
+      function nextStep(){
+        const deck = activeDecks?.[activeKey];
+        if(!deck) return;
+        if(stepIndex < deck.steps.length - 1){
+          stepIndex++;
+          renderStep();
+        }else{
+          toggleStepdown(false);
+        }
+      }
+
+      function prevStep(){
+        if(stepIndex > 0){
+          stepIndex--;
+          renderStep();
+        }
+      }
+
+      /* =========================
+         TEXT-TO-SPEECH (Speaker)
+      ========================== */
+      let speaking = false;
+      let preferredVoice = null;
+
+      function pickVoice(){
+        try{
+          const voices = window.speechSynthesis?.getVoices?.() || [];
+          preferredVoice =
+            voices.find(v => /en-GB/i.test(v.lang)) ||
+            voices.find(v => /en/i.test(v.lang)) ||
+            voices[0] || null;
+        }catch(_){}
+      }
+
+      function updateListenUI(){
+        const btn = document.getElementById("listen-btn");
+        if(!btn) return;
+        btn.classList.toggle("speaking", speaking);
+        btn.setAttribute("aria-label", speaking ? "Stop listening" : "Listen to this step");
+        const label = btn.querySelector(".listen-label");
+        if(label) label.textContent = speaking ? "Stop" : "Listen";
+      }
+
+      function stopSpeak(){
+        if("speechSynthesis" in window){
+          window.speechSynthesis.cancel();
+        }
+        speaking = false;
+        updateListenUI();
+      }
+
+      function speakCurrent(){
+        const deck = activeDecks?.[activeKey];
+        if(!deck) return;
+
+        if(!("speechSynthesis" in window)){
+          alert("Text-to-speech isn’t available in this browser.");
+          return;
+        }
+
+        if(speaking){
+          stopSpeak();
+          return;
+        }
+
+        const step = deck.steps[stepIndex];
+        const text = `${deck.title}. Step ${stepIndex+1}. Words to say: ${step.say}. Do this: ${step.do}`;
+
+        const u = new SpeechSynthesisUtterance(text);
+        u.rate = 0.95;
+        u.pitch = 1.0;
+        if(preferredVoice) u.voice = preferredVoice;
+
+        u.onend = () => { speaking = false; updateListenUI(); };
+        u.onerror = () => { speaking = false; updateListenUI(); };
+
+        speaking = true;
+        updateListenUI();
+
+        // cancel + speak in next tick for reliability
+        window.speechSynthesis.cancel();
+        setTimeout(() => window.speechSynthesis.speak(u), 0);
+      }
+
+      /* =========================
+         VOICE INPUT (Mic) - optional
+      ========================== */
+      let recognition = null;
+      let listening = false;
+
+      function initSpeechRecognition(){
+        const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if(!SR) return;
+
+        recognition = new SR();
+        recognition.lang = "en-GB";
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        recognition.onresult = (event) => {
+          const txt = event.results?.[0]?.[0]?.transcript?.trim?.() || "";
+          const input = document.getElementById("query");
+          if(input && txt) input.value = txt;
+        };
+
+        recognition.onend = () => {
+          listening = false;
+          document.getElementById("mic-btn")?.classList.remove("listening");
+        };
+      }
+
+      function toggleMic(){
+        if(!recognition){
+          alert("Voice input isn’t available in this browser/device.");
+          return;
+        }
+        const mic = document.getElementById("mic-btn");
+
+        if(listening){
+          recognition.stop();
+          listening = false;
+          mic?.classList.remove("listening");
+          return;
+        }
+
+        listening = true;
+        mic?.classList.add("listening");
+        recognition.start();
+      }
+
+      /* =========================
+         LARGE TEXT (Aa)
+      ========================== */
+      const LARGE_TEXT_KEY = "kerunity_large_text";
+
+      function setLargeText(on){
+        const frame = document.getElementById("app-frame");
+        frame.classList.toggle("large-text", !!on);
+
+        const btn = document.getElementById("text-toggle");
+        if(btn) btn.setAttribute("aria-pressed", on ? "true" : "false");
+
+        try{ localStorage.setItem(LARGE_TEXT_KEY, on ? "1" : "0"); }catch(_){}
+      }
+
+      function loadLargeText(){
+        try{
+          const v = localStorage.getItem(LARGE_TEXT_KEY);
+          setLargeText(v === "1");
+        }catch(_){
+          setLargeText(false);
+        }
+      }
+
+      function toggleLargeText(){
+        const frame = document.getElementById("app-frame");
+        setLargeText(!frame.classList.contains("large-text"));
+      }
+
+      /* =========================
+         TEL buttons (999 / 111)
+      ========================== */
+      function callNumber(num){
+        // In desktop browsers this may do nothing; on mobile it should open the dialer.
+        window.location.href = `tel:${num}`;
+      }
+
+      /* =========================
+         WIRING
+      ========================== */
+      function wire(){
+        // home tiles (no input flicker)
+        const grid = document.getElementById("grid-container");
+        grid.addEventListener("click", (e) => {
+          const card = e.target.closest(".card");
+          if(!card) return;
+          openDeck(CRISIS_DECKS, card.dataset.key);
+        });
+        grid.addEventListener("keydown", (e) => {
+          if(e.key !== "Enter" && e.key !== " ") return;
+          const card = e.target.closest(".card");
+          if(!card) return;
+          e.preventDefault();
+          openDeck(CRISIS_DECKS, card.dataset.key);
+        });
+
+        // urgent open/close
+        document.getElementById("urgent-open").addEventListener("click", () => toggleUrgent(true));
+        document.getElementById("urgent-open-2").addEventListener("click", () => toggleUrgent(true));
+        document.getElementById("urgent-close").addEventListener("click", () => toggleUrgent(false));
+        document.getElementById("urgent-overlay").addEventListener("click", (e) => {
+          if(e.target.id === "urgent-overlay") toggleUrgent(false);
+        });
+
+        // urgent rows -> open urgent decks (FIXED)
+        const urgentList = document.getElementById("urgent-grid-sheet");
+        urgentList.addEventListener("click", (e) => {
+          const row = e.target.closest(".urgent-row");
+          if(!row) return;
+          toggleUrgent(false);
+          openDeck(URGENT_DECKS, row.dataset.urgent);
+        });
+        urgentList.addEventListener("keydown", (e) => {
+          if(e.key !== "Enter" && e.key !== " ") return;
+          const row = e.target.closest(".urgent-row");
+          if(!row) return;
+          e.preventDefault();
+          toggleUrgent(false);
+          openDeck(URGENT_DECKS, row.dataset.urgent);
+        });
+
+        // stepdown controls
+        document.getElementById("stepdown-next").addEventListener("click", nextStep);
+        document.getElementById("stepdown-back").addEventListener("click", prevStep);
+        document.getElementById("stepdown-done").addEventListener("click", () => toggleStepdown(false));
+        document.getElementById("stepdown-close").addEventListener("click", () => toggleStepdown(false));
+        document.getElementById("stepdown-overlay").addEventListener("click", (e) => {
+          if(e.target.id === "stepdown-overlay") toggleStepdown(false);
+        });
+
+        // speaker
+        document.getElementById("listen-btn").addEventListener("click", speakCurrent);
+
+        // mic
+        document.getElementById("mic-btn").addEventListener("click", toggleMic);
+
+        // Aa + Info
+        document.getElementById("text-toggle").addEventListener("click", toggleLargeText);
+        document.getElementById("info-open").addEventListener("click", () => toggleInfo(true));
+        document.getElementById("info-close").addEventListener("click", () => toggleInfo(false));
+        document.getElementById("info-overlay").addEventListener("click", (e) => {
+          if(e.target.id === "info-overlay") toggleInfo(false);
+        });
+
+        // 999 / 111
+        document.getElementById("call-999").addEventListener("click", () => callNumber("999"));
+        document.getElementById("call-111").addEventListener("click", () => callNumber("111"));
+
+        // global Escape closes the topmost overlay
+        document.addEventListener("keydown", (e) => {
+          if(e.key !== "Escape") return;
+          if(isOpen("stepdown-overlay")) toggleStepdown(false);
+          else if(isOpen("urgent-overlay")) toggleUrgent(false);
+          else if(isOpen("info-overlay")) toggleInfo(false);
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        renderHome();
+        renderUrgentSheet();
+        initSpeechRecognition();
+        loadLargeText();
+
+        // voices often load async
+        if("speechSynthesis" in window){
+          pickVoice();
+          window.speechSynthesis.onvoiceschanged = pickVoice;
+        }
+
+        wire();
+      });
+    </script>
+  
+</body></html>
