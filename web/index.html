@@ -12,7 +12,7 @@
         --text:#e8e6e3;
         --text-muted:#a0a0a0;
         --warm:#c4a882;
-        --emergency:#c17a6a;
+        --emergency:#a85a4e;
         --radius:12px;
 }
       *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -45,8 +45,8 @@
 
       /* Header */
       header{
-        padding:20px 24px 16px;
-        padding-top:calc(env(safe-area-inset-top) + 16px);
+        padding:20px 28px 16px;
+        padding-top:calc(env(safe-area-inset-top) + 36px);
         flex-shrink:0;
       }
       .header-row{
@@ -117,7 +117,7 @@
       .canvas{
         flex:1;
         overflow-y:auto;
-        padding:0 24px;
+        padding:0 28px;
         padding-bottom:calc(env(safe-area-inset-bottom) + 24px);
         scrollbar-width:none;
         -ms-overflow-style:none;
@@ -156,7 +156,18 @@
         border-radius:var(--radius);
       }
       .mic-btn:active{ background:rgba(255,255,255,0.05); }
-      .mic-btn.listening{ color:var(--text); background:rgba(255,255,255,0.08); }
+      .mic-btn.listening{ 
+        color:var(--text); 
+        background:rgba(255,255,255,0.08);
+        animation:mic-breathe 2.2s ease-in-out infinite;
+      }
+      @keyframes mic-breathe{
+        0%, 100%{ box-shadow:0 0 0 0 rgba(196, 168, 130, 0); }
+        50%{ box-shadow:0 0 0 8px rgba(196, 168, 130, 0.15); }
+      }
+      @media (prefers-reduced-motion: reduce){
+        .mic-btn.listening{ animation:none; }
+      }
 
 
       /* Sections */
@@ -293,9 +304,9 @@
         background:var(--bg);
         display:flex;
         flex-direction:column;
-        padding:24px;
-        padding-top:calc(env(safe-area-inset-top) + 16px);
-        padding-bottom:calc(env(safe-area-inset-bottom) + 24px);
+        padding:24px 40px;
+        padding-top:calc(env(safe-area-inset-top) + 28px);
+        padding-bottom:calc(env(safe-area-inset-bottom) + 20px);
       }
       .stepdown-backdrop.active .stepdown-screen{
         opacity:1;
@@ -304,7 +315,7 @@
       .stepdown-body{
         flex:1;
         overflow:auto;
-        padding:24px 0;
+        padding:16px 0;
         scrollbar-width:none;
         -ms-overflow-style:none;
         display:flex;
@@ -322,7 +333,7 @@
       }
 
       .kicker{
-        font-size:16px;
+        font-size:17px;
         font-weight:500;
         color:var(--warm);
         letter-spacing:0.02em;
@@ -352,9 +363,242 @@
         color:var(--text);
         line-height:1.3;
       }
+      
+      /* Inline tappable emergency number - subtle button-like, not alarm-red */
+      .inline-call{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        background:rgba(255,255,255,0.04);
+        border:1px solid rgba(255,255,255,0.22);
+        color:var(--text);
+        font-weight:700;
+        font-size:inherit;
+        padding:2px 10px;
+        border-radius:10px;
+        cursor:pointer;
+        min-height:32px;
+        vertical-align:middle;
+        margin:0 2px;
+      }
+      .inline-call:focus-visible{
+        outline:2px solid rgba(255,255,255,0.5);
+        outline-offset:2px;
+        background:rgba(255,255,255,0.08);
+      }
+      .inline-call:active{
+        transform:scale(0.98);
+        opacity:0.85;
+      }
+      /* Larger in DO-only mode, still not red */
+      .do-text.do-only .inline-call{
+        padding:4px 12px;
+        min-height:40px;
+        font-size:28px;
+      }
 
       .stepdown-footer{
         padding-top:16px;
+      }
+
+      /* Switch link style (used in footer) */
+      .switch-link{
+        background:none;
+        border:none;
+        color:var(--text-muted);
+        font-size:14px;
+        text-decoration:underline;
+        text-underline-offset:2px;
+        cursor:pointer;
+        padding:4px 8px;
+        opacity:0.8;
+      }
+      .switch-link:hover,.switch-link:focus-visible{
+        opacity:1;
+        color:var(--text);
+      }
+
+      /* Continue chip (home screen resume shortcut) - passive memory, not action */
+      .continue-chip{
+        padding:0 28px;
+        margin-bottom:16px;
+      }
+      .continue-btn{
+        width:100%;
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:3px;
+        padding:14px 18px;
+        background:rgba(255, 255, 255, 0.03);
+        border:1px solid rgba(255, 255, 255, 0.06);
+        border-radius:var(--radius);
+        cursor:pointer;
+        text-align:left;
+      }
+      .continue-btn:hover{ background:rgba(255, 255, 255, 0.05); }
+      .continue-btn:active{ opacity:0.8; }
+      .continue-label{
+        font-size:14px;
+        color:var(--text-muted);
+        font-weight:400;
+      }
+      .continue-detail{
+        font-size:15px;
+        color:var(--text);
+        font-weight:500;
+      }
+
+      /* Post-emergency reassurance */
+      .reassurance-banner{
+        background:rgba(196, 168, 130, 0.12);
+        border-left:3px solid var(--warm);
+        padding:12px 16px;
+        margin-top:12px;
+        font-size:15px;
+        color:var(--text);
+        border-radius:0 var(--radius) var(--radius) 0;
+      }
+
+      /* Toast notification (replaces alert()) */
+      .toast{
+        position:fixed;
+        bottom:calc(env(safe-area-inset-bottom) + 24px);
+        left:50%;
+        transform:translateX(-50%) translateY(100px);
+        background:var(--surface);
+        color:var(--text);
+        padding:14px 20px;
+        border-radius:var(--radius);
+        font-size:15px;
+        max-width:calc(100% - 48px);
+        text-align:center;
+        opacity:0;
+        pointer-events:none;
+        transition:transform 0.2s ease, opacity 0.2s ease;
+        z-index:1200;
+        border:1px solid rgba(255,255,255,0.1);
+      }
+      .toast.show{
+        transform:translateX(-50%) translateY(0);
+        opacity:1;
+      }
+
+      /* Resume prompt (calm-tech confirm replacement) */
+      .resume-backdrop{
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,0.75);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:24px;
+        opacity:0;
+        pointer-events:none;
+        transition:opacity 0.15s ease;
+        z-index:1100;
+      }
+      .resume-backdrop.active{
+        opacity:1;
+        pointer-events:auto;
+      }
+      .resume-sheet{
+        background:var(--surface);
+        border-radius:var(--radius);
+        padding:28px 24px;
+        max-width:320px;
+        width:100%;
+        text-align:center;
+      }
+      .resume-title{
+        font-size:18px;
+        font-weight:500;
+        color:var(--text);
+        margin-bottom:8px;
+      }
+      .resume-sub{
+        font-size:15px;
+        color:var(--text-muted);
+        margin-bottom:8px;
+      }
+      .resume-hint{
+        font-size:13px;
+        color:var(--text-muted);
+        opacity:0.7;
+        margin-bottom:20px;
+      }
+      .resume-buttons{
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+      }
+
+      /* Post-completion follow-up */
+      .followup-backdrop{
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,0.85);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:24px;
+        opacity:0;
+        pointer-events:none;
+        transition:opacity 0.2s ease;
+        z-index:1100;
+      }
+      .followup-backdrop.active{
+        opacity:1;
+        pointer-events:auto;
+      }
+      .followup-card{
+        background:var(--surface);
+        border-radius:16px;
+        padding:28px 24px;
+        width:100%;
+        max-width:340px;
+        text-align:center;
+      }
+      .followup-title{
+        font-size:20px;
+        font-weight:500;
+        color:var(--text);
+        margin-bottom:24px;
+      }
+      .followup-buttons{
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+      }
+      .followup-btn{
+        width:100%;
+        height:52px;
+        border-radius:var(--radius);
+        border:1px solid rgba(255,255,255,0.12);
+        background:transparent;
+        color:var(--text);
+        font-size:16px;
+        font-weight:500;
+        cursor:pointer;
+        transition:background 0.15s ease;
+      }
+      .followup-btn:active{ opacity:0.8; }
+      .followup-btn.calmer{ border-color:rgba(130, 180, 130, 0.3); }
+      .followup-btn.calmer:hover{ background:rgba(130, 180, 130, 0.1); }
+      .followup-btn.same{ border-color:rgba(180, 170, 130, 0.3); }
+      .followup-btn.same:hover{ background:rgba(180, 170, 130, 0.1); }
+      .followup-btn.worse{ border-color:rgba(var(--emergency), 0.3); border-color:rgba(168, 90, 78, 0.3); }
+      .followup-btn.worse:hover{ background:rgba(168, 90, 78, 0.1); }
+      .followup-response-text{
+        font-size:17px;
+        color:var(--text);
+        line-height:1.5;
+        margin-bottom:24px;
+      }
+      .followup-response-buttons{
+        display:flex;
+        flex-direction:column;
+        gap:12px;
       }
 
       .muted-link{
@@ -376,9 +620,10 @@
       .muted-link:active{ opacity:0.7; }
 
       .listen-btn{
-        display:inline-flex;
+        display:flex;
         align-items:center;
-        gap:8px;
+        justify-content:center;
+        gap:10px;
         height:48px;
         padding:0 16px;
         border-radius:var(--radius);
@@ -392,6 +637,33 @@
       }
       .listen-btn:active{ opacity:0.7; }
       .listen-btn.speaking{ background:#333; }
+      /* Listen as support role - more subtle */
+      .listen-btn.listen-secondary{
+        height:44px;
+        background:transparent;
+        border:1px solid rgba(255,255,255,0.12);
+        color:var(--text-muted);
+        font-size:15px;
+      }
+      .listen-btn.listen-secondary:active{ background:rgba(255,255,255,0.05); }
+
+      /* Inline listen button (under SAY text, crisis mode) */
+      .listen-inline{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        margin-top:16px;
+        padding:10px 16px;
+        min-height:42px;
+        border-radius:21px;
+        border:1px solid rgba(255,255,255,0.12);
+        background:transparent;
+        color:var(--text-muted);
+        font-size:14px;
+        cursor:pointer;
+      }
+      .listen-inline:active{ background:rgba(255,255,255,0.05); }
+      .listen-inline.speaking{ background:rgba(255,255,255,0.08); color:var(--text); }
 
       /* Reduced motion */
       @media (prefers-reduced-motion: reduce){
@@ -422,6 +694,11 @@
           <div class="subtitle">
             Start here. You don't have to get this right.
           </div>
+          
+          <!-- Post-emergency reassurance (hidden by default) -->
+          <div id="reassurance-banner" class="reassurance-banner" style="display:none;">
+            You did the right thing.
+          </div>
         </header>
 
         <div class="canvas">
@@ -438,6 +715,14 @@
 
           <div id="search-suggestions" class="room-container" style="display:none;"></div>
 
+          <!-- Continue chip: shows if crisis or urgent deck was exited mid-flow -->
+          <div id="continue-chip" class="continue-chip" style="display:none;" data-resume-type="">
+            <button id="continue-btn" type="button" class="continue-btn">
+              <span id="continue-label" class="continue-label">Continue where you left off</span>
+              <span id="continue-detail" class="continue-detail">Refusing meds · Step 3</span>
+            </button>
+          </div>
+
           <div id="common-home-section">
             <div class="section-label">Common situations</div>
             <div id="grid-container" class="room-container"></div>
@@ -451,10 +736,10 @@
         <div id="stepdown-overlay" class="stepdown-backdrop" aria-hidden="true">
           <div class="stepdown-screen" role="dialog" aria-modal="true" aria-label="Crisis Card">
             <!-- Header: Title left, Close right. Never wrap. -->
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;padding:6px 0;">
               <div style="flex:1;min-width:0;">
                 <div id="stepdown-title" style="font-size:18px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Situation</div>
-                <div id="stepdown-progress" style="font-size:16px;color:var(--text-muted);margin-top:4px;">Step 1 of 4</div>
+                <div id="stepdown-progress" style="font-size:16px;color:#b5b5b5;margin-top:6px;">Step 1 of 4</div>
               </div>
               <button id="stepdown-close" class="pill" type="button" aria-label="Close" style="flex-shrink:0;">Close</button>
             </div>
@@ -464,38 +749,58 @@
                 <div id="stepdown-say-section">
                   <div id="stepdown-say-kicker" class="kicker">Try saying this</div>
                   <div id="stepdown-say" class="say-text"></div>
+                  <!-- Listen: inline tool under SAY text (crisis decks) -->
+                  <button id="listen-inline" class="listen-inline" type="button" aria-label="Listen">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M11 5 6 9H2v6h4l5 4V5Z"></path>
+                      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                    <span class="listen-inline-label">Listen</span>
+                  </button>
                   <div class="divider"></div>
                 </div>
                 <div id="stepdown-do-kicker" class="kicker">You can do this</div>
                 <div id="stepdown-do" class="do-text"></div>
-                </div>
               </div>
+            </div>
 
             <div class="stepdown-footer">
-              <!-- Emergency: persistent in content, not header -->
-              <button id="stepdown-emergency" class="pill emergency-btn" type="button" style="width:100%;height:48px;margin-bottom:12px;">Emergency</button>
-              
+              <!-- URGENT MODE: Call + Listen in footer -->
               <button id="stepdown-call" class="pill emergency-call-btn" type="button" style="display:none;width:100%;height:56px;font-size:18px;margin-bottom:12px;">
-                <span id="stepdown-call-label">Call 999</span>
+                <span id="stepdown-call-label"></span>
               </button>
-              
-              <!-- Listen button moved to footer -->
-              <button id="listen-btn" class="listen-btn" type="button" aria-label="Listen" style="width:100%;margin-bottom:16px;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M11 5 6 9H2v6h4l5 4V5Z"></path>
-                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                  </svg>
-                  <span class="listen-label">Listen</span>
-                </button>
+              <button id="listen-btn" class="listen-btn listen-secondary" type="button" aria-label="Listen" style="display:none;width:100%;margin-bottom:12px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M11 5 6 9H2v6h4l5 4V5Z"></path>
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+                <span class="listen-label">Listen</span>
+              </button>
 
-              <div style="display:flex;gap:12px;">
+              <!-- CRISIS MODE: Back to situations link (above nav) -->
+              <div id="back-to-situations" style="display:none;text-align:center;margin:16px 0 14px;">
+                <button id="switch-situation" class="switch-link" type="button" aria-label="Back to situations list">Back to situations</button>
+              </div>
+
+              <!-- Navigation: Back / Next -->
+              <div style="display:flex;gap:12px;margin-bottom:18px;">
                 <button id="stepdown-back" class="pill" type="button" style="flex:1;">Back</button>
                 <button id="stepdown-next" class="pill" type="button" style="flex:1;">Next</button>
               </div>
-              <button id="stepdown-done" class="muted-link" type="button">Done</button>
-            </div>
+
+              <!-- URGENT MODE: Back to emergency list -->
+              <div id="back-to-urgent" style="display:none;text-align:center;margin-bottom:14px;">
+                <button id="back-to-urgent-btn" class="switch-link" type="button" aria-label="Back to emergency list">Wrong emergency? Back to list</button>
               </div>
+
+              <!-- CRISIS MODE: Hint + Emergency (hint directly above button) -->
+              <div id="crisis-footer-hint" style="display:none;text-align:center;color:#b8b8b8;font-size:14px;line-height:1.3;margin:0 0 10px;">
+                If things get worse, tap Emergency.
+              </div>
+              <button id="stepdown-emergency" class="pill emergency-btn" type="button" style="display:none;width:100%;height:48px;">Emergency</button>
             </div>
+          </div>
+        </div>
 
         <!-- Emergency: Full screen takeover -->
         <div id="urgent-overlay" class="emergency-backdrop" aria-hidden="true">
@@ -504,23 +809,23 @@
             <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;">
               <div style="font-size:18px;font-weight:500;color:var(--text);">Emergency</div>
               <button id="urgent-close" class="pill" type="button" aria-label="Close" style="flex-shrink:0;">Close</button>
-            </div>
+        </div>
 
             <div style="flex:1;overflow-y:auto;">
               <div id="emergency-hint" style="font-size:17px;color:var(--text);margin-bottom:24px;line-height:1.5;">
                 If someone is in immediate danger, call now.
-        </div>
-
-              <div id="call-buttons" style="display:flex;gap:12px;margin-bottom:32px;">
-                <button id="call-emergency" type="button" class="pill emergency-call-btn" style="flex:1;height:80px;flex-direction:column;gap:6px;">
-                  <span id="emergency-number" style="font-size:24px;font-weight:500;">Call 999</span>
-                  <span style="font-size:14px;opacity:0.7;">Emergency</span>
-              </button>
-                <button id="call-advice" type="button" class="pill" style="flex:1;height:80px;flex-direction:column;gap:6px;">
-                  <span id="advice-number" style="font-size:24px;font-weight:500;">Call 111</span>
-                  <span style="font-size:14px;color:var(--text-muted);">Medical advice</span>
-              </button>
             </div>
+
+              <div id="call-buttons" style="display:flex;gap:14px;margin-bottom:32px;">
+                <button id="call-emergency" type="button" class="pill emergency-call-btn" style="flex:1;height:88px;flex-direction:column;gap:8px;border:1px solid rgba(255,255,255,0.08);">
+                  <span id="emergency-number" style="font-size:26px;font-weight:500;"></span>
+                  <span style="font-size:14px;opacity:0.7;">Emergency</span>
+                </button>
+                <button id="call-advice" type="button" class="pill" style="flex:1;height:88px;flex-direction:column;gap:8px;border:1px solid rgba(255,255,255,0.1);">
+                  <span id="advice-number" style="font-size:26px;font-weight:500;"></span>
+                  <span style="font-size:14px;color:var(--text-muted);">Medical advice</span>
+                </button>
+              </div>
 
               <div style="font-size:14px;color:var(--text-muted);margin-bottom:12px;">Safety checks</div>
             <div id="urgent-grid-sheet"></div>
@@ -538,7 +843,7 @@
             </div>
 
             <div style="color:var(--text-muted);line-height:1.7;font-size:15px;margin-bottom:24px;">
-              <p id="info-emergency-line" style="margin:0 0 12px;">If you or they are in immediate danger, call 999 now.</p>
+              <p id="info-emergency-line" style="margin:0 0 12px;"></p>
               <p style="margin:0 0 12px;">This is guidance, not medical advice.</p>
               <p style="margin:0 0 12px;">Keep everyone safe. Step away if you need to.</p>
               <p style="margin:0;">Tap Emergency for safety checks.</p>
@@ -551,9 +856,51 @@
                 <p style="margin:0 0 10px;">This app does not track you.</p>
                 <p style="margin:0;">If you use this inside ChatGPT, OpenAI may save what you type.</p>
               </div>
-            </div>
+              </div>
 
             <button id="info-close" class="muted-link" type="button">Close</button>
+              </div>
+            </div>
+
+        <!-- Toast notification (replaces native alert) -->
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+        <!-- Resume prompt (replaces native confirm) -->
+        <div id="resume-overlay" class="resume-backdrop" aria-hidden="true">
+          <div class="resume-sheet" role="dialog" aria-modal="true" aria-label="Resume">
+            <div class="resume-title">Pick up where you left off?</div>
+            <div id="resume-step" class="resume-sub">Step 4</div>
+            <div class="resume-hint">Only if this is still the same situation.</div>
+            <div class="resume-buttons">
+              <button id="resume-continue" class="pill" type="button" style="flex:1;height:48px;">Continue</button>
+              <button id="resume-restart" class="pill" type="button" style="flex:1;height:48px;background:transparent;border:1px solid rgba(255,255,255,0.15);">Start from Step 1</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post-completion follow-up -->
+        <div id="followup-overlay" class="followup-backdrop" aria-hidden="true">
+          <div class="followup-card" role="dialog" aria-modal="true" aria-label="Follow-up">
+            <div class="followup-title">How is it feeling now?</div>
+            <div class="followup-buttons">
+              <button id="followup-calmer" class="followup-btn calmer" type="button">
+                <span class="followup-btn-label">Calmer</span>
+              </button>
+              <button id="followup-same" class="followup-btn same" type="button">
+                <span class="followup-btn-label">About the same</span>
+              </button>
+              <button id="followup-worse" class="followup-btn worse" type="button">
+                <span class="followup-btn-label">Worse</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Follow-up response screens -->
+        <div id="followup-response-overlay" class="followup-backdrop" aria-hidden="true">
+          <div class="followup-card" role="dialog" aria-modal="true" aria-label="Response">
+            <div id="followup-response-text" class="followup-response-text"></div>
+            <div id="followup-response-buttons" class="followup-response-buttons"></div>
           </div>
         </div>
       </div>
@@ -909,7 +1256,7 @@
         fall:{ title:"Bad fall", steps:[
           { say:"Don't try to move. I'm going to help you.", do:"If they hit their head, are bleeding, can't move, or you're worried at all, call {EMERGENCY} now." },
           { say:"Take your time. There's no rush.", do:"Check for pain, bleeding, alertness. Keep them warm and still." },
-          { say:null, do:"If you're unsure what to do, call for medical advice. If they get worse at any point, call {EMERGENCY}." }
+          { say:null, do:"If you're unsure what to do, call for medical advice. If they get worse at any point, call {EMERGENCY} now." }
         ]},
         general_emergency:{ title:"Something feels seriously wrong", steps:[
           { say:null, do:"Trust your instincts. If something feels seriously wrong, call {EMERGENCY} now." },
@@ -935,15 +1282,28 @@
         const total = keys.length;
         const visibleKeys = showAllSituations ? keys : keys.slice(0, VISIBLE_COUNT);
 
-        grid.innerHTML = visibleKeys.map(k => {
+        // XSS-safe: use createElement + textContent instead of innerHTML
+        grid.textContent = "";
+        visibleKeys.forEach(k => {
           const item = DATA[k];
-          return `
-            <div class="card" role="button" tabindex="0" data-key="${k}">
-                <div class="card-title">${item.label}</div>
-                <div class="card-sub">${item.sub}</div>
-              </div>
-          `;
-        }).join("");
+          const card = document.createElement("div");
+          card.className = "card";
+          card.setAttribute("role", "button");
+          card.setAttribute("tabindex", "0");
+          card.dataset.key = k;
+          
+          const title = document.createElement("div");
+          title.className = "card-title";
+          title.textContent = item.label;
+          
+          const sub = document.createElement("div");
+          sub.className = "card-sub";
+          sub.textContent = item.sub;
+          
+          card.appendChild(title);
+          card.appendChild(sub);
+          grid.appendChild(card);
+        });
 
         // Show/hide "View all" button
         if(total > VISIBLE_COUNT){
@@ -979,6 +1339,53 @@
         // Category 4: Immediate danger
         danger: ["fire", "danger", "unsafe", "violent now", "aggressive now", "weapon", "threatening", "emergency", "ambulance", "999", "112", "dying", "immediate danger", "seriously wrong"]
       };
+      
+      /* =========================
+         DEV-TIME LINT: Hardcoded emergency numbers
+         Scans deck strings for 999/112/911 that should be {EMERGENCY}
+      ========================== */
+      function lintHardcodedEmergencyNumbers(){
+        const hardcodedPattern = /\b(999|112|911)\b/g;
+        const warnings = [];
+        
+        // Check CRISIS_DECKS
+        for(const [key, deck] of Object.entries(CRISIS_DECKS)){
+          deck.steps.forEach((step, i) => {
+            if(step.say && hardcodedPattern.test(step.say)){
+              warnings.push(`CRISIS_DECKS["${key}"].steps[${i}].say contains hardcoded number`);
+            }
+            hardcodedPattern.lastIndex = 0; // Reset regex
+            if(step.do && hardcodedPattern.test(step.do)){
+              warnings.push(`CRISIS_DECKS["${key}"].steps[${i}].do contains hardcoded number`);
+            }
+            hardcodedPattern.lastIndex = 0;
+          });
+        }
+        
+        // Check URGENT_DECKS
+        for(const [key, deck] of Object.entries(URGENT_DECKS)){
+          deck.steps.forEach((step, i) => {
+            if(step.say && hardcodedPattern.test(step.say)){
+              warnings.push(`URGENT_DECKS["${key}"].steps[${i}].say contains hardcoded number`);
+            }
+            hardcodedPattern.lastIndex = 0;
+            // Note: {EMERGENCY} in do text is allowed and will be injected
+            const doText = step.do || "";
+            const cleanedDo = doText.replace(/\{EMERGENCY\}/g, ""); // Remove placeholders before checking
+            if(hardcodedPattern.test(cleanedDo)){
+              warnings.push(`URGENT_DECKS["${key}"].steps[${i}].do contains hardcoded number (use {EMERGENCY})`);
+            }
+            hardcodedPattern.lastIndex = 0;
+          });
+        }
+        
+        // Output warnings
+        if(warnings.length > 0){
+          console.warn("🚨 DEV LINT: Hardcoded emergency numbers found:");
+          warnings.forEach(w => console.warn("  →", w));
+          console.warn("Replace hardcoded numbers with {EMERGENCY} placeholder.");
+        }
+      }
 
       function normalizeQuery(str){
         return str.toLowerCase().trim().replace(/[^\w\s]/g, '').replace(/\s+/g, ' ');
@@ -1125,23 +1532,36 @@
         container.style.display = "flex";
         homeSection.style.display = "none";
         
-        container.innerHTML = results.map(r => {
-          // Get item data from appropriate source
+        // XSS-safe: use createElement + textContent instead of innerHTML
+        container.textContent = "";
+        results.forEach(r => {
           let item;
           if(r.isUrgent){
             item = URGENT_ITEMS.find(u => u.key === r.key);
           } else {
             item = DATA[r.key];
           }
-          if(!item) return '';
+          if(!item) return;
           
-          return `
-            <div class="card${r.isUrgent ? ' urgent-suggestion' : ''}" role="button" tabindex="0" data-key="${r.key}" data-urgent="${r.isUrgent}">
-                <div class="card-title">${item.label}</div>
-                <div class="card-sub">${item.sub}</div>
-            </div>
-          `;
-        }).join("");
+          const card = document.createElement("div");
+          card.className = r.isUrgent ? "card urgent-suggestion" : "card";
+          card.setAttribute("role", "button");
+          card.setAttribute("tabindex", "0");
+          card.dataset.key = r.key;
+          card.dataset.urgent = r.isUrgent;
+          
+          const title = document.createElement("div");
+          title.className = "card-title";
+          title.textContent = item.label;
+          
+          const sub = document.createElement("div");
+          sub.className = "card-sub";
+          sub.textContent = item.sub;
+          
+          card.appendChild(title);
+          card.appendChild(sub);
+          container.appendChild(card);
+        });
       }
 
       function handleSearchInput(e){
@@ -1156,14 +1576,30 @@
 
       function renderUrgentSheet(){
         const list = document.getElementById("urgent-grid-sheet");
-        list.innerHTML = URGENT_ITEMS.map(it => `
-          <div class="urgent-row" role="button" tabindex="0" data-urgent="${it.key}">
-            <div>
-              <div style="font-weight:500;font-size:19px;line-height:1.35;margin-bottom:4px;">${it.label}</div>
-              <div style="font-size:15px;color:var(--text-muted);line-height:1.4;">${it.sub}</div>
-            </div>
-          </div>
-        `).join("");
+        // XSS-safe: use createElement + textContent instead of innerHTML
+        list.textContent = "";
+        URGENT_ITEMS.forEach(it => {
+          const row = document.createElement("div");
+          row.className = "urgent-row";
+          row.setAttribute("role", "button");
+          row.setAttribute("tabindex", "0");
+          row.dataset.urgent = it.key;
+          
+          const inner = document.createElement("div");
+          
+          const label = document.createElement("div");
+          label.style.cssText = "font-weight:500;font-size:19px;line-height:1.35;margin-bottom:4px;";
+          label.textContent = it.label;
+          
+          const sub = document.createElement("div");
+          sub.style.cssText = "font-size:15px;color:var(--text-muted);line-height:1.4;";
+          sub.textContent = it.sub;
+          
+          inner.appendChild(label);
+          inner.appendChild(sub);
+          row.appendChild(inner);
+          list.appendChild(row);
+        });
       }
 
       /* =========================
@@ -1174,41 +1610,116 @@
         return !!el && el.classList.contains("active");
       }
 
-      function setBodyLock(lock){
-        document.body.style.overflow = lock ? "hidden" : "";
+      // Centralized body lock - considers ALL overlays
+      function updateBodyLock(){
+        const anyOpen = 
+          isOpen("stepdown-overlay") || 
+          isOpen("urgent-overlay") || 
+          isOpen("info-overlay") ||
+          isResumePromptOpen();
+        document.body.style.overflow = anyOpen ? "hidden" : "";
+      }
+
+      /* =========================
+         HISTORY MANAGEMENT (Android back button)
+      ========================== */
+      let historyStatePushed = false;
+      
+      function pushOverlayState(){
+        if(!historyStatePushed){
+          history.pushState({ overlay: true }, "");
+          historyStatePushed = true;
+        }
+      }
+      
+      function clearOverlayState(){
+        // Only clear flag; don't manipulate history directly
+        historyStatePushed = false;
+      }
+      
+      function hasAnyOverlayOpen(){
+        return isOpen("stepdown-overlay") || isOpen("urgent-overlay") || isOpen("info-overlay") || isResumePromptOpen() || isOpen("followup-overlay") || isOpen("followup-response-overlay");
       }
 
       function toggleUrgent(show){
         const el = document.getElementById("urgent-overlay");
         if(!el) return;
+        
+        // Note: emergencyUsed is set only when a call is initiated (callEmergency/callAdvice)
+        // Opening the panel alone does NOT count as "used"
+        if(!show && emergencyUsed){
+          // Show reassurance on close only if a call was actually initiated
+          showReassurance();
+          emergencyUsed = false;
+        }
+        
+        if(show) pushOverlayState();
+        
         if(!show) document.getElementById("urgent-open")?.focus();
         el.classList.toggle("active", !!show);
         el.setAttribute("aria-hidden", show ? "false" : "true");
-        setBodyLock(show || isOpen("stepdown-overlay") || isOpen("info-overlay"));
+        updateBodyLock();
+        
+        // Check after toggle if we should clear history state
+        if(!show && !hasAnyOverlayOpen()) clearOverlayState();
         if(show) document.getElementById("urgent-close")?.focus();
+      }
+      
+      // Show brief reassurance banner after emergency use
+      function showReassurance(){
+        const banner = document.getElementById("reassurance-banner");
+        if(!banner) return;
+        banner.style.display = "block";
+        // Auto-hide after 6 seconds
+        setTimeout(() => { banner.style.display = "none"; }, 6000);
+      }
+      
+      // Toast notification (replaces native alert)
+      let toastTimeout = null;
+      function showToast(message, duration = 3000){
+        const toast = document.getElementById("toast");
+        if(!toast) return;
+        toast.textContent = message;
+        toast.classList.add("show");
+        if(toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove("show");
+        }, duration);
       }
 
       function toggleInfo(show){
         const el = document.getElementById("info-overlay");
         if(!el) return;
+        
+        if(show) pushOverlayState();
+        
         if(!show) document.getElementById("info-open")?.focus();
         el.classList.toggle("active", !!show);
         el.setAttribute("aria-hidden", show ? "false" : "true");
-        setBodyLock(show || isOpen("stepdown-overlay") || isOpen("urgent-overlay"));
+        updateBodyLock();
         if(show) document.getElementById("info-close")?.focus();
+        
+        // Check after toggle if we should clear history state
+        if(!show && !hasAnyOverlayOpen()) clearOverlayState();
       }
 
       function toggleStepdown(show){
         const el = document.getElementById("stepdown-overlay");
         if(!el) return;
+        
+        if(show) pushOverlayState();
+        
         if(!show){
           stopSpeak();
           document.getElementById("query")?.focus();
         }
         el.classList.toggle("active", !!show);
         el.setAttribute("aria-hidden", show ? "false" : "true");
-        setBodyLock(show || isOpen("urgent-overlay") || isOpen("info-overlay"));
+        updateBodyLock();
         if(show) document.getElementById("stepdown-close")?.focus();
+        
+        // Check after toggle if we should clear history state
+        if(!show && !hasAnyOverlayOpen()) clearOverlayState();
       }
 
       /* =========================
@@ -1218,10 +1729,60 @@
       let activeKey = null;
       let stepIndex = 0;
 
+      // Resume grace: remember last position for 10 minutes (CRISIS decks only)
+      let resumeState = { 
+        deckKey: null,      // The situation key (e.g., "refusing_meds")
+        stepIndex: 0,       // Which step they were on
+        timestamp: 0        // When they exited
+      };
+      
+      // Urgent resume: shorter TTL, separate from crisis (5 minutes)
+      let urgentResumeState = {
+        deckKey: null,
+        stepIndex: 0,
+        timestamp: 0
+      };
+      const URGENT_RESUME_MS = 5 * 60 * 1000; // 5 minutes for urgent
+      
+      const RESUME_GRACE_MS = 10 * 60 * 1000; // 10 minutes
+      const RESUME_MIN_TIME_MS = 5 * 1000;    // Must be in deck 5+ seconds to save resume
+      let deckOpenedAt = 0;                   // Timestamp when deck was opened
+      
+      // Emergency action tracking
+      let emergencyUsed = false;        // For reassurance banner
+      let emergencyTriggeredSinceExit = false; // Blocks resume if emergency was used
+
       /* EXIT DECK: Single function for all exits. Returns to Home/List reliably.
          No completion screens, no confirmations, no shame language. */
-      function exitDeck(){
+      function exitDeck(wasCompleted = false){
+        // Guard: only true if explicitly passed boolean true (prevents Event object bugs)
+        wasCompleted = (wasCompleted === true);
         stopSpeak();
+        
+        const timeInDeck = Date.now() - deckOpenedAt;
+        
+        // Save CRISIS resume state (mid-flow, not completed, not step 1, 5+ seconds)
+        if(activeDecks === CRISIS_DECKS && activeKey && !wasCompleted && stepIndex > 0 && timeInDeck >= RESUME_MIN_TIME_MS){
+          resumeState = { 
+            deckKey: activeKey, 
+            stepIndex: stepIndex, 
+            timestamp: Date.now()
+          };
+        } else if(activeDecks === CRISIS_DECKS && wasCompleted){
+          clearResume();
+        }
+        
+        // Save URGENT resume state (mid-flow, not completed, shorter TTL)
+        if(activeDecks === URGENT_DECKS && activeKey && !wasCompleted && stepIndex > 0){
+          urgentResumeState = {
+            deckKey: activeKey,
+            stepIndex: stepIndex,
+            timestamp: Date.now()
+          };
+        } else if(activeDecks === URGENT_DECKS && wasCompleted){
+          clearUrgentResume();
+        }
+        
         activeDecks = null;
         activeKey = null;
         stepIndex = 0;
@@ -1232,19 +1793,322 @@
         renderSuggestions([]);
         
         toggleStepdown(false);
+        
+        // Update home screen continue chip
+        updateContinueChip();
+      }
+      
+      /* =========================
+         POST-COMPLETION FOLLOW-UP
+      ========================== */
+      function showFollowup(){
+        const overlay = document.getElementById("followup-overlay");
+        overlay.classList.add("active");
+        overlay.setAttribute("aria-hidden", "false");
+        document.getElementById("followup-calmer")?.focus();
+      }
+      
+      function hideFollowup(){
+        const overlay = document.getElementById("followup-overlay");
+        overlay.classList.remove("active");
+        overlay.setAttribute("aria-hidden", "true");
+      }
+      
+      function showFollowupResponse(type){
+        hideFollowup();
+        
+        const overlay = document.getElementById("followup-response-overlay");
+        const textEl = document.getElementById("followup-response-text");
+        const buttonsEl = document.getElementById("followup-response-buttons");
+        
+        buttonsEl.textContent = "";
+        
+        if(type === "calmer"){
+          textEl.textContent = "That's good to hear.";
+          const btn = document.createElement("button");
+          btn.className = "pill";
+          btn.style.cssText = "width:100%;height:48px;";
+          btn.textContent = "Back to situations";
+          btn.onclick = () => closeFollowupAndExit();
+          buttonsEl.appendChild(btn);
+        } else if(type === "same"){
+          textEl.textContent = "Would you like more help?";
+          
+          const btn1 = document.createElement("button");
+          btn1.className = "pill";
+          btn1.style.cssText = "width:100%;height:48px;";
+          btn1.textContent = "Try another situation";
+          btn1.onclick = () => closeFollowupAndExit();
+          buttonsEl.appendChild(btn1);
+          
+          const btn2 = document.createElement("button");
+          btn2.className = "pill";
+          btn2.style.cssText = "width:100%;height:48px;background:transparent;border:1px solid rgba(255,255,255,0.15);";
+          btn2.textContent = "Stay here";
+          btn2.onclick = () => {
+            hideFollowupResponse();
+            // Stay on current step (user stays in card)
+          };
+          buttonsEl.appendChild(btn2);
+        } else if(type === "worse"){
+          textEl.textContent = "If things are getting worse, it's okay to get urgent help.";
+          
+          const btn1 = document.createElement("button");
+          btn1.className = "pill emergency-call-btn";
+          btn1.style.cssText = "width:100%;height:52px;font-size:17px;";
+          btn1.textContent = "Emergency";
+          btn1.onclick = () => {
+            hideFollowupResponse();
+            exitDeck(true);
+            toggleUrgent(true);
+          };
+          buttonsEl.appendChild(btn1);
+          
+          const btn2 = document.createElement("button");
+          btn2.className = "pill";
+          btn2.style.cssText = "width:100%;height:48px;background:transparent;border:1px solid rgba(255,255,255,0.15);";
+          btn2.textContent = "Back to situations";
+          btn2.onclick = () => closeFollowupAndExit();
+          buttonsEl.appendChild(btn2);
+        }
+        
+        overlay.classList.add("active");
+        overlay.setAttribute("aria-hidden", "false");
+      }
+      
+      function hideFollowupResponse(){
+        const overlay = document.getElementById("followup-response-overlay");
+        overlay.classList.remove("active");
+        overlay.setAttribute("aria-hidden", "true");
+      }
+      
+      function closeFollowupAndExit(){
+        hideFollowupResponse();
+        exitDeck(true);
+      }
+      
+      // Check if resume should be offered
+      // ONLY for CRISIS decks, same key, within TTL, not after emergency
+      function canResume(decks, key){
+        // Rule: Never for URGENT decks
+        if(decks === URGENT_DECKS) return false;
+        
+        // Rule: Must be CRISIS deck
+        if(decks !== CRISIS_DECKS) return false;
+        
+        // Rule: Must have saved state
+        if(!resumeState.deckKey) return false;
+        
+        // Rule: Must be same situation
+        if(resumeState.deckKey !== key) return false;
+        
+        // Rule: Must be within 10 minutes
+        if(Date.now() - resumeState.timestamp > RESUME_GRACE_MS) return false;
+        
+        // Rule: Must have been past step 1
+        if(resumeState.stepIndex === 0) return false;
+        
+        // Rule: Must not have used emergency since exit
+        if(emergencyTriggeredSinceExit) return false;
+        
+        return true;
+      }
+      
+      // Clear resume memory (called after user chooses, or on completion)
+      function clearResume(){
+        resumeState = { deckKey: null, stepIndex: 0, timestamp: 0 };
+        emergencyTriggeredSinceExit = false;
+        updateContinueChip(); // Update home screen chip
+      }
+      
+      // Clear urgent resume (on call placed or completion)
+      function clearUrgentResume(){
+        urgentResumeState = { deckKey: null, stepIndex: 0, timestamp: 0 };
+        updateContinueChip();
+      }
+      
+      // Check if CRISIS resume is available
+      function hasCrisisResumeAvailable(){
+        if(!resumeState.deckKey) return false;
+        if(Date.now() - resumeState.timestamp > RESUME_GRACE_MS) return false;
+        if(resumeState.stepIndex === 0) return false;
+        if(emergencyTriggeredSinceExit) return false;
+        return true;
+      }
+      
+      // Check if URGENT resume is available
+      function hasUrgentResumeAvailable(){
+        if(!urgentResumeState.deckKey) return false;
+        if(Date.now() - urgentResumeState.timestamp > URGENT_RESUME_MS) return false;
+        if(urgentResumeState.stepIndex === 0) return false;
+        return true;
+      }
+      
+      // Legacy alias
+      function hasResumeAvailable(){ return hasCrisisResumeAvailable(); }
+      
+      // Update home screen continue chip (shows either crisis or urgent resume)
+      function updateContinueChip(){
+        const chip = document.getElementById("continue-chip");
+        const label = document.getElementById("continue-label");
+        const detail = document.getElementById("continue-detail");
+        if(!chip) return;
+        
+        // Priority: show urgent resume first (more time-critical)
+        if(hasUrgentResumeAvailable()){
+          const deck = URGENT_DECKS[urgentResumeState.deckKey];
+          if(deck){
+            label.textContent = "Return to emergency";
+            detail.textContent = `${deck.title} · Step ${urgentResumeState.stepIndex + 1}`;
+            chip.dataset.resumeType = "urgent";
+            chip.style.display = "block";
+            return;
+          }
+        }
+        
+        // Otherwise show crisis resume
+        if(hasCrisisResumeAvailable()){
+          const deck = CRISIS_DECKS[resumeState.deckKey];
+          if(deck){
+            label.textContent = "Continue where you left off";
+            detail.textContent = `${deck.title} · Step ${resumeState.stepIndex + 1}`;
+            chip.dataset.resumeType = "crisis";
+            chip.style.display = "block";
+            return;
+          }
+        }
+        
+        chip.style.display = "none";
+      }
+      
+      // Resume prompt state
+      let resumePromptCallbacks = { onContinue: null, onRestart: null };
+      
+      // Single cleanup function for resume prompt (used by all close paths)
+      function cleanupResumePrompt(){
+        const overlay = document.getElementById("resume-overlay");
+        const continueBtn = document.getElementById("resume-continue");
+        const restartBtn = document.getElementById("resume-restart");
+        
+        overlay.classList.remove("active");
+        overlay.setAttribute("aria-hidden", "true");
+        updateBodyLock(); // Centralized body lock
+        
+        continueBtn.onclick = null;
+        restartBtn.onclick = null;
+        resumePromptCallbacks.onContinue = null;
+        resumePromptCallbacks.onRestart = null;
+      }
+      
+      // Show in-app resume prompt (replaces native confirm)
+      function showResumePrompt(stepNum, onContinue, onRestart){
+        const overlay = document.getElementById("resume-overlay");
+        const stepEl = document.getElementById("resume-step");
+        const continueBtn = document.getElementById("resume-continue");
+        const restartBtn = document.getElementById("resume-restart");
+        
+        // Store callbacks
+        resumePromptCallbacks.onContinue = onContinue;
+        resumePromptCallbacks.onRestart = onRestart;
+        
+        stepEl.textContent = `Step ${stepNum}`;
+        overlay.classList.add("active");
+        overlay.setAttribute("aria-hidden", "false");
+        updateBodyLock(); // Centralized body lock
+        
+        continueBtn.focus();
+        
+        continueBtn.onclick = () => { 
+          const cb = resumePromptCallbacks.onContinue;
+          cleanupResumePrompt(); 
+          if(cb) cb(); 
+        };
+        restartBtn.onclick = () => { 
+          const cb = resumePromptCallbacks.onRestart;
+          cleanupResumePrompt(); 
+          if(cb) cb(); 
+        };
+      }
+      
+      // Check if resume prompt is open
+      function isResumePromptOpen(){
+        const overlay = document.getElementById("resume-overlay");
+        return overlay?.classList.contains("active");
+      }
+      
+      // Dismiss resume prompt (ESC/backdrop: defaults to Start from Step 1)
+      function dismissResumePrompt(){
+        if(!isResumePromptOpen()) return;
+        const cb = resumePromptCallbacks.onRestart;
+        cleanupResumePrompt();
+        if(cb) cb();
       }
 
       /* OPEN DECK: Always resets state to ensure fresh start.
          - stepIndex reset to 0
          - previous card content cleared via new activeDecks/activeKey
          - step indicator will show "Step 1 of N" for the new card */
-      function openDeck(decks, key){
+      function openDeck(decks, key, forceStep){
         if(!decks[key]) return;
         
-        // STATE RESET: Clear previous deck state before opening new
+        // Clear old urgent resume if switching to a different urgent situation
+        // "Latest intent wins" — the app always reflects the current emergency
+        if(decks === URGENT_DECKS && urgentResumeState.deckKey && urgentResumeState.deckKey !== key){
+          clearUrgentResume();
+        }
+        
+        // URGENT decks: Never show resume prompt, start immediately
+        if(decks === URGENT_DECKS){
+          activeDecks = decks;
+          activeKey = key;
+          stepIndex = forceStep !== undefined ? forceStep : 0;
+          finishOpenDeck(decks);
+          return;
+        }
+        
+        // CRISIS decks: Check for resume only if all conditions met
+        if(forceStep === undefined && canResume(decks, key)){
+          const savedStep = resumeState.stepIndex;
+          const resumeStepHuman = savedStep + 1; // Human-readable (1-indexed)
+          
+          showResumePrompt(resumeStepHuman, 
+            () => {
+              // Continue from saved step
+              activeDecks = decks;
+              activeKey = key;
+              stepIndex = savedStep;
+              clearResume(); // Anti-nag: clear so it won't prompt again
+              finishOpenDeck(decks);
+            },
+            () => {
+              // Start from step 1
         activeDecks = decks;
         activeKey = key;
-        stepIndex = 0;  // Always start at step 1
+        stepIndex = 0;
+              clearResume(); // Anti-nag: clear so it won't prompt again
+              finishOpenDeck(decks);
+            }
+          );
+          return; // Wait for user choice
+        }
+        
+        // Normal open (no resume available or forceStep specified)
+        if(forceStep !== undefined){
+          activeDecks = decks;
+          activeKey = key;
+          stepIndex = forceStep;
+        } else {
+          activeDecks = decks;
+          activeKey = key;
+          stepIndex = 0;
+        }
+        
+        finishOpenDeck(decks);
+      }
+      
+      function finishOpenDeck(decks){
+        // Track when deck was opened (for minimum time threshold)
+        deckOpenedAt = Date.now();
         
         // Show call button for urgent decks
         const callBtn = document.getElementById("stepdown-call");
@@ -1271,6 +2135,8 @@
         }
 
         const step = deck.steps[stepIndex];
+        const isUrgent = activeDecks === URGENT_DECKS;
+        
         document.getElementById("stepdown-title").textContent = deck.title;
         document.getElementById("stepdown-progress").textContent = `Step ${stepIndex+1} of ${deck.steps.length}`;
         
@@ -1291,8 +2157,38 @@
           doText.classList.add("do-only");  // Largest text in app for DO-only steps
         }
         
-        // DO section: Always show if step.do exists (with emergency number injection)
-        doText.textContent = injectEmergencyNumber(step.do) || "";
+        // DO section: Render with inline tappable emergency for urgent, plain text otherwise
+        if(isUrgent && step.do && step.do.includes("{EMERGENCY}")){
+          renderDoWithInlineEmergency(doText, step.do);
+        } else {
+          doText.textContent = injectEmergencyNumber(step.do) || "";
+        }
+        
+        // Button visibility: Toggle controls based on deck type
+        const genericEmergencyBtn = document.getElementById("stepdown-emergency");
+        const backToUrgent = document.getElementById("back-to-urgent");
+        const crisisFooterHint = document.getElementById("crisis-footer-hint");
+        const backToSituations = document.getElementById("back-to-situations");
+        const listenFooter = document.getElementById("listen-btn");
+        const listenInline = document.getElementById("listen-inline");
+        
+        // Listen is always inline (under SAY text) for both deck types
+        if(listenFooter) listenFooter.style.display = "none";
+        if(listenInline) listenInline.style.display = "inline-flex";
+        
+        if(isUrgent){
+          // Urgent deck: Call button, no Emergency button
+          genericEmergencyBtn.style.display = "none";
+          if(backToUrgent) backToUrgent.style.display = "block";
+          if(crisisFooterHint) crisisFooterHint.style.display = "none";
+          if(backToSituations) backToSituations.style.display = "none";
+        } else {
+          // Crisis deck: Emergency button + hint
+          genericEmergencyBtn.style.display = "block";
+          if(backToUrgent) backToUrgent.style.display = "none";
+          if(crisisFooterHint) crisisFooterHint.style.display = "block";
+          if(backToSituations) backToSituations.style.display = "block";
+        }
 
         const back = document.getElementById("stepdown-back");
         const next = document.getElementById("stepdown-next");
@@ -1315,8 +2211,12 @@
           stepIndex++;
           renderStep();
         } else {
-          // LAST STEP: Next/Done exits to home
-          exitDeck();
+          // LAST STEP: Show follow-up for CRISIS decks, direct exit for URGENT
+          if(activeDecks === CRISIS_DECKS){
+            showFollowup();
+          } else {
+            exitDeck(true); // wasCompleted = true, clears resume state
+          }
         }
       }
 
@@ -1347,12 +2247,22 @@
       }
 
       function updateListenUI(){
+        // Footer listen button (urgent mode)
         const btn = document.getElementById("listen-btn");
-        if(!btn) return;
-        btn.classList.toggle("speaking", speaking);
-        btn.setAttribute("aria-label", speaking ? "Stop listening" : "Listen to this step");
-        const label = btn.querySelector(".listen-label");
-        if(label) label.textContent = speaking ? "Stop" : "Listen";
+        if(btn){
+          btn.classList.toggle("speaking", speaking);
+          btn.setAttribute("aria-label", speaking ? "Stop listening" : "Listen to this step");
+          const label = btn.querySelector(".listen-label");
+          if(label) label.textContent = speaking ? "Stop" : "Listen";
+        }
+        // Inline listen button (crisis mode)
+        const inlineBtn = document.getElementById("listen-inline");
+        if(inlineBtn){
+          inlineBtn.classList.toggle("speaking", speaking);
+          inlineBtn.setAttribute("aria-label", speaking ? "Stop listening" : "Listen to this step");
+          const inlineLabel = inlineBtn.querySelector(".listen-inline-label");
+          if(inlineLabel) inlineLabel.textContent = speaking ? "Stop" : "Listen";
+        }
       }
 
       function stopSpeak(){
@@ -1368,7 +2278,7 @@
         if(!deck) return;
 
         if(!("speechSynthesis" in window)){
-          alert("Text-to-speech isn’t available in this browser.");
+          showToast("Text-to-speech isn't available in this browser.");
           return;
         }
 
@@ -1432,7 +2342,7 @@
 
       function toggleMic(){
         if(!recognition){
-          alert("Voice input isn’t available in this browser/device.");
+          showToast("Voice input isn't available on this device.");
           return;
         }
         const mic = document.getElementById("mic-btn");
@@ -1483,9 +2393,14 @@
         const emergencyBtn = document.getElementById("call-emergency");
         const adviceBtn = document.getElementById("call-advice");
         const emergencyNumEl = document.getElementById("emergency-number");
+        const adviceNumEl = document.getElementById("advice-number");
         const emergencyHint = document.getElementById("emergency-hint");
         
+        // Populate call button labels
         emergencyNumEl.textContent = `Call ${emergencyNumber}`;
+        if(adviceNumEl && adviceNumber){
+          adviceNumEl.textContent = `Call ${adviceNumber}`;
+        }
         
         // Inject emergency number into hint text
         if(emergencyHint){
@@ -1498,6 +2413,7 @@
           infoEmergencyLine.textContent = injectEmergencyNumber("If you or they are in immediate danger, call {EMERGENCY} now.");
         }
         
+        // Hide advice button for non-UK (no universal equivalent)
         if (!isUK || !adviceNumber) {
           adviceBtn.style.display = "none";
           emergencyBtn.style.flex = "1";
@@ -1505,11 +2421,17 @@
       }
 
       function callEmergency(){
+        emergencyUsed = true;               // Show reassurance after closing emergency panel
+        emergencyTriggeredSinceExit = true; // Block crisis resume after call
+        clearUrgentResume();                // Clear urgent resume on call placed
         window.location.href = `tel:${emergencyNumber}`;
       }
 
       function callAdvice(){
         if (adviceNumber) {
+          emergencyUsed = true;               // Show reassurance after closing emergency panel
+          emergencyTriggeredSinceExit = true; // Block crisis resume after advice call too
+          clearUrgentResume();                // Clear urgent resume on call placed
           window.location.href = `tel:${adviceNumber}`;
         }
       }
@@ -1518,6 +2440,48 @@
       function injectEmergencyNumber(text){
         if(!text) return text;
         return text.replace(/\{EMERGENCY\}/g, emergencyNumber);
+      }
+
+      /* Render DO text with inline tappable emergency number (for urgent decks)
+         Only the FIRST {EMERGENCY} is tappable; subsequent ones are plain text */
+      function renderDoWithInlineEmergency(containerEl, text){
+        if(!containerEl) return;
+        containerEl.innerHTML = "";
+        if(!text) return;
+        
+        // Check if {EMERGENCY} exists in text
+        if(!text.includes("{EMERGENCY}")){
+          containerEl.textContent = text;
+          return;
+        }
+        
+        // Split by {EMERGENCY} and build nodes
+        const parts = text.split("{EMERGENCY}");
+        let firstChipRendered = false;
+        
+        parts.forEach((part, i) => {
+          // Add text part
+          if(part){
+            containerEl.appendChild(document.createTextNode(part));
+          }
+          // Add chip/text (except after last part)
+          if(i < parts.length - 1){
+            if(!firstChipRendered){
+              // First occurrence: tappable button
+              const chip = document.createElement("button");
+              chip.type = "button";
+              chip.className = "inline-call";
+              chip.textContent = emergencyNumber;
+              chip.setAttribute("aria-label", `Call ${emergencyNumber}`);
+              chip.addEventListener("click", callEmergency);
+              containerEl.appendChild(chip);
+              firstChipRendered = true;
+            } else {
+              // Subsequent occurrences: plain text
+              containerEl.appendChild(document.createTextNode(emergencyNumber));
+            }
+          }
+        });
       }
 
       /* =========================
@@ -1591,8 +2555,13 @@
         // stepdown controls
         document.getElementById("stepdown-next").addEventListener("click", nextStep);
         document.getElementById("stepdown-back").addEventListener("click", prevStep);
-        document.getElementById("stepdown-done").addEventListener("click", exitDeck);  // Done = exit to home
-        document.getElementById("stepdown-close").addEventListener("click", exitDeck); // Close = exit to home
+        document.getElementById("stepdown-close").addEventListener("click", () => exitDeck()); // Close = exit to home
+        document.getElementById("switch-situation").addEventListener("click", () => exitDeck()); // Switch = exit to home (resume still saved)
+        document.getElementById("back-to-urgent-btn").addEventListener("click", () => {
+          // Close stepdown and return to emergency list
+          toggleStepdown(false);
+          toggleUrgent(true);
+        });
         document.getElementById("stepdown-call").addEventListener("click", callEmergency);
         document.getElementById("stepdown-emergency").addEventListener("click", () => {
           toggleStepdown(false);
@@ -1602,8 +2571,9 @@
           if(e.target.id === "stepdown-overlay") toggleStepdown(false);
         });
 
-        // speaker
+        // speaker (footer for urgent, inline for crisis)
         document.getElementById("listen-btn").addEventListener("click", speakCurrent);
+        document.getElementById("listen-inline").addEventListener("click", speakCurrent);
 
         // mic
         document.getElementById("mic-btn").addEventListener("click", toggleMic);
@@ -1621,19 +2591,88 @@
 
         // View all situations
         document.getElementById("view-all-btn").addEventListener("click", toggleViewAll);
+        
+        // Continue chip (home screen resume shortcut - handles both crisis and urgent)
+        document.getElementById("continue-btn").addEventListener("click", () => {
+          const chip = document.getElementById("continue-chip");
+          const resumeType = chip.dataset.resumeType;
+          
+          if(resumeType === "urgent" && hasUrgentResumeAvailable()){
+            openDeck(URGENT_DECKS, urgentResumeState.deckKey, urgentResumeState.stepIndex);
+            clearUrgentResume();
+          } else if(resumeType === "crisis" && hasCrisisResumeAvailable()){
+            openDeck(CRISIS_DECKS, resumeState.deckKey, resumeState.stepIndex);
+            clearResume();
+          }
+        });
+        
+        // Initialize continue chip visibility
+        updateContinueChip();
 
-        // global Escape closes the topmost overlay
+        // Post-completion follow-up buttons
+        document.getElementById("followup-calmer").addEventListener("click", () => showFollowupResponse("calmer"));
+        document.getElementById("followup-same").addEventListener("click", () => showFollowupResponse("same"));
+        document.getElementById("followup-worse").addEventListener("click", () => showFollowupResponse("worse"));
+
+        // Resume prompt: ESC and backdrop click dismiss (defaults to Start from Step 1)
+        document.getElementById("resume-overlay").addEventListener("click", (e) => {
+          if(e.target.id === "resume-overlay") dismissResumePrompt();
+        });
+
+        // global Escape closes the topmost overlay (one at a time)
         document.addEventListener("keydown", (e) => {
           if(e.key !== "Escape") return;
-          if(isOpen("stepdown-overlay")) toggleStepdown(false);
-          else if(isOpen("urgent-overlay")) toggleUrgent(false);
-          else if(isOpen("info-overlay")) toggleInfo(false);
+          if(isOpen("followup-response-overlay")){ closeFollowupAndExit(); return; }
+          if(isOpen("followup-overlay")){ closeFollowupAndExit(); return; }
+          if(isResumePromptOpen()){ dismissResumePrompt(); return; }
+          if(isOpen("stepdown-overlay")){ toggleStepdown(false); return; }
+          if(isOpen("urgent-overlay")){ toggleUrgent(false); return; }
+          if(isOpen("info-overlay")){ toggleInfo(false); return; }
+        });
+        
+        // Android back button: close overlay instead of navigating away
+        window.addEventListener("popstate", (e) => {
+          if(isOpen("followup-response-overlay")){ 
+            closeFollowupAndExit();
+            if(hasAnyOverlayOpen()) pushOverlayState();
+            return; 
+          }
+          if(isOpen("followup-overlay")){ 
+            closeFollowupAndExit();
+            if(hasAnyOverlayOpen()) pushOverlayState();
+            return; 
+          }
+          if(isResumePromptOpen()){ 
+            dismissResumePrompt(); 
+            pushOverlayState(); // Re-push if other overlays still open
+            return; 
+          }
+          if(isOpen("stepdown-overlay")){ 
+            toggleStepdown(false); 
+            if(hasAnyOverlayOpen()) pushOverlayState();
+            return; 
+          }
+          if(isOpen("urgent-overlay")){ 
+            toggleUrgent(false); 
+            if(hasAnyOverlayOpen()) pushOverlayState();
+            return; 
+          }
+          if(isOpen("info-overlay")){ 
+            toggleInfo(false); 
+            if(hasAnyOverlayOpen()) pushOverlayState();
+            return; 
+          }
+          // No overlay open: allow normal back navigation
+          clearOverlayState();
         });
       }
 
       document.addEventListener("DOMContentLoaded", () => {
         // Detect region first so emergency number is set before any rendering
         detectRegion();
+        
+        // DEV-TIME: Check for hardcoded emergency numbers
+        lintHardcodedEmergencyNumbers();
         
         renderHome();
         renderUrgentSheet();
