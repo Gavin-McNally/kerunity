@@ -426,7 +426,7 @@
 
         <div class="canvas">
           <div class="search-box">
-            <input id="query" type="text" class="search-input" placeholder="What's happening?">
+            <input id="query" type="text" class="search-input" placeholder="Search situations">
             <button id="mic-btn" class="mic-btn" type="button" aria-label="Speak">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
@@ -468,8 +468,8 @@
                 </div>
                 <div id="stepdown-do-kicker" class="kicker">You can do this</div>
                 <div id="stepdown-do" class="do-text"></div>
+                </div>
               </div>
-            </div>
 
             <div class="stepdown-footer">
               <!-- Emergency: persistent in content, not header -->
@@ -482,20 +482,20 @@
               <!-- Listen button moved to footer -->
               <button id="listen-btn" class="listen-btn" type="button" aria-label="Listen" style="width:100%;margin-bottom:16px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M11 5 6 9H2v6h4l5 4V5Z"></path>
-                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                </svg>
-                <span class="listen-label">Listen</span>
-              </button>
-              
+                    <path d="M11 5 6 9H2v6h4l5 4V5Z"></path>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                  </svg>
+                  <span class="listen-label">Listen</span>
+                </button>
+
               <div style="display:flex;gap:12px;">
                 <button id="stepdown-back" class="pill" type="button" style="flex:1;">Back</button>
                 <button id="stepdown-next" class="pill" type="button" style="flex:1;">Next</button>
               </div>
               <button id="stepdown-done" class="muted-link" type="button">Done</button>
             </div>
-          </div>
-        </div>
+              </div>
+            </div>
 
         <!-- Emergency: Full screen takeover -->
         <div id="urgent-overlay" class="emergency-backdrop" aria-hidden="true">
@@ -509,21 +509,21 @@
             <div style="flex:1;overflow-y:auto;">
               <div id="emergency-hint" style="font-size:17px;color:var(--text);margin-bottom:24px;line-height:1.5;">
                 If someone is in immediate danger, call now.
-              </div>
+        </div>
 
               <div id="call-buttons" style="display:flex;gap:12px;margin-bottom:32px;">
                 <button id="call-emergency" type="button" class="pill emergency-call-btn" style="flex:1;height:80px;flex-direction:column;gap:6px;">
                   <span id="emergency-number" style="font-size:24px;font-weight:500;">Call 999</span>
                   <span style="font-size:14px;opacity:0.7;">Emergency</span>
-                </button>
+              </button>
                 <button id="call-advice" type="button" class="pill" style="flex:1;height:80px;flex-direction:column;gap:6px;">
                   <span id="advice-number" style="font-size:24px;font-weight:500;">Call 111</span>
                   <span style="font-size:14px;color:var(--text-muted);">Medical advice</span>
-                </button>
-              </div>
+              </button>
+            </div>
 
               <div style="font-size:14px;color:var(--text-muted);margin-bottom:12px;">Safety checks</div>
-              <div id="urgent-grid-sheet"></div>
+            <div id="urgent-grid-sheet"></div>
             </div>
           </div>
         </div>
@@ -538,7 +538,7 @@
             </div>
 
             <div style="color:var(--text-muted);line-height:1.7;font-size:15px;margin-bottom:24px;">
-              <p style="margin:0 0 12px;">If there is immediate danger, call 999.</p>
+              <p id="info-emergency-line" style="margin:0 0 12px;">If you or they are in immediate danger, call 999 now.</p>
               <p style="margin:0 0 12px;">This is guidance, not medical advice.</p>
               <p style="margin:0 0 12px;">Keep everyone safe. Step away if you need to.</p>
               <p style="margin:0;">Tap Emergency for safety checks.</p>
@@ -547,9 +547,9 @@
             <div style="border-top:1px solid #333;padding-top:20px;margin-bottom:16px;">
               <div style="font-size:14px;font-weight:500;color:var(--text);margin-bottom:12px;">Your privacy</div>
               <div style="color:var(--text-muted);line-height:1.7;font-size:14px;">
-                <p style="margin:0 0 10px;">We don't record or store voices.</p>
+                <p style="margin:0 0 10px;">Your voice is never recorded.</p>
                 <p style="margin:0 0 10px;">This app does not track you.</p>
-                <p style="margin:0;">If used inside ChatGPT, OpenAI may store interactions.</p>
+                <p style="margin:0;">If you use this inside ChatGPT, OpenAI may save what you type.</p>
               </div>
             </div>
 
@@ -615,7 +615,7 @@
           aliases: ["asking same thing", "keeps repeating", "same question", "over and over", "asks constantly", "broken record", "asked this already", "keeps asking same thing", "won't stop asking", "repetitive questions", "stuck in a loop", "asks every five minutes", "endless questions"]
         },
         aggression: { 
-          label: "Aggression", sub: "Hitting / shouting",
+          label: "Aggression", sub: "Shouting / hitting / throwing things",
           keywords: ["aggressive", "hitting", "shouting", "angry", "violent", "punch", "kick", "yelling", "attack", "slap", "bite", "scratch", "push", "shove", "grab", "rage", "fury", "temper"],
           aliases: ["being aggressive", "hit me", "shouting at me", "getting violent", "lashing out", "tried to punch me", "kicked me", "grabbed my arm", "scratched me", "bit me", "pushed me away", "screaming at me", "flew into a rage", "lost their temper", "threatening behaviour"]
         },
@@ -705,19 +705,19 @@
 
       const CRISIS_DECKS = {
         refusing_meds:{ title:"Refusing meds", steps:[
-          { say:"It's okay. We don't have to do this right now.", do:"Lower the pressure. Relax shoulders. Speak slower than normal." },
-          { say:"Can we take a sip of water first, then decide?", do:"Offer a tiny ‘first step’ and a choice (water / tea / juice)." },
-          { say:"Would you like to take it with me, or would you prefer later?", do:"Give two acceptable options. Avoid arguing about ‘you must’." },
-          { say:"Thank you. That's enough for now. We'll check again later.", do:"Close warmly. If still no, step away and return in 10-20 mins." }
+          { say:"It's okay. We don't have to do this right now.", do:"Take the pressure off. Relax your shoulders. Speak slowly." },
+          { say:"Can we take a sip of water first, then decide?", do:"Offer one tiny first step. Give two choices: water or tea." },
+          { say:"Would you like to take it with me, or would you prefer later?", do:"Give two acceptable options. Avoid saying 'you must'." },
+          { say:"Thank you. That's enough for now. We'll check again later.", do:"Say \"That's okay. We'll try later.\" Then stop asking for now. Try again in 10-20 minutes. If you're worried, call for medical advice." }
         ]},
         wants_home:{ title:"Wants to go home", steps:[
-          { say:"I hear you. You want to go home. Tell me what home feels like.", do:"Validate and invite description. Don't correct location facts." },
-          { say:"Let’s get you comfortable first, then we’ll make a plan.", do:"Move to comfort: chair, drink, loo, warmer/blanket." },
-          { say:"Shall we check the time and do it after a cup of tea?", do:"Use a short delay + familiar ritual. Keep it calm and simple." },
-          { say:"You’re safe with me. We’ll sort it together.", do:"Close with safety + togetherness. Reduce stimulation." }
+          { say:"I hear you. You want to go home. Tell me about home.", do:"Validate and invite description. Don't correct location facts." },
+          { say:"Let's get you comfortable first, then we'll make a plan.", do:"Move to comfort: chair, drink, loo, warmer/blanket." },
+          { say:"Shall we have a cup of tea first, then we'll decide?", do:"Use a short delay + familiar ritual. Keep it calm and simple." },
+          { say:"You're safe with me. We'll sort it together.", do:"Close with safety + togetherness. Reduce stimulation." }
         ]},
         asking_mom:{ title:"Asking for mom", steps:[
-          { say:"You miss her. Tell me about her.", do:"Join the emotion. Don’t say ‘she’s dead’ if it escalates." },
+          { say:"You miss her. Tell me about her.", do:"Join the emotion. Don't correct facts." },
           { say:"What would she want you to do right now?", do:"Redirect toward a safe action (sit, tea, photo, music)." },
           { say:"Let’s do something that would make her proud.", do:"Small task: fold towel, water plant, look at album." },
           { say:"I’m here with you. You’re not on your own.", do:"Close with reassurance and presence." }
@@ -730,8 +730,8 @@
         ]},
         shadowing:{ title:"Shadowing", steps:[
           { say:"You're okay. I'm here. Let's do this together.", do:"Reassure first. Keep tone warm, not hurried." },
-          { say:"Can you sit here while I do one small thing?", do:"Give a ‘job’: hold towel, watch kettle, fold cloth." },
-          { say:"I’ll be back in two minutes. Watch the timer for me.", do:"Use a timer + clear promise. Return when you say you will." },
+          { say:"Could you sit here? I have a job for you.", do:"Give a 'job': hold towel, watch kettle, fold cloth." },
+          { say:"I'll be back in two minutes. Watch the timer for me.", do:"Use a timer + clear promise. Return when you say you will." },
           { say:"Thank you. You did great helping me.", do:"Praise the helper role. Repeat predictable routine." }
         ]},
         hygiene:{ title:"Refusing hygiene", steps:[
@@ -742,7 +742,7 @@
         ]},
         sundowning:{ title:"Sundowning", steps:[
           { say:"I can see you're feeling unsettled. I'm here.", do:"Acknowledge their distress. Don't dismiss or argue." },
-          { say:"Let's turn on some lights and get cosy.", do:"Reduce shadows. Close curtains. Create a calm space." },
+          { say:"Let's turn on some lights and get cosy.", do:"Close curtains. Turn on more lights." },
           { say:"Would you like to sit with me for a bit?", do:"Gentle distraction: music, photo, simple activity." },
           { say:"You're safe. We'll get through the evening together.", do:"Stay calm. Predictable routine helps." }
         ]},
@@ -750,7 +750,7 @@
           { say:"That's okay. No rush. We can try again later.", do:"Don't force. Remove pressure around mealtimes." },
           { say:"Would you like something small? Just a few bites?", do:"Offer finger foods, small portions, favourite tastes." },
           { say:"Let's sit together while I have mine.", do:"Eating together can encourage. Keep it social." },
-          { say:"You did well. We'll have more later if you want.", do:"Praise any attempt. Track intake but don't stress." }
+          { say:"You did well. We'll have more later if you want.", do:"Praise any attempt. Make a quiet note for later." }
         ]},
         repetitive:{ title:"Repeating questions", steps:[
           { say:"That's a good question. Let me help.", do:"Answer as if it's the first time. Stay patient." },
@@ -760,8 +760,8 @@
         ]},
         aggression:{ title:"Aggression", steps:[
           { say:"I can see you're upset. I'm going to step back.", do:"Give space. Don't corner or crowd them." },
-          { say:"I'm not going to hurt you. You're safe.", do:"Speak slowly and calmly. Lower your body position." },
-          { say:"Let's take a breath together.", do:"Model calm breathing. Wait for de-escalation." },
+          { say:"You're safe. I'm here.", do:"Speak slowly. Sit down only if you can get up easily." },
+          { say:"Let's take a breath together.", do:"Breathe slowly yourself. Wait for them to calm down." },
           { say:"Thank you. Let's sit down when you're ready.", do:"Don't hold grudges. Reset and move forward." }
         ]},
         sleep:{ title:"Sleep problems", steps:[
@@ -771,16 +771,16 @@
           { say:"You're safe. I'll be here if you need me.", do:"Reassure and let natural tiredness come." }
         ]},
         lost:{ title:"Lost / confused", steps:[
-          { say:"You're in [place]. You're safe with me.", do:"State location simply. Don't quiz or test them." },
-          { say:"Let me show you around. This is the kitchen.", do:"Gently orient using familiar objects." },
+          { say:"You're safe with me.", do:"State location simply. Don't quiz or test them." },
+          { say:"This is the kitchen.", do:"Point to familiar objects." },
           { say:"Let's go to your chair / your room.", do:"Guide to a familiar, comfortable spot." },
           { say:"You're home. I'm here with you.", do:"Reassurance matters more than facts." }
         ]},
         wandering:{ title:"Wandering", steps:[
-          { say:"Where are you off to? I'll come with you.", do:"Don't block or grab. Walk alongside calmly." },
+          { say:"Where are we going? I'll walk with you.", do:"Don't block or grab. Walk alongside calmly." },
           { say:"Let's check together. What are you looking for?", do:"Make it a shared mission, not a confrontation." },
           { say:"It's cold/dark out there. Let's get a cup of tea first.", do:"Offer distraction before they reach the door." },
-          { say:"You're safe here. Let's sit down for a moment.", do:"Guide gently back. Check door locks are secure." }
+          { say:"You're safe here. Let's sit down for a moment.", do:"Guide gently back to a chair. Make sure doors are secure later." }
         ]},
         hiding:{ title:"Hiding things", steps:[
           { say:"I can see something's important to you.", do:"Don't accuse or demand. Stay calm and curious." },
@@ -792,7 +792,7 @@
           { say:"Are you feeling too warm?", do:"Check temperature, clothing comfort, toileting needs." },
           { say:"Let's find something more comfortable.", do:"Offer loose, easy clothes they can manage." },
           { say:"Here. This will feel better.", do:"Redirect with a soft blanket or familiar item." },
-          { say:"You're okay. Let's get comfy.", do:"Preserve dignity. Move to private space if needed." }
+          { say:"You're okay. Let's get comfy.", do:"Cover them gently. Move to a private room." }
         ]},
         rummaging:{ title:"Rummaging", steps:[
           { say:"What are you looking for? I can help.", do:"Join in rather than stopping them." },
@@ -801,7 +801,7 @@
           { say:"Thank you for tidying.", do:"Make it purposeful. Praise their effort." }
         ]},
         hoarding:{ title:"Hoarding", steps:[
-          { say:"That looks important. Tell me about it.", do:"Don't throw things away in front of them." },
+          { say:"That looks important. Tell me about it.", do:"Don't throw things away now." },
           { say:"Shall we find a special place for these?", do:"Offer a box or bag to 'keep things safe'." },
           { say:"Let's sort through together when you're ready.", do:"Remove items gradually, not all at once." },
           { say:"You've got some lovely things here.", do:"Validate their attachment. Be patient." }
@@ -819,22 +819,22 @@
           { say:"Let's just sit up for a bit.", do:"Small steps. Sitting up is progress." }
         ]},
         refusing_help:{ title:"Refusing help", steps:[
-          { say:"That's okay. I'll leave you to it.", do:"Step back. Don't argue or insist." },
+          { say:"That's okay. I'll be right over here.", do:"Step back. Don't argue or insist." },
           { say:"I'll be nearby if you change your mind.", do:"Give them space but stay available." },
-          { say:"Can I just help with this small thing?", do:"Offer help with one tiny task only." },
+          { say:"Can I help with just this one thing?", do:"Offer help with one tiny task only." },
           { say:"You're doing well. Let me know if you need me.", do:"Praise independence. Try again later." }
         ]},
         paranoid:{ title:"Paranoid", steps:[
           { say:"That sounds frightening. Tell me more.", do:"Listen without dismissing or arguing." },
           { say:"I can see why you're worried.", do:"Validate the feeling, not the belief." },
           { say:"Let's check together. I'll stay with you.", do:"Offer to investigate. Be their ally." },
-          { say:"You're safe with me. I won't let anything happen.", do:"Reassure. Reduce stimulation." }
+          { say:"You're safe with me. I'm staying right here.", do:"Reassure. Reduce stimulation." }
         ]},
         hallucinations:{ title:"Seeing things", steps:[
           { say:"What can you see? Tell me about it.", do:"Stay calm. Don't argue or dismiss." },
           { say:"That must feel strange.", do:"Acknowledge their experience is real to them." },
           { say:"Let's turn on more lights / move rooms.", do:"Change environment. Reduce shadows." },
-          { say:"I'm here with you. You're safe.", do:"Reassure. Don't pretend to see it too." }
+          { say:"I'm here with you. You're safe with me.", do:"Reassure. Don't pretend to see it too." }
         ]},
         inappropriate:{ title:"Inappropriate comments", steps:[
           { say:"Let's talk about something else.", do:"Redirect calmly. Don't shame or scold." },
@@ -855,10 +855,10 @@
           { say:"I care about you. That's what matters.", do:"Focus on feeling safe, not being recognised." }
         ]},
         fallback_not_sure:{ title:"Not sure what this is", steps:[
-          { say:"Okay. We can slow down. I'm here with you.", do:"Lower your voice. Relax your shoulders." },
+          { say:"Okay. We can slow down. I'm here with you.", do:"Speak quietly. Relax your shoulders." },
           { say:"What do you need right now?", do:"Ask one gentle question. Listen without rushing." },
-          { say:"It's okay if you don't have the right words.", do:"If you feel unsafe, tap Emergency." },
-          { say:"We'll figure this out together.", do:"Stay present. Take it one moment at a time." }
+          { say:"That's okay. We can sit quietly.", do:"If you feel unsafe or don't know what to do, tap Emergency." },
+          { say:"We'll figure this out together.", do:"Stay with them. One moment at a time." }
         ]}
       };
 
@@ -892,27 +892,27 @@
 
       const URGENT_DECKS = {
         unresponsive:{ title:"Unresponsive", steps:[
-          { say:null, do:"Call 999 now. Put phone on speaker. Follow operator instructions." },
-          { say:null, do:"Check breathing. If not breathing normally, start CPR if trained." },
+          { say:null, do:"Call {EMERGENCY} now. Put phone on speaker. Follow operator instructions." },
+          { say:null, do:"Check breathing. If not breathing normally, start CPR. If you're unsure, the {EMERGENCY} operator will tell you what to do." },
           { say:null, do:"If breathing, place in recovery position. Keep warm. Stay with them until help arrives." }
         ]},
         breathing:{ title:"Breathing trouble", steps:[
-          { say:"Try to breathe slowly with me. In... and out.", do:"If severe or sudden, call 999. If choking, encourage coughing." },
-          { say:"You're going to be okay. I'm right here.", do:"Help them sit upright. Loosen tight clothing. Open a window." },
-          { say:null, do:"If not improving: call 999. If mild but ongoing: call 111 for advice." }
+          { say:null, do:"If they can't speak or breathe, call {EMERGENCY} now. If you're worried at all, call {EMERGENCY} now. If they're coughing, let them cough." },
+          { say:"I'm here with you. You're not alone.", do:"Help them sit upright. Loosen tight clothing. Open a window." },
+          { say:null, do:"If they're still struggling to breathe, call {EMERGENCY} now. If you're unsure what to do, call for medical advice." }
         ]},
         stroke:{ title:"Stroke signs", steps:[
-          { say:null, do:"Call 999 immediately. Note the time symptoms started." },
-          { say:null, do:"Use FAST: Face drooping? Arm weak? Speech slurred? Time to call 999." },
-          { say:"I'm here. Help is coming. Try to stay still.", do:"Do not give food or drink. Stay with them until help arrives." }
+          { say:null, do:"Call {EMERGENCY} immediately. Note the time symptoms started." },
+          { say:null, do:"Check FAST: Face drooping? Arm weak? Speech slurred? Call {EMERGENCY} now." },
+          { say:"I'm here. Help is coming. Stay still.", do:"Do not give food or drink. Stay with them until help arrives." }
         ]},
         fall:{ title:"Bad fall", steps:[
-          { say:"Don't try to move. I'm going to help you.", do:"If head injury, severe pain, or can't move: call 999." },
+          { say:"Don't try to move. I'm going to help you.", do:"If they hit their head, are bleeding, can't move, or you're worried at all, call {EMERGENCY} now." },
           { say:"Take your time. There's no rush.", do:"Check for pain, bleeding, alertness. Keep them warm and still." },
-          { say:null, do:"If minor and stable, call 111 for advice. Watch for worsening symptoms." }
+          { say:null, do:"If you're unsure what to do, call for medical advice. If they get worse at any point, call {EMERGENCY}." }
         ]},
         general_emergency:{ title:"Something feels seriously wrong", steps:[
-          { say:null, do:"Trust your instincts. Call 999 if there's immediate danger to life." },
+          { say:null, do:"Trust your instincts. If something feels seriously wrong, call {EMERGENCY} now." },
           { say:"I'm here with you. Help is on the way.", do:"Keep them warm and still. Talk calmly. Note any symptoms." },
           { say:null, do:"You're doing the right thing. It's always OK to call for help." }
         ]}
@@ -941,7 +941,7 @@
             <div class="card" role="button" tabindex="0" data-key="${k}">
                 <div class="card-title">${item.label}</div>
                 <div class="card-sub">${item.sub}</div>
-            </div>
+              </div>
           `;
         }).join("");
 
@@ -1282,7 +1282,7 @@
         
         if(step.say){
           saySection.style.display = "block";
-          sayText.textContent = step.say;
+          sayText.textContent = injectEmergencyNumber(step.say);
           doKicker.textContent = "You can do this";
           doText.classList.remove("do-only");
         } else {
@@ -1291,8 +1291,8 @@
           doText.classList.add("do-only");  // Largest text in app for DO-only steps
         }
         
-        // DO section: Always show if step.do exists
-        doText.textContent = step.do || "";
+        // DO section: Always show if step.do exists (with emergency number injection)
+        doText.textContent = injectEmergencyNumber(step.do) || "";
 
         const back = document.getElementById("stepdown-back");
         const next = document.getElementById("stepdown-next");
@@ -1378,8 +1378,9 @@
         }
 
         const step = deck.steps[stepIndex];
-        const sayPart = step.say ? `Words to say: ${step.say}. ` : "";
-        const text = `${deck.title}. Step ${stepIndex+1}. ${sayPart}Do this: ${step.do}`;
+        const sayPart = step.say ? `Words to say: ${injectEmergencyNumber(step.say)}. ` : "";
+        const doPart = injectEmergencyNumber(step.do);
+        const text = `${deck.title}. Step ${stepIndex+1}. ${sayPart}Do this: ${doPart}`;
 
         const u = new SpeechSynthesisUtterance(text);
         u.rate = 0.95;
@@ -1482,8 +1483,20 @@
         const emergencyBtn = document.getElementById("call-emergency");
         const adviceBtn = document.getElementById("call-advice");
         const emergencyNumEl = document.getElementById("emergency-number");
+        const emergencyHint = document.getElementById("emergency-hint");
         
         emergencyNumEl.textContent = `Call ${emergencyNumber}`;
+        
+        // Inject emergency number into hint text
+        if(emergencyHint){
+          emergencyHint.textContent = injectEmergencyNumber("If you or they are in immediate danger, call {EMERGENCY} now.");
+        }
+        
+        // Update info panel emergency line
+        const infoEmergencyLine = document.getElementById("info-emergency-line");
+        if(infoEmergencyLine){
+          infoEmergencyLine.textContent = injectEmergencyNumber("If you or they are in immediate danger, call {EMERGENCY} now.");
+        }
         
         if (!isUK || !adviceNumber) {
           adviceBtn.style.display = "none";
@@ -1499,6 +1512,12 @@
         if (adviceNumber) {
           window.location.href = `tel:${adviceNumber}`;
         }
+      }
+
+      /* Inject region-safe emergency number into copy strings */
+      function injectEmergencyNumber(text){
+        if(!text) return text;
+        return text.replace(/\{EMERGENCY\}/g, emergencyNumber);
       }
 
       /* =========================
@@ -1613,6 +1632,9 @@
       }
 
       document.addEventListener("DOMContentLoaded", () => {
+        // Detect region first so emergency number is set before any rendering
+        detectRegion();
+        
         renderHome();
         renderUrgentSheet();
         setupEmergencyPanel();
