@@ -1,118 +1,84 @@
 <html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Kerunity (local)</title>
+    <title>Kerunity</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-
 
     <style>
       :root{
-        --bg:#0a0908;
-        --text-main:rgba(247,243,238,0.96);
-        --text-sub:rgba(247,243,238,0.66);
-
-        --amber:#F2E0C1;
-        --green:#8EA898;
-
-        /* Clay / Terracotta (accessible) */
-        --clay:#B85A4C;
-        --clay-pressed:#A65144;
-        --clay-border:rgba(184,90,76,0.45);
-
-        --hairline-warm:rgba(242,224,193,0.10);
-
-        --radius-app:32px;
-        --radius-card:22px;
-
-        --room-bg:rgba(255,255,255,0.032);
-        --room-border:rgba(242,224,193,0.11);
-        --room-sheen:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.00) 55%);
-      }
-
+        --bg:#1a1a1a;
+        --surface:#262626;
+        --surface-hover:#2e2e2e;
+        --text:#e8e6e3;
+        --text-muted:#a0a0a0;
+        --warm:#c4a882;
+        --emergency:#c17a6a;
+        --radius:12px;
+}
       *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
       body{
         margin:0;
         height:100vh;
-        background:#050403;
-        font-family:-apple-system, BlinkMacSystemFont, "SF Pro Rounded", "Inter", system-ui, sans-serif;
+        background:var(--bg);
+        font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
         display:flex;
         justify-content:center;
         align-items:center;
         overflow:hidden;
-        color:var(--text-main);
+        color:var(--text);
+        font-size:18px;
+        line-height:1.5;
       }
 
-      /* App frame */
       #app-frame{
         width:100%;
         max-width:390px;
         height:100%;
         max-height:852px;
         background:var(--bg);
-        border-radius:var(--radius-app);
         display:flex;
         flex-direction:column;
         overflow:hidden;
         position:relative;
-        box-shadow:0 0 0 1px rgba(255,255,255,0.1), 0 40px 80px rgba(0,0,0,0.65);
       }
-      #app-frame::before{
-        content:"";
-        position:absolute;
-        inset:-80px;
-        pointer-events:none;
-        background:
-          radial-gradient(520px 420px at 18% 10%, rgba(242,224,193,0.08), transparent 60%),
-          radial-gradient(560px 460px at 85% 18%, rgba(142,168,152,0.06), transparent 62%);
-        filter:blur(24px);
-        opacity:0.6;
-      }
-      #app-content{ position:relative; z-index:1; height:100%; display:flex; flex-direction:column; }
+      #app-content{ height:100%; display:flex; flex-direction:column; }
 
       /* Header */
       header{
-        padding:20px 20px 12px;
-        padding-top:max(20px, env(safe-area-inset-top));
-        background:linear-gradient(180deg, rgba(10,9,8,0.96), rgba(10,9,8,0.88));
-        border-bottom:1px solid rgba(242,224,193,0.06);
+        padding:20px 24px 16px;
+        padding-top:calc(env(safe-area-inset-top) + 16px);
         flex-shrink:0;
-        z-index:5;
       }
       .header-row{
         display:flex;
         justify-content:space-between;
         align-items:center;
-        margin-bottom:12px;
-        gap:10px;
+        margin-bottom:16px;
+        gap:12px;
       }
       .brand{
-        display:flex;
-        align-items:center;
-        gap:10px;
-        font-weight:800;
+        font-weight:500;
         font-size:19px;
-        letter-spacing:-0.02em;
-        color:#fff;
-        white-space:nowrap;
+        color:var(--text);
       }
       .header-actions{
         display:flex;
         align-items:center;
         gap:8px;
-        flex-shrink:0;
       }
+      .header-actions .pill{ height:48px; min-width:48px; padding:0 14px; }
 
       /* Buttons */
       .pill{
-        height:40px;
-        min-width:40px;
-        padding:0 12px;
-        border-radius:999px;
-        border:1px solid rgba(255,255,255,0.10);
-        background:rgba(255,255,255,0.05);
-        color:rgba(255,255,255,0.88);
-        font-size:13px;
-        font-weight:700;
+        height:48px;
+        min-width:48px;
+        padding:0 16px;
+        border-radius:var(--radius);
+        border:none;
+        background:var(--surface);
+        color:var(--text);
+        font-size:16px;
+        font-weight:400;
         cursor:pointer;
         display:inline-flex;
         align-items:center;
@@ -120,235 +86,175 @@
         gap:8px;
         user-select:none;
       }
-      .pill:active{ transform:scale(0.98); }
-      .pill[disabled]{ cursor:default; }
+      .pill:active{ opacity:0.7; }
+      .pill[disabled]{ cursor:default; opacity:0.4; }
+      .pill.active{ background:var(--surface-hover); }
 
-      .clay-btn{
-        background:var(--clay);
+      .emergency-call-btn{
+        background:var(--emergency);
         color:#fff;
-        border:1px solid var(--clay-border);
-        font-weight:850;
-        letter-spacing:0.01em;
-        transition:transform .18s ease, background .18s ease;
+        font-weight:500;
       }
-      .clay-btn:active{ transform:scale(0.97); background:var(--clay-pressed); }
+      .emergency-call-btn:active{ opacity:0.8; }
 
-      .icon-btn{
-        width:40px;
-        padding:0;
-        justify-content:center;
+      .emergency-btn{
+        color:var(--emergency);
+        font-weight:500;
       }
+
+
+      .icon-btn{ width:44px; padding:0; justify-content:center; }
 
       .subtitle{
-        display:flex;
-        align-items:flex-start;
-        gap:10px;
-        font-size:13px;
-        color:rgba(247,243,238,0.70);
-        font-weight:650;
-        line-height:1.4;
-        margin:4px 2px 8px;
-        letter-spacing:-0.01em;
-      }
-      .subtitle::before{
-        content:"";
-        width:8px;
-        height:8px;
-        border-radius:50%;
-        background:var(--amber);
-        box-shadow:0 0 0 3px rgba(242,224,193,0.15);
-        margin-top:5px;
-        flex-shrink:0;
+        font-size:17px;
+        color:var(--text);
+        font-weight:400;
+        line-height:1.6;
+        margin:0 0 24px;
       }
 
-      /* Canvas + Search */
+      /* Canvas */
       .canvas{
         flex:1;
         overflow-y:auto;
-        padding:0 16px 40px;
+        padding:0 24px;
+        padding-bottom:calc(env(safe-area-inset-bottom) + 24px);
         scrollbar-width:none;
         -ms-overflow-style:none;
       }
       .canvas::-webkit-scrollbar{ width:0; height:0; }
 
-      .search-box{ margin:12px 0 24px; position:relative; }
+      .search-box{ margin:0 0 32px; position:relative; }
       .search-input{
         width:100%;
-        height:56px;
-        background:rgba(255,255,255,0.055);
-        border:1px solid var(--hairline-warm);
-        border-radius:18px;
-        padding:0 50px 0 16px;
-        color:var(--text-main);
-        font-size:16px;
-        font-weight:600;
+        height:60px;
+        background:var(--surface);
+        border:1px solid #333;
+        border-radius:var(--radius);
+        padding:0 56px 0 18px;
+        color:var(--text);
+        font-size:18px;
+        font-weight:400;
         outline:none;
-        transition:box-shadow .18s ease, background .18s ease;
       }
-      .search-input:focus{
-        box-shadow:0 0 0 3px rgba(242,224,193,0.20);
-        background:rgba(255,255,255,0.08);
-      }
-      .search-input::placeholder{ color:rgba(247,243,238,0.40); }
+      .search-input:focus{ border-color:#555; }
+      .search-input::placeholder{ color:var(--text-muted); }
 
       .mic-btn{
         position:absolute;
-        right:8px;
-        top:8px;
-        width:40px;
-        height:40px;
+        right:6px;
+        top:6px;
+        width:48px;
+        height:48px;
         display:flex;
         align-items:center;
         justify-content:center;
         background:transparent;
         border:none;
-        color:rgba(255,255,255,0.55);
+        color:var(--text-muted);
         cursor:pointer;
-        border-radius:12px;
+        border-radius:var(--radius);
       }
-      .mic-btn:active{ background:rgba(255,255,255,0.06); }
-      .mic-btn.listening{ color:rgba(242,224,193,0.95); }
+      .mic-btn:active{ background:rgba(255,255,255,0.05); }
+      .mic-btn.listening{ color:var(--text); background:rgba(255,255,255,0.08); }
 
-      .search-hint{
-        margin-top:12px;
-        padding-left:6px;
-        font-size:12px;
-        color:rgba(247,243,238,0.45);
-        font-weight:700;
-      }
-      .search-hint strong{ color:var(--amber); font-weight:850; }
-
-      .coach-line{
-        margin-top:10px;
-        padding-left:6px;
-        font-size:12px;
-        font-weight:700;
-        color:rgba(247,243,238,0.60);
-        line-height:1.4;
-        display:flex;
-        gap:10px;
-      }
-      .coach-line::before{
-        content:"";
-        width:8px;
-        height:8px;
-        border-radius:50%;
-        background:rgba(142,168,152,0.85);
-        box-shadow:0 0 0 3px rgba(142,168,152,0.15);
-        margin-top:4px;
-        flex-shrink:0;
-      }
 
       /* Sections */
       .section-label{
-        display:inline-flex;
-        align-items:center;
-        gap:8px;
-        padding:8px 12px;
-        border-radius:999px;
-        background:rgba(10,9,8,0.8);
-        border:1px solid rgba(242,224,193,0.15);
-        color:rgba(247,243,238,0.85);
-        font-size:13px;
-        font-weight:850;
-        letter-spacing:-0.01em;
-        margin:24px 0 -12px 10px;
-        position:relative;
-        z-index:1;
+        display:block;
+        color:var(--text-muted);
+        font-size:14px;
+        font-weight:400;
+        margin:0 0 14px;
       }
-      .dot-green{
-        width:8px;
-        height:8px;
-        background:#8EA898;
-        border-radius:50%;
-        box-shadow:0 0 0 3px rgba(142,168,152,0.15);
-      }
+      .dot-green{ display:none; }
 
       .room-container{
-        background:var(--room-bg);
-        border:1px solid var(--room-border);
-        border-radius:26px;
-        padding:20px 14px 14px;
-        margin-bottom:16px;
-        position:relative;
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:10px;
-        min-height:80px;
-      }
-      .room-container::before{
-        content:"";
-        position:absolute;
-        inset:0;
-        border-radius:inherit;
-        background:var(--room-sheen);
-        opacity:0.8;
-        pointer-events:none;
-      }
-
-      .card{
-        background:rgba(255,255,255,0.06);
-        border-radius:16px;
-        padding:16px;
-        border:1px solid rgba(255,255,255,0.06);
-        position:relative;
-        z-index:1;
         display:flex;
         flex-direction:column;
-        justify-content:space-between;
-        min-height:110px;
+        gap:12px;
+        margin-bottom:16px;
+      }
+      .room-container::before{ display:none; }
+
+      .card{
+        background:var(--surface);
+        border-radius:var(--radius);
+        padding:18px;
         cursor:pointer;
-        transition:transform .12s ease, background .12s ease;
       }
-      .card:active{ background:rgba(255,255,255,0.09); transform:scale(0.985); }
+      .card:focus{ outline:2px solid var(--warm); outline-offset:2px; }
+      .card:active{ background:var(--surface-hover); }
 
-      .glyph{
-        width:38px;
-        height:38px;
-        border-radius:10px;
-        background:rgba(255,255,255,0.08);
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        margin-bottom:10px;
-        color:rgba(255,255,255,0.92);
+      .glyph{ display:none; }
+      .card-title{ font-size:19px; font-weight:500; line-height:1.35; color:var(--text); margin-bottom:4px; }
+      .card-sub{ font-size:15px; font-weight:400; color:var(--text-muted); line-height:1.4; }
+
+      .view-all-btn{
+        width:100%;
+        padding:16px;
+        margin-top:12px;
+        background:transparent;
+        border:none;
+        border-radius:var(--radius);
+        color:var(--text-muted);
+        font-size:16px;
+        font-weight:400;
+        cursor:pointer;
+        min-height:56px;
       }
-      .card-title{ font-size:15px; font-weight:850; line-height:1.2; color:rgba(255,255,255,0.94); margin-bottom:2px; }
-      .card-sub{ font-size:12px; font-weight:650; color:rgba(255,255,255,0.52); }
+      .view-all-btn:active{ opacity:0.7; }
 
-      /* Bottom Sheet (Urgent + Info) */
+      /* Bottom Sheet (Info only) */
       .sheet-backdrop{
         position:absolute;
         inset:0;
-        background:rgba(0,0,0,0.6);
-        backdrop-filter:blur(4px);
+        background:rgba(0,0,0,0.7);
         z-index:100;
         opacity:0;
         pointer-events:none;
-        transition:opacity .24s ease;
       }
       .sheet-backdrop.active{ opacity:1; pointer-events:auto; }
       .sheet{
         position:absolute;
         bottom:0; left:0; right:0;
-        background:#18181A;
-        border-radius:28px 28px 0 0;
-        padding:24px 20px calc(24px + env(safe-area-inset-bottom));
+        background:var(--bg);
+        border-radius:16px 16px 0 0;
+        padding:24px;
+        padding-bottom:calc(env(safe-area-inset-bottom) + 24px);
         transform:translateY(100%);
-        transition:transform .34s cubic-bezier(0.32,0.72,0,1);
-        border-top:1px solid rgba(255,255,255,0.10);
       }
       .sheet-backdrop.active .sheet{ transform:translateY(0); }
 
-      .sheet-title{
-        color:var(--clay);
-        font-size:18px;
-        font-weight:900;
-        margin-bottom:18px;
+      /* Emergency: Full screen takeover, solid background */
+      .emergency-backdrop{
+        position:absolute;
+        inset:0;
+        z-index:120;
+        background:var(--bg);
+        opacity:0;
+        pointer-events:none;
+      }
+      .emergency-backdrop.active{
+        opacity:1;
+        pointer-events:auto;
+      }
+      .emergency-screen{
+        position:absolute;
+        inset:0;
+        background:var(--bg);
         display:flex;
-        gap:10px;
-        align-items:center;
-        letter-spacing:-0.01em;
+        flex-direction:column;
+        padding:24px;
+        padding-top:calc(env(safe-area-inset-top) + 16px);
+        padding-bottom:calc(env(safe-area-inset-bottom) + 24px);
+      }
+
+      .sheet-title{
+        color:var(--text);
+        font-size:19px;
+        font-weight:500;
+        margin-bottom:20px;
       }
 
       .urgent-row{
@@ -356,38 +262,26 @@
         display:flex;
         align-items:center;
         gap:14px;
-        padding:14px 12px;
-        background:rgba(255,255,255,0.04);
-        border-radius:14px;
-        border:1px solid rgba(255,255,255,0.06);
-        margin-bottom:8px;
+        padding:18px;
+        background:var(--surface);
+        border-radius:var(--radius);
+        margin-bottom:12px;
         text-align:left;
-        color:#fff;
+        color:var(--text);
         cursor:pointer;
       }
-      .urgent-row:active{ background:rgba(255,255,255,0.08); }
-      .u-icon{
-        width:32px;
-        height:32px;
-        border-radius:8px;
-        background:rgba(184,90,76,0.18);
-        color:#fff;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        flex-shrink:0;
-      }
+      .urgent-row:focus{ outline:2px solid var(--warm); outline-offset:2px; }
+      .urgent-row:active{ background:var(--surface-hover); }
+      .u-icon{ display:none; }
 
-      /* ===== Crisis Card FULL SCREEN SCREEN ===== */
+      /* Crisis Card Full Screen */
       .stepdown-backdrop{
         position:absolute;
         inset:0;
         z-index:130;
-        background:rgba(0,0,0,0.62);
-        backdrop-filter:blur(8px);
+        background:var(--bg);
         opacity:0;
         pointer-events:none;
-        transition:opacity .22s ease;
       }
       .stepdown-backdrop.active{
         opacity:1;
@@ -396,184 +290,112 @@
       .stepdown-screen{
         position:absolute;
         inset:0;
-        background:#18181A;
+        background:var(--bg);
         display:flex;
         flex-direction:column;
-        padding:22px 18px calc(22px + env(safe-area-inset-bottom));
-        opacity:0;
-        transform:translateY(10px);
-        transition:opacity .22s ease, transform .22s ease;
+        padding:24px;
+        padding-top:calc(env(safe-area-inset-top) + 16px);
+        padding-bottom:calc(env(safe-area-inset-bottom) + 24px);
       }
       .stepdown-backdrop.active .stepdown-screen{
         opacity:1;
-        transform:translateY(0);
       }
 
       .stepdown-body{
         flex:1;
         overflow:auto;
-        padding:12px 0 10px;
+        padding:24px 0;
         scrollbar-width:none;
         -ms-overflow-style:none;
         display:flex;
-        align-items:center;
+        flex-direction:column;
         justify-content:center;
       }
       .stepdown-body::-webkit-scrollbar{ width:0; height:0; }
 
       .crisis-card{
         width:100%;
-        border-radius:22px;
-        background:linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.03));
-        border:1px solid rgba(255,255,255,0.08);
-        padding:22px;
-        box-shadow:0 10px 30px rgba(0,0,0,0.35);
-        min-height:52vh;
+        padding:0 24px;
         display:flex;
         flex-direction:column;
         justify-content:center;
       }
 
       .kicker{
-        font-size:12px;
-        font-weight:900;
-        color:rgba(255,255,255,0.46);
-        text-transform:uppercase;
-        letter-spacing:0.06em;
+        font-size:16px;
+        font-weight:500;
+        color:var(--warm);
+        letter-spacing:0.02em;
         margin-bottom:10px;
       }
       .say-text{
-        font-size:20px;
-        font-weight:900;
-        line-height:1.30;
-        letter-spacing:-0.02em;
+        font-size:28px;
+        font-weight:500;
+        line-height:1.35;
+        color:var(--text);
       }
       .divider{
         height:1px;
-        background:rgba(255,255,255,0.07);
-        margin:18px 0;
+        background:#333;
+        margin:24px 0;
       }
       .do-text{
-        font-size:15px;
-        font-weight:750;
-        color:rgba(255,255,255,0.80);
-        line-height:1.55;
+        font-size:18px;
+        font-weight:400;
+        color:var(--text-muted);
+        line-height:1.5;
+      }
+      /* DO-only steps: instruction text is largest in app */
+      .do-text.do-only{
+        font-size:32px;
+        font-weight:500;
+        color:var(--text);
+        line-height:1.3;
       }
 
       .stepdown-footer{
-        padding-top:12px;
-        border-top:1px solid rgba(255,255,255,0.06);
-        background:linear-gradient(180deg, rgba(24,24,26,0), rgba(24,24,26,0.92) 18%, rgba(24,24,26,1));
+        padding-top:16px;
       }
 
       .muted-link{
         background:none;
         border:none;
         width:100%;
-        margin-top:14px;
+        margin-top:16px;
+        padding:12px 0;
         text-decoration:underline;
-        font-size:12px;
-        color:rgba(255,255,255,0.40);
-        font-weight:750;
+        font-size:14px;
+        color:var(--text-muted);
+        font-weight:400;
         cursor:pointer;
+        min-height:44px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
       }
+      .muted-link:active{ opacity:0.7; }
 
       .listen-btn{
         display:inline-flex;
         align-items:center;
         gap:8px;
-        height:40px;
-        padding:0 12px;
-        border-radius:999px;
-        border:1px solid rgba(255,255,255,0.10);
-        background:rgba(255,255,255,0.05);
-        color:rgba(255,255,255,0.86);
-        font-weight:850;
+        height:48px;
+        padding:0 16px;
+        border-radius:var(--radius);
+        border:none;
+        background:var(--surface);
+        color:var(--text);
+        font-size:16px;
+        font-weight:400;
         cursor:pointer;
         white-space:nowrap;
       }
-      .listen-btn.speaking{
-        border-color:rgba(242,224,193,0.40);
-        color:rgba(242,224,193,0.98);
-        background:rgba(242,224,193,0.10);
-      }
-
-      /* Large text mode (Aa) */
-      #app-frame.large-text .brand{ font-size:21px; }
-      #app-frame.large-text .subtitle{ font-size:14.5px; }
-      #app-frame.large-text .pill{ height:44px; font-size:14px; }
-      #app-frame.large-text .icon-btn{ width:44px; }
-      #app-frame.large-text .search-input{ height:62px; font-size:18px; }
-      #app-frame.large-text .card-title{ font-size:16.5px; }
-      #app-frame.large-text .card-sub{ font-size:13px; }
-      #app-frame.large-text .section-label{ font-size:14px; }
-      #app-frame.large-text .kicker{ font-size:13px; }
-      #app-frame.large-text .say-text{ font-size:22px; }
-      #app-frame.large-text .do-text{ font-size:16.5px; }
-      #app-frame.large-text #stepdown-title{ font-size:24px !important; }
+      .listen-btn:active{ opacity:0.7; }
+      .listen-btn.speaking{ background:#333; }
 
       /* Reduced motion */
       @media (prefers-reduced-motion: reduce){
-        .sheet-backdrop, .stepdown-backdrop, .sheet, .stepdown-screen, .card, .pill{ transition:none !important; }
-      }
-    </style>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      /* ACCESSIBILITY / LARGE TEXT MODE OVERRIDES */
-      #app-frame.large-text .room-container {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-      #app-frame.large-text .card {
-        flex-direction: row;
-        align-items: center;
-        padding: 24px 20px;
-        min-height: auto;
-        gap: 18px;
-      }
-      #app-frame.large-text .card .glyph {
-        margin-bottom: 0;
-        width: 52px;
-        height: 52px;
-        flex-shrink: 0;
-      }
-      #app-frame.large-text .card-title {
-        font-size: 22px;
-        margin-bottom: 0;
-      }
-      #app-frame.large-text .card-sub {
-        display: none !important;
-      }
-
-      /* Typography & UI Scaling */
-      #app-frame.large-text .brand { font-size: 24px; }
-      #app-frame.large-text .subtitle { font-size: 17px; line-height: 1.5; margin-bottom: 12px; }
-      #app-frame.large-text header { padding-bottom: 24px; }
-
-      #app-frame.large-text .search-input { height: 76px; font-size: 24px; padding-left: 20px; }
-      #app-frame.large-text .pill { height: 54px; font-size: 16px; padding: 0 22px; }
-      #app-frame.large-text .icon-btn { width: 54px; }
-      #app-frame.large-text .section-label { font-size: 16px; padding: 12px 18px; margin-top: 30px; }
-
-      /* Crisis / Stepdown Scaling */
-      #app-frame.large-text #stepdown-title { font-size: 36px !important; margin-bottom: 16px; }
-      #app-frame.large-text .kicker { font-size: 16px; margin-bottom: 14px; }
-      #app-frame.large-text .say-text { font-size: 34px; line-height: 1.25; }
-      #app-frame.large-text .do-text { font-size: 24px; line-height: 1.45; }
-      #app-frame.large-text .divider { margin: 24px 0; }
-
-      /* Urgent Sheet Scaling */
-      #app-frame.large-text .sheet-title { font-size: 28px; margin-bottom: 24px; }
-      #app-frame.large-text .urgent-row { padding: 24px; gap: 18px; }
-      #app-frame.large-text .urgent-row .u-icon { width: 48px; height: 48px; }
-      /* Target label in urgent row */
-      #app-frame.large-text .urgent-row > div:nth-child(2) > div:first-child {
-        font-size: 22px !important;
-        line-height: 1.3 !important;
-      }
-      /* Hide subtext in urgent row */
-      #app-frame.large-text .urgent-row > div:nth-child(2) > div:last-child {
-        display: none !important;
+        *{ transition:none !important; animation:none !important; }
       }
     </style>
   </head>
@@ -583,49 +405,28 @@
       <div id="app-content">
         <header>
           <div class="header-row">
-            <div class="brand">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2E0C1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
-                <path d="M8 11h8"></path>
-                <path d="M12 7v8"></path>
-              </svg>
-              <span>Kerunity</span>
-            </div>
+            <div class="brand">Kerunity</div>
 
             <div class="header-actions">
-              <!-- FIX 1: Aa now wired -->
-              <button class="pill" id="text-toggle" type="button" aria-label="Toggle large text" aria-pressed="false">
-                Aa
-              </button>
-
-              <!-- FIX 2: Info now wired -->
-              <button class="pill icon-btn" id="info-open" type="button" aria-label="Info and disclaimer">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <button class="pill icon-btn" id="info-open" type="button" aria-label="Info">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <circle cx="12" cy="12" r="10"></circle>
                   <path d="M12 16v-4"></path>
                   <path d="M12 8h.01"></path>
                 </svg>
               </button>
-
-              <button class="pill clay-btn" type="button" id="urgent-open">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
-                  <path d="M12 9v4"></path>
-                  <path d="M12 17h.01"></path>
-                </svg>
-                Urgent Help
-              </button>
+              <button class="pill emergency-btn" type="button" id="urgent-open">Emergency</button>
             </div>
           </div>
 
           <div class="subtitle">
-            Start here. Tap a situation for calm words to say.
+            Start here. You don't have to get this right.
           </div>
         </header>
 
         <div class="canvas">
           <div class="search-box">
-            <input id="query" type="text" class="search-input" placeholder="Tell me what’s happening…">
+            <input id="query" type="text" class="search-input" placeholder="What's happening?">
             <button id="mic-btn" class="mic-btn" type="button" aria-label="Speak">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
@@ -633,184 +434,126 @@
                 <line x1="12" x2="12" y1="19" y2="22"></line>
               </svg>
             </button>
-
-            <div class="search-hint">
-              Try:
-              <strong>“Refusing meds”</strong>
-              •
-              <strong>“Wants to go home”</strong>
-            </div>
-            <div class="coach-line">
-              I’ll give you words to use — one step at a time.
-            </div>
-            <button class="muted-link" type="button" id="urgent-open-2">
-              Not sure if it’s urgent? Tap Urgent Help
-            </button>
           </div>
 
+          <div id="search-suggestions" class="room-container" style="display:none;"></div>
+
           <div id="common-home-section">
-            <div class="section-label">
-              <div class="dot-green"></div>
-              Common situations
-            </div>
+            <div class="section-label">Common situations</div>
             <div id="grid-container" class="room-container"></div>
+            <button id="view-all-btn" type="button" class="view-all-btn" style="display:none;">
+              View all situations
+            </button>
           </div>
         </div>
 
-        <!-- Crisis Card FULL SCREEN -->
+        <!-- Crisis Card Screen -->
         <div id="stepdown-overlay" class="stepdown-backdrop" aria-hidden="true">
           <div class="stepdown-screen" role="dialog" aria-modal="true" aria-label="Crisis Card">
-            <div style="width:36px;height:4px;background:rgba(255,255,255,0.20);border-radius:2px;margin:0 auto 14px;"></div>
-
-            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
-              <div>
-                <div style="font-size:12px;font-weight:900;color:rgba(255,255,255,0.48);text-transform:uppercase;letter-spacing:0.06em;">
-                  Crisis Card
-                </div>
-                <div id="stepdown-title" style="margin-top:6px;font-size:22px;font-weight:950;letter-spacing:-0.02em;">
-                  Situation
-                </div>
+            <!-- Header: Title left, Close right. Never wrap. -->
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+              <div style="flex:1;min-width:0;">
+                <div id="stepdown-title" style="font-size:18px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Situation</div>
+                <div id="stepdown-progress" style="font-size:16px;color:var(--text-muted);margin-top:4px;">Step 1 of 4</div>
               </div>
-
-              <div style="display:flex;gap:8px;align-items:center;">
-                <!-- FIX 3: Speaker/Listen always present + working -->
-                <button id="listen-btn" class="listen-btn" type="button" aria-label="Listen to this step">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M11 5 6 9H2v6h4l5 4V5Z"></path>
-                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                  </svg>
-                  <span class="listen-label">Listen</span>
-                </button>
-
-                <button id="stepdown-close" class="pill icon-btn" type="button" aria-label="Close">
-                  ✕
-                </button>
-              </div>
-            </div>
-
-            <div style="display:flex;align-items:center;justify-content:space-between;margin:14px 2px 6px;">
-              <div id="stepdown-progress" style="font-size:12px;font-weight:900;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.06em;">
-                Step 1 of 4
-              </div>
-              <div id="stepdown-dots" style="display:flex;gap:6px;"></div>
+              <button id="stepdown-close" class="pill" type="button" aria-label="Close" style="flex-shrink:0;">Close</button>
             </div>
 
             <div class="stepdown-body">
               <div class="crisis-card">
-                <div class="kicker">Words to say</div>
-                <div id="stepdown-say" class="say-text">…</div>
-
-                <div class="divider"></div>
-
-                <div class="kicker">Do this</div>
-                <div id="stepdown-do" class="do-text">…</div>
+                <div id="stepdown-say-section">
+                  <div id="stepdown-say-kicker" class="kicker">Try saying this</div>
+                  <div id="stepdown-say" class="say-text"></div>
+                  <div class="divider"></div>
+                </div>
+                <div id="stepdown-do-kicker" class="kicker">You can do this</div>
+                <div id="stepdown-do" class="do-text"></div>
               </div>
             </div>
 
             <div class="stepdown-footer">
-              <div style="display:flex;gap:10px;">
-                <button id="stepdown-back" class="pill" type="button" style="flex:1;">
-                  Back
+              <!-- Emergency: persistent in content, not header -->
+              <button id="stepdown-emergency" class="pill emergency-btn" type="button" style="width:100%;height:48px;margin-bottom:12px;">Emergency</button>
+              
+              <button id="stepdown-call" class="pill emergency-call-btn" type="button" style="display:none;width:100%;height:56px;font-size:18px;margin-bottom:12px;">
+                <span id="stepdown-call-label">Call 999</span>
+              </button>
+              
+              <!-- Listen button moved to footer -->
+              <button id="listen-btn" class="listen-btn" type="button" aria-label="Listen" style="width:100%;margin-bottom:16px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M11 5 6 9H2v6h4l5 4V5Z"></path>
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+                <span class="listen-label">Listen</span>
+              </button>
+              
+              <div style="display:flex;gap:12px;">
+                <button id="stepdown-back" class="pill" type="button" style="flex:1;">Back</button>
+                <button id="stepdown-next" class="pill" type="button" style="flex:1;">Next</button>
+              </div>
+              <button id="stepdown-done" class="muted-link" type="button">Done</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Emergency: Full screen takeover -->
+        <div id="urgent-overlay" class="emergency-backdrop" aria-hidden="true">
+          <div class="emergency-screen" role="dialog" aria-modal="true" aria-label="Emergency Help">
+            <!-- Header: title left, close right -->
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;">
+              <div style="font-size:18px;font-weight:500;color:var(--text);">Emergency</div>
+              <button id="urgent-close" class="pill" type="button" aria-label="Close" style="flex-shrink:0;">Close</button>
+            </div>
+
+            <div style="flex:1;overflow-y:auto;">
+              <div id="emergency-hint" style="font-size:17px;color:var(--text);margin-bottom:24px;line-height:1.5;">
+                If someone is in immediate danger, call now.
+              </div>
+
+              <div id="call-buttons" style="display:flex;gap:12px;margin-bottom:32px;">
+                <button id="call-emergency" type="button" class="pill emergency-call-btn" style="flex:1;height:80px;flex-direction:column;gap:6px;">
+                  <span id="emergency-number" style="font-size:24px;font-weight:500;">Call 999</span>
+                  <span style="font-size:14px;opacity:0.7;">Emergency</span>
                 </button>
-                <button id="stepdown-next" class="pill clay-btn" type="button" style="flex:1;justify-content:center;">
-                  Next
+                <button id="call-advice" type="button" class="pill" style="flex:1;height:80px;flex-direction:column;gap:6px;">
+                  <span id="advice-number" style="font-size:24px;font-weight:500;">Call 111</span>
+                  <span style="font-size:14px;color:var(--text-muted);">Medical advice</span>
                 </button>
               </div>
-              <button id="stepdown-done" type="button" style="width:100%;padding:14px;background:transparent;color:rgba(255,255,255,0.52);font-weight:900;border:none;margin-top:8px;cursor:pointer;">
-                Done
-              </button>
+
+              <div style="font-size:14px;color:var(--text-muted);margin-bottom:12px;">Safety checks</div>
+              <div id="urgent-grid-sheet"></div>
             </div>
           </div>
         </div>
 
-        <!-- Urgent bottom sheet -->
-        <div id="urgent-overlay" class="sheet-backdrop" aria-hidden="true">
-          <div class="sheet" role="dialog" aria-modal="true" aria-label="Urgent Help">
-            <div style="width:36px;height:4px;background:rgba(255,255,255,0.20);border-radius:2px;margin:0 auto 20px;"></div>
-
-            <div class="sheet-title">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
-                <path d="M12 9v4"></path>
-                <path d="M12 17h.01"></path>
-              </svg>
-              URGENT HELP
-            </div>
-
-            <div style="display:flex;gap:12px;margin-bottom:18px;">
-              <button id="call-999" type="button" class="pill" style="flex:1;height:auto;padding:14px;border-radius:16px;background:#fff;color:#000;border:none;font-weight:900;flex-direction:column;">
-                <span style="font-size:20px;font-weight:950;line-height:1;">
-                  999
-                </span>
-                <span style="font-size:11px;opacity:0.65;text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;">
-                  Emergency
-                </span>
-              </button>
-
-              <button id="call-111" type="button" class="pill" style="flex:1;height:auto;padding:14px;border-radius:16px;background:#007AFF;color:#fff;border:none;font-weight:900;flex-direction:column;">
-                <span style="font-size:20px;font-weight:950;line-height:1;">
-                  111
-                </span>
-                <span style="font-size:11px;opacity:0.85;text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;">
-                  Medical Advice
-                </span>
-              </button>
-            </div>
-
-            <div style="font-size:12px;font-weight:950;color:rgba(255,255,255,0.40);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;padding-left:4px;">
-              Safety Checks
-            </div>
-
-            <!-- wired to urgent decks -->
-            <div id="urgent-grid-sheet"></div>
-
-            <button id="urgent-close" type="button" style="width:100%;padding:14px;background:transparent;color:rgba(255,255,255,0.5);font-weight:850;border:none;margin-top:10px;cursor:pointer;">
-              Cancel
-            </button>
-          </div>
-        </div>
-
-        <!-- Info / Disclaimer sheet -->
+        <!-- Info sheet -->
         <div id="info-overlay" class="sheet-backdrop" aria-hidden="true">
-          <div class="sheet" role="dialog" aria-modal="true" aria-label="Info and disclaimer">
-            <div style="width:36px;height:4px;background:rgba(255,255,255,0.20);border-radius:2px;margin:0 auto 20px;"></div>
+          <div class="sheet" role="dialog" aria-modal="true" aria-label="Info">
+            <div class="sheet-title">About this app</div>
 
-            <div class="sheet-title" style="color:var(--amber);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 16v-4"></path>
-                <path d="M12 8h.01"></path>
-              </svg>
-              INFO
+            <div style="color:var(--text);line-height:1.6;margin-bottom:20px;">
+              Kerunity offers calm, step-by-step guidance for carers.
             </div>
 
-            <div style="color:rgba(255,255,255,0.86);font-weight:800;line-height:1.5;margin-bottom:12px;">
-              Kerunity gives calm, step-by-step guidance for carers.
+            <div style="color:var(--text-muted);line-height:1.7;font-size:15px;margin-bottom:24px;">
+              <p style="margin:0 0 12px;">If there is immediate danger, call 999.</p>
+              <p style="margin:0 0 12px;">This is guidance, not medical advice.</p>
+              <p style="margin:0 0 12px;">Keep everyone safe. Step away if you need to.</p>
+              <p style="margin:0;">Tap Emergency for safety checks.</p>
             </div>
 
-            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:14px;line-height:1.5;color:rgba(255,255,255,0.78);font-weight:700;">
-              <div style="margin-bottom:10px;">
-                • If there is immediate danger, call
-                <strong>999</strong>
-                .
-              </div>
-              <div style="margin-bottom:10px;">
-                • This is guidance — not medical advice or a diagnosis.
-              </div>
-              <div style="margin-bottom:10px;">
-                • Keep everyone safe. If you need to step away, do that.
-              </div>
-              <div>
-                • Use
-                <strong>Urgent Help</strong>
-                for safety checks and escalation steps.
+            <div style="border-top:1px solid #333;padding-top:20px;margin-bottom:16px;">
+              <div style="font-size:14px;font-weight:500;color:var(--text);margin-bottom:12px;">Your privacy</div>
+              <div style="color:var(--text-muted);line-height:1.7;font-size:14px;">
+                <p style="margin:0 0 10px;">We don't record or store voices.</p>
+                <p style="margin:0 0 10px;">This app does not track you.</p>
+                <p style="margin:0;">If used inside ChatGPT, OpenAI may store interactions.</p>
               </div>
             </div>
 
-            <button id="info-close" type="button" style="width:100%;padding:14px;background:transparent;color:rgba(255,255,255,0.55);font-weight:900;border:none;margin-top:12px;cursor:pointer;">
-              Close
-            </button>
+            <button id="info-close" class="muted-link" type="button">Close</button>
           </div>
         </div>
       </div>
@@ -820,24 +563,155 @@
       /* =========================
          DATA
       ========================== */
+      /* Visible by default (Hick's Law: 6 is safe, 10 is limit) */
+      const VISIBLE_COUNT = 6;
+
       const DATA = {
-        refusing_meds: { label: "Refusing meds", sub: "Won't take pills" },
-        wants_home:    { label: "Wants to go home", sub: "Confused about location" },
-        asking_mom:    { label: "Asking for mom", sub: "Deceased relative" },
-        stealing:      { label: "Accusing of stealing", sub: "Items 'missing'" },
-        shadowing:     { label: "Shadowing", sub: "Following you constantly" },
-        hygiene:       { label: "Refusing hygiene", sub: "Won't wash/change" }
+        /* Most common - shown first (6) - EXPANDED COVERAGE */
+        refusing_meds: { 
+          label: "Refusing meds", sub: "Won't take pills",
+          keywords: ["medication", "pills", "tablets", "medicine", "drugs", "prescription", "dose", "swallow", "spit", "meds", "capsule", "liquid", "syrup", "pharmacy", "chemist", "GP", "doctor"],
+          aliases: ["won't take medication", "refusing tablets", "spitting out pills", "hiding medication", "not taking medicine", "refuses to swallow", "won't swallow pills", "spits out tablets", "hiding pills in mouth", "says no to meds", "fighting medication", "won't open mouth for pills", "clamping mouth shut"]
+        },
+        wants_home: { 
+          label: "Wants to go home", sub: "Confused about location",
+          keywords: ["home", "leave", "go", "house", "back", "where", "lost", "place", "live", "bus", "taxi", "car", "door", "outside", "family", "parents", "childhood"],
+          aliases: ["wants to leave", "going home", "take me home", "where do I live", "this isn't my house", "I want to go", "not my home", "need to get the bus", "waiting for a taxi", "when can I go home", "I don't live here", "where's my house", "wants to see parents", "going back to childhood home", "doesn't recognise house"]
+        },
+        asking_mom: { 
+          label: "Asking for mom", sub: "Deceased relative",
+          keywords: ["mom", "mum", "mother", "dad", "father", "parent", "dead", "deceased", "passed", "gone", "husband", "wife", "spouse", "nan", "grandma", "grandad", "brother", "sister"],
+          aliases: ["where's my mum", "wants her mother", "asking for father", "when is mum coming", "I want my mum", "where's mom", "waiting for dad", "when's mum picking me up", "I need my mother", "where's my husband", "have you seen my wife", "asking for dead relative", "wants to see nan"]
+        },
+        stealing: { 
+          label: "Accusing of stealing", sub: "Items 'missing'",
+          keywords: ["stealing", "stole", "thief", "taken", "missing", "wallet", "money", "purse", "keys", "accuse", "blame", "robbed", "lost", "jewellery", "jewelry", "ring", "watch", "handbag", "bag"],
+          aliases: ["says I stole", "accusing me", "thinks I took", "where's my money", "someone stole", "you took my", "things are missing", "keeps saying I stole it", "accusing carers of theft", "blaming me for stealing", "can't find wallet", "purse is missing", "who took my keys", "someone's been in my things", "money has gone"]
+        },
+        shadowing: { 
+          label: "Shadowing", sub: "Following you constantly",
+          keywords: ["following", "shadow", "clingy", "attached", "close", "behind", "everywhere", "stuck", "separation", "anxious", "needy", "dependent"],
+          aliases: ["follows me everywhere", "won't let me out of sight", "always behind me", "can't leave them alone", "follows me around", "follows me to the toilet", "follows me to bathroom", "won't stay in room alone", "panics when I leave", "attached to my hip", "can't get any space", "follows room to room"]
+        },
+        hygiene: { 
+          label: "Refusing hygiene", sub: "Won't wash/change",
+          keywords: ["wash", "bath", "shower", "clean", "hygiene", "smell", "dirty", "change", "clothes", "teeth", "toilet", "bathroom", "loo", "nappy", "diaper", "pad", "incontinence", "wet", "soiled"],
+          aliases: ["won't wash", "refusing bath", "won't shower", "hasn't changed clothes", "needs a wash", "refusing to clean", "won't brush teeth", "scared of shower", "afraid of bath", "won't change wet clothes", "sitting in wet pad", "smells bad", "hasn't bathed in days", "refuses personal care", "won't let me wash them"]
+        },
+        /* Extended - shown on "View all" (19 more = 25 total) - EXPANDED COVERAGE */
+        sundowning: { 
+          label: "Sundowning", sub: "Evening agitation",
+          keywords: ["evening", "night", "sunset", "agitated", "restless", "worse", "afternoon", "dusk", "dark", "twilight", "late", "shadows", "anxious", "confused", "pacing", "upset"],
+          aliases: ["gets worse at night", "evening agitation", "restless at sunset", "anxious in evening", "agitated after dark", "worse in late afternoon", "pacing at night", "confused when it gets dark", "sundown syndrome", "evening confusion", "worse as sun goes down", "unsettled at teatime", "bad every evening"]
+        },
+        wont_eat: { 
+          label: "Won't eat", sub: "Refusing food/drink",
+          keywords: ["eat", "food", "drink", "hungry", "meal", "appetite", "swallow", "chew", "water", "tea", "coffee", "breakfast", "lunch", "dinner", "snack", "thirsty", "dehydrated", "weight"],
+          aliases: ["not eating", "refusing food", "won't drink", "no appetite", "stopped eating", "pushing food away", "spitting food out", "won't open mouth", "not drinking enough", "losing weight", "barely eating", "picks at food", "won't touch meals", "refusing tea", "dehydrated"]
+        },
+        repetitive: { 
+          label: "Repeating questions", sub: "Asking same thing",
+          keywords: ["repeat", "again", "same", "question", "asking", "over", "loop", "constant", "broken", "record", "endless", "nonstop", "obsessive", "stuck"],
+          aliases: ["asking same thing", "keeps repeating", "same question", "over and over", "asks constantly", "broken record", "asked this already", "keeps asking same thing", "won't stop asking", "repetitive questions", "stuck in a loop", "asks every five minutes", "endless questions"]
+        },
+        aggression: { 
+          label: "Aggression", sub: "Hitting / shouting",
+          keywords: ["aggressive", "hitting", "shouting", "angry", "violent", "punch", "kick", "yelling", "attack", "slap", "bite", "scratch", "push", "shove", "grab", "rage", "fury", "temper"],
+          aliases: ["being aggressive", "hit me", "shouting at me", "getting violent", "lashing out", "tried to punch me", "kicked me", "grabbed my arm", "scratched me", "bit me", "pushed me away", "screaming at me", "flew into a rage", "lost their temper", "threatening behaviour"]
+        },
+        sleep: { 
+          label: "Sleep problems", sub: "Up at night",
+          keywords: ["sleep", "night", "awake", "insomnia", "tired", "bed", "rest", "waking", "wandering", "nocturnal", "disturbed", "exhausted", "morning", "routine", "nap", "daytime"],
+          aliases: ["can't sleep", "up all night", "won't go to bed", "waking up", "not sleeping", "wandering at night", "awake at 3am", "thinks it's morning", "sleeping all day", "day night reversed", "exhausted but won't sleep", "gets up repeatedly", "disturbed sleep pattern", "night time wandering"]
+        },
+        lost: { 
+          label: "Lost / confused", sub: "Doesn't recognise place",
+          keywords: ["lost", "confused", "where", "recognise", "place", "room", "house", "disoriented"],
+          aliases: ["doesn't know where", "seems lost", "very confused", "doesn't recognise"]
+        },
+        wandering: { 
+          label: "Wandering", sub: "Trying to leave",
+          keywords: ["wander", "walk", "leave", "door", "outside", "escape", "exit", "roam", "pacing", "restless", "garden", "street", "lost", "front", "back", "gate", "key", "lock"],
+          aliases: ["trying to leave", "at the door", "wants to go outside", "keeps wandering", "walking around", "trying to get out", "pacing up and down", "found at front door", "went out the back", "escaped from house", "wandered off", "walking the streets", "let themselves out", "keeps trying door handle", "looking for way out"]
+        },
+        hiding: { 
+          label: "Hiding things", sub: "Can't find items",
+          keywords: ["hiding", "hidden", "lost", "find", "where", "put", "missing", "moved"],
+          aliases: ["hides things", "can't find", "where did I put", "things go missing", "hidden items"]
+        },
+        undressing: { 
+          label: "Undressing", sub: "Removing clothes",
+          keywords: ["undress", "naked", "clothes", "strip", "remove", "taking off"],
+          aliases: ["taking clothes off", "getting undressed", "removing clothes", "keeps undressing"]
+        },
+        rummaging: { 
+          label: "Rummaging", sub: "Going through drawers",
+          keywords: ["rummage", "drawer", "cupboard", "search", "through", "looking", "mess"],
+          aliases: ["going through drawers", "searching cupboards", "making a mess", "rummaging around"]
+        },
+        hoarding: { 
+          label: "Hoarding", sub: "Collecting / keeping things",
+          keywords: ["hoard", "collect", "keep", "save", "pile", "stuff", "junk", "rubbish"],
+          aliases: ["collecting things", "won't throw away", "keeping everything", "piling up stuff"]
+        },
+        crying: { 
+          label: "Crying / tearful", sub: "Upset for no clear reason",
+          keywords: ["crying", "tears", "upset", "sad", "weeping", "emotional", "distressed"],
+          aliases: ["keeps crying", "very upset", "tearful", "crying for no reason", "emotionally distressed"]
+        },
+        wont_get_up: { 
+          label: "Won't get up", sub: "Staying in bed",
+          keywords: ["bed", "up", "get", "lying", "stay", "morning", "wake"],
+          aliases: ["won't get out of bed", "staying in bed", "refuses to get up", "won't wake up"]
+        },
+        refusing_help: { 
+          label: "Refusing help", sub: "Won't accept care",
+          keywords: ["help", "refuse", "care", "assist", "support", "independent", "stubborn"],
+          aliases: ["won't accept help", "refuses care", "pushes me away", "doesn't want help"]
+        },
+        paranoid: { 
+          label: "Paranoid", sub: "Suspicious of others",
+          keywords: ["paranoid", "suspicious", "trust", "people", "watching", "spy", "conspiracy", "poison", "plotting", "neighbour", "neighbor", "carer", "staff", "delusion", "persecuted", "threatened"],
+          aliases: ["very suspicious", "doesn't trust", "thinks people are watching", "paranoid thoughts", "thinks I'm poisoning food", "says neighbours are spying", "accuses staff of plotting", "doesn't trust anyone", "thinks people want to hurt them", "suspicious of carers", "feels persecuted", "convinced someone is after them", "paranoid about visitors"]
+        },
+        hallucinations: { 
+          label: "Seeing things", sub: "Things that aren't there",
+          keywords: ["seeing", "hallucination", "vision", "people", "things", "imaginary", "hear", "voices", "children", "intruders", "strangers", "animals", "bugs", "insects", "dead", "deceased", "ghost", "shadow"],
+          aliases: ["seeing things", "hearing voices", "people that aren't there", "hallucinating", "sees children in the room", "talking to dead relatives", "sees intruders", "thinks there are strangers here", "seeing animals", "bugs on the wall", "sees shadows moving", "talking to people who aren't there", "says someone is in the house", "visual hallucinations"]
+        },
+        inappropriate: { 
+          label: "Inappropriate comments", sub: "Saying awkward things",
+          keywords: ["inappropriate", "rude", "sexual", "comments", "embarrassing", "awkward", "offensive"],
+          aliases: ["saying inappropriate things", "rude comments", "embarrassing behaviour", "sexual comments"]
+        },
+        wont_dress: { 
+          label: "Won't get dressed", sub: "Refusing clothes",
+          keywords: ["dress", "clothes", "wear", "outfit", "change", "morning", "pyjamas"],
+          aliases: ["won't get dressed", "refusing to dress", "staying in pyjamas", "won't change clothes"]
+        },
+        forgot_face: { 
+          label: "Doesn't know me", sub: "Forgotten who you are",
+          keywords: ["know", "recognise", "who", "face", "forget", "stranger", "remember"],
+          aliases: ["doesn't recognise me", "forgot who I am", "thinks I'm a stranger", "doesn't know who I am"]
+        },
+        /* FALLBACK - never shown in list */
+        fallback_not_sure: {
+          label: "Not sure what this is", sub: "Start here. One step at a time.",
+          isFallback: true,
+          keywords: [],
+          aliases: []
+        }
       };
 
       const CRISIS_DECKS = {
         refusing_meds:{ title:"Refusing meds", steps:[
-          { say:"It’s okay — we don’t have to do this right now.", do:"Lower the pressure. Relax shoulders. Speak slower than normal." },
+          { say:"It's okay. We don't have to do this right now.", do:"Lower the pressure. Relax shoulders. Speak slower than normal." },
           { say:"Can we take a sip of water first, then decide?", do:"Offer a tiny ‘first step’ and a choice (water / tea / juice)." },
           { say:"Would you like to take it with me, or would you prefer later?", do:"Give two acceptable options. Avoid arguing about ‘you must’." },
-          { say:"Thank you. That’s enough for now — we’ll check again later.", do:"Close warmly. If still no, step away and return in 10–20 mins." }
+          { say:"Thank you. That's enough for now. We'll check again later.", do:"Close warmly. If still no, step away and return in 10-20 mins." }
         ]},
         wants_home:{ title:"Wants to go home", steps:[
-          { say:"I hear you — you want to go home. Tell me what home feels like.", do:"Validate and invite description. Don’t correct location facts." },
+          { say:"I hear you. You want to go home. Tell me what home feels like.", do:"Validate and invite description. Don't correct location facts." },
           { say:"Let’s get you comfortable first, then we’ll make a plan.", do:"Move to comfort: chair, drink, loo, warmer/blanket." },
           { say:"Shall we check the time and do it after a cup of tea?", do:"Use a short delay + familiar ritual. Keep it calm and simple." },
           { say:"You’re safe with me. We’ll sort it together.", do:"Close with safety + togetherness. Reduce stimulation." }
@@ -855,105 +729,439 @@
           { say:"If it’s not here, we’ll leave it and try again later.", do:"Close without ‘you’re wrong’. Offer a calming reset." }
         ]},
         shadowing:{ title:"Shadowing", steps:[
-          { say:"You’re okay — I’m here. Let’s do this together.", do:"Reassure first. Keep tone warm, not hurried." },
+          { say:"You're okay. I'm here. Let's do this together.", do:"Reassure first. Keep tone warm, not hurried." },
           { say:"Can you sit here while I do one small thing?", do:"Give a ‘job’: hold towel, watch kettle, fold cloth." },
           { say:"I’ll be back in two minutes. Watch the timer for me.", do:"Use a timer + clear promise. Return when you say you will." },
           { say:"Thank you. You did great helping me.", do:"Praise the helper role. Repeat predictable routine." }
         ]},
         hygiene:{ title:"Refusing hygiene", steps:[
-          { say:"No problem — we can do this gently.", do:"Remove pressure. Avoid ‘you have to’ language." },
+          { say:"No problem. We can do this gently.", do:"Remove pressure. Avoid 'you have to' language." },
           { say:"Would you like a warm cloth wash instead of a full wash?", do:"Offer a smaller option: face/hands first." },
           { say:"Do you want the bathroom warmer, or a towel warmed?", do:"Fix discomfort triggers: cold room, lighting, privacy." },
-          { say:"That’s enough for now — we’ll stop there.", do:"Close early with success. Short wins beat battles." }
+          { say:"That's enough for now. We'll stop there.", do:"Close early with success. Short wins beat battles." }
+        ]},
+        sundowning:{ title:"Sundowning", steps:[
+          { say:"I can see you're feeling unsettled. I'm here.", do:"Acknowledge their distress. Don't dismiss or argue." },
+          { say:"Let's turn on some lights and get cosy.", do:"Reduce shadows. Close curtains. Create a calm space." },
+          { say:"Would you like to sit with me for a bit?", do:"Gentle distraction: music, photo, simple activity." },
+          { say:"You're safe. We'll get through the evening together.", do:"Stay calm. Predictable routine helps." }
+        ]},
+        wont_eat:{ title:"Won't eat", steps:[
+          { say:"That's okay. No rush. We can try again later.", do:"Don't force. Remove pressure around mealtimes." },
+          { say:"Would you like something small? Just a few bites?", do:"Offer finger foods, small portions, favourite tastes." },
+          { say:"Let's sit together while I have mine.", do:"Eating together can encourage. Keep it social." },
+          { say:"You did well. We'll have more later if you want.", do:"Praise any attempt. Track intake but don't stress." }
+        ]},
+        repetitive:{ title:"Repeating questions", steps:[
+          { say:"That's a good question. Let me help.", do:"Answer as if it's the first time. Stay patient." },
+          { say:"I'll write it down so we can check.", do:"Use a whiteboard or note to point to." },
+          { say:"Let's do something together while we wait.", do:"Redirect to a simple activity or task." },
+          { say:"I'm here. We're okay.", do:"Reassurance is what they need, not facts." }
+        ]},
+        aggression:{ title:"Aggression", steps:[
+          { say:"I can see you're upset. I'm going to step back.", do:"Give space. Don't corner or crowd them." },
+          { say:"I'm not going to hurt you. You're safe.", do:"Speak slowly and calmly. Lower your body position." },
+          { say:"Let's take a breath together.", do:"Model calm breathing. Wait for de-escalation." },
+          { say:"Thank you. Let's sit down when you're ready.", do:"Don't hold grudges. Reset and move forward." }
+        ]},
+        sleep:{ title:"Sleep problems", steps:[
+          { say:"Can't sleep? That's okay. Let's sit quietly.", do:"Don't argue about time. Join them calmly." },
+          { say:"Would you like a warm drink or the radio on?", do:"Offer comfort. Dim lights. Keep voice soft." },
+          { say:"We can rest here together for a bit.", do:"Don't force bed. Sitting nearby is fine." },
+          { say:"You're safe. I'll be here if you need me.", do:"Reassure and let natural tiredness come." }
+        ]},
+        lost:{ title:"Lost / confused", steps:[
+          { say:"You're in [place]. You're safe with me.", do:"State location simply. Don't quiz or test them." },
+          { say:"Let me show you around. This is the kitchen.", do:"Gently orient using familiar objects." },
+          { say:"Let's go to your chair / your room.", do:"Guide to a familiar, comfortable spot." },
+          { say:"You're home. I'm here with you.", do:"Reassurance matters more than facts." }
+        ]},
+        wandering:{ title:"Wandering", steps:[
+          { say:"Where are you off to? I'll come with you.", do:"Don't block or grab. Walk alongside calmly." },
+          { say:"Let's check together. What are you looking for?", do:"Make it a shared mission, not a confrontation." },
+          { say:"It's cold/dark out there. Let's get a cup of tea first.", do:"Offer distraction before they reach the door." },
+          { say:"You're safe here. Let's sit down for a moment.", do:"Guide gently back. Check door locks are secure." }
+        ]},
+        hiding:{ title:"Hiding things", steps:[
+          { say:"I can see something's important to you.", do:"Don't accuse or demand. Stay calm and curious." },
+          { say:"Can you show me where you put it?", do:"Let them lead. They may remember hiding spots." },
+          { say:"Let's keep it safe together.", do:"Create a 'safe box' for important items." },
+          { say:"Thank you for showing me.", do:"Don't make it a big deal. Note the hiding spots." }
+        ]},
+        undressing:{ title:"Undressing", steps:[
+          { say:"Are you feeling too warm?", do:"Check temperature, clothing comfort, toileting needs." },
+          { say:"Let's find something more comfortable.", do:"Offer loose, easy clothes they can manage." },
+          { say:"Here. This will feel better.", do:"Redirect with a soft blanket or familiar item." },
+          { say:"You're okay. Let's get comfy.", do:"Preserve dignity. Move to private space if needed." }
+        ]},
+        rummaging:{ title:"Rummaging", steps:[
+          { say:"What are you looking for? I can help.", do:"Join in rather than stopping them." },
+          { say:"Let's check this drawer together.", do:"Redirect to a 'safe' drawer with harmless items." },
+          { say:"I've put some things here for you to sort.", do:"Create a rummage box with safe objects." },
+          { say:"Thank you for tidying.", do:"Make it purposeful. Praise their effort." }
+        ]},
+        hoarding:{ title:"Hoarding", steps:[
+          { say:"That looks important. Tell me about it.", do:"Don't throw things away in front of them." },
+          { say:"Shall we find a special place for these?", do:"Offer a box or bag to 'keep things safe'." },
+          { say:"Let's sort through together when you're ready.", do:"Remove items gradually, not all at once." },
+          { say:"You've got some lovely things here.", do:"Validate their attachment. Be patient." }
+        ]},
+        crying:{ title:"Crying / tearful", steps:[
+          { say:"I can see you're upset. I'm here.", do:"Sit close. Don't rush to fix or explain." },
+          { say:"It's okay to feel this way.", do:"Validate the emotion even if cause is unclear." },
+          { say:"Would you like a hug / hand to hold?", do:"Offer comfort. Physical touch if welcome." },
+          { say:"I'm not going anywhere. Take your time.", do:"Be present. The feeling will pass." }
+        ]},
+        wont_get_up:{ title:"Won't get up", steps:[
+          { say:"Good morning. No rush. Take your time.", do:"Don't force. Check if they're unwell or in pain." },
+          { say:"Would you like a cup of tea in bed?", do:"Bring comfort to them first." },
+          { say:"The bathroom's ready when you are.", do:"Give a gentle reason to move, not an order." },
+          { say:"Let's just sit up for a bit.", do:"Small steps. Sitting up is progress." }
+        ]},
+        refusing_help:{ title:"Refusing help", steps:[
+          { say:"That's okay. I'll leave you to it.", do:"Step back. Don't argue or insist." },
+          { say:"I'll be nearby if you change your mind.", do:"Give them space but stay available." },
+          { say:"Can I just help with this small thing?", do:"Offer help with one tiny task only." },
+          { say:"You're doing well. Let me know if you need me.", do:"Praise independence. Try again later." }
+        ]},
+        paranoid:{ title:"Paranoid", steps:[
+          { say:"That sounds frightening. Tell me more.", do:"Listen without dismissing or arguing." },
+          { say:"I can see why you're worried.", do:"Validate the feeling, not the belief." },
+          { say:"Let's check together. I'll stay with you.", do:"Offer to investigate. Be their ally." },
+          { say:"You're safe with me. I won't let anything happen.", do:"Reassure. Reduce stimulation." }
+        ]},
+        hallucinations:{ title:"Seeing things", steps:[
+          { say:"What can you see? Tell me about it.", do:"Stay calm. Don't argue or dismiss." },
+          { say:"That must feel strange.", do:"Acknowledge their experience is real to them." },
+          { say:"Let's turn on more lights / move rooms.", do:"Change environment. Reduce shadows." },
+          { say:"I'm here with you. You're safe.", do:"Reassure. Don't pretend to see it too." }
+        ]},
+        inappropriate:{ title:"Inappropriate comments", steps:[
+          { say:"Let's talk about something else.", do:"Redirect calmly. Don't shame or scold." },
+          { say:"I know you don't mean to upset anyone.", do:"Assume good intent. They may not understand." },
+          { say:"Come with me. I need your help.", do:"Move them away from the situation." },
+          { say:"It's okay. Let's move on.", do:"Don't dwell. Apologise to others later if needed." }
+        ]},
+        wont_dress:{ title:"Won't get dressed", steps:[
+          { say:"Let's take our time. No rush.", do:"Don't force. Check if clothes are uncomfortable." },
+          { say:"Would you like to choose what to wear?", do:"Offer simple choices. Two options max." },
+          { say:"Let's just put this on for now.", do:"One item at a time. Start with easiest piece." },
+          { say:"You look nice. Well done.", do:"Praise any progress. Comfort over perfection." }
+        ]},
+        forgot_face:{ title:"Doesn't know me", steps:[
+          { say:"Hello, I'm [name]. I'm here to help.", do:"Don't say 'Don't you remember me?' Stay calm." },
+          { say:"We're friends. I've known you a long time.", do:"Reassure with warmth, not facts." },
+          { say:"Let me show you some photos.", do:"Pictures may help. Don't quiz or test." },
+          { say:"I care about you. That's what matters.", do:"Focus on feeling safe, not being recognised." }
+        ]},
+        fallback_not_sure:{ title:"Not sure what this is", steps:[
+          { say:"Okay. We can slow down. I'm here with you.", do:"Lower your voice. Relax your shoulders." },
+          { say:"What do you need right now?", do:"Ask one gentle question. Listen without rushing." },
+          { say:"It's okay if you don't have the right words.", do:"If you feel unsafe, tap Emergency." },
+          { say:"We'll figure this out together.", do:"Stay present. Take it one moment at a time." }
         ]}
       };
 
       const URGENT_ITEMS = [
-        { key:"unresponsive", label:"Unresponsive", sub:"Won't wake up" },
-        { key:"breathing",    label:"Breathing trouble", sub:"Gasping / Choking" },
-        { key:"stroke",       label:"Stroke signs", sub:"Face, Arms, Speech" },
-        { key:"fall",         label:"Bad fall", sub:"Head injury / Pain" }
+        { 
+          key:"unresponsive", label:"Unresponsive", sub:"Won't wake up",
+          keywords: ["unresponsive", "unconscious", "wake", "passed", "out", "fainted", "collapsed", "limp", "floppy", "not", "responding", "lifeless", "coma", "blackout", "knocked"],
+          aliases: ["won't wake up", "passed out", "collapsed on floor", "not responding", "can't wake them", "fainted", "found unconscious", "not moving", "completely limp", "blacked out", "knocked out", "won't respond to voice", "eyes won't open"]
+        },
+        { 
+          key:"breathing",    label:"Breathing trouble", sub:"Gasping / Choking",
+          keywords: ["breathing", "breath", "choking", "choke", "gasp", "wheeze", "cough", "airway", "blue", "lips", "oxygen", "struggling", "suffocate", "throat", "swallow", "aspirate"],
+          aliases: ["can't breathe", "struggling to breathe", "choking on food", "gasping for air", "gone blue", "lips are blue", "wheezing badly", "food stuck in throat", "trouble breathing", "short of breath", "breathing problems", "not breathing properly", "coughing and choking"]
+        },
+        { 
+          key:"stroke",       label:"Stroke signs", sub:"Face, Arms, Speech",
+          keywords: ["stroke", "face", "droop", "arm", "weak", "speech", "slur", "fast", "paralysis", "numbness", "side", "dizzy", "sudden", "confusion", "vision", "headache"],
+          aliases: ["face drooping", "arm weakness", "slurred speech", "think it's a stroke", "can't lift arm", "face looks different", "one side weak", "sudden confusion", "FAST signs", "can't speak properly", "words not making sense", "stroke symptoms"]
+        },
+        { 
+          key:"fall",         label:"Bad fall", sub:"Head injury / Pain",
+          keywords: ["fall", "fell", "fallen", "head", "injury", "hurt", "pain", "hip", "fracture", "broken", "bleeding", "bump", "bruise", "floor", "stairs", "trip"],
+          aliases: ["had a fall", "fell over", "hit their head", "fallen on floor", "can't get up after fall", "hurt after falling", "fell down stairs", "tripped and fell", "banged their head", "bleeding from fall", "possible fracture", "fell out of bed", "found on floor"]
+        },
+        { 
+          key:"general_emergency", label:"Something feels seriously wrong", sub:"Need immediate help",
+          keywords: ["emergency", "urgent", "ambulance", "danger", "unsafe", "serious", "help", "critical", "dying", "999", "112", "911"],
+          aliases: ["need ambulance", "call ambulance", "this is an emergency", "urgent help now", "immediate danger", "something is seriously wrong", "can't cope", "can't handle this", "need help now", "feels very wrong", "i think they're dying"]
+        }
       ];
 
       const URGENT_DECKS = {
         unresponsive:{ title:"Unresponsive", steps:[
-          { say:"If they won’t wake up, treat this as an emergency.", do:"Call 999. Put phone on speaker. Follow operator instructions." },
-          { say:"Check breathing.", do:"If not breathing normally, start CPR if trained. Don’t delay calling 999." },
-          { say:"Keep them safe while help arrives.", do:"Place in recovery position if breathing. Keep warm. Stay with them." }
+          { say:null, do:"Call 999 now. Put phone on speaker. Follow operator instructions." },
+          { say:null, do:"Check breathing. If not breathing normally, start CPR if trained." },
+          { say:null, do:"If breathing, place in recovery position. Keep warm. Stay with them until help arrives." }
         ]},
         breathing:{ title:"Breathing trouble", steps:[
-          { say:"Breathing trouble can become critical quickly.", do:"Call 999 if severe or sudden. If choking, encourage coughing." },
-          { say:"Reduce panic + sit upright.", do:"Loosen tight clothing. Open a window. Speak calmly and slowly." },
-          { say:"If symptoms persist or worsen, escalate.", do:"Call 111 for advice if mild but ongoing. Call 999 if severe." }
+          { say:"Try to breathe slowly with me. In... and out.", do:"If severe or sudden, call 999. If choking, encourage coughing." },
+          { say:"You're going to be okay. I'm right here.", do:"Help them sit upright. Loosen tight clothing. Open a window." },
+          { say:null, do:"If not improving: call 999. If mild but ongoing: call 111 for advice." }
         ]},
         stroke:{ title:"Stroke signs", steps:[
-          { say:"Treat stroke signs as emergency.", do:"Call 999 immediately. Note the time symptoms started." },
-          { say:"Use FAST check.", do:"Face droop, Arm weakness, Speech problems — Time to call." },
-          { say:"Keep them safe and still.", do:"Do not give food/drink. Stay with them until help arrives." }
+          { say:null, do:"Call 999 immediately. Note the time symptoms started." },
+          { say:null, do:"Use FAST: Face drooping? Arm weak? Speech slurred? Time to call 999." },
+          { say:"I'm here. Help is coming. Try to stay still.", do:"Do not give food or drink. Stay with them until help arrives." }
         ]},
         fall:{ title:"Bad fall", steps:[
-          { say:"If head injury, severe pain, or can’t move—assume urgent.", do:"Call 999 if you suspect serious injury or confusion after fall." },
-          { say:"Don’t rush them to stand.", do:"Check pain, bleeding, and alertness. Keep them warm." },
-          { say:"If minor and stable, seek advice.", do:"Call 111 for guidance. Monitor for worsening symptoms." }
+          { say:"Don't try to move. I'm going to help you.", do:"If head injury, severe pain, or can't move: call 999." },
+          { say:"Take your time. There's no rush.", do:"Check for pain, bleeding, alertness. Keep them warm and still." },
+          { say:null, do:"If minor and stable, call 111 for advice. Watch for worsening symptoms." }
+        ]},
+        general_emergency:{ title:"Something feels seriously wrong", steps:[
+          { say:null, do:"Trust your instincts. Call 999 if there's immediate danger to life." },
+          { say:"I'm here with you. Help is on the way.", do:"Keep them warm and still. Talk calmly. Note any symptoms." },
+          { say:null, do:"You're doing the right thing. It's always OK to call for help." }
         ]}
       };
 
       /* =========================
-         ICONS
-      ========================== */
-      function getIcon(name){
-        const icons = {
-          help: `<circle cx="12" cy="12" r="10"></circle>
-                 <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                 <line x1="12" x2="12.01" y1="17" y2="17"></line>`,
-          alert: `<circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" x2="12" y1="8" y2="12"></line>
-                  <line x1="12" x2="12.01" y1="16" y2="16"></line>`
-        };
-        return icons[name] || icons.help;
-      }
-
-      /* =========================
          RENDER
       ========================== */
+      let showAllSituations = false;
+
+      // Get situation keys excluding fallback
+      function getSituationKeys(){
+        return Object.keys(DATA).filter(k => !DATA[k].isFallback);
+      }
+
       function renderHome(){
         const grid = document.getElementById("grid-container");
-        const keys = Object.keys(DATA);
+        const viewAllBtn = document.getElementById("view-all-btn");
+        const keys = getSituationKeys();
+        const total = keys.length;
+        const visibleKeys = showAllSituations ? keys : keys.slice(0, VISIBLE_COUNT);
 
-        grid.innerHTML = keys.map(k => {
+        grid.innerHTML = visibleKeys.map(k => {
           const item = DATA[k];
           return `
             <div class="card" role="button" tabindex="0" data-key="${k}">
-              <div class="glyph">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  ${getIcon("help")}
-                </svg>
-              </div>
-              <div>
                 <div class="card-title">${item.label}</div>
                 <div class="card-sub">${item.sub}</div>
-              </div>
             </div>
           `;
         }).join("");
+
+        // Show/hide "View all" button
+        if(total > VISIBLE_COUNT){
+          viewAllBtn.style.display = "block";
+          if(showAllSituations){
+            viewAllBtn.textContent = "Show fewer";
+          } else {
+            viewAllBtn.textContent = `View all ${total} situations`;
+          }
+        } else {
+          viewAllBtn.style.display = "none";
+        }
+      }
+
+      function toggleViewAll(){
+        showAllSituations = !showAllSituations;
+        renderHome();
+      }
+
+      /* =========================
+         SEARCH / TYPEAHEAD
+      ========================== */
+      const SEARCH_THRESHOLD = 4;
+
+      /* HARD EMERGENCY TOKENS - if any match, route to Emergency immediately */
+      const EMERGENCY_TOKENS = {
+        // Category 1: Breathing & consciousness
+        breathing: ["not breathing", "cant breathe", "can't breathe", "breathing trouble", "gasping", "unconscious", "collapsed", "passed out", "unresponsive", "choking", "blue lips", "not responding", "wont wake", "won't wake", "fainted", "lifeless"],
+        // Category 2: Stroke & heart
+        stroke: ["stroke", "face drooping", "slurred speech", "heart attack", "chest pain", "arm pain", "sudden weakness", "sudden confusion", "fast test", "face droop", "one side weak"],
+        // Category 3: Falls & injury
+        injury: ["bad fall", "hit head", "head injury", "bleeding", "cant get up", "can't get up", "broken", "severe pain", "fracture", "found on floor"],
+        // Category 4: Immediate danger
+        danger: ["fire", "danger", "unsafe", "violent now", "aggressive now", "weapon", "threatening", "emergency", "ambulance", "999", "112", "dying", "immediate danger", "seriously wrong"]
+      };
+
+      function normalizeQuery(str){
+        return str.toLowerCase().trim().replace(/[^\w\s]/g, '').replace(/\s+/g, ' ');
+      }
+
+      /* Escape regex special characters */
+      function escapeRegex(str){
+        return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      }
+
+      /* Check if query contains emergency intent - returns true if ANY hard token matches */
+      function hasEmergencyIntent(query){
+        const q = normalizeQuery(query);
+        if(!q) return false;
+        
+        for(const category of Object.values(EMERGENCY_TOKENS)){
+          for(const token of category){
+            // Multi-word phrases: use includes (safe, requires full phrase)
+            // Single-word tokens: use word-boundary regex to prevent "fire" matching "fireplace"
+            if(token.includes(' ')){
+              if(q.includes(token)) return true;
+            } else {
+              const escaped = escapeRegex(token);
+              const regex = new RegExp('\\b' + escaped + '\\b', 'i');
+              if(regex.test(q)) return true;
+            }
+          }
+        }
+        return false;
+      }
+
+      /* Find which specific emergency items match the query */
+      function matchEmergencyItems(query){
+        const q = normalizeQuery(query);
+        const matches = [];
+        
+        for(const item of URGENT_ITEMS){
+          let score = 0;
+          const label = normalizeQuery(item.label);
+          const sub = normalizeQuery(item.sub);
+          
+          if(label.includes(q)) score += 6;
+          if(sub.includes(q)) score += 4;
+          
+          if(item.aliases){
+            for(const alias of item.aliases){
+              if(normalizeQuery(alias).includes(q)){ score += 5; break; }
+            }
+          }
+          if(item.keywords){
+            for(const kw of item.keywords){
+              const nkw = normalizeQuery(kw);
+              if(nkw === q){ score += 3; break; }
+              else if(nkw.includes(q) || q.includes(nkw)){ score += 2; }
+            }
+          }
+          
+          if(score > 0) matches.push({ key: item.key, score, isUrgent: true });
+        }
+        
+        // Sort by score, return all matches (or general_emergency as fallback)
+        matches.sort((a, b) => b.score - a.score);
+        if(matches.length === 0){
+          // Emergency intent detected but no specific match → general emergency
+          return [{ key: 'general_emergency', score: 10, isUrgent: true }];
+        }
+        return matches;
+      }
+
+      function scoreItem(item, query){
+        if(item.isFallback) return 0;
+        
+        let score = 0;
+        const q = normalizeQuery(query);
+        if(!q) return 0;
+        
+        const label = normalizeQuery(item.label);
+        const sub = normalizeQuery(item.sub);
+        
+        if(label.includes(q)) score += 6;
+        if(sub.includes(q)) score += 4;
+        
+        if(item.aliases){
+          for(const alias of item.aliases){
+            if(normalizeQuery(alias).includes(q)){ score += 5; break; }
+          }
+        }
+        if(item.keywords){
+          for(const kw of item.keywords){
+            const nkw = normalizeQuery(kw);
+            if(nkw === q){ score += 3; break; }
+            else if(nkw.includes(q) || q.includes(nkw)){ score += 2; }
+          }
+        }
+        
+        return score;
+      }
+
+      const URGENT_THRESHOLD = 5; // Higher threshold for urgent to avoid false positives
+
+      function searchSituations(query){
+        const q = normalizeQuery(query);
+        if(!q) return [];
+        
+        /* PRIORITY 1: Emergency intent check - if detected, return ONLY urgent items */
+        if(hasEmergencyIntent(query)){
+          return matchEmergencyItems(query);
+        }
+        
+        /* PRIORITY 2: Score urgent items - only return if they genuinely match well */
+        const urgentScored = URGENT_ITEMS.map(item => ({ key: item.key, score: scoreItem(item, query), isUrgent: true }))
+                                         .filter(x => x.score > 0); // Filter out non-matches first
+        urgentScored.sort((a, b) => b.score - a.score);
+        
+        // Only return urgent items if top score meets higher threshold
+        if(urgentScored.length > 0 && urgentScored[0].score >= URGENT_THRESHOLD){
+          return urgentScored;
+        }
+        
+        /* PRIORITY 3: Normal crisis matching */
+        const keys = getSituationKeys();
+        const regularScored = keys.map(k => ({ key: k, score: scoreItem(DATA[k], query), isUrgent: false }))
+                                  .filter(x => x.score > 0)
+                                  .sort((a, b) => b.score - a.score);
+        
+        if(regularScored.length > 0 && regularScored[0].score >= SEARCH_THRESHOLD){
+          return regularScored.slice(0, 5);
+        }
+        
+        /* PRIORITY 4: Fallback */
+        return [{ key: 'fallback_not_sure', score: 0, isUrgent: false }];
+      }
+
+      function renderSuggestions(results){
+        const container = document.getElementById("search-suggestions");
+        const homeSection = document.getElementById("common-home-section");
+        
+        if(results.length === 0){
+          container.style.display = "none";
+          homeSection.style.display = "block";
+          return;
+        }
+        
+        container.style.display = "flex";
+        homeSection.style.display = "none";
+        
+        container.innerHTML = results.map(r => {
+          // Get item data from appropriate source
+          let item;
+          if(r.isUrgent){
+            item = URGENT_ITEMS.find(u => u.key === r.key);
+          } else {
+            item = DATA[r.key];
+          }
+          if(!item) return '';
+          
+          return `
+            <div class="card${r.isUrgent ? ' urgent-suggestion' : ''}" role="button" tabindex="0" data-key="${r.key}" data-urgent="${r.isUrgent}">
+                <div class="card-title">${item.label}</div>
+                <div class="card-sub">${item.sub}</div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      function handleSearchInput(e){
+        const query = e.target.value;
+        if(query.trim().length === 0){
+          renderSuggestions([]);
+        } else {
+          const results = searchSituations(query);
+          renderSuggestions(results);
+        }
       }
 
       function renderUrgentSheet(){
         const list = document.getElementById("urgent-grid-sheet");
         list.innerHTML = URGENT_ITEMS.map(it => `
           <div class="urgent-row" role="button" tabindex="0" data-urgent="${it.key}">
-            <div class="u-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                ${getIcon("alert")}
-              </svg>
-            </div>
             <div>
-              <div style="font-weight:950;font-size:15px;line-height:1.2;">${it.label}</div>
-              <div style="font-size:12px;opacity:0.62;font-weight:750;">${it.sub}</div>
+              <div style="font-weight:500;font-size:19px;line-height:1.35;margin-bottom:4px;">${it.label}</div>
+              <div style="font-size:15px;color:var(--text-muted);line-height:1.4;">${it.sub}</div>
             </div>
-            <div style="margin-left:auto;opacity:0.28;font-size:18px;">›</div>
           </div>
         `).join("");
       }
@@ -973,26 +1181,34 @@
       function toggleUrgent(show){
         const el = document.getElementById("urgent-overlay");
         if(!el) return;
+        if(!show) document.getElementById("urgent-open")?.focus();
         el.classList.toggle("active", !!show);
         el.setAttribute("aria-hidden", show ? "false" : "true");
         setBodyLock(show || isOpen("stepdown-overlay") || isOpen("info-overlay"));
+        if(show) document.getElementById("urgent-close")?.focus();
       }
 
       function toggleInfo(show){
         const el = document.getElementById("info-overlay");
         if(!el) return;
+        if(!show) document.getElementById("info-open")?.focus();
         el.classList.toggle("active", !!show);
         el.setAttribute("aria-hidden", show ? "false" : "true");
         setBodyLock(show || isOpen("stepdown-overlay") || isOpen("urgent-overlay"));
+        if(show) document.getElementById("info-close")?.focus();
       }
 
       function toggleStepdown(show){
         const el = document.getElementById("stepdown-overlay");
         if(!el) return;
+        if(!show){
+          stopSpeak();
+          document.getElementById("query")?.focus();
+        }
         el.classList.toggle("active", !!show);
         el.setAttribute("aria-hidden", show ? "false" : "true");
         setBodyLock(show || isOpen("urgent-overlay") || isOpen("info-overlay"));
-        if(!show) stopSpeak();
+        if(show) document.getElementById("stepdown-close")?.focus();
       }
 
       /* =========================
@@ -1002,11 +1218,44 @@
       let activeKey = null;
       let stepIndex = 0;
 
+      /* EXIT DECK: Single function for all exits. Returns to Home/List reliably.
+         No completion screens, no confirmations, no shame language. */
+      function exitDeck(){
+        stopSpeak();
+        activeDecks = null;
+        activeKey = null;
+        stepIndex = 0;
+        
+        // Clear search UI so home state is clean
+        const searchInput = document.getElementById("query");
+        if(searchInput) searchInput.value = "";
+        renderSuggestions([]);
+        
+        toggleStepdown(false);
+      }
+
+      /* OPEN DECK: Always resets state to ensure fresh start.
+         - stepIndex reset to 0
+         - previous card content cleared via new activeDecks/activeKey
+         - step indicator will show "Step 1 of N" for the new card */
       function openDeck(decks, key){
         if(!decks[key]) return;
+        
+        // STATE RESET: Clear previous deck state before opening new
         activeDecks = decks;
         activeKey = key;
-        stepIndex = 0;
+        stepIndex = 0;  // Always start at step 1
+        
+        // Show call button for urgent decks
+        const callBtn = document.getElementById("stepdown-call");
+        const callLabel = document.getElementById("stepdown-call-label");
+        if(decks === URGENT_DECKS){
+          callBtn.style.display = "block";
+          callLabel.textContent = `Call ${emergencyNumber}`;
+        } else {
+          callBtn.style.display = "none";
+        }
+        
         renderStep();
         toggleStepdown(true);
       }
@@ -1014,26 +1263,46 @@
       function renderStep(){
         const deck = activeDecks?.[activeKey];
         if(!deck) return;
+        
+        // BOUNDS SAFETY: If stepIndex somehow out of range, exit safely
+        if(stepIndex < 0 || stepIndex >= deck.steps.length){
+          exitDeck();
+          return;
+        }
 
         const step = deck.steps[stepIndex];
         document.getElementById("stepdown-title").textContent = deck.title;
         document.getElementById("stepdown-progress").textContent = `Step ${stepIndex+1} of ${deck.steps.length}`;
-        document.getElementById("stepdown-say").textContent = step.say;
-        document.getElementById("stepdown-do").textContent = step.do;
-
-        const dots = document.getElementById("stepdown-dots");
-        dots.innerHTML = deck.steps.map((_, i) => {
-          const on = i === stepIndex;
-          return `<div style="width:8px;height:8px;border-radius:999px;background:${on ? "rgba(242,224,193,0.95)" : "rgba(255,255,255,0.18)"};"></div>`;
-        }).join("");
+        
+        // SAY section: Show only if step.say exists and is non-empty
+        const saySection = document.getElementById("stepdown-say-section");
+        const sayText = document.getElementById("stepdown-say");
+        const doKicker = document.getElementById("stepdown-do-kicker");
+        const doText = document.getElementById("stepdown-do");
+        
+        if(step.say){
+          saySection.style.display = "block";
+          sayText.textContent = step.say;
+          doKicker.textContent = "You can do this";
+          doText.classList.remove("do-only");
+        } else {
+          saySection.style.display = "none";
+          doKicker.textContent = "Do this";
+          doText.classList.add("do-only");  // Largest text in app for DO-only steps
+        }
+        
+        // DO section: Always show if step.do exists
+        doText.textContent = step.do || "";
 
         const back = document.getElementById("stepdown-back");
         const next = document.getElementById("stepdown-next");
-        back.disabled = stepIndex === 0;
-        back.style.opacity = back.disabled ? "0.35" : "1";
+        
+        // Back disabled at first step (visual only - prevStep handles exit)
+        back.disabled = false;  // Keep enabled so it can exit
+        back.style.opacity = stepIndex === 0 ? "0.5" : "1";
 
         const isLast = stepIndex === deck.steps.length - 1;
-        next.textContent = isLast ? "Finish" : "Next";
+        next.textContent = isLast ? "Done" : "Next";
 
         stopSpeak(); // stop speech when step changes
       }
@@ -1041,11 +1310,13 @@
       function nextStep(){
         const deck = activeDecks?.[activeKey];
         if(!deck) return;
+        
         if(stepIndex < deck.steps.length - 1){
           stepIndex++;
           renderStep();
-        }else{
-          toggleStepdown(false);
+        } else {
+          // LAST STEP: Next/Done exits to home
+          exitDeck();
         }
       }
 
@@ -1053,6 +1324,9 @@
         if(stepIndex > 0){
           stepIndex--;
           renderStep();
+        } else {
+          // FIRST STEP: Back exits to home/list
+          exitDeck();
         }
       }
 
@@ -1104,7 +1378,8 @@
         }
 
         const step = deck.steps[stepIndex];
-        const text = `${deck.title}. Step ${stepIndex+1}. Words to say: ${step.say}. Do this: ${step.do}`;
+        const sayPart = step.say ? `Words to say: ${step.say}. ` : "";
+        const text = `${deck.title}. Step ${stepIndex+1}. ${sayPart}Do this: ${step.do}`;
 
         const u = new SpeechSynthesisUtterance(text);
         u.rate = 0.95;
@@ -1140,7 +1415,12 @@
         recognition.onresult = (event) => {
           const txt = event.results?.[0]?.[0]?.transcript?.trim?.() || "";
           const input = document.getElementById("query");
-          if(input && txt) input.value = txt;
+          if(input && txt){
+            input.value = txt;
+            // Trigger search
+            const results = searchSituations(txt);
+            renderSuggestions(results);
+          }
         };
 
         recognition.onend = () => {
@@ -1169,46 +1449,87 @@
       }
 
       /* =========================
-         LARGE TEXT (Aa)
+         TEL buttons (Emergency)
       ========================== */
-      const LARGE_TEXT_KEY = "kerunity_large_text";
+      let emergencyNumber = "999";
+      let adviceNumber = "111";
+      let isUK = true;
 
-      function setLargeText(on){
-        const frame = document.getElementById("app-frame");
-        frame.classList.toggle("large-text", !!on);
-
-        const btn = document.getElementById("text-toggle");
-        if(btn) btn.setAttribute("aria-pressed", on ? "true" : "false");
-
-        try{ localStorage.setItem(LARGE_TEXT_KEY, on ? "1" : "0"); }catch(_){}
-      }
-
-      function loadLargeText(){
-        try{
-          const v = localStorage.getItem(LARGE_TEXT_KEY);
-          setLargeText(v === "1");
-        }catch(_){
-          setLargeText(false);
+      function detectRegion(){
+        try {
+          const lang = navigator.language || navigator.userLanguage || "";
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+          isUK = lang.toLowerCase().includes("gb") || 
+                 lang.toLowerCase() === "en-gb" || 
+                 tz.toLowerCase().includes("london") ||
+                 tz.toLowerCase().includes("europe/london");
+        } catch(e) {
+          isUK = true; // Default to UK if detection fails
+        }
+        
+        if (isUK) {
+          emergencyNumber = "999";
+          adviceNumber = "111";
+        } else {
+          emergencyNumber = "112";
+          adviceNumber = null; // Hide advice button for non-UK
         }
       }
 
-      function toggleLargeText(){
-        const frame = document.getElementById("app-frame");
-        setLargeText(!frame.classList.contains("large-text"));
+      function setupEmergencyPanel(){
+        detectRegion();
+        
+        const emergencyBtn = document.getElementById("call-emergency");
+        const adviceBtn = document.getElementById("call-advice");
+        const emergencyNumEl = document.getElementById("emergency-number");
+        
+        emergencyNumEl.textContent = `Call ${emergencyNumber}`;
+        
+        if (!isUK || !adviceNumber) {
+          adviceBtn.style.display = "none";
+          emergencyBtn.style.flex = "1";
+        }
       }
 
-      /* =========================
-         TEL buttons (999 / 111)
-      ========================== */
-      function callNumber(num){
-        // In desktop browsers this may do nothing; on mobile it should open the dialer.
-        window.location.href = `tel:${num}`;
+      function callEmergency(){
+        window.location.href = `tel:${emergencyNumber}`;
+      }
+
+      function callAdvice(){
+        if (adviceNumber) {
+          window.location.href = `tel:${adviceNumber}`;
+        }
       }
 
       /* =========================
          WIRING
       ========================== */
       function wire(){
+        // search input
+        const searchInput = document.getElementById("query");
+        searchInput.addEventListener("input", handleSearchInput);
+        
+        // search suggestions clicks
+        const suggestions = document.getElementById("search-suggestions");
+        suggestions.addEventListener("click", (e) => {
+          const card = e.target.closest(".card");
+          if(!card) return;
+          const isUrgent = card.dataset.urgent === "true";
+          openDeck(isUrgent ? URGENT_DECKS : CRISIS_DECKS, card.dataset.key);
+          searchInput.value = "";
+          renderSuggestions([]);
+        });
+        suggestions.addEventListener("keydown", (e) => {
+          if(e.key !== "Enter" && e.key !== " ") return;
+          const card = e.target.closest(".card");
+          if(!card) return;
+          e.preventDefault();
+          const isUrgent = card.dataset.urgent === "true";
+          openDeck(isUrgent ? URGENT_DECKS : CRISIS_DECKS, card.dataset.key);
+          searchInput.value = "";
+          renderSuggestions([]);
+        });
+
         // home tiles (no input flicker)
         const grid = document.getElementById("grid-container");
         grid.addEventListener("click", (e) => {
@@ -1226,7 +1547,6 @@
 
         // urgent open/close
         document.getElementById("urgent-open").addEventListener("click", () => toggleUrgent(true));
-        document.getElementById("urgent-open-2").addEventListener("click", () => toggleUrgent(true));
         document.getElementById("urgent-close").addEventListener("click", () => toggleUrgent(false));
         document.getElementById("urgent-overlay").addEventListener("click", (e) => {
           if(e.target.id === "urgent-overlay") toggleUrgent(false);
@@ -1252,8 +1572,13 @@
         // stepdown controls
         document.getElementById("stepdown-next").addEventListener("click", nextStep);
         document.getElementById("stepdown-back").addEventListener("click", prevStep);
-        document.getElementById("stepdown-done").addEventListener("click", () => toggleStepdown(false));
-        document.getElementById("stepdown-close").addEventListener("click", () => toggleStepdown(false));
+        document.getElementById("stepdown-done").addEventListener("click", exitDeck);  // Done = exit to home
+        document.getElementById("stepdown-close").addEventListener("click", exitDeck); // Close = exit to home
+        document.getElementById("stepdown-call").addEventListener("click", callEmergency);
+        document.getElementById("stepdown-emergency").addEventListener("click", () => {
+          toggleStepdown(false);
+          toggleUrgent(true);
+        });
         document.getElementById("stepdown-overlay").addEventListener("click", (e) => {
           if(e.target.id === "stepdown-overlay") toggleStepdown(false);
         });
@@ -1264,8 +1589,7 @@
         // mic
         document.getElementById("mic-btn").addEventListener("click", toggleMic);
 
-        // Aa + Info
-        document.getElementById("text-toggle").addEventListener("click", toggleLargeText);
+        // Info
         document.getElementById("info-open").addEventListener("click", () => toggleInfo(true));
         document.getElementById("info-close").addEventListener("click", () => toggleInfo(false));
         document.getElementById("info-overlay").addEventListener("click", (e) => {
@@ -1273,8 +1597,11 @@
         });
 
         // 999 / 111
-        document.getElementById("call-999").addEventListener("click", () => callNumber("999"));
-        document.getElementById("call-111").addEventListener("click", () => callNumber("111"));
+        document.getElementById("call-emergency").addEventListener("click", callEmergency);
+        document.getElementById("call-advice").addEventListener("click", callAdvice);
+
+        // View all situations
+        document.getElementById("view-all-btn").addEventListener("click", toggleViewAll);
 
         // global Escape closes the topmost overlay
         document.addEventListener("keydown", (e) => {
@@ -1288,8 +1615,8 @@
       document.addEventListener("DOMContentLoaded", () => {
         renderHome();
         renderUrgentSheet();
+        setupEmergencyPanel();
         initSpeechRecognition();
-        loadLargeText();
 
         // voices often load async
         if("speechSynthesis" in window){

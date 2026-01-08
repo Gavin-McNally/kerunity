@@ -1,31 +1,17 @@
-# Kerunity Widget Guardrails (READ FIRST)
+# Cursor Rules — Kerunity
 
-## What this is
-This repo is a SINGLE-FILE HTML widget that must run inside the ChatGPT Apps SDK environment.
-We are NOT building a full app yet.
+You MUST read `KERUNITY_CONTEXT.md` before making any changes.
 
-## Hard rules (do not violate)
-- Do NOT introduce React, Next.js, Vite, bundlers, build steps, or frameworks.
-- Do NOT add routing, multiple pages, or complex folder structures.
-- Do NOT add databases, auth, payment, or backend APIs.
-- Keep the UI as a single static file: `web/index.html` (CSS + JS inside it).
-- Avoid heavy libraries; prefer vanilla JS.
-- Any change must preserve:
-  - Tiles render correctly
-  - Urgent Help opens/closes
-  - Info/Disclaimer opens/closes
-  - Aa large text toggle works
-  - Crisis Card stepdown opens from tiles and works (Back/Next/Done)
-  - No “runaway refactors”
+## Hard rules
+- Do not add visual noise (no gradients/textures/fancy shapes).
+- Do not reduce font sizes or touch targets.
+- Implement motion ONLY if subtle + calming + respects `prefers-reduced-motion`.
+- Do not add dependencies unless asked.
+- Keep `/web/index.html` as the main UI file unless explicitly told otherwise.
+- Never introduce medical advice, diagnosis, prescriptions, or panic language.
 
-## Allowed improvements
-- Accessibility, readability, tap targets, contrast
-- Bug fixes
-- Small UI refinements
-- Add/adjust situations and copy
-- Keep performance fast and stable
-
-## Workflow rules
-- Make small changes.
-- After each change: refresh preview and confirm the 5 core interactions still work.
-- If something breaks: revert immediately (git or undo) and redo smaller.
+## Working style
+- Make the smallest safe change that improves calm + clarity.
+- Prefer single, clean patches.
+- Always preserve accessibility and contrast.
+- If unsure, propose 2 options with tradeoffs (don’t guess silently).

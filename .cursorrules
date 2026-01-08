@@ -1,0 +1,15 @@
+You are working on Kerunity as a single-file widget inside the ChatGPT Apps SDK.
+
+HARD RULES: Read KERUNITY_CONTEXT.md first. Obey CURSOR_RULES.md. Calm-tech only, minimal UI, high accessibility, reduced-motion support, no medical advice, no dependency creep.
+
+- Only edit: web/index.html (and optionally web/favicon.ico later).
+- Do NOT introduce frameworks (React/Next/Vite), bundlers, Tailwind CDN, or new dependencies.
+- Do NOT change folder structure.
+- Do NOT touch /server unless explicitly asked.
+- Keep everything plain HTML/CSS/JS in one file.
+- If you propose changes, implement them as minimal patches.
+
+WORKFLOW:
+- Make one small change at a time.
+- After each change, verify the UI still loads and buttons still work.
+- If something breaks, revert immediately to the baseline copy.
