@@ -6,11 +6,14 @@
 
     <style>
       :root{
-        --bg:#1a1a1a;
-        --surface:#262626;
-        --surface-hover:#2e2e2e;
+        --bg:#0e0e0e;
+        --surface:#1a1a1a;
+        --surface-hover:#222222;
+        --border:rgba(255,255,255,0.12);
+        --border-strong:rgba(255,255,255,0.18);
         --text:#e8e6e3;
-        --text-muted:#a0a0a0;
+        --text-soft:#c8c6c3;
+        --text-muted:#8a8a8a;
         --warm:#c4a882;
         --emergency:#a85a4e;
         --radius:12px;
@@ -42,29 +45,35 @@
         position:relative;
       }
       #app-content{ height:100%; display:flex; flex-direction:column; }
-
       /* Header */
       header{
-        padding:20px 28px 16px;
-        padding-top:calc(env(safe-area-inset-top) + 36px);
+        padding:20px 24px 16px;
+        padding-top:calc(env(safe-area-inset-top) + 44px);
         flex-shrink:0;
+      }
+      @media (min-width:360px){
+        header{ padding-left:32px; padding-right:32px; }
+      }
+      @media (min-width:400px){
+        header{ padding-left:40px; padding-right:40px; }
       }
       .header-row{
         display:flex;
         justify-content:space-between;
         align-items:center;
-        margin-bottom:16px;
-        gap:12px;
+        margin-bottom:20px;
+        gap:14px;
       }
       .brand{
-        font-weight:500;
-        font-size:19px;
-        color:var(--text);
+        font-weight:400;
+        font-size:16px;
+        color:var(--text-soft);
+        letter-spacing:0.2px;
       }
       .header-actions{
         display:flex;
         align-items:center;
-        gap:8px;
+        gap:10px;
       }
       .header-actions .pill{ height:48px; min-width:48px; padding:0 14px; }
 
@@ -74,7 +83,7 @@
         min-width:48px;
         padding:0 16px;
         border-radius:var(--radius);
-        border:none;
+        border:1px solid var(--border);
         background:var(--surface);
         color:var(--text);
         font-size:16px;
@@ -89,6 +98,35 @@
       .pill:active{ opacity:0.7; }
       .pill[disabled]{ cursor:default; opacity:0.4; }
       .pill.active{ background:var(--surface-hover); }
+      
+      /* Ghost/outline buttons - transparent bg, subtle border */
+      .pill-outline{
+        background:transparent;
+        border:1px solid var(--border-strong);
+      }
+      .pill-outline:active{ background:rgba(255,255,255,0.03); }
+
+      /* System controls: escape hatches, context, close buttons - no border */
+      .pill-ghost{
+        background:var(--surface);
+        border:none;
+      }
+      .pill-ghost:hover{ background:var(--surface-hover); }
+      .pill-ghost:active{ background:var(--surface); opacity:0.8; }
+      .pill-ghost:focus{ outline:none; }
+      .pill-ghost:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
+
+      /* Emergency tab on home - text only with subtle glow */
+      .emergency-tab{
+        background:transparent;
+        border:none;
+        color:var(--emergency);
+        font-weight:500;
+      }
+      .emergency-tab:hover{ background:rgba(168,90,78,0.1); }
+      .emergency-tab:active{ opacity:0.8; }
+      .emergency-tab:focus{ outline:none; }
+      .emergency-tab:focus-visible{ outline:2px solid var(--emergency); outline-offset:2px; }
 
       .emergency-call-btn{
         background:var(--emergency);
@@ -96,6 +134,13 @@
         font-weight:500;
       }
       .emergency-call-btn:active{ opacity:0.8; }
+
+      .nhs-advice-btn{
+        background:#005EB8;
+        color:#fff;
+        font-weight:500;
+      }
+      .nhs-advice-btn:active{ opacity:0.8; }
 
       .emergency-btn{
         color:var(--emergency);
@@ -105,31 +150,54 @@
 
       .icon-btn{ width:44px; padding:0; justify-content:center; }
 
+      /* Minimal icon button - just the icon, no background */
+      .icon-btn-minimal{
+        background:transparent;
+        border:none;
+        padding:8px;
+        color:var(--text-muted);
+        cursor:pointer;
+        border-radius:50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+      }
+      .icon-btn-minimal:hover{ color:var(--text); }
+      .icon-btn-minimal:active{ opacity:0.7; }
+      .icon-btn-minimal:focus{ outline:none; }
+      .icon-btn-minimal:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
+
       .subtitle{
         font-size:17px;
-        color:var(--text);
+        color:var(--text-soft);
         font-weight:400;
         line-height:1.6;
-        margin:0 0 24px;
+        margin:36px 0 32px;
       }
 
       /* Canvas */
       .canvas{
         flex:1;
         overflow-y:auto;
-        padding:0 28px;
-        padding-bottom:calc(env(safe-area-inset-bottom) + 24px);
+        padding:0 24px;
+        padding-bottom:calc(env(safe-area-inset-bottom) + 32px);
         scrollbar-width:none;
         -ms-overflow-style:none;
       }
+      @media (min-width:360px){
+        .canvas{ padding-left:32px; padding-right:32px; }
+      }
+      @media (min-width:400px){
+        .canvas{ padding-left:40px; padding-right:40px; }
+      }
       .canvas::-webkit-scrollbar{ width:0; height:0; }
 
-      .search-box{ margin:0 0 32px; position:relative; }
+      .search-box{ margin:0 0 36px; position:relative; }
       .search-input{
         width:100%;
         height:60px;
-        background:var(--surface);
-        border:1px solid #333;
+        background:transparent;
+        border:1px solid var(--border-strong);
         border-radius:var(--radius);
         padding:0 56px 0 18px;
         color:var(--text);
@@ -137,7 +205,7 @@
         font-weight:400;
         outline:none;
       }
-      .search-input:focus{ border-color:#555; }
+      .search-input:focus{ border-color:rgba(255,255,255,0.28); }
       .search-input::placeholder{ color:var(--text-muted); }
 
       .mic-btn{
@@ -160,6 +228,7 @@
         color:var(--text); 
         background:rgba(255,255,255,0.08);
         animation:mic-breathe 2.2s ease-in-out infinite;
+        animation-delay:200ms;
       }
       @keyframes mic-breathe{
         0%, 100%{ box-shadow:0 0 0 0 rgba(196, 168, 130, 0); }
@@ -176,30 +245,32 @@
         color:var(--text-muted);
         font-size:14px;
         font-weight:400;
-        margin:0 0 14px;
+        margin:0 0 18px;
       }
       .dot-green{ display:none; }
 
       .room-container{
         display:flex;
         flex-direction:column;
-        gap:12px;
-        margin-bottom:16px;
+        gap:14px;
+        margin-bottom:20px;
       }
       .room-container::before{ display:none; }
 
       .card{
         background:var(--surface);
+        border:none;
         border-radius:var(--radius);
-        padding:18px;
+        padding:20px;
         cursor:pointer;
+        box-shadow:0 0 0 1px rgba(255,255,255,0.04);
       }
       .card:focus{ outline:2px solid var(--warm); outline-offset:2px; }
       .card:active{ background:var(--surface-hover); }
 
       .glyph{ display:none; }
-      .card-title{ font-size:19px; font-weight:500; line-height:1.35; color:var(--text); margin-bottom:4px; }
-      .card-sub{ font-size:15px; font-weight:400; color:var(--text-muted); line-height:1.4; }
+      .card-title{ font-size:21px; font-weight:500; line-height:1.35; color:var(--text); margin-bottom:8px; }
+      .card-sub{ font-size:15px; font-weight:400; color:var(--text-muted); line-height:1.4; opacity:0.65; }
 
       .view-all-btn{
         width:100%;
@@ -220,22 +291,29 @@
       .sheet-backdrop{
         position:absolute;
         inset:0;
-        background:rgba(0,0,0,0.7);
+        background:rgba(0,0,0,0.88);
         z-index:100;
         opacity:0;
         pointer-events:none;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:24px;
       }
       .sheet-backdrop.active{ opacity:1; pointer-events:auto; }
       .sheet{
-        position:absolute;
-        bottom:0; left:0; right:0;
         background:var(--bg);
-        border-radius:16px 16px 0 0;
-        padding:24px;
-        padding-bottom:calc(env(safe-area-inset-bottom) + 24px);
-        transform:translateY(100%);
+        border:1px solid var(--border-strong);
+        border-radius:20px;
+        padding:32px 28px;
+        max-width:380px;
+        width:100%;
+        max-height:80vh;
+        overflow-y:auto;
+        scrollbar-width:none;
+        -ms-overflow-style:none;
       }
-      .sheet-backdrop.active .sheet{ transform:translateY(0); }
+      .sheet::-webkit-scrollbar{ width:0; height:0; }
 
       /* Emergency: Full screen takeover, solid background */
       .emergency-backdrop{
@@ -256,10 +334,16 @@
         background:var(--bg);
         display:flex;
         flex-direction:column;
-        padding:24px;
-        padding-top:calc(env(safe-area-inset-top) + 16px);
-        padding-bottom:calc(env(safe-area-inset-bottom) + 24px);
+        padding:32px;
+        padding-top:calc(env(safe-area-inset-top) + 24px);
+        padding-bottom:calc(env(safe-area-inset-bottom) + 32px);
       }
+      /* Hide scrollbar in emergency screen */
+      .emergency-scroll{
+        scrollbar-width:none;
+        -ms-overflow-style:none;
+      }
+      .emergency-scroll::-webkit-scrollbar{ width:0; height:0; }
 
       .sheet-title{
         color:var(--text);
@@ -272,14 +356,16 @@
         width:100%;
         display:flex;
         align-items:center;
-        gap:14px;
-        padding:18px;
+        gap:16px;
+        padding:20px;
         background:var(--surface);
+        border:none;
         border-radius:var(--radius);
-        margin-bottom:12px;
+        margin-bottom:14px;
         text-align:left;
         color:var(--text);
         cursor:pointer;
+        box-shadow:0 0 0 1px rgba(255,255,255,0.04);
       }
       .urgent-row:focus{ outline:2px solid var(--warm); outline-offset:2px; }
       .urgent-row:active{ background:var(--surface-hover); }
@@ -306,7 +392,7 @@
         flex-direction:column;
         padding:24px 40px;
         padding-top:calc(env(safe-area-inset-top) + 28px);
-        padding-bottom:calc(env(safe-area-inset-bottom) + 20px);
+        padding-bottom:calc(env(safe-area-inset-bottom) + 40px);
       }
       .stepdown-backdrop.active .stepdown-screen{
         opacity:1;
@@ -315,7 +401,7 @@
       .stepdown-body{
         flex:1;
         overflow:auto;
-        padding:16px 0;
+        padding:24px 0;
         scrollbar-width:none;
         -ms-overflow-style:none;
         display:flex;
@@ -347,7 +433,7 @@
       }
       .divider{
         height:1px;
-        background:#333;
+        background:var(--border);
         margin:24px 0;
       }
       .do-text{
@@ -398,7 +484,8 @@
       }
 
       .stepdown-footer{
-        padding-top:16px;
+        padding-top:28px;
+        padding-bottom:8px;
       }
 
       /* Switch link style (used in footer) */
@@ -420,33 +507,64 @@
 
       /* Continue chip (home screen resume shortcut) - passive memory, not action */
       .continue-chip{
-        padding:0 28px;
-        margin-bottom:16px;
+        padding:0 32px;
+        margin-bottom:20px;
+        text-align:center;
       }
       .continue-btn{
-        width:100%;
-        display:flex;
+        display:inline-flex;
         flex-direction:column;
-        align-items:flex-start;
-        gap:3px;
-        padding:14px 18px;
-        background:rgba(255, 255, 255, 0.03);
-        border:1px solid rgba(255, 255, 255, 0.06);
-        border-radius:var(--radius);
+        align-items:center;
+        gap:2px;
+        padding:12px 24px 14px;
+        min-width:180px;
+        max-width:260px;
+        background:transparent;
+        border:1px solid var(--border);
+        border-bottom:none;
+        border-radius:10px 10px 0 0;
         cursor:pointer;
-        text-align:left;
+        text-align:center;
+        position:relative;
       }
-      .continue-btn:hover{ background:rgba(255, 255, 255, 0.05); }
-      .continue-btn:active{ opacity:0.8; }
+      /* Left curve - Chrome tab style */
+      .continue-btn::before{
+        content:"";
+        position:absolute;
+        left:-8px;
+        bottom:0;
+        width:8px;
+        height:8px;
+        background:transparent;
+        border-bottom-right-radius:8px;
+        box-shadow:4px 0 0 0 var(--bg);
+        border-right:1px solid var(--border);
+        border-bottom:1px solid var(--border);
+      }
+      /* Right curve - Chrome tab style */
+      .continue-btn::after{
+        content:"";
+        position:absolute;
+        right:-8px;
+        bottom:0;
+        width:8px;
+        height:8px;
+        background:transparent;
+        border-bottom-left-radius:8px;
+        box-shadow:-4px 0 0 0 var(--bg);
+        border-left:1px solid var(--border);
+        border-bottom:1px solid var(--border);
+      }
+      .continue-btn:active{ opacity:0.85; }
       .continue-label{
         font-size:14px;
         color:var(--text-muted);
         font-weight:400;
       }
       .continue-detail{
-        font-size:15px;
-        color:var(--text);
-        font-weight:500;
+        font-size:14px;
+        color:var(--text-muted);
+        font-weight:400;
       }
 
       /* Post-emergency reassurance */
@@ -488,11 +606,11 @@
       .resume-backdrop{
         position:fixed;
         inset:0;
-        background:rgba(0,0,0,0.75);
+        background:rgba(0,0,0,0.88);
         display:flex;
         align-items:center;
         justify-content:center;
-        padding:24px;
+        padding:32px;
         opacity:0;
         pointer-events:none;
         transition:opacity 0.15s ease;
@@ -503,45 +621,46 @@
         pointer-events:auto;
       }
       .resume-sheet{
-        background:var(--surface);
-        border-radius:var(--radius);
-        padding:28px 24px;
-        max-width:320px;
+        background:var(--bg);
+        border:1px solid var(--border-strong);
+        border-radius:20px;
+        padding:32px 28px;
+        max-width:340px;
         width:100%;
         text-align:center;
       }
       .resume-title{
-        font-size:18px;
+        font-size:19px;
         font-weight:500;
         color:var(--text);
-        margin-bottom:8px;
+        margin-bottom:12px;
       }
       .resume-sub{
-        font-size:15px;
+        font-size:16px;
         color:var(--text-muted);
-        margin-bottom:8px;
+        margin-bottom:6px;
       }
       .resume-hint{
-        font-size:13px;
+        font-size:14px;
         color:var(--text-muted);
-        opacity:0.7;
-        margin-bottom:20px;
+        opacity:0.8;
+        margin-bottom:28px;
       }
       .resume-buttons{
         display:flex;
         flex-direction:column;
-        gap:12px;
+        gap:14px;
       }
 
       /* Post-completion follow-up */
       .followup-backdrop{
         position:fixed;
         inset:0;
-        background:rgba(0,0,0,0.85);
+        background:rgba(0,0,0,0.88);
         display:flex;
         align-items:center;
         justify-content:center;
-        padding:24px;
+        padding:32px;
         opacity:0;
         pointer-events:none;
         transition:opacity 0.2s ease;
@@ -552,53 +671,86 @@
         pointer-events:auto;
       }
       .followup-card{
-        background:var(--surface);
-        border-radius:16px;
-        padding:28px 24px;
+        background:var(--bg);
+        border:1px solid var(--border-strong);
+        border-radius:20px;
+        padding:36px 32px 40px;
         width:100%;
-        max-width:340px;
+        max-width:360px;
         text-align:center;
+        position:relative;
       }
+      .followup-card-minimal{
+        background:transparent;
+        padding:20px 28px;
+        max-width:280px;
+      }
+      .followup-close{
+        position:absolute;
+        top:12px;
+        right:12px;
+        width:36px;
+        height:36px;
+        border-radius:50%;
+        border:none;
+        background:transparent;
+        color:var(--text-muted);
+        cursor:pointer;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+      }
+      .followup-close:hover{ background:rgba(255,255,255,0.05); }
+      .followup-close:active{ opacity:0.7; }
       .followup-title{
-        font-size:20px;
+        font-size:19px;
         font-weight:500;
         color:var(--text);
-        margin-bottom:24px;
+        margin-bottom:28px;
+        line-height:1.4;
       }
       .followup-buttons{
         display:flex;
         flex-direction:column;
-        gap:12px;
+        gap:16px;
       }
       .followup-btn{
         width:100%;
-        height:52px;
+        height:56px;
         border-radius:var(--radius);
-        border:1px solid rgba(255,255,255,0.12);
+        border:1px solid var(--border-strong);
         background:transparent;
         color:var(--text);
         font-size:16px;
         font-weight:500;
         cursor:pointer;
-        transition:background 0.15s ease;
+        transition:all 0.15s ease;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
       }
-      .followup-btn:active{ opacity:0.8; }
-      .followup-btn.calmer{ border-color:rgba(130, 180, 130, 0.3); }
-      .followup-btn.calmer:hover{ background:rgba(130, 180, 130, 0.1); }
-      .followup-btn.same{ border-color:rgba(180, 170, 130, 0.3); }
-      .followup-btn.same:hover{ background:rgba(180, 170, 130, 0.1); }
-      .followup-btn.worse{ border-color:rgba(var(--emergency), 0.3); border-color:rgba(168, 90, 78, 0.3); }
-      .followup-btn.worse:hover{ background:rgba(168, 90, 78, 0.1); }
+      .followup-btn:active{ transform:scale(0.98); opacity:0.9; }
+      .followup-btn::before{
+        content:"";
+        width:8px;
+        height:8px;
+        border-radius:50%;
+        flex-shrink:0;
+      }
+      .followup-btn.calmer::before{ background:#7ab37a; }
+      .followup-btn.same::before{ background:#b8a86a; }
+      .followup-btn.worse::before{ background:#b36a5a; }
       .followup-response-text{
-        font-size:17px;
+        font-size:18px;
         color:var(--text);
         line-height:1.5;
-        margin-bottom:24px;
+        margin-bottom:32px;
       }
       .followup-response-buttons{
         display:flex;
         flex-direction:column;
-        gap:12px;
+        gap:16px;
       }
 
       .muted-link{
@@ -636,7 +788,7 @@
         white-space:nowrap;
       }
       .listen-btn:active{ opacity:0.7; }
-      .listen-btn.speaking{ background:#333; }
+      .listen-btn.speaking{ background:var(--surface-hover); }
       /* Listen as support role - more subtle */
       .listen-btn.listen-secondary{
         height:44px;
@@ -680,14 +832,14 @@
             <div class="brand">Kerunity</div>
 
             <div class="header-actions">
-              <button class="pill icon-btn" id="info-open" type="button" aria-label="Info">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <button class="icon-btn-minimal" id="info-open" type="button" aria-label="Info">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <circle cx="12" cy="12" r="10"></circle>
                   <path d="M12 16v-4"></path>
                   <path d="M12 8h.01"></path>
                 </svg>
               </button>
-              <button class="pill emergency-btn" type="button" id="urgent-open">Emergency</button>
+              <button class="pill emergency-tab" type="button" id="urgent-open">Emergency</button>
             </div>
           </div>
 
@@ -711,7 +863,7 @@
                 <line x1="12" x2="12" y1="19" y2="22"></line>
               </svg>
             </button>
-          </div>
+            </div>
 
           <div id="search-suggestions" class="room-container" style="display:none;"></div>
 
@@ -739,9 +891,9 @@
             <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;padding:6px 0;">
               <div style="flex:1;min-width:0;">
                 <div id="stepdown-title" style="font-size:18px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Situation</div>
-                <div id="stepdown-progress" style="font-size:16px;color:#b5b5b5;margin-top:6px;">Step 1 of 4</div>
+                <div id="stepdown-progress" style="font-size:16px;color:var(--text-muted);margin-top:6px;">Step 1 of 4</div>
               </div>
-              <button id="stepdown-close" class="pill" type="button" aria-label="Close" style="flex-shrink:0;">Close</button>
+              <button id="stepdown-close" class="pill pill-ghost" type="button" aria-label="Close" style="flex-shrink:0;">Close</button>
             </div>
 
             <div class="stepdown-body">
@@ -761,43 +913,40 @@
                 </div>
                 <div id="stepdown-do-kicker" class="kicker">You can do this</div>
                 <div id="stepdown-do" class="do-text"></div>
+                </div>
               </div>
-            </div>
 
             <div class="stepdown-footer">
               <!-- URGENT MODE: Call + Listen in footer -->
-              <button id="stepdown-call" class="pill emergency-call-btn" type="button" style="display:none;width:100%;height:56px;font-size:18px;margin-bottom:12px;">
+              <button id="stepdown-call" class="pill emergency-call-btn" type="button" style="display:none;width:100%;height:56px;font-size:18px;margin-bottom:24px;">
                 <span id="stepdown-call-label"></span>
               </button>
-              <button id="listen-btn" class="listen-btn listen-secondary" type="button" aria-label="Listen" style="display:none;width:100%;margin-bottom:12px;">
+              <button id="listen-btn" class="listen-btn listen-secondary" type="button" aria-label="Listen" style="display:none;width:100%;margin-bottom:20px;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M11 5 6 9H2v6h4l5 4V5Z"></path>
-                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                </svg>
-                <span class="listen-label">Listen</span>
-              </button>
+                    <path d="M11 5 6 9H2v6h4l5 4V5Z"></path>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                  </svg>
+                  <span class="listen-label">Listen</span>
+                </button>
 
               <!-- CRISIS MODE: Back to situations link (above nav) -->
-              <div id="back-to-situations" style="display:none;text-align:center;margin:16px 0 14px;">
+              <div id="back-to-situations" style="display:none;text-align:center;margin:24px 0 20px;">
                 <button id="switch-situation" class="switch-link" type="button" aria-label="Back to situations list">Back to situations</button>
-              </div>
+            </div>
 
               <!-- Navigation: Back / Next -->
-              <div style="display:flex;gap:12px;margin-bottom:18px;">
-                <button id="stepdown-back" class="pill" type="button" style="flex:1;">Back</button>
-                <button id="stepdown-next" class="pill" type="button" style="flex:1;">Next</button>
-              </div>
+              <div style="display:flex;gap:14px;margin-bottom:24px;">
+                <button id="stepdown-back" class="pill pill-outline" type="button" style="flex:1;">Back</button>
+                <button id="stepdown-next" class="pill pill-outline" type="button" style="flex:1;">Next</button>
+            </div>
 
               <!-- URGENT MODE: Back to emergency list -->
-              <div id="back-to-urgent" style="display:none;text-align:center;margin-bottom:14px;">
+              <div id="back-to-urgent" style="display:none;text-align:center;margin-bottom:20px;">
                 <button id="back-to-urgent-btn" class="switch-link" type="button" aria-label="Back to emergency list">Wrong emergency? Back to list</button>
-              </div>
+            </div>
 
-              <!-- CRISIS MODE: Hint + Emergency (hint directly above button) -->
-              <div id="crisis-footer-hint" style="display:none;text-align:center;color:#b8b8b8;font-size:14px;line-height:1.3;margin:0 0 10px;">
-                If things get worse, tap Emergency.
-              </div>
-              <button id="stepdown-emergency" class="pill emergency-btn" type="button" style="display:none;width:100%;height:48px;">Emergency</button>
+              <!-- CRISIS MODE: Emergency button (no hint text - button speaks for itself) -->
+              <button id="stepdown-emergency" class="pill pill-outline emergency-btn" type="button" style="display:none;width:100%;height:48px;margin-top:8px;">Emergency</button>
             </div>
           </div>
         </div>
@@ -808,24 +957,24 @@
             <!-- Header: title left, close right -->
             <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;">
               <div style="font-size:18px;font-weight:500;color:var(--text);">Emergency</div>
-              <button id="urgent-close" class="pill" type="button" aria-label="Close" style="flex-shrink:0;">Close</button>
+              <button id="urgent-close" class="pill pill-ghost" type="button" aria-label="Close" style="flex-shrink:0;">Close</button>
         </div>
 
-            <div style="flex:1;overflow-y:auto;">
+            <div class="emergency-scroll" style="flex:1;overflow-y:auto;">
               <div id="emergency-hint" style="font-size:17px;color:var(--text);margin-bottom:24px;line-height:1.5;">
                 If someone is in immediate danger, call now.
             </div>
 
               <div id="call-buttons" style="display:flex;gap:14px;margin-bottom:32px;">
-                <button id="call-emergency" type="button" class="pill emergency-call-btn" style="flex:1;height:88px;flex-direction:column;gap:8px;border:1px solid rgba(255,255,255,0.08);">
-                  <span id="emergency-number" style="font-size:26px;font-weight:500;"></span>
-                  <span style="font-size:14px;opacity:0.7;">Emergency</span>
-                </button>
-                <button id="call-advice" type="button" class="pill" style="flex:1;height:88px;flex-direction:column;gap:8px;border:1px solid rgba(255,255,255,0.1);">
-                  <span id="advice-number" style="font-size:26px;font-weight:500;"></span>
-                  <span style="font-size:14px;color:var(--text-muted);">Medical advice</span>
-                </button>
-              </div>
+                <button id="call-emergency" type="button" class="pill emergency-call-btn" style="flex:1;height:88px;flex-direction:column;gap:6px;">
+                  <span id="emergency-number" style="font-size:24px;font-weight:600;"></span>
+                  <span style="font-size:14px;opacity:0.75;">Emergency</span>
+              </button>
+                <button id="call-advice" type="button" class="pill nhs-advice-btn" style="flex:1;height:88px;flex-direction:column;gap:6px;">
+                  <span id="advice-number" style="font-size:24px;font-weight:600;"></span>
+                  <span style="font-size:14px;opacity:0.75;">Medical advice</span>
+              </button>
+            </div>
 
               <div style="font-size:14px;color:var(--text-muted);margin-bottom:12px;">Safety checks</div>
             <div id="urgent-grid-sheet"></div>
@@ -836,31 +985,43 @@
         <!-- Info sheet -->
         <div id="info-overlay" class="sheet-backdrop" aria-hidden="true">
           <div class="sheet" role="dialog" aria-modal="true" aria-label="Info">
-            <div class="sheet-title">About this app</div>
-
-            <div style="color:var(--text);line-height:1.6;margin-bottom:20px;">
-              Kerunity offers calm, step-by-step guidance for carers.
+            
+            <!-- Header -->
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px;">
+              <div style="font-size:19px;font-weight:500;color:var(--text);">About Kerunity</div>
+              <button id="info-close" class="pill pill-ghost" type="button" style="flex-shrink:0;height:40px;padding:0 16px;font-size:15px;">Close</button>
             </div>
 
-            <div style="color:var(--text-muted);line-height:1.7;font-size:15px;margin-bottom:24px;">
-              <p id="info-emergency-line" style="margin:0 0 12px;"></p>
-              <p style="margin:0 0 12px;">This is guidance, not medical advice.</p>
-              <p style="margin:0 0 12px;">Keep everyone safe. Step away if you need to.</p>
-              <p style="margin:0;">Tap Emergency for safety checks.</p>
+            <!-- Main description -->
+            <div style="font-size:17px;color:var(--text);line-height:1.5;margin-bottom:32px;">
+              Calm, step-by-step guidance for carers.
             </div>
 
-            <div style="border-top:1px solid #333;padding-top:20px;margin-bottom:16px;">
-              <div style="font-size:14px;font-weight:500;color:var(--text);margin-bottom:12px;">Your privacy</div>
-              <div style="color:var(--text-muted);line-height:1.7;font-size:14px;">
-                <p style="margin:0 0 10px;">Your voice is never recorded.</p>
-                <p style="margin:0 0 10px;">This app does not track you.</p>
+            <!-- Safety notes -->
+            <div style="margin-bottom:28px;">
+              <p id="info-emergency-line" style="margin:0 0 20px;color:var(--text);font-size:16px;font-weight:500;line-height:1.5;"></p>
+              <div style="color:var(--text-muted);line-height:1.8;font-size:15px;">
+                <p style="margin:0 0 12px;">This is guidance, not medical advice.</p>
+                <p style="margin:0 0 12px;">Keep everyone safe. Step away if you need to.</p>
+                <p style="margin:0;">Tap Emergency for safety checks.</p>
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div style="height:1px;background:var(--border);margin-bottom:28px;"></div>
+
+            <!-- Privacy section -->
+            <div>
+              <div style="font-size:16px;font-weight:500;color:var(--text);margin-bottom:16px;">Your privacy</div>
+              <div style="color:var(--text-muted);line-height:1.8;font-size:15px;">
+                <p style="margin:0 0 12px;">Your voice is never recorded.</p>
+                <p style="margin:0 0 12px;">This app does not track you.</p>
                 <p style="margin:0;">If you use this inside ChatGPT, OpenAI may save what you type.</p>
               </div>
-              </div>
-
-            <button id="info-close" class="muted-link" type="button">Close</button>
-              </div>
             </div>
+
+          </div>
+        </div>
 
         <!-- Toast notification (replaces native alert) -->
         <div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -872,8 +1033,8 @@
             <div id="resume-step" class="resume-sub">Step 4</div>
             <div class="resume-hint">Only if this is still the same situation.</div>
             <div class="resume-buttons">
-              <button id="resume-continue" class="pill" type="button" style="flex:1;height:48px;">Continue</button>
-              <button id="resume-restart" class="pill" type="button" style="flex:1;height:48px;background:transparent;border:1px solid rgba(255,255,255,0.15);">Start from Step 1</button>
+              <button id="resume-continue" class="pill pill-outline" type="button" style="width:100%;height:56px;font-size:16px;">Continue</button>
+              <button id="resume-restart" class="pill pill-outline" type="button" style="width:100%;height:56px;font-size:16px;">Start from Step 1</button>
             </div>
           </div>
         </div>
@@ -881,6 +1042,12 @@
         <!-- Post-completion follow-up -->
         <div id="followup-overlay" class="followup-backdrop" aria-hidden="true">
           <div class="followup-card" role="dialog" aria-modal="true" aria-label="Follow-up">
+            <button id="followup-close" class="followup-close" type="button" aria-label="Close">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+              </svg>
+            </button>
             <div class="followup-title">How is it feeling now?</div>
             <div class="followup-buttons">
               <button id="followup-calmer" class="followup-btn calmer" type="button">
@@ -891,7 +1058,7 @@
               </button>
               <button id="followup-worse" class="followup-btn worse" type="button">
                 <span class="followup-btn-label">Worse</span>
-              </button>
+            </button>
             </div>
           </div>
         </div>
@@ -1825,25 +1992,29 @@
         
         if(type === "calmer"){
           textEl.textContent = "That's good to hear.";
-          const btn = document.createElement("button");
-          btn.className = "pill";
-          btn.style.cssText = "width:100%;height:48px;";
-          btn.textContent = "Back to situations";
-          btn.onclick = () => closeFollowupAndExit();
-          buttonsEl.appendChild(btn);
+          textEl.style.marginBottom = "0"; // No buttons, so remove bottom margin
+          // Make card look like outline button (transparent + border)
+          const card = overlay.querySelector(".followup-card");
+          card.classList.add("followup-card-minimal");
+          // Auto-dismiss after 2 seconds
+          setTimeout(() => {
+            card.classList.remove("followup-card-minimal");
+            closeFollowupAndExit();
+          }, 2000);
         } else if(type === "same"){
           textEl.textContent = "Would you like more help?";
+          textEl.style.marginBottom = "32px"; // More space before buttons
           
           const btn1 = document.createElement("button");
-          btn1.className = "pill";
-          btn1.style.cssText = "width:100%;height:48px;";
+          btn1.className = "pill pill-outline";
+          btn1.style.cssText = "width:100%;height:56px;font-size:16px;";
           btn1.textContent = "Try another situation";
           btn1.onclick = () => closeFollowupAndExit();
           buttonsEl.appendChild(btn1);
           
           const btn2 = document.createElement("button");
-          btn2.className = "pill";
-          btn2.style.cssText = "width:100%;height:48px;background:transparent;border:1px solid rgba(255,255,255,0.15);";
+          btn2.className = "pill pill-outline";
+          btn2.style.cssText = "width:100%;height:56px;font-size:16px;";
           btn2.textContent = "Stay here";
           btn2.onclick = () => {
             hideFollowupResponse();
@@ -1852,24 +2023,41 @@
           buttonsEl.appendChild(btn2);
         } else if(type === "worse"){
           textEl.textContent = "If things are getting worse, it's okay to get urgent help.";
+          textEl.style.marginBottom = "32px"; // More space before buttons
           
+          // Emergency call button
           const btn1 = document.createElement("button");
           btn1.className = "pill emergency-call-btn";
-          btn1.style.cssText = "width:100%;height:52px;font-size:17px;";
-          btn1.textContent = "Emergency";
+          btn1.style.cssText = "width:100%;height:56px;font-size:17px;";
+          btn1.textContent = `Call ${emergencyNumber}`;
           btn1.onclick = () => {
             hideFollowupResponse();
             exitDeck(true);
-            toggleUrgent(true);
+            callEmergency();
           };
           buttonsEl.appendChild(btn1);
           
-          const btn2 = document.createElement("button");
-          btn2.className = "pill";
-          btn2.style.cssText = "width:100%;height:48px;background:transparent;border:1px solid rgba(255,255,255,0.15);";
-          btn2.textContent = "Back to situations";
-          btn2.onclick = () => closeFollowupAndExit();
-          buttonsEl.appendChild(btn2);
+          // NHS 111 / Medical advice (UK only)
+          if(emergencyNumber === "999"){
+            const btn2 = document.createElement("button");
+            btn2.className = "pill nhs-advice-btn";
+            btn2.style.cssText = "width:100%;height:56px;font-size:17px;";
+            btn2.textContent = "Call NHS 111";
+            btn2.onclick = () => {
+              hideFollowupResponse();
+              exitDeck(true);
+              callAdvice();
+            };
+            buttonsEl.appendChild(btn2);
+          }
+          
+          // Back to situations
+          const btn3 = document.createElement("button");
+          btn3.className = "pill pill-outline";
+          btn3.style.cssText = "width:100%;height:56px;font-size:16px;";
+          btn3.textContent = "Back to situations";
+          btn3.onclick = () => closeFollowupAndExit();
+          buttonsEl.appendChild(btn3);
         }
         
         overlay.classList.add("active");
@@ -1883,6 +2071,7 @@
       }
       
       function closeFollowupAndExit(){
+        hideFollowup();
         hideFollowupResponse();
         exitDeck(true);
       }
@@ -2066,7 +2255,7 @@
           return;
         }
         
-        // CRISIS decks: Check for resume only if all conditions met
+        // CRISIS decks: Check for resume only if clicking same card
         if(forceStep === undefined && canResume(decks, key)){
           const savedStep = resumeState.stepIndex;
           const resumeStepHuman = savedStep + 1; // Human-readable (1-indexed)
@@ -2077,19 +2266,19 @@
               activeDecks = decks;
               activeKey = key;
               stepIndex = savedStep;
-              clearResume(); // Anti-nag: clear so it won't prompt again
+              clearResume();
               finishOpenDeck(decks);
             },
             () => {
               // Start from step 1
-        activeDecks = decks;
-        activeKey = key;
-        stepIndex = 0;
-              clearResume(); // Anti-nag: clear so it won't prompt again
+              activeDecks = decks;
+              activeKey = key;
+              stepIndex = 0;
+              clearResume();
               finishOpenDeck(decks);
             }
           );
-          return; // Wait for user choice
+          return;
         }
         
         // Normal open (no resume available or forceStep specified)
@@ -2167,7 +2356,6 @@
         // Button visibility: Toggle controls based on deck type
         const genericEmergencyBtn = document.getElementById("stepdown-emergency");
         const backToUrgent = document.getElementById("back-to-urgent");
-        const crisisFooterHint = document.getElementById("crisis-footer-hint");
         const backToSituations = document.getElementById("back-to-situations");
         const listenFooter = document.getElementById("listen-btn");
         const listenInline = document.getElementById("listen-inline");
@@ -2180,13 +2368,11 @@
           // Urgent deck: Call button, no Emergency button
           genericEmergencyBtn.style.display = "none";
           if(backToUrgent) backToUrgent.style.display = "block";
-          if(crisisFooterHint) crisisFooterHint.style.display = "none";
           if(backToSituations) backToSituations.style.display = "none";
         } else {
           // Crisis deck: Emergency button + hint
           genericEmergencyBtn.style.display = "block";
           if(backToUrgent) backToUrgent.style.display = "none";
-          if(crisisFooterHint) crisisFooterHint.style.display = "block";
           if(backToSituations) backToSituations.style.display = "block";
         }
 
@@ -2250,10 +2436,10 @@
         // Footer listen button (urgent mode)
         const btn = document.getElementById("listen-btn");
         if(btn){
-          btn.classList.toggle("speaking", speaking);
-          btn.setAttribute("aria-label", speaking ? "Stop listening" : "Listen to this step");
-          const label = btn.querySelector(".listen-label");
-          if(label) label.textContent = speaking ? "Stop" : "Listen";
+        btn.classList.toggle("speaking", speaking);
+        btn.setAttribute("aria-label", speaking ? "Stop listening" : "Listen to this step");
+        const label = btn.querySelector(".listen-label");
+        if(label) label.textContent = speaking ? "Stop" : "Listen";
         }
         // Inline listen button (crisis mode)
         const inlineBtn = document.getElementById("listen-inline");
@@ -2399,7 +2585,7 @@
         // Populate call button labels
         emergencyNumEl.textContent = `Call ${emergencyNumber}`;
         if(adviceNumEl && adviceNumber){
-          adviceNumEl.textContent = `Call ${adviceNumber}`;
+          adviceNumEl.textContent = `NHS ${adviceNumber}`;
         }
         
         // Inject emergency number into hint text
@@ -2613,6 +2799,7 @@
         document.getElementById("followup-calmer").addEventListener("click", () => showFollowupResponse("calmer"));
         document.getElementById("followup-same").addEventListener("click", () => showFollowupResponse("same"));
         document.getElementById("followup-worse").addEventListener("click", () => showFollowupResponse("worse"));
+        document.getElementById("followup-close").addEventListener("click", () => closeFollowupAndExit());
 
         // Resume prompt: ESC and backdrop click dismiss (defaults to Start from Step 1)
         document.getElementById("resume-overlay").addEventListener("click", (e) => {
