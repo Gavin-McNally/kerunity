@@ -116,14 +116,15 @@
       .pill-ghost:focus{ outline:none; }
       .pill-ghost:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
 
-      /* Emergency tab on home - text only with subtle glow */
+      /* Emergency tab on home - subtle but findable */
       .emergency-tab{
-        background:transparent;
-        border:none;
+        background:rgba(168,90,78,0.08);
+        border:1px solid rgba(168,90,78,0.25);
         color:var(--emergency);
         font-weight:500;
+        gap:6px;
       }
-      .emergency-tab:hover{ background:rgba(168,90,78,0.1); }
+      .emergency-tab:hover{ background:rgba(168,90,78,0.15); }
       .emergency-tab:active{ opacity:0.8; }
       .emergency-tab:focus{ outline:none; }
       .emergency-tab:focus-visible{ outline:2px solid var(--emergency); outline-offset:2px; }
@@ -379,6 +380,8 @@
         background:var(--bg);
         opacity:0;
         pointer-events:none;
+        overflow:hidden; /* Prevent scroll chaining */
+        overscroll-behavior:none;
       }
       .stepdown-backdrop.active{
         opacity:1;
@@ -393,6 +396,8 @@
         padding:24px 40px;
         padding-top:calc(env(safe-area-inset-top) + 28px);
         padding-bottom:calc(env(safe-area-inset-bottom) + 40px);
+        overflow:hidden; /* Only .stepdown-body can scroll */
+        overscroll-behavior:none;
       }
       .stepdown-backdrop.active .stepdown-screen{
         opacity:1;
@@ -400,22 +405,65 @@
 
       .stepdown-body{
         flex:1;
-        overflow:auto;
-        padding:24px 0;
-        scrollbar-width:none;
-        -ms-overflow-style:none;
+        overflow:hidden !important; /* Default: HARD LOCK no scroll */
+        padding-top:18px;
+        padding-bottom:18px;
         display:flex;
         flex-direction:column;
         justify-content:center;
+        position:relative;
+        -webkit-overflow-scrolling:auto;
+        overscroll-behavior:none;
+        touch-action:pan-x; /* Block vertical scroll gestures by default */
       }
-      .stepdown-body::-webkit-scrollbar{ width:0; height:0; }
+      @supports (justify-content:safe center){
+        .stepdown-body{ justify-content:safe center; }
+      }
+      
+      /* When NOT overflowing: hard-lock scroll physics (iOS bounce prevention) */
+      .stepdown-screen.no-overflow .stepdown-body{
+        overflow:hidden !important;
+        -webkit-overflow-scrolling:auto;
+        overscroll-behavior:none;
+        touch-action:pan-x;
+      }
+      
+      /* When overflowing: enable scrolling + bottom padding for fade clearance */
+      .stepdown-screen.is-overflowing .stepdown-body{
+        overflow-y:auto !important;
+        overflow-x:hidden !important;
+        -webkit-overflow-scrolling:touch;
+        overscroll-behavior-y:contain;
+        touch-action:pan-y; /* Allow vertical scroll gestures */
+        scrollbar-width:none;
+        -ms-overflow-style:none;
+        padding-bottom:56px;
+      }
+      .stepdown-screen.is-overflowing .stepdown-body::-webkit-scrollbar{ width:0; height:0; }
+      
+      /* Fade overlay - only visible when overflowing */
+      .stepdown-footer::before{
+        content:"";
+        position:absolute;
+        top:-48px;
+        left:-40px;
+        right:-40px;
+        height:48px;
+        background:linear-gradient(to bottom, transparent, var(--bg));
+        pointer-events:none;
+        opacity:0;
+        transition:opacity 0.15s ease;
+      }
+      .stepdown-screen.is-overflowing .stepdown-footer::before{
+        opacity:1;
+      }
 
       .crisis-card{
         width:100%;
-        padding:0 24px;
+        padding:0 28px;
         display:flex;
         flex-direction:column;
-        justify-content:center;
+        margin:auto 0;
       }
 
       .kicker{
@@ -423,7 +471,7 @@
         font-weight:500;
         color:var(--warm);
         letter-spacing:0.02em;
-        margin-bottom:10px;
+        margin-bottom:8px;
       }
       .say-text{
         font-size:28px;
@@ -434,7 +482,7 @@
       .divider{
         height:1px;
         background:var(--border);
-        margin:24px 0;
+        margin:18px 0;
       }
       .do-text{
         font-size:18px;
@@ -484,7 +532,8 @@
       }
 
       .stepdown-footer{
-        padding-top:28px;
+        position:relative;
+        padding-top:20px;
         padding-bottom:8px;
       }
 
@@ -627,6 +676,8 @@
         padding:32px 28px;
         max-width:340px;
         width:100%;
+        max-height:85vh;
+        overflow-y:auto;
         text-align:center;
       }
       .resume-title{
@@ -677,6 +728,8 @@
         padding:36px 32px 40px;
         width:100%;
         max-width:360px;
+        max-height:85vh;
+        overflow-y:auto;
         text-align:center;
         position:relative;
       }
@@ -804,7 +857,7 @@
         display:inline-flex;
         align-items:center;
         gap:8px;
-        margin-top:16px;
+        margin-top:12px;
         padding:10px 16px;
         min-height:42px;
         border-radius:21px;
@@ -839,12 +892,20 @@
                   <path d="M12 8h.01"></path>
                 </svg>
               </button>
-              <button class="pill emergency-tab" type="button" id="urgent-open">Emergency</button>
+              <button class="pill emergency-tab" type="button" id="urgent-open">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+                <span>Emergency</span>
+              </button>
             </div>
           </div>
 
           <div class="subtitle">
             Start here. You don't have to get this right.
+          </div>
+          <div style="font-size:14px;color:var(--text-muted);margin-top:12px;">
+            Guidance only. Not live monitoring. If anyone is in danger, call 999.
           </div>
           
           <!-- Post-emergency reassurance (hidden by default) -->
@@ -870,7 +931,7 @@
           <!-- Continue chip: shows if crisis or urgent deck was exited mid-flow -->
           <div id="continue-chip" class="continue-chip" style="display:none;" data-resume-type="">
             <button id="continue-btn" type="button" class="continue-btn">
-              <span id="continue-label" class="continue-label">Continue where you left off</span>
+              <span id="continue-label" class="continue-label">Continue this situation</span>
               <span id="continue-detail" class="continue-detail">Refusing meds · Step 3</span>
             </button>
           </div>
@@ -888,7 +949,7 @@
         <div id="stepdown-overlay" class="stepdown-backdrop" aria-hidden="true">
           <div class="stepdown-screen" role="dialog" aria-modal="true" aria-label="Crisis Card">
             <!-- Header: Title left, Close right. Never wrap. -->
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;padding:6px 0;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:32px;padding:6px 0;">
               <div style="flex:1;min-width:0;">
                 <div id="stepdown-title" style="font-size:18px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Situation</div>
                 <div id="stepdown-progress" style="font-size:16px;color:var(--text-muted);margin-top:6px;">Step 1 of 4</div>
@@ -909,6 +970,7 @@
                     </svg>
                     <span class="listen-inline-label">Listen</span>
                   </button>
+                  <div id="pause-hint" style="font-size:13px;color:var(--text-muted);margin-top:10px;opacity:0.7;">It's okay to pause for a moment.</div>
                   <div class="divider"></div>
                 </div>
                 <div id="stepdown-do-kicker" class="kicker">You can do this</div>
@@ -932,7 +994,7 @@
               <!-- CRISIS MODE: Back to situations link (above nav) -->
               <div id="back-to-situations" style="display:none;text-align:center;margin:24px 0 20px;">
                 <button id="switch-situation" class="switch-link" type="button" aria-label="Back to situations list">Back to situations</button>
-            </div>
+              </div>
 
               <!-- Navigation: Back / Next -->
               <div style="display:flex;gap:14px;margin-bottom:24px;">
@@ -941,15 +1003,17 @@
             </div>
 
               <!-- URGENT MODE: Back to emergency list -->
-              <div id="back-to-urgent" style="display:none;text-align:center;margin-bottom:20px;">
+              <div id="back-to-urgent" style="display:none;text-align:center;margin-bottom:12px;">
                 <button id="back-to-urgent-btn" class="switch-link" type="button" aria-label="Back to emergency list">Wrong emergency? Back to list</button>
-            </div>
+              </div>
+              <div id="urgent-disclaimer" style="display:none;text-align:center;font-size:13px;color:var(--text-muted);margin-bottom:16px;">If you're unsure, it's okay to call for help.</div>
 
-              <!-- CRISIS MODE: Emergency button (no hint text - button speaks for itself) -->
-              <button id="stepdown-emergency" class="pill pill-outline emergency-btn" type="button" style="display:none;width:100%;height:48px;margin-top:8px;">Emergency</button>
+              <!-- CRISIS MODE: Emergency button -->
+              <div id="crisis-disclaimer" style="display:none;text-align:center;font-size:13px;color:var(--text-muted);margin-bottom:16px;">Guidance only. Not live monitoring.</div>
+              <button id="stepdown-emergency" class="pill pill-outline emergency-btn" type="button" style="display:none;width:100%;height:48px;">Emergency</button>
             </div>
           </div>
-        </div>
+            </div>
 
         <!-- Emergency: Full screen takeover -->
         <div id="urgent-overlay" class="emergency-backdrop" aria-hidden="true">
@@ -961,20 +1025,23 @@
         </div>
 
             <div class="emergency-scroll" style="flex:1;overflow-y:auto;">
-              <div id="emergency-hint" style="font-size:17px;color:var(--text);margin-bottom:24px;line-height:1.5;">
+              <div id="emergency-hint" style="font-size:17px;color:var(--text);margin-bottom:8px;line-height:1.5;">
                 If someone is in immediate danger, call now.
+              </div>
+              <div style="font-size:14px;color:var(--text-muted);margin-bottom:24px;line-height:1.5;">
+                Kerunity doesn't contact services for you. These buttons call directly.
             </div>
 
               <div id="call-buttons" style="display:flex;gap:14px;margin-bottom:32px;">
                 <button id="call-emergency" type="button" class="pill emergency-call-btn" style="flex:1;height:88px;flex-direction:column;gap:6px;">
                   <span id="emergency-number" style="font-size:24px;font-weight:600;"></span>
                   <span style="font-size:14px;opacity:0.75;">Emergency</span>
-              </button>
+                </button>
                 <button id="call-advice" type="button" class="pill nhs-advice-btn" style="flex:1;height:88px;flex-direction:column;gap:6px;">
                   <span id="advice-number" style="font-size:24px;font-weight:600;"></span>
                   <span style="font-size:14px;opacity:0.75;">Medical advice</span>
-              </button>
-            </div>
+                </button>
+              </div>
 
               <div style="font-size:14px;color:var(--text-muted);margin-bottom:12px;">Safety checks</div>
             <div id="urgent-grid-sheet"></div>
@@ -994,15 +1061,18 @@
 
             <!-- Main description -->
             <div style="font-size:17px;color:var(--text);line-height:1.5;margin-bottom:32px;">
-              Calm, step-by-step guidance for carers.
+              Kerunity gives calm, step-by-step guidance for carers.
             </div>
 
             <!-- Safety notes -->
             <div style="margin-bottom:28px;">
-              <p id="info-emergency-line" style="margin:0 0 20px;color:var(--text);font-size:16px;font-weight:500;line-height:1.5;"></p>
+              <!-- Group A: What this app is/isn't -->
+              <p style="margin:0 0 20px;color:var(--text-muted);font-size:15px;line-height:1.6;">Kerunity gives guidance, not live monitoring.</p>
+              <!-- Group B: What to do in danger -->
+              <p id="info-emergency-line" style="margin:0 0 20px;color:var(--text);font-size:15px;font-weight:500;line-height:1.6;"></p>
+              <!-- Group C: Legal boundary / navigation -->
               <div style="color:var(--text-muted);line-height:1.8;font-size:15px;">
-                <p style="margin:0 0 12px;">This is guidance, not medical advice.</p>
-                <p style="margin:0 0 12px;">Keep everyone safe. Step away if you need to.</p>
+                <p style="margin:0 0 8px;">This is general guidance, not medical advice.</p>
                 <p style="margin:0;">Tap Emergency for safety checks.</p>
               </div>
             </div>
@@ -1014,14 +1084,14 @@
             <div>
               <div style="font-size:16px;font-weight:500;color:var(--text);margin-bottom:16px;">Your privacy</div>
               <div style="color:var(--text-muted);line-height:1.8;font-size:15px;">
-                <p style="margin:0 0 12px;">Your voice is never recorded.</p>
-                <p style="margin:0 0 12px;">This app does not track you.</p>
-                <p style="margin:0;">If you use this inside ChatGPT, OpenAI may save what you type.</p>
-              </div>
-            </div>
-
+                <p style="margin:0 0 12px;">Your voice is not recorded.</p>
+                <p style="margin:0 0 12px;">Kerunity doesn't track you.</p>
+                <p style="margin:0;">If you use this inside ChatGPT, ChatGPT may save what you type.</p>
           </div>
         </div>
+
+            </div>
+            </div>
 
         <!-- Toast notification (replaces native alert) -->
         <div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -1035,9 +1105,9 @@
             <div class="resume-buttons">
               <button id="resume-continue" class="pill pill-outline" type="button" style="width:100%;height:56px;font-size:16px;">Continue</button>
               <button id="resume-restart" class="pill pill-outline" type="button" style="width:100%;height:56px;font-size:16px;">Start from Step 1</button>
-            </div>
-          </div>
-        </div>
+              </div>
+              </div>
+              </div>
 
         <!-- Post-completion follow-up -->
         <div id="followup-overlay" class="followup-backdrop" aria-hidden="true">
@@ -1048,7 +1118,7 @@
                 <path d="m6 6 12 12"></path>
               </svg>
             </button>
-            <div class="followup-title">How is it feeling now?</div>
+            <div class="followup-title">How does it feel now?</div>
             <div class="followup-buttons">
               <button id="followup-calmer" class="followup-btn calmer" type="button">
                 <span class="followup-btn-label">Calmer</span>
@@ -1060,8 +1130,8 @@
                 <span class="followup-btn-label">Worse</span>
             </button>
             </div>
-          </div>
-        </div>
+              </div>
+            </div>
 
         <!-- Follow-up response screens -->
         <div id="followup-response-overlay" class="followup-backdrop" aria-hidden="true">
@@ -1114,7 +1184,7 @@
         },
         /* Extended - shown on "View all" (19 more = 25 total) - EXPANDED COVERAGE */
         sundowning: { 
-          label: "Sundowning", sub: "Evening agitation",
+          label: "Evening upset", sub: "Evening agitation",
           keywords: ["evening", "night", "sunset", "agitated", "restless", "worse", "afternoon", "dusk", "dark", "twilight", "late", "shadows", "anxious", "confused", "pacing", "upset"],
           aliases: ["gets worse at night", "evening agitation", "restless at sunset", "anxious in evening", "agitated after dark", "worse in late afternoon", "pacing at night", "confused when it gets dark", "sundown syndrome", "evening confusion", "worse as sun goes down", "unsettled at teatime", "bad every evening"]
         },
@@ -1184,7 +1254,7 @@
           aliases: ["won't accept help", "refuses care", "pushes me away", "doesn't want help"]
         },
         paranoid: { 
-          label: "Paranoid", sub: "Suspicious of others",
+          label: "Suspicious / worried", sub: "Worried about others",
           keywords: ["paranoid", "suspicious", "trust", "people", "watching", "spy", "conspiracy", "poison", "plotting", "neighbour", "neighbor", "carer", "staff", "delusion", "persecuted", "threatened"],
           aliases: ["very suspicious", "doesn't trust", "thinks people are watching", "paranoid thoughts", "thinks I'm poisoning food", "says neighbours are spying", "accuses staff of plotting", "doesn't trust anyone", "thinks people want to hurt them", "suspicious of carers", "feels persecuted", "convinced someone is after them", "paranoid about visitors"]
         },
@@ -1194,7 +1264,7 @@
           aliases: ["seeing things", "hearing voices", "people that aren't there", "hallucinating", "sees children in the room", "talking to dead relatives", "sees intruders", "thinks there are strangers here", "seeing animals", "bugs on the wall", "sees shadows moving", "talking to people who aren't there", "says someone is in the house", "visual hallucinations"]
         },
         inappropriate: { 
-          label: "Inappropriate comments", sub: "Saying awkward things",
+          label: "Awkward comments", sub: "Saying unexpected things",
           keywords: ["inappropriate", "rude", "sexual", "comments", "embarrassing", "awkward", "offensive"],
           aliases: ["saying inappropriate things", "rude comments", "embarrassing behaviour", "sexual comments"]
         },
@@ -1221,8 +1291,8 @@
         refusing_meds:{ title:"Refusing meds", steps:[
           { say:"It's okay. We don't have to do this right now.", do:"Take the pressure off. Relax your shoulders. Speak slowly." },
           { say:"Can we take a sip of water first, then decide?", do:"Offer one tiny first step. Give two choices: water or tea." },
-          { say:"Would you like to take it with me, or would you prefer later?", do:"Give two acceptable options. Avoid saying 'you must'." },
-          { say:"Thank you. That's enough for now. We'll check again later.", do:"Say \"That's okay. We'll try later.\" Then stop asking for now. Try again in 10-20 minutes. If you're worried, call for medical advice." }
+          { say:"Would you like to take it with me, or would you prefer later?", do:"Give two acceptable options. No demands or pressure." },
+          { say:"Thank you. That's enough for now. We'll check again later.", do:"Let it go for now. You can try again in 10–20 minutes. If you're worried, call for medical advice." }
         ]},
         wants_home:{ title:"Wants to go home", steps:[
           { say:"I hear you. You want to go home. Tell me about home.", do:"Validate and invite description. Don't correct location facts." },
@@ -1238,23 +1308,23 @@
         ]},
         stealing:{ title:"Accusing of stealing", steps:[
           { say:"That sounds really worrying. Let’s look together.", do:"Validate. Avoid defending yourself or debating." },
-          { say:"Where did you last remember seeing it?", do:"Turn into a ‘search mission’ with gentle questions." },
+          { say:"Where did you last remember seeing it?", do:"Turn it into a shared search with gentle questions." },
           { say:"Let’s check the usual safe places first.", do:"Go to 2–3 common spots only. Keep pace slow." },
-          { say:"If it’s not here, we’ll leave it and try again later.", do:"Close without ‘you’re wrong’. Offer a calming reset." }
+          { say:"If it's not here, we'll leave it and try again later.", do:"Close without correcting them. Offer a calming reset." }
         ]},
         shadowing:{ title:"Shadowing", steps:[
           { say:"You're okay. I'm here. Let's do this together.", do:"Reassure first. Keep tone warm, not hurried." },
-          { say:"Could you sit here? I have a job for you.", do:"Give a 'job': hold towel, watch kettle, fold cloth." },
-          { say:"I'll be back in two minutes. Watch the timer for me.", do:"Use a timer + clear promise. Return when you say you will." },
+          { say:"Could you sit here? I have a job for you.", do:"Give a small task: hold a towel, watch the kettle, fold a cloth." },
+          { say:"I'll be back in two minutes. Watch the timer for me.", do:"Use a timer and make a clear promise. Come back when you promised." },
           { say:"Thank you. You did great helping me.", do:"Praise the helper role. Repeat predictable routine." }
         ]},
         hygiene:{ title:"Refusing hygiene", steps:[
-          { say:"No problem. We can do this gently.", do:"Remove pressure. Avoid 'you have to' language." },
+          { say:"No problem. We can do this gently.", do:"Remove pressure. No demands." },
           { say:"Would you like a warm cloth wash instead of a full wash?", do:"Offer a smaller option: face/hands first." },
           { say:"Do you want the bathroom warmer, or a towel warmed?", do:"Fix discomfort triggers: cold room, lighting, privacy." },
           { say:"That's enough for now. We'll stop there.", do:"Close early with success. Short wins beat battles." }
         ]},
-        sundowning:{ title:"Sundowning", steps:[
+        sundowning:{ title:"Evening upset", steps:[
           { say:"I can see you're feeling unsettled. I'm here.", do:"Acknowledge their distress. Don't dismiss or argue." },
           { say:"Let's turn on some lights and get cosy.", do:"Close curtains. Turn on more lights." },
           { say:"Would you like to sit with me for a bit?", do:"Gentle distraction: music, photo, simple activity." },
@@ -1288,7 +1358,7 @@
           { say:"You're safe with me.", do:"State location simply. Don't quiz or test them." },
           { say:"This is the kitchen.", do:"Point to familiar objects." },
           { say:"Let's go to your chair / your room.", do:"Guide to a familiar, comfortable spot." },
-          { say:"You're home. I'm here with you.", do:"Reassurance matters more than facts." }
+          { say:"You're safe with me.", do:"Reassurance matters more than facts." }
         ]},
         wandering:{ title:"Wandering", steps:[
           { say:"Where are we going? I'll walk with you.", do:"Don't block or grab. Walk alongside calmly." },
@@ -1299,7 +1369,7 @@
         hiding:{ title:"Hiding things", steps:[
           { say:"I can see something's important to you.", do:"Don't accuse or demand. Stay calm and curious." },
           { say:"Can you show me where you put it?", do:"Let them lead. They may remember hiding spots." },
-          { say:"Let's keep it safe together.", do:"Create a 'safe box' for important items." },
+          { say:"Let's keep it safe together.", do:"Create a safe place for important items." },
           { say:"Thank you for showing me.", do:"Don't make it a big deal. Note the hiding spots." }
         ]},
         undressing:{ title:"Undressing", steps:[
@@ -1310,13 +1380,13 @@
         ]},
         rummaging:{ title:"Rummaging", steps:[
           { say:"What are you looking for? I can help.", do:"Join in rather than stopping them." },
-          { say:"Let's check this drawer together.", do:"Redirect to a 'safe' drawer with harmless items." },
+          { say:"Let's check this drawer together.", do:"Redirect to a drawer with harmless items." },
           { say:"I've put some things here for you to sort.", do:"Create a rummage box with safe objects." },
           { say:"Thank you for tidying.", do:"Make it purposeful. Praise their effort." }
         ]},
         hoarding:{ title:"Hoarding", steps:[
           { say:"That looks important. Tell me about it.", do:"Don't throw things away now." },
-          { say:"Shall we find a special place for these?", do:"Offer a box or bag to 'keep things safe'." },
+          { say:"Shall we find a special place for these?", do:"Offer a box or bag to keep things safe." },
           { say:"Let's sort through together when you're ready.", do:"Remove items gradually, not all at once." },
           { say:"You've got some lovely things here.", do:"Validate their attachment. Be patient." }
         ]},
@@ -1338,7 +1408,7 @@
           { say:"Can I help with just this one thing?", do:"Offer help with one tiny task only." },
           { say:"You're doing well. Let me know if you need me.", do:"Praise independence. Try again later." }
         ]},
-        paranoid:{ title:"Paranoid", steps:[
+        paranoid:{ title:"Suspicious / worried", steps:[
           { say:"That sounds frightening. Tell me more.", do:"Listen without dismissing or arguing." },
           { say:"I can see why you're worried.", do:"Validate the feeling, not the belief." },
           { say:"Let's check together. I'll stay with you.", do:"Offer to investigate. Be their ally." },
@@ -1350,7 +1420,7 @@
           { say:"Let's turn on more lights / move rooms.", do:"Change environment. Reduce shadows." },
           { say:"I'm here with you. You're safe with me.", do:"Reassure. Don't pretend to see it too." }
         ]},
-        inappropriate:{ title:"Inappropriate comments", steps:[
+        inappropriate:{ title:"Awkward comments", steps:[
           { say:"Let's talk about something else.", do:"Redirect calmly. Don't shame or scold." },
           { say:"I know you don't mean to upset anyone.", do:"Assume good intent. They may not understand." },
           { say:"Come with me. I need your help.", do:"Move them away from the situation." },
@@ -1360,11 +1430,11 @@
           { say:"Let's take our time. No rush.", do:"Don't force. Check if clothes are uncomfortable." },
           { say:"Would you like to choose what to wear?", do:"Offer simple choices. Two options max." },
           { say:"Let's just put this on for now.", do:"One item at a time. Start with easiest piece." },
-          { say:"You look nice. Well done.", do:"Praise any progress. Comfort over perfection." }
+          { say:"You look comfortable.", do:"Praise any progress. Comfort over perfection." }
         ]},
         forgot_face:{ title:"Doesn't know me", steps:[
-          { say:"Hello, I'm [name]. I'm here to help.", do:"Don't say 'Don't you remember me?' Stay calm." },
-          { say:"We're friends. I've known you a long time.", do:"Reassure with warmth, not facts." },
+          { say:"Hello. I'm here to help you.", do:"Avoid testing their memory. Stay calm." },
+          { say:"I'm here to help you. You're safe with me.", do:"Reassure with warmth, not facts." },
           { say:"Let me show you some photos.", do:"Pictures may help. Don't quiz or test." },
           { say:"I care about you. That's what matters.", do:"Focus on feeling safe, not being recognised." }
         ]},
@@ -2159,7 +2229,7 @@
         if(hasCrisisResumeAvailable()){
           const deck = CRISIS_DECKS[resumeState.deckKey];
           if(deck){
-            label.textContent = "Continue where you left off";
+            label.textContent = "Continue this situation";
             detail.textContent = `${deck.title} · Step ${resumeState.stepIndex + 1}`;
             chip.dataset.resumeType = "crisis";
             chip.style.display = "block";
@@ -2271,9 +2341,9 @@
             },
             () => {
               // Start from step 1
-              activeDecks = decks;
-              activeKey = key;
-              stepIndex = 0;
+        activeDecks = decks;
+        activeKey = key;
+        stepIndex = 0;
               clearResume();
               finishOpenDeck(decks);
             }
@@ -2316,6 +2386,12 @@
       function renderStep(){
         const deck = activeDecks?.[activeKey];
         if(!deck) return;
+        
+        // HARD RESET overflow classes at start - prevents state leak between steps
+        const stepScreen = document.querySelector(".stepdown-screen");
+        if(stepScreen){
+          stepScreen.classList.remove("is-overflowing", "no-overflow");
+        }
         
         // BOUNDS SAFETY: If stepIndex somehow out of range, exit safely
         if(stepIndex < 0 || stepIndex >= deck.steps.length){
@@ -2364,16 +2440,26 @@
         if(listenFooter) listenFooter.style.display = "none";
         if(listenInline) listenInline.style.display = "inline-flex";
         
+        const crisisDisclaimer = document.getElementById("crisis-disclaimer");
+        const urgentDisclaimer = document.getElementById("urgent-disclaimer");
+        const pauseHint = document.getElementById("pause-hint");
+        
         if(isUrgent){
-          // Urgent deck: Call button, no Emergency button
+          // Urgent deck: Call button, no Emergency button, no pause hint
           genericEmergencyBtn.style.display = "none";
           if(backToUrgent) backToUrgent.style.display = "block";
           if(backToSituations) backToSituations.style.display = "none";
+          if(crisisDisclaimer) crisisDisclaimer.style.display = "none";
+          if(urgentDisclaimer) urgentDisclaimer.style.display = "block";
+          if(pauseHint) pauseHint.style.display = "none";
         } else {
-          // Crisis deck: Emergency button + hint
+          // Crisis deck: Emergency button + disclaimer + pause hint
           genericEmergencyBtn.style.display = "block";
           if(backToUrgent) backToUrgent.style.display = "none";
           if(backToSituations) backToSituations.style.display = "block";
+          if(crisisDisclaimer) crisisDisclaimer.style.display = "block";
+          if(urgentDisclaimer) urgentDisclaimer.style.display = "none";
+          if(pauseHint) pauseHint.style.display = "block";
         }
 
         const back = document.getElementById("stepdown-back");
@@ -2387,7 +2473,59 @@
         next.textContent = isLast ? "Done" : "Next";
 
         stopSpeak(); // stop speech when step changes
+        
+        // Overflow detection: check after DOM update
+        checkStepOverflow();
       }
+      
+      // Overflow detection - extracted for reuse on resize
+      // Uses double rAF to ensure layout has fully settled (fonts, reflow, etc.)
+      function checkStepOverflow(){
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const stepScreen = document.querySelector(".stepdown-screen");
+            const body = document.querySelector(".stepdown-body");
+            if(stepScreen && body){
+              // Reset scroll position before measuring
+              body.scrollTop = 0;
+              
+              // Temporarily force hidden to get accurate measurement
+              const prevOverflow = body.style.overflow;
+              body.style.overflow = "hidden";
+              
+              // Force layout recalc
+              void body.offsetHeight;
+              
+              const isOverflowing = body.scrollHeight > body.clientHeight + 8;
+              
+              // Restore
+              body.style.overflow = prevOverflow;
+              
+              // Mutually exclusive class application
+              if(isOverflowing){
+                stepScreen.classList.add("is-overflowing");
+                stepScreen.classList.remove("no-overflow");
+              } else {
+                stepScreen.classList.add("no-overflow");
+                stepScreen.classList.remove("is-overflowing");
+              }
+            }
+          });
+        });
+      }
+      
+      // Debounced resize handler for overflow re-check
+      let resizeTimeout;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          // Only re-check if stepdown is visible
+          const stepScreen = document.querySelector(".stepdown-screen");
+          if(stepScreen && stepScreen.closest(".stepdown-backdrop.active")){
+            checkStepOverflow();
+          }
+        }, 150);
+      });
 
       function nextStep(){
         const deck = activeDecks?.[activeKey];
@@ -2590,13 +2728,13 @@
         
         // Inject emergency number into hint text
         if(emergencyHint){
-          emergencyHint.textContent = injectEmergencyNumber("If you or they are in immediate danger, call {EMERGENCY} now.");
+          emergencyHint.textContent = injectEmergencyNumber("If you or they are in immediate danger, call {EMERGENCY}.");
         }
         
         // Update info panel emergency line
         const infoEmergencyLine = document.getElementById("info-emergency-line");
         if(infoEmergencyLine){
-          infoEmergencyLine.textContent = injectEmergencyNumber("If you or they are in immediate danger, call {EMERGENCY} now.");
+          infoEmergencyLine.textContent = injectEmergencyNumber("If you or they are in immediate danger, call {EMERGENCY}.");
         }
         
         // Hide advice button for non-UK (no universal equivalent)
