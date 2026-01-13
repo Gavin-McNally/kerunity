@@ -76,12 +76,12 @@
         align-items:center;
         gap:10px;
       }
-      .header-actions .pill{ height:48px; min-width:48px; padding:0 14px; }
+      .header-actions .pill{ height:44px; min-width:44px; padding:0 14px; }
 
       /* Buttons */
       .pill{
-        height:48px;
-        min-width:48px;
+        height:44px;
+        min-width:44px;
         padding:0 16px;
         border-radius:var(--radius);
         border:1px solid var(--border);
@@ -144,6 +144,14 @@
         font-weight:500;
       }
       .nhs-advice-btn:active{ opacity:0.8; }
+      
+      /* NHS outline variant - de-emphasized, single hero color (red) dominates */
+      .nhs-advice-outline{
+        background:transparent;
+        border-color:var(--border-strong);
+        color:var(--text);
+      }
+      .nhs-advice-outline:active{ background:var(--surface); }
 
       .emergency-btn{
         color:var(--emergency);
@@ -207,6 +215,7 @@
         font-size:18px;
         font-weight:400;
         outline:none;
+        transition:border-color 0.2s ease;
       }
       .search-input:focus{ border-color:rgba(255,255,255,0.28); }
       .search-input::placeholder{ color:var(--text-muted); }
@@ -248,7 +257,7 @@
         display:block;
         color:var(--text-muted);
         font-size:14px;
-        font-weight:400;
+        font-weight:500;
         margin:0 0 18px;
       }
       .dot-green{ display:none; }
@@ -287,7 +296,7 @@
         font-size:16px;
         font-weight:400;
         cursor:pointer;
-        min-height:56px;
+        min-height:48px;
       }
       .view-all-btn{ transition:opacity 0.15s ease-out; }
       .view-all-btn:active{ opacity:0.8; }
@@ -340,7 +349,7 @@
         display:flex;
         flex-direction:column;
         padding:32px;
-        padding-top:calc(env(safe-area-inset-top) + 24px);
+        padding-top:calc(env(safe-area-inset-top) + 32px);
         padding-bottom:calc(env(safe-area-inset-bottom) + 32px);
       }
       /* Hide scrollbar in emergency screen */
@@ -406,9 +415,13 @@
         padding-bottom:calc(env(safe-area-inset-bottom) + 40px);
         overflow:hidden; /* Only .stepdown-body can scroll */
         overscroll-behavior:none;
+        opacity:0;
+        transform:scale(0.96);
+        transition:opacity 0.25s ease, transform 0.25s ease;
       }
       .stepdown-backdrop.active .stepdown-screen{
         opacity:1;
+        transform:scale(1);
       }
 
       .stepdown-body{
@@ -493,6 +506,45 @@
       .stepdown-screen.is-overflowing .scroll-indicator{
         opacity:1;
       }
+      
+      /* Emergency mode: maximize content space, eliminate scroll need */
+      .stepdown-screen.urgent-mode{
+        padding-top:calc(env(safe-area-inset-top) + 28px);
+        padding-bottom:calc(env(safe-area-inset-bottom) + 24px);
+      }
+      .stepdown-screen.urgent-mode .stepdown-header{
+        margin-bottom:16px !important;
+        padding:4px 0 !important;
+      }
+      .stepdown-screen.urgent-mode .listen-emergency{
+        margin-bottom:12px;
+        padding:10px 14px;
+      }
+      .stepdown-screen.urgent-mode .stepdown-body{
+        padding-top:0;
+        padding-bottom:0;
+      }
+      .stepdown-screen.urgent-mode .stepdown-footer{
+        padding-top:4px;
+        padding-bottom:0;
+      }
+      .stepdown-screen.urgent-mode #stepdown-call{
+        margin-bottom:22px !important;
+        height:48px !important;
+      }
+      .stepdown-screen.urgent-mode #stepdown-say-section{
+        margin-bottom:20px;
+      }
+      /* Emergency: never enable scroll, always fit content */
+      .stepdown-screen.urgent-mode .stepdown-body{
+        overflow:hidden !important;
+      }
+      .stepdown-screen.urgent-mode .scroll-indicator{
+        display:none;
+      }
+      .stepdown-screen.urgent-mode .stepdown-footer::before{
+        display:none;
+      }
 
       .crisis-card{
         width:100%;
@@ -503,11 +555,11 @@
       }
 
       .kicker{
-        font-size:17px;
+        font-size:19px;
         font-weight:500;
         color:var(--warm);
         letter-spacing:0.02em;
-        margin-bottom:8px;
+        margin-bottom:12px;
       }
       .say-text{
         font-size:28px;
@@ -515,10 +567,10 @@
         line-height:1.35;
         color:var(--text);
       }
-      .divider{
-        height:1px;
-        background:var(--border);
-        margin:18px 0;
+      /* Urgent SAY: large format for panic readability */
+      .say-text.urgent{
+        font-size:26px;
+        line-height:1.3;
       }
       .do-text{
         font-size:18px;
@@ -528,7 +580,14 @@
       }
       /* DO-only steps: instruction text is largest in app */
       .do-text.do-only{
-        font-size:32px;
+        font-size:26px;
+        font-weight:500;
+        color:var(--text);
+        line-height:1.3;
+      }
+      /* Urgent DO (with SAY present): still large, not demoted to 18px */
+      .do-text.urgent{
+        font-size:26px;
         font-weight:500;
         color:var(--text);
         line-height:1.3;
@@ -562,9 +621,9 @@
       }
       /* Larger in DO-only mode, still not red */
       .do-text.do-only .inline-call{
-        padding:4px 12px;
-        min-height:40px;
-        font-size:28px;
+        padding:4px 10px;
+        min-height:36px;
+        font-size:22px;
       }
 
       .stepdown-footer{
@@ -583,7 +642,7 @@
         text-underline-offset:2px;
         cursor:pointer;
         padding:4px 8px;
-        opacity:0.8;
+        opacity:0.7;
       }
       .switch-link:hover,.switch-link:focus-visible{
         opacity:1;
@@ -812,7 +871,7 @@
       }
       .followup-btn{
         width:100%;
-        height:56px;
+        height:48px;
         border-radius:var(--radius);
         border:1px solid var(--border-strong);
         background:transparent;
@@ -903,6 +962,7 @@
         align-items:center;
         gap:8px;
         margin-top:18px;
+        margin-bottom:20px;
         padding:10px 16px;
         min-height:42px;
         border-radius:21px;
@@ -915,6 +975,61 @@
       .listen-inline{ transition:opacity 0.15s ease-out; }
       .listen-inline:active{ opacity:0.8; }
       .listen-inline.speaking{ background:rgba(255,255,255,0.08); color:var(--text); }
+      
+      /* Emergency listen button - prominent, full-width, above content */
+      .listen-emergency{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:10px;
+        width:100%;
+        padding:16px 20px;
+        margin-bottom:24px;
+        border-radius:var(--radius);
+        border:1px solid var(--border);
+        background:transparent;
+        color:var(--text);
+        font-size:18px;
+        font-weight:500;
+        cursor:pointer;
+        position:relative;
+      }
+      .listen-emergency svg{
+        flex-shrink:0;
+        position:relative;
+        left:0;
+        transition:opacity 0.18s cubic-bezier(0.25, 0.1, 0.25, 1);
+      }
+      .listen-emergency-label{
+        display:inline-block;
+        min-width:155px;
+        text-align:center;
+        transition:opacity 0.18s cubic-bezier(0.25, 0.1, 0.25, 1);
+      }
+      .listen-emergency{ transition:opacity 0.15s ease-out; }
+      .listen-emergency:active{ background:var(--surface); }
+      .listen-emergency.speaking{ 
+        background:rgba(255,255,255,0.08); 
+        border-color:var(--text-muted);
+      }
+      .listen-emergency.speaking .listen-emergency-label{
+        background:linear-gradient(90deg, 
+          var(--text) 0%, 
+          var(--text) 40%, 
+          rgba(255,255,255,1) 50%, 
+          var(--text) 60%, 
+          var(--text) 100%
+        );
+        background-size:200% 100%;
+        background-clip:text;
+        -webkit-background-clip:text;
+        color:transparent;
+        animation:text-shimmer 2.5s ease-in-out infinite;
+      }
+      @keyframes text-shimmer{
+        0%{ background-position:100% 0; }
+        100%{ background-position:-100% 0; }
+      }
 
       /* Reduced motion */
       @media (prefers-reduced-motion: reduce){
@@ -995,13 +1110,22 @@
         <div id="stepdown-overlay" class="stepdown-backdrop" aria-hidden="true">
           <div class="stepdown-screen" role="dialog" aria-modal="true" aria-label="Crisis Card">
             <!-- Header: Title left, Close right. Never wrap. -->
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:32px;padding:6px 0;">
+            <div class="stepdown-header" style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:32px;padding:6px 0;">
               <div style="flex:1;min-width:0;">
                 <div id="stepdown-title" style="font-size:18px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Situation</div>
                 <div id="stepdown-progress" style="font-size:16px;color:var(--text-muted);margin-top:6px;">Step 1 of 4</div>
               </div>
               <button id="stepdown-close" class="pill pill-ghost" type="button" aria-label="Close" style="flex-shrink:0;">Close</button>
             </div>
+            
+            <!-- Emergency Listen: prominent, fixed position above content -->
+            <button id="listen-emergency" class="listen-emergency" type="button" aria-label="Listen to this step" style="display:none;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M11 5 6 9H2v6h4l5 4V5Z"></path>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+              </svg>
+              <span class="listen-emergency-label">Listen to this step</span>
+            </button>
 
             <div class="stepdown-body">
               <div class="crisis-card">
@@ -1016,8 +1140,6 @@
                     </svg>
                     <span class="listen-inline-label">Listen</span>
                   </button>
-                  <div id="pause-hint" style="font-size:13px;color:var(--text-muted);margin-top:16px;opacity:0.7;">It's okay to pause for a moment.</div>
-                  <div class="divider"></div>
                 </div>
                 <div id="stepdown-do-kicker" class="kicker">You can do this</div>
                 <div id="stepdown-do" class="do-text"></div>
@@ -1031,7 +1153,7 @@
 
             <div class="stepdown-footer">
               <!-- URGENT MODE: Call + Listen in footer -->
-              <button id="stepdown-call" class="pill emergency-call-btn" type="button" style="display:none;width:100%;height:56px;font-size:18px;margin-bottom:24px;">
+              <button id="stepdown-call" class="pill emergency-call-btn" type="button" style="display:none;width:100%;height:48px;font-size:20px;margin-bottom:28px;">
                 <span id="stepdown-call-label"></span>
               </button>
               <button id="listen-btn" class="listen-btn listen-secondary" type="button" aria-label="Listen" style="display:none;width:100%;margin-bottom:20px;">
@@ -1060,8 +1182,8 @@
               <div id="urgent-disclaimer" style="display:none;text-align:center;font-size:13px;color:var(--text-muted);margin-bottom:16px;">If you're unsure, it's okay to call for help.</div>
 
               <!-- CRISIS MODE: Emergency button -->
-              <div id="crisis-disclaimer" style="display:none;text-align:center;font-size:13px;color:var(--text-muted);margin-bottom:16px;">Guidance only. Not live monitoring.</div>
-              <button id="stepdown-emergency" class="pill pill-outline emergency-btn" type="button" style="display:none;width:100%;height:48px;">Emergency</button>
+              <div id="crisis-disclaimer" style="display:none;text-align:center;font-size:13px;color:var(--text-muted);margin-top:8px;margin-bottom:16px;">Guidance only. Not live monitoring.</div>
+              <button id="stepdown-emergency" class="pill pill-outline emergency-btn" type="button" style="display:none;width:100%;height:44px;">Emergency</button>
             </div>
           </div>
             </div>
@@ -1070,7 +1192,7 @@
         <div id="urgent-overlay" class="emergency-backdrop" aria-hidden="true">
           <div class="emergency-screen" role="dialog" aria-modal="true" aria-label="Emergency Help">
             <!-- Header: title left, close right -->
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px;">
               <div style="font-size:18px;font-weight:500;color:var(--text);">Emergency</div>
               <button id="urgent-close" class="pill pill-ghost" type="button" aria-label="Close" style="flex-shrink:0;">Close</button>
         </div>
@@ -1079,22 +1201,22 @@
               <div id="emergency-hint" style="font-size:17px;color:var(--text);margin-bottom:8px;line-height:1.5;">
                 If someone is in immediate danger, call now.
               </div>
-              <div style="font-size:14px;color:var(--text-muted);margin-bottom:24px;line-height:1.5;">
+              <div style="font-size:14px;color:var(--text-muted);margin-bottom:28px;line-height:1.5;">
                 Kerunity doesn't contact services for you. These buttons call directly.
             </div>
 
               <div id="call-buttons" style="display:flex;gap:14px;margin-bottom:32px;">
-                <button id="call-emergency" type="button" class="pill emergency-call-btn" style="flex:1;height:88px;flex-direction:column;gap:6px;">
-                  <span id="emergency-number" style="font-size:24px;font-weight:600;"></span>
-                  <span style="font-size:14px;opacity:0.75;">Emergency</span>
+                <button id="call-emergency" type="button" class="pill emergency-call-btn" style="flex:1;height:72px;flex-direction:column;gap:4px;">
+                  <span id="emergency-number" style="font-size:22px;font-weight:600;"></span>
+                  <span style="font-size:13px;opacity:0.75;">Emergency</span>
                 </button>
-                <button id="call-advice" type="button" class="pill nhs-advice-btn" style="flex:1;height:88px;flex-direction:column;gap:6px;">
-                  <span id="advice-number" style="font-size:24px;font-weight:600;"></span>
-                  <span style="font-size:14px;opacity:0.75;">Medical advice</span>
+                <button id="call-advice" type="button" class="pill pill-outline nhs-advice-outline" style="flex:1;height:72px;flex-direction:column;gap:4px;">
+                  <span id="advice-number" style="font-size:22px;font-weight:500;"></span>
+                  <span style="font-size:13px;opacity:0.7;">Medical advice</span>
                 </button>
               </div>
 
-              <div style="font-size:14px;color:var(--text-muted);margin-bottom:12px;">Safety checks</div>
+              <div style="font-size:14px;color:var(--text-muted);margin-bottom:12px;font-weight:500;">Safety checks</div>
             <div id="urgent-grid-sheet"></div>
             </div>
           </div>
@@ -1154,8 +1276,8 @@
             <div id="resume-step" class="resume-sub">Step 4</div>
             <div class="resume-hint">Only if this is still the same situation.</div>
             <div class="resume-buttons">
-              <button id="resume-continue" class="pill pill-outline" type="button" style="width:100%;height:56px;font-size:16px;">Continue</button>
-              <button id="resume-restart" class="pill pill-outline" type="button" style="width:100%;height:56px;font-size:16px;">Start from Step 1</button>
+              <button id="resume-continue" class="pill pill-outline" type="button" style="width:100%;height:48px;font-size:16px;">Continue</button>
+              <button id="resume-restart" class="pill pill-outline" type="button" style="width:100%;height:48px;font-size:16px;">Start from Step 1</button>
               </div>
               </div>
               </div>
@@ -2127,7 +2249,7 @@
           
           const btn1 = document.createElement("button");
           btn1.className = "pill pill-outline";
-          btn1.style.cssText = "width:100%;height:56px;font-size:16px;";
+          btn1.style.cssText = "width:100%;height:48px;font-size:16px;";
           btn1.textContent = "Try another situation";
           btn1.onclick = (e) => {
             const b = e.currentTarget;
@@ -2141,7 +2263,7 @@
           
           const btn2 = document.createElement("button");
           btn2.className = "pill pill-outline";
-          btn2.style.cssText = "width:100%;height:56px;font-size:16px;";
+          btn2.style.cssText = "width:100%;height:48px;font-size:16px;";
           btn2.textContent = "Stay here";
           btn2.onclick = (e) => {
             const b = e.currentTarget;
@@ -2171,7 +2293,7 @@
           // Emergency call button
           const btn1 = document.createElement("button");
           btn1.className = "pill emergency-call-btn";
-          btn1.style.cssText = "width:100%;height:56px;font-size:17px;";
+          btn1.style.cssText = "width:100%;height:48px;font-size:17px;";
           btn1.textContent = `Call ${emergencyNumber}`;
           btn1.onclick = () => {
             hideFollowupResponse();
@@ -2184,7 +2306,7 @@
           if(emergencyNumber === "999"){
             const btn2 = document.createElement("button");
             btn2.className = "pill nhs-advice-btn";
-            btn2.style.cssText = "width:100%;height:56px;font-size:17px;";
+            btn2.style.cssText = "width:100%;height:48px;font-size:17px;";
             btn2.textContent = "Call NHS 111";
             btn2.onclick = () => {
               hideFollowupResponse();
@@ -2194,10 +2316,26 @@
             buttonsEl.appendChild(btn2);
           }
           
+          // Check emergency situations
+          const btn4 = document.createElement("button");
+          btn4.className = "pill pill-outline";
+          btn4.style.cssText = "width:100%;height:48px;font-size:16px;";
+          btn4.textContent = "Check emergency situations";
+          btn4.onclick = (e) => {
+            const b = e.currentTarget;
+            b.style.background = "var(--surface)";
+            setTimeout(() => {
+              b.style.background = "";
+              closeFollowupAndExit();
+              toggleUrgent(true);
+            }, 180);
+          };
+          buttonsEl.appendChild(btn4);
+          
           // Back to situations
           const btn3 = document.createElement("button");
           btn3.className = "pill pill-outline";
-          btn3.style.cssText = "width:100%;height:56px;font-size:16px;";
+          btn3.style.cssText = "width:100%;height:48px;font-size:16px;";
           btn3.textContent = "Back to situations";
           btn3.onclick = (e) => {
             const b = e.currentTarget;
@@ -2462,6 +2600,16 @@
         // Track when deck was opened (for minimum time threshold)
         deckOpenedAt = Date.now();
         
+        // Apply urgent-mode class for emergency spacing (no scroll needed)
+        const stepScreen = document.querySelector(".stepdown-screen");
+        if(stepScreen){
+          if(decks === URGENT_DECKS){
+            stepScreen.classList.add("urgent-mode");
+          } else {
+            stepScreen.classList.remove("urgent-mode");
+          }
+        }
+        
         // Show call button for urgent decks
         const callBtn = document.getElementById("stepdown-call");
         const callLabel = document.getElementById("stepdown-call-label");
@@ -2509,10 +2657,20 @@
           sayText.textContent = injectEmergencyNumber(step.say);
           doKicker.textContent = "You can do this";
           doText.classList.remove("do-only");
+          // Urgent decks: keep large format even with SAY+DO
+          if(isUrgent){
+            sayText.classList.add("urgent");
+            doText.classList.add("urgent");
+          } else {
+            sayText.classList.remove("urgent");
+            doText.classList.remove("urgent");
+          }
         } else {
           saySection.style.display = "none";
           doKicker.textContent = "Do this";
           doText.classList.add("do-only");  // Largest text in app for DO-only steps
+          sayText.classList.remove("urgent");
+          doText.classList.remove("urgent");
         }
         
         // DO section: Render with inline tappable emergency for urgent, plain text otherwise
@@ -2528,31 +2686,37 @@
         const backToSituations = document.getElementById("back-to-situations");
         const listenFooter = document.getElementById("listen-btn");
         const listenInline = document.getElementById("listen-inline");
+        const listenEmergency = document.getElementById("listen-emergency");
         
-        // Listen is always inline (under SAY text) for both deck types
+        // Listen position: prominent above content for Emergency, inline for Crisis
         if(listenFooter) listenFooter.style.display = "none";
-        if(listenInline) listenInline.style.display = "inline-flex";
+        if(isUrgent){
+          // Emergency: prominent Listen button above content (always visible, easy to find)
+          if(listenEmergency) listenEmergency.style.display = "flex";
+          if(listenInline) listenInline.style.display = "none";
+        } else {
+          // Crisis: inline Listen (under SAY text)
+          if(listenEmergency) listenEmergency.style.display = "none";
+          if(listenInline) listenInline.style.display = "inline-flex";
+        }
         
         const crisisDisclaimer = document.getElementById("crisis-disclaimer");
         const urgentDisclaimer = document.getElementById("urgent-disclaimer");
-        const pauseHint = document.getElementById("pause-hint");
         
         if(isUrgent){
-          // Urgent deck: Call button, no Emergency button, no pause hint
+          // Urgent deck: Call button, no Emergency button
           genericEmergencyBtn.style.display = "none";
           if(backToUrgent) backToUrgent.style.display = "block";
           if(backToSituations) backToSituations.style.display = "none";
           if(crisisDisclaimer) crisisDisclaimer.style.display = "none";
           if(urgentDisclaimer) urgentDisclaimer.style.display = "block";
-          if(pauseHint) pauseHint.style.display = "none";
         } else {
-          // Crisis deck: Emergency button + disclaimer + pause hint
+          // Crisis deck: Emergency button + disclaimer
           genericEmergencyBtn.style.display = "block";
           if(backToUrgent) backToUrgent.style.display = "none";
           if(backToSituations) backToSituations.style.display = "block";
           if(crisisDisclaimer) crisisDisclaimer.style.display = "block";
           if(urgentDisclaimer) urgentDisclaimer.style.display = "none";
-          if(pauseHint) pauseHint.style.display = "block";
         }
 
         const back = document.getElementById("stepdown-back");
@@ -2589,7 +2753,7 @@
               // Force layout recalc
               void body.offsetHeight;
               
-              const isOverflowing = body.scrollHeight > body.clientHeight + 20;
+              const isOverflowing = body.scrollHeight > body.clientHeight + 32;
               
               // Restore
               body.style.overflow = prevOverflow;
@@ -2699,6 +2863,7 @@
          TEXT-TO-SPEECH (Speaker)
       ========================== */
       let speaking = false;
+      let wasSpeaking = false; // Track previous state for transition
       let preferredVoice = null;
 
       function pickVoice(){
@@ -2728,6 +2893,33 @@
           const inlineLabel = inlineBtn.querySelector(".listen-inline-label");
           if(inlineLabel) inlineLabel.textContent = speaking ? "Stop" : "Listen";
         }
+        // Emergency listen button (prominent, above content)
+        const emergencyBtn = document.getElementById("listen-emergency");
+        if(emergencyBtn){
+          emergencyBtn.classList.toggle("speaking", speaking);
+          emergencyBtn.setAttribute("aria-label", speaking ? "Stop listening" : "Listen to this step");
+          const emergencyLabel = emergencyBtn.querySelector(".listen-emergency-label");
+          const emergencyIcon = emergencyBtn.querySelector("svg");
+          if(emergencyLabel){
+            // Only animate if state actually changed
+            if(speaking !== wasSpeaking){
+              // Smooth text transition: fade out both icon and text → change → fade in
+              emergencyLabel.style.opacity = "0";
+              if(emergencyIcon) emergencyIcon.style.opacity = "0";
+              setTimeout(() => {
+                emergencyLabel.textContent = speaking ? "Stop listening" : "Listen to this step";
+                emergencyLabel.style.opacity = "1";
+                if(emergencyIcon) emergencyIcon.style.opacity = "1";
+              }, 180);
+            } else {
+              // No animation needed, just set text immediately
+              emergencyLabel.textContent = speaking ? "Stop listening" : "Listen to this step";
+              emergencyLabel.style.opacity = "1";
+              if(emergencyIcon) emergencyIcon.style.opacity = "1";
+            }
+          }
+        }
+        wasSpeaking = speaking; // Update tracked state
       }
 
       function stopSpeak(){
@@ -2753,9 +2945,31 @@
         }
 
         const step = deck.steps[stepIndex];
-        const sayPart = step.say ? `Words to say: ${injectEmergencyNumber(step.say)}. ` : "";
-        const doPart = injectEmergencyNumber(step.do);
-        const text = `${deck.title}. Step ${stepIndex+1}. ${sayPart}Do this: ${doPart}`;
+        const isUrgent = activeDecks === URGENT_DECKS;
+        
+        // Build speech text based on available content
+        let text = `${deck.title}. Step ${stepIndex+1}. `;
+        
+        if(step.say){
+          text += `Words to say: ${injectEmergencyNumber(step.say)}. `;
+        }
+        if(step.do){
+          text += `Do this: ${injectEmergencyNumber(step.do)}. `;
+        }
+        if(!step.say && !step.do){
+          text += "Follow the guidance on screen. ";
+        }
+        
+        // Emergency audio cue for low-vision users
+        if(isUrgent){
+          // Check if this step has a call action (contains {EMERGENCY} placeholder)
+          const hasCallAction = step.do && step.do.includes("{EMERGENCY}");
+          if(hasCallAction){
+            text += "When you're ready, use the Call button at the bottom of the screen.";
+          } else {
+            text += "When you're ready, use the Next button at the bottom of the screen.";
+          }
+        }
 
         const u = new SpeechSynthesisUtterance(text);
         u.rate = 0.95;
@@ -3108,9 +3322,10 @@
           if(e.target.id === "stepdown-overlay") toggleStepdown(false);
         });
 
-        // speaker (footer for urgent, inline for crisis)
+        // speaker (emergency prominent, inline for crisis, footer legacy)
         document.getElementById("listen-btn").addEventListener("click", speakCurrent);
         document.getElementById("listen-inline").addEventListener("click", speakCurrent);
+        document.getElementById("listen-emergency").addEventListener("click", speakCurrent);
 
         // mic
         document.getElementById("mic-btn").addEventListener("click", toggleMic);
