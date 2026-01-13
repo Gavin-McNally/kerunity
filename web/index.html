@@ -11,6 +11,7 @@
         --surface-hover:#222222;
         --border:rgba(255,255,255,0.12);
         --border-strong:rgba(255,255,255,0.18);
+        --card-border:rgba(255,255,255,0.14);
         --text:#e8e6e3;
         --text-soft:#c8c6c3;
         --text-muted:#8a8a8a;
@@ -95,7 +96,8 @@
         gap:8px;
         user-select:none;
       }
-      .pill:active{ opacity:0.7; }
+      .pill{ transition:opacity 0.15s ease-out; }
+      .pill:active{ background:var(--surface-hover); }
       .pill[disabled]{ cursor:default; opacity:0.4; }
       .pill.active{ background:var(--surface-hover); }
       
@@ -104,21 +106,21 @@
         background:transparent;
         border:1px solid var(--border-strong);
       }
-      .pill-outline:active{ background:rgba(255,255,255,0.03); }
+      .pill-outline:active{ background:var(--surface); }
 
-      /* System controls: escape hatches, context, close buttons - no border */
+      /* System controls: escape hatches, context, close buttons - border only */
       .pill-ghost{
-        background:var(--surface);
-        border:none;
+        background:transparent;
+        border:1px solid var(--border-strong);
       }
-      .pill-ghost:hover{ background:var(--surface-hover); }
-      .pill-ghost:active{ background:var(--surface); opacity:0.8; }
+      .pill-ghost:hover{ opacity:0.9; }
+      .pill-ghost:active{ background:var(--surface); }
       .pill-ghost:focus{ outline:none; }
       .pill-ghost:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
 
       /* Emergency tab on home - subtle but findable */
       .emergency-tab{
-        background:rgba(168,90,78,0.08);
+        background:transparent;
         border:1px solid rgba(168,90,78,0.25);
         color:var(--emergency);
         font-weight:500;
@@ -164,7 +166,7 @@
         justify-content:center;
       }
       .icon-btn-minimal:hover{ color:var(--text); }
-      .icon-btn-minimal:active{ opacity:0.7; }
+      .icon-btn-minimal:active,.icon-btn-minimal.pressed{ opacity:0.5; transition:none; }
       .icon-btn-minimal:focus{ outline:none; }
       .icon-btn-minimal:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
 
@@ -224,7 +226,8 @@
         cursor:pointer;
         border-radius:var(--radius);
       }
-      .mic-btn:active{ background:rgba(255,255,255,0.05); }
+      .mic-btn{ transition:opacity 0.15s ease-out; }
+      .mic-btn:active{ opacity:0.8; }
       .mic-btn.listening{ 
         color:var(--text); 
         background:rgba(255,255,255,0.08);
@@ -253,25 +256,25 @@
       .room-container{
         display:flex;
         flex-direction:column;
-        gap:14px;
+        gap:18px;
         margin-bottom:20px;
       }
       .room-container::before{ display:none; }
 
       .card{
-        background:var(--surface);
-        border:none;
+        background:transparent;
+        border:1px solid var(--card-border);
         border-radius:var(--radius);
-        padding:20px;
+        padding:24px;
         cursor:pointer;
-        box-shadow:0 0 0 1px rgba(255,255,255,0.04);
       }
-      .card:focus{ outline:2px solid var(--warm); outline-offset:2px; }
-      .card:active{ background:var(--surface-hover); }
+      .card:focus{ outline:none; }
+      .card:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
+      .card:active{ background:var(--surface); }
 
       .glyph{ display:none; }
-      .card-title{ font-size:21px; font-weight:500; line-height:1.35; color:var(--text); margin-bottom:8px; }
-      .card-sub{ font-size:15px; font-weight:400; color:var(--text-muted); line-height:1.4; opacity:0.65; }
+      .card-title{ font-size:22px; font-weight:500; line-height:1.4; color:var(--text); margin-bottom:8px; }
+      .card-sub{ font-size:16px; font-weight:400; color:var(--text-muted); line-height:1.5; opacity:0.65; }
 
       .view-all-btn{
         width:100%;
@@ -286,13 +289,14 @@
         cursor:pointer;
         min-height:56px;
       }
-      .view-all-btn:active{ opacity:0.7; }
+      .view-all-btn{ transition:opacity 0.15s ease-out; }
+      .view-all-btn:active{ opacity:0.8; }
 
       /* Bottom Sheet (Info only) */
       .sheet-backdrop{
         position:absolute;
         inset:0;
-        background:rgba(0,0,0,0.88);
+        background:#000;
         z-index:100;
         opacity:0;
         pointer-events:none;
@@ -303,7 +307,7 @@
       }
       .sheet-backdrop.active{ opacity:1; pointer-events:auto; }
       .sheet{
-        background:var(--bg);
+        background:transparent;
         border:1px solid var(--border-strong);
         border-radius:20px;
         padding:32px 28px;
@@ -358,19 +362,23 @@
         display:flex;
         align-items:center;
         gap:16px;
-        padding:20px;
-        background:var(--surface);
-        border:none;
+        padding:24px;
+        background:transparent;
+        border:1px solid var(--card-border);
         border-radius:var(--radius);
-        margin-bottom:14px;
+        margin-bottom:18px;
         text-align:left;
         color:var(--text);
         cursor:pointer;
-        box-shadow:0 0 0 1px rgba(255,255,255,0.04);
       }
-      .urgent-row:focus{ outline:2px solid var(--warm); outline-offset:2px; }
-      .urgent-row:active{ background:var(--surface-hover); }
+      .urgent-row:focus{ outline:none; }
+      .urgent-row:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
+      .urgent-row:active{ background:var(--surface); }
       .u-icon{ display:none; }
+      
+      /* Emergency text tokens - higher contrast than crisis cards for panic readability */
+      .urgent-title{ font-size:22px; font-weight:500; line-height:1.4; color:var(--text); margin-bottom:8px; }
+      .urgent-sub{ font-size:16px; font-weight:400; color:var(--text-muted); line-height:1.5; }
 
       /* Crisis Card Full Screen */
       .stepdown-backdrop{
@@ -458,6 +466,34 @@
         opacity:1;
       }
 
+      /* Subtle scroll indicator (only when overflowing) */
+      .scroll-indicator{
+        position:absolute;
+        right:10px;
+        top:50%;
+        width:4px;
+        height:56px;
+        transform:translateY(-50%);
+        border-radius:999px;
+        background:rgba(255,255,255,0.10);
+        opacity:0;
+        pointer-events:none;
+        transition:opacity 0.15s ease;
+      }
+      .scroll-indicator-dot{
+        position:absolute;
+        left:50%;
+        top:0;
+        width:8px;
+        height:8px;
+        transform:translate(-50%, 0);
+        border-radius:999px;
+        background:rgba(255,255,255,0.28);
+      }
+      .stepdown-screen.is-overflowing .scroll-indicator{
+        opacity:1;
+      }
+
       .crisis-card{
         width:100%;
         padding:0 28px;
@@ -520,9 +556,9 @@
         outline-offset:2px;
         background:rgba(255,255,255,0.08);
       }
+      .inline-call{ transition:opacity 0.15s ease-out; }
       .inline-call:active{
-        transform:scale(0.98);
-        opacity:0.85;
+        opacity:0.8;
       }
       /* Larger in DO-only mode, still not red */
       .do-text.do-only .inline-call{
@@ -552,6 +588,10 @@
       .switch-link:hover,.switch-link:focus-visible{
         opacity:1;
         color:var(--text);
+      }
+      .switch-link:active,.switch-link.pressed{
+        opacity:0.5;
+        color:var(--text-muted);
       }
 
       /* Continue chip (home screen resume shortcut) - passive memory, not action */
@@ -604,7 +644,9 @@
         border-left:1px solid var(--border);
         border-bottom:1px solid var(--border);
       }
-      .continue-btn:active{ opacity:0.85; }
+      .continue-btn{ transition:opacity 0.15s ease-out; }
+      .continue-btn:active,
+      .continue-btn.pressed{ background:var(--surface-hover); }
       .continue-label{
         font-size:14px;
         color:var(--text-muted);
@@ -633,7 +675,7 @@
         bottom:calc(env(safe-area-inset-bottom) + 24px);
         left:50%;
         transform:translateX(-50%) translateY(100px);
-        background:var(--surface);
+        background:var(--bg);
         color:var(--text);
         padding:14px 20px;
         border-radius:var(--radius);
@@ -644,7 +686,7 @@
         pointer-events:none;
         transition:transform 0.2s ease, opacity 0.2s ease;
         z-index:1200;
-        border:1px solid rgba(255,255,255,0.1);
+        border:1px solid var(--border-strong);
       }
       .toast.show{
         transform:translateX(-50%) translateY(0);
@@ -655,7 +697,7 @@
       .resume-backdrop{
         position:fixed;
         inset:0;
-        background:rgba(0,0,0,0.88);
+        background:#000;
         display:flex;
         align-items:center;
         justify-content:center;
@@ -670,7 +712,7 @@
         pointer-events:auto;
       }
       .resume-sheet{
-        background:var(--bg);
+        background:transparent;
         border:1px solid var(--border-strong);
         border-radius:20px;
         padding:32px 28px;
@@ -707,7 +749,7 @@
       .followup-backdrop{
         position:fixed;
         inset:0;
-        background:rgba(0,0,0,0.88);
+        background:#000;
         display:flex;
         align-items:center;
         justify-content:center;
@@ -722,8 +764,8 @@
         pointer-events:auto;
       }
       .followup-card{
-        background:var(--bg);
-        border:1px solid var(--border-strong);
+        background:transparent;
+        border:none;
         border-radius:20px;
         padding:36px 32px 40px;
         width:100%;
@@ -735,6 +777,7 @@
       }
       .followup-card-minimal{
         background:transparent;
+        border:none;
         padding:20px 28px;
         max-width:280px;
       }
@@ -744,17 +787,17 @@
         right:12px;
         width:36px;
         height:36px;
-        border-radius:50%;
         border:none;
         background:transparent;
         color:var(--text-muted);
+        opacity:0.6;
         cursor:pointer;
         display:flex;
         align-items:center;
         justify-content:center;
       }
-      .followup-close:hover{ background:rgba(255,255,255,0.05); }
-      .followup-close:active{ opacity:0.7; }
+      .followup-close:hover{ opacity:0.8; }
+      .followup-close:active{ opacity:0.5; }
       .followup-title{
         font-size:19px;
         font-weight:500;
@@ -783,7 +826,7 @@
         justify-content:center;
         gap:10px;
       }
-      .followup-btn:active{ transform:scale(0.98); opacity:0.9; }
+      .followup-btn:active{ background:var(--surface); }
       .followup-btn::before{
         content:"";
         width:8px;
@@ -822,7 +865,8 @@
         align-items:center;
         justify-content:center;
       }
-      .muted-link:active{ opacity:0.7; }
+      .muted-link{ transition:opacity 0.15s ease-out; }
+      .muted-link:active{ opacity:0.8; }
 
       .listen-btn{
         display:flex;
@@ -832,16 +876,17 @@
         height:48px;
         padding:0 16px;
         border-radius:var(--radius);
-        border:none;
-        background:var(--surface);
+        border:1px solid var(--border-strong);
+        background:transparent;
         color:var(--text);
         font-size:16px;
         font-weight:400;
         cursor:pointer;
         white-space:nowrap;
       }
-      .listen-btn:active{ opacity:0.7; }
-      .listen-btn.speaking{ background:var(--surface-hover); }
+      .listen-btn{ transition:opacity 0.15s ease-out; }
+      .listen-btn:active{ opacity:0.8; }
+      .listen-btn.speaking{ background:rgba(255,255,255,0.05); }
       /* Listen as support role - more subtle */
       .listen-btn.listen-secondary{
         height:44px;
@@ -850,14 +895,14 @@
         color:var(--text-muted);
         font-size:15px;
       }
-      .listen-btn.listen-secondary:active{ background:rgba(255,255,255,0.05); }
+      .listen-btn.listen-secondary:active{ opacity:0.8; }
 
       /* Inline listen button (under SAY text, crisis mode) */
       .listen-inline{
         display:inline-flex;
         align-items:center;
         gap:8px;
-        margin-top:12px;
+        margin-top:18px;
         padding:10px 16px;
         min-height:42px;
         border-radius:21px;
@@ -867,7 +912,8 @@
         font-size:14px;
         cursor:pointer;
       }
-      .listen-inline:active{ background:rgba(255,255,255,0.05); }
+      .listen-inline{ transition:opacity 0.15s ease-out; }
+      .listen-inline:active{ opacity:0.8; }
       .listen-inline.speaking{ background:rgba(255,255,255,0.08); color:var(--text); }
 
       /* Reduced motion */
@@ -970,13 +1016,18 @@
                     </svg>
                     <span class="listen-inline-label">Listen</span>
                   </button>
-                  <div id="pause-hint" style="font-size:13px;color:var(--text-muted);margin-top:10px;opacity:0.7;">It's okay to pause for a moment.</div>
+                  <div id="pause-hint" style="font-size:13px;color:var(--text-muted);margin-top:16px;opacity:0.7;">It's okay to pause for a moment.</div>
                   <div class="divider"></div>
                 </div>
                 <div id="stepdown-do-kicker" class="kicker">You can do this</div>
                 <div id="stepdown-do" class="do-text"></div>
                 </div>
               </div>
+
+            <!-- Scroll indicator (only visible when overflowing) -->
+            <div class="scroll-indicator" aria-hidden="true">
+              <div class="scroll-indicator-dot"></div>
+            </div>
 
             <div class="stepdown-footer">
               <!-- URGENT MODE: Call + Listen in footer -->
@@ -1822,19 +1873,16 @@
           row.setAttribute("tabindex", "0");
           row.dataset.urgent = it.key;
           
-          const inner = document.createElement("div");
-          
           const label = document.createElement("div");
-          label.style.cssText = "font-weight:500;font-size:19px;line-height:1.35;margin-bottom:4px;";
+          label.className = "urgent-title";
           label.textContent = it.label;
           
           const sub = document.createElement("div");
-          sub.style.cssText = "font-size:15px;color:var(--text-muted);line-height:1.4;";
+          sub.className = "urgent-sub";
           sub.textContent = it.sub;
           
-          inner.appendChild(label);
-          inner.appendChild(sub);
-          row.appendChild(inner);
+          row.appendChild(label);
+          row.appendChild(sub);
           list.appendChild(row);
         });
       }
@@ -1930,7 +1978,10 @@
         
         if(show) pushOverlayState();
         
-        if(!show) document.getElementById("info-open")?.focus();
+        if(!show){
+          document.getElementById("info-open")?.focus();
+          document.getElementById("info-open")?.classList.remove("pressed");
+        }
         el.classList.toggle("active", !!show);
         el.setAttribute("aria-hidden", show ? "false" : "true");
         updateBodyLock();
@@ -2052,8 +2103,6 @@
       }
       
       function showFollowupResponse(type){
-        hideFollowup();
-        
         const overlay = document.getElementById("followup-response-overlay");
         const textEl = document.getElementById("followup-response-text");
         const buttonsEl = document.getElementById("followup-response-buttons");
@@ -2061,9 +2110,10 @@
         buttonsEl.textContent = "";
         
         if(type === "calmer"){
-          textEl.textContent = "That's good to hear.";
+          // Simple smile arc below text (no face, no eyes, just a gentle curve)
+          textEl.innerHTML = `That's good to hear.<svg width="28" height="14" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="display:block;margin:16px auto 0;opacity:0.7;" aria-hidden="true"><path d="M4 4c2 5 14 5 16 0"/></svg>`;
           textEl.style.marginBottom = "0"; // No buttons, so remove bottom margin
-          // Make card look like outline button (transparent + border)
+          // Make card minimal (no border)
           const card = overlay.querySelector(".followup-card");
           card.classList.add("followup-card-minimal");
           // Auto-dismiss after 2 seconds
@@ -2079,16 +2129,39 @@
           btn1.className = "pill pill-outline";
           btn1.style.cssText = "width:100%;height:56px;font-size:16px;";
           btn1.textContent = "Try another situation";
-          btn1.onclick = () => closeFollowupAndExit();
+          btn1.onclick = (e) => {
+            const b = e.currentTarget;
+            b.style.background = "var(--surface)";
+            setTimeout(() => {
+              b.style.background = "";
+              closeFollowupAndExit();
+            }, 180);
+          };
           buttonsEl.appendChild(btn1);
           
           const btn2 = document.createElement("button");
           btn2.className = "pill pill-outline";
           btn2.style.cssText = "width:100%;height:56px;font-size:16px;";
           btn2.textContent = "Stay here";
-          btn2.onclick = () => {
-            hideFollowupResponse();
-            // Stay on current step (user stays in card)
+          btn2.onclick = (e) => {
+            const b = e.currentTarget;
+            b.style.background = "var(--surface)";
+            setTimeout(() => {
+              b.style.background = "";
+              // Hide both overlays INSTANTLY (no transition flash)
+              const o1 = document.getElementById("followup-overlay");
+              const o2 = document.getElementById("followup-response-overlay");
+              o1.style.transition = "none";
+              o2.style.transition = "none";
+              o1.classList.remove("active");
+              o1.setAttribute("aria-hidden", "true");
+              o2.classList.remove("active");
+              o2.setAttribute("aria-hidden", "true");
+              void o1.offsetHeight;
+              o1.style.transition = "";
+              o2.style.transition = "";
+              // Stay on current step (user stays in card)
+            }, 180);
           };
           buttonsEl.appendChild(btn2);
         } else if(type === "worse"){
@@ -2126,12 +2199,21 @@
           btn3.className = "pill pill-outline";
           btn3.style.cssText = "width:100%;height:56px;font-size:16px;";
           btn3.textContent = "Back to situations";
-          btn3.onclick = () => closeFollowupAndExit();
+          btn3.onclick = (e) => {
+            const b = e.currentTarget;
+            b.style.background = "var(--surface)";
+            setTimeout(() => {
+              b.style.background = "";
+              closeFollowupAndExit();
+            }, 180);
+          };
           buttonsEl.appendChild(btn3);
         }
         
         overlay.classList.add("active");
         overlay.setAttribute("aria-hidden", "false");
+        // Keep original followup open underneath (same black backdrop, no flash)
+        // Both will be closed together in closeFollowupAndExit()
       }
       
       function hideFollowupResponse(){
@@ -2141,8 +2223,19 @@
       }
       
       function closeFollowupAndExit(){
-        hideFollowup();
-        hideFollowupResponse();
+        // Hide both overlays INSTANTLY (no transition flash)
+        const overlay1 = document.getElementById("followup-overlay");
+        const overlay2 = document.getElementById("followup-response-overlay");
+        overlay1.style.transition = "none";
+        overlay2.style.transition = "none";
+        overlay1.classList.remove("active");
+        overlay1.setAttribute("aria-hidden", "true");
+        overlay2.classList.remove("active");
+        overlay2.setAttribute("aria-hidden", "true");
+        // Force reflow then restore transitions
+        void overlay1.offsetHeight;
+        overlay1.style.transition = "";
+        overlay2.style.transition = "";
         exitDeck(true);
       }
       
@@ -2496,7 +2589,7 @@
               // Force layout recalc
               void body.offsetHeight;
               
-              const isOverflowing = body.scrollHeight > body.clientHeight + 8;
+              const isOverflowing = body.scrollHeight > body.clientHeight + 20;
               
               // Restore
               body.style.overflow = prevOverflow;
@@ -2509,6 +2602,8 @@
                 stepScreen.classList.add("no-overflow");
                 stepScreen.classList.remove("is-overflowing");
               }
+              // Bind scroll indicator after overflow state is set
+              bindStepScrollIndicator();
             }
           });
         });
@@ -2526,6 +2621,52 @@
           }
         }, 150);
       });
+
+      // Scroll indicator helper (Gemini-style rail + dot)
+      let stepScrollEl = null;
+      let onStepScroll = null;
+      
+      function bindStepScrollIndicator(){
+        const screen = document.querySelector(".stepdown-screen");
+        const body = document.querySelector(".stepdown-body");
+        const rail = document.querySelector(".scroll-indicator");
+        const dot = document.querySelector(".scroll-indicator-dot");
+        if(!screen || !body || !rail || !dot) return;
+        
+        // Clean up previous listener
+        if(stepScrollEl && onStepScroll){
+          stepScrollEl.removeEventListener("scroll", onStepScroll);
+        }
+        
+        // Only bind when overflowing
+        if(!screen.classList.contains("is-overflowing")){
+          dot.style.transform = "translate(-50%, 0px)";
+          stepScrollEl = null;
+          onStepScroll = null;
+          return;
+        }
+        
+        stepScrollEl = body;
+        
+        const updateDot = () => {
+          const maxScroll = body.scrollHeight - body.clientHeight;
+          const progress = maxScroll <= 0 ? 0 : (body.scrollTop / maxScroll);
+          
+          const railH = rail.clientHeight;
+          const dotH = dot.clientHeight;
+          const travel = Math.max(0, railH - dotH);
+          
+          const y = Math.round(travel * progress);
+          dot.style.transform = `translate(-50%, ${y}px)`;
+        };
+        
+        onStepScroll = () => updateDot();
+        
+        body.addEventListener("scroll", onStepScroll, { passive: true });
+        
+        // Ensure correct initial position
+        updateDot();
+      }
 
       function nextStep(){
         const deck = activeDecks?.[activeKey];
@@ -2837,59 +2978,131 @@
           renderSuggestions([]);
         });
 
-        // home tiles (no input flicker)
+        // Press feedback delays for visible confirmation before navigation
+        const PRESS_DELAY = 120;        // For same-screen actions (Next/Back)
+        const SCREEN_DELAY = 180;       // For screen transitions (longer for visibility)
+        
+        // home tiles (with press feedback delay)
         const grid = document.getElementById("grid-container");
         grid.addEventListener("click", (e) => {
           const card = e.target.closest(".card");
           if(!card) return;
-          openDeck(CRISIS_DECKS, card.dataset.key);
+          card.style.background = "var(--surface)";
+          setTimeout(() => {
+            card.style.background = "";
+            openDeck(CRISIS_DECKS, card.dataset.key);
+          }, SCREEN_DELAY);
         });
         grid.addEventListener("keydown", (e) => {
           if(e.key !== "Enter" && e.key !== " ") return;
           const card = e.target.closest(".card");
           if(!card) return;
           e.preventDefault();
-          openDeck(CRISIS_DECKS, card.dataset.key);
+          card.style.background = "var(--surface)";
+          setTimeout(() => {
+            card.style.background = "";
+            openDeck(CRISIS_DECKS, card.dataset.key);
+          }, SCREEN_DELAY);
         });
 
-        // urgent open/close
-        document.getElementById("urgent-open").addEventListener("click", () => toggleUrgent(true));
-        document.getElementById("urgent-close").addEventListener("click", () => toggleUrgent(false));
+        // urgent open/close (with press feedback)
+        document.getElementById("urgent-open").addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          btn.style.opacity = "0.6";
+          setTimeout(() => {
+            btn.style.opacity = "";
+            toggleUrgent(true);
+          }, 220); // Slightly longer for red-bordered button
+        });
+        document.getElementById("urgent-close").addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          btn.style.background = "var(--surface)";
+          setTimeout(() => {
+            btn.style.background = "";
+            toggleUrgent(false);
+          }, SCREEN_DELAY);
+        });
         document.getElementById("urgent-overlay").addEventListener("click", (e) => {
           if(e.target.id === "urgent-overlay") toggleUrgent(false);
         });
 
-        // urgent rows -> open urgent decks (FIXED)
+        // urgent rows -> open urgent decks (with press feedback delay)
         const urgentList = document.getElementById("urgent-grid-sheet");
         urgentList.addEventListener("click", (e) => {
           const row = e.target.closest(".urgent-row");
           if(!row) return;
-          toggleUrgent(false);
-          openDeck(URGENT_DECKS, row.dataset.urgent);
+          row.style.background = "var(--surface)";
+          setTimeout(() => {
+            row.style.background = "";
+            toggleUrgent(false);
+            openDeck(URGENT_DECKS, row.dataset.urgent);
+          }, SCREEN_DELAY);
         });
         urgentList.addEventListener("keydown", (e) => {
           if(e.key !== "Enter" && e.key !== " ") return;
           const row = e.target.closest(".urgent-row");
           if(!row) return;
           e.preventDefault();
-          toggleUrgent(false);
-          openDeck(URGENT_DECKS, row.dataset.urgent);
+          row.style.background = "var(--surface)";
+          setTimeout(() => {
+            row.style.background = "";
+            toggleUrgent(false);
+            openDeck(URGENT_DECKS, row.dataset.urgent);
+          }, SCREEN_DELAY);
         });
 
         // stepdown controls
-        document.getElementById("stepdown-next").addEventListener("click", nextStep);
-        document.getElementById("stepdown-back").addEventListener("click", prevStep);
-        document.getElementById("stepdown-close").addEventListener("click", () => exitDeck()); // Close = exit to home
-        document.getElementById("switch-situation").addEventListener("click", () => exitDeck()); // Switch = exit to home (resume still saved)
-        document.getElementById("back-to-urgent-btn").addEventListener("click", () => {
-          // Close stepdown and return to emergency list
-          toggleStepdown(false);
-          toggleUrgent(true);
+        document.getElementById("stepdown-next").addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          btn.style.background = "var(--surface)";
+          setTimeout(() => {
+            btn.style.background = "";
+            nextStep();
+          }, PRESS_DELAY);
+        });
+        document.getElementById("stepdown-back").addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          btn.style.background = "var(--surface)";
+          setTimeout(() => {
+            btn.style.background = "";
+            prevStep();
+          }, PRESS_DELAY);
+        });
+        document.getElementById("stepdown-close").addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          btn.style.background = "var(--surface)";
+          setTimeout(() => {
+            btn.style.background = "";
+            exitDeck();
+          }, SCREEN_DELAY);
+        });
+        document.getElementById("switch-situation").addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          btn.classList.add("pressed");
+          setTimeout(() => {
+            btn.classList.remove("pressed");
+            exitDeck();
+          }, SCREEN_DELAY);
+        });
+        document.getElementById("back-to-urgent-btn").addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          btn.classList.add("pressed");
+          setTimeout(() => {
+            btn.classList.remove("pressed");
+            // Close stepdown and return to emergency list
+            toggleStepdown(false);
+            toggleUrgent(true);
+          }, SCREEN_DELAY);
         });
         document.getElementById("stepdown-call").addEventListener("click", callEmergency);
-        document.getElementById("stepdown-emergency").addEventListener("click", () => {
-          toggleStepdown(false);
-          toggleUrgent(true);
+        document.getElementById("stepdown-emergency").addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          btn.style.background = "var(--surface)";
+          setTimeout(() => {
+            btn.style.background = "";
+            toggleStepdown(false);
+            toggleUrgent(true);
+          }, SCREEN_DELAY);
         });
         document.getElementById("stepdown-overlay").addEventListener("click", (e) => {
           if(e.target.id === "stepdown-overlay") toggleStepdown(false);
@@ -2903,8 +3116,21 @@
         document.getElementById("mic-btn").addEventListener("click", toggleMic);
 
         // Info
-        document.getElementById("info-open").addEventListener("click", () => toggleInfo(true));
-        document.getElementById("info-close").addEventListener("click", () => toggleInfo(false));
+        document.getElementById("info-open").addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          btn.classList.add("pressed");
+          setTimeout(() => {
+            toggleInfo(true);
+          }, 280);
+        });
+        document.getElementById("info-close").addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          btn.style.background = "var(--surface)";
+          setTimeout(() => {
+            btn.style.background = "";
+            toggleInfo(false);
+          }, SCREEN_DELAY);
+        });
         document.getElementById("info-overlay").addEventListener("click", (e) => {
           if(e.target.id === "info-overlay") toggleInfo(false);
         });
@@ -2917,27 +3143,60 @@
         document.getElementById("view-all-btn").addEventListener("click", toggleViewAll);
         
         // Continue chip (home screen resume shortcut - handles both crisis and urgent)
-        document.getElementById("continue-btn").addEventListener("click", () => {
-          const chip = document.getElementById("continue-chip");
-          const resumeType = chip.dataset.resumeType;
-          
-          if(resumeType === "urgent" && hasUrgentResumeAvailable()){
-            openDeck(URGENT_DECKS, urgentResumeState.deckKey, urgentResumeState.stepIndex);
-            clearUrgentResume();
-          } else if(resumeType === "crisis" && hasCrisisResumeAvailable()){
-            openDeck(CRISIS_DECKS, resumeState.deckKey, resumeState.stepIndex);
-            clearResume();
-          }
+        document.getElementById("continue-btn").addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          btn.classList.add("pressed");
+          setTimeout(() => {
+            btn.classList.remove("pressed");
+            const chip = document.getElementById("continue-chip");
+            const resumeType = chip.dataset.resumeType;
+            
+            if(resumeType === "urgent" && hasUrgentResumeAvailable()){
+              openDeck(URGENT_DECKS, urgentResumeState.deckKey, urgentResumeState.stepIndex);
+              clearUrgentResume();
+            } else if(resumeType === "crisis" && hasCrisisResumeAvailable()){
+              openDeck(CRISIS_DECKS, resumeState.deckKey, resumeState.stepIndex);
+              clearResume();
+            }
+          }, SCREEN_DELAY);
         });
         
         // Initialize continue chip visibility
         updateContinueChip();
 
-        // Post-completion follow-up buttons
-        document.getElementById("followup-calmer").addEventListener("click", () => showFollowupResponse("calmer"));
-        document.getElementById("followup-same").addEventListener("click", () => showFollowupResponse("same"));
-        document.getElementById("followup-worse").addEventListener("click", () => showFollowupResponse("worse"));
-        document.getElementById("followup-close").addEventListener("click", () => closeFollowupAndExit());
+        // Post-completion follow-up buttons (with press feedback)
+        document.getElementById("followup-calmer").addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          btn.style.background = "var(--surface)";
+          setTimeout(() => {
+            btn.style.background = "";
+            showFollowupResponse("calmer");
+          }, SCREEN_DELAY);
+        });
+        document.getElementById("followup-same").addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          btn.style.background = "var(--surface)";
+          setTimeout(() => {
+            btn.style.background = "";
+            showFollowupResponse("same");
+          }, SCREEN_DELAY);
+        });
+        document.getElementById("followup-worse").addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          btn.style.background = "var(--surface)";
+          setTimeout(() => {
+            btn.style.background = "";
+            showFollowupResponse("worse");
+          }, SCREEN_DELAY);
+        });
+        document.getElementById("followup-close").addEventListener("click", (e) => {
+          const btn = e.currentTarget;
+          btn.style.background = "var(--surface)";
+          setTimeout(() => {
+            btn.style.background = "";
+            closeFollowupAndExit();
+          }, SCREEN_DELAY);
+        });
 
         // Resume prompt: ESC and backdrop click dismiss (defaults to Start from Step 1)
         document.getElementById("resume-overlay").addEventListener("click", (e) => {
