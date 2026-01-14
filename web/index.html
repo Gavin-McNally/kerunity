@@ -145,6 +145,21 @@
       }
       .emergency-call-btn:active{ opacity:0.8; }
 
+      /* Emergency confirmation state - armed, waiting for second tap */
+      .emergency-confirm{
+        background:var(--emergency);
+        border:2px solid #fff;
+        animation:emergency-pulse 1s ease-in-out infinite;
+      }
+      .emergency-confirm:active{ opacity:1; }
+      @keyframes emergency-pulse{
+        0%, 100%{ box-shadow:0 0 0 0 rgba(168, 90, 78, 0); }
+        50%{ box-shadow:0 0 0 6px rgba(168, 90, 78, 0.4); }
+      }
+      @media (prefers-reduced-motion: reduce){
+        .emergency-confirm{ animation:none; border-width:3px; }
+      }
+
       .nhs-advice-btn{
         background:#005EB8;
         color:#fff;
@@ -211,13 +226,23 @@
       .canvas::-webkit-scrollbar{ width:0; height:0; }
 
       .search-box{ margin:0 0 36px; position:relative; }
+      .search-icon{
+        position:absolute;
+        left:16px;
+        top:50%;
+        transform:translateY(-50%);
+        width:20px;
+        height:20px;
+        color:var(--text-muted);
+        pointer-events:none;
+      }
       .search-input{
         width:100%;
         height:60px;
         background:transparent;
         border:1px solid var(--border-strong);
         border-radius:var(--radius);
-        padding:0 56px 0 18px;
+        padding:0 56px 0 46px;
         color:var(--text);
         font-size:18px;
         font-weight:400;
@@ -238,12 +263,15 @@
         justify-content:center;
         background:transparent;
         border:none;
-        color:var(--text-muted);
+        color:var(--text-soft);
         cursor:pointer;
         border-radius:var(--radius);
       }
-      .mic-btn{ transition:opacity 0.15s ease-out; }
+      .mic-btn{ transition:opacity 0.15s ease-out, background 0.15s ease-out; }
+      .mic-btn:hover{ background:rgba(255,255,255,0.05); }
       .mic-btn:active{ opacity:0.8; }
+      .mic-btn:focus{ outline:none; }
+      .mic-btn:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
       .mic-btn.listening{ 
         color:var(--text); 
         background:rgba(255,255,255,0.08);
@@ -894,19 +922,22 @@
         position:absolute;
         top:12px;
         right:12px;
-        width:36px;
-        height:36px;
+        width:44px;
+        height:44px;
         border:none;
+        border-radius:50%;
         background:transparent;
         color:var(--text-muted);
-        opacity:0.6;
+        opacity:0.8;
         cursor:pointer;
         display:flex;
         align-items:center;
         justify-content:center;
       }
-      .followup-close:hover{ opacity:0.8; }
-      .followup-close:active{ opacity:0.5; }
+      .followup-close:hover{ opacity:1; }
+      .followup-close:active{ opacity:0.6; }
+      .followup-close:focus{ outline:none; }
+      .followup-close:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
       .followup-title{
         font-size:19px;
         font-weight:500;
@@ -1016,10 +1047,10 @@
         padding:11px 16px;
         min-height:44px;
         border-radius:22px;
-        border:1px solid rgba(255,255,255,0.12);
+        border:1px solid var(--border-strong);
         background:transparent;
-        color:var(--text-muted);
-        font-size:14px;
+        color:var(--text);
+        font-size:15px;
         cursor:pointer;
       }
       .listen-inline{ transition:opacity 0.15s ease-out; }
@@ -1046,39 +1077,30 @@
       }
       .listen-emergency svg{
         flex-shrink:0;
-        position:relative;
-        left:0;
-        transition:opacity 0.18s cubic-bezier(0.25, 0.1, 0.25, 1);
       }
       .listen-emergency-label{
         display:inline-block;
         min-width:155px;
         text-align:center;
-        transition:opacity 0.18s cubic-bezier(0.25, 0.1, 0.25, 1);
       }
-      .listen-emergency{ transition:opacity 0.15s ease-out; }
+      .listen-emergency{ transition:background 0.1s ease-out, border-color 0.1s ease-out; }
       .listen-emergency:active{ background:var(--surface); }
       .listen-emergency.speaking{ 
-        background:rgba(255,255,255,0.08); 
-        border-color:var(--text-muted);
-      }
-      .listen-emergency.speaking .listen-emergency-label{
         background:linear-gradient(90deg, 
-          var(--text) 0%, 
-          var(--text) 40%, 
-          rgba(255,255,255,1) 50%, 
-          var(--text) 60%, 
-          var(--text) 100%
+          rgba(255,255,255,0.04) 0%,
+          rgba(255,255,255,0.06) 20%,
+          rgba(255,255,255,0.09) 40%,
+          rgba(255,255,255,0.09) 60%,
+          rgba(255,255,255,0.06) 80%,
+          rgba(255,255,255,0.04) 100%
         );
         background-size:200% 100%;
-        background-clip:text;
-        -webkit-background-clip:text;
-        color:transparent;
-        animation:text-shimmer 2.5s ease-in-out infinite;
+        border-color:var(--border);
+        animation:button-shimmer 2.2s linear infinite;
       }
-      @keyframes text-shimmer{
-        0%{ background-position:100% 0; }
-        100%{ background-position:-100% 0; }
+      @keyframes button-shimmer{
+        0%{ background-position:200% 0; }
+        100%{ background-position:0% 0; }
       }
 
       /* Reduced motion */
@@ -1097,7 +1119,7 @@
 
             <div class="header-actions">
               <button class="icon-btn-minimal" id="info-open" type="button" aria-label="Info">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <circle cx="12" cy="12" r="10"></circle>
                   <path d="M12 16v-4"></path>
                   <path d="M12 8h.01"></path>
@@ -1127,6 +1149,10 @@
 
         <div class="canvas">
           <div class="search-box">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
             <input id="query" type="text" class="search-input" placeholder="Search situations">
             <button id="mic-btn" class="mic-btn" type="button" aria-label="Speak">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1163,7 +1189,7 @@
             <div class="stepdown-header" style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:32px;padding:6px 0;">
               <div style="flex:1;min-width:0;">
                 <div id="stepdown-title" style="font-size:18px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Situation</div>
-                <div id="stepdown-progress" style="font-size:16px;color:var(--text-muted);margin-top:6px;">Step 1 of 4</div>
+                <div id="stepdown-progress" style="font-size:16px;color:var(--text-soft);margin-top:6px;">Step 1 of 4</div>
               </div>
               <button id="stepdown-close" class="pill pill-ghost" type="button" aria-label="Close" style="flex-shrink:0;">Close</button>
             </div>
@@ -1184,7 +1210,7 @@
                   <div id="stepdown-say" class="say-text"></div>
                   <!-- Listen: inline tool under SAY text (crisis decks) -->
                   <button id="listen-inline" class="listen-inline" type="button" aria-label="Listen">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                       <path d="M11 5 6 9H2v6h4l5 4V5Z"></path>
                       <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
                     </svg>
@@ -1339,7 +1365,7 @@
         <div id="followup-overlay" class="followup-backdrop" aria-hidden="true">
           <div class="followup-card" role="dialog" aria-modal="true" aria-label="Follow-up">
             <button id="followup-close" class="followup-close" type="button" aria-label="Close">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M18 6 6 18"></path>
                 <path d="m6 6 12 12"></path>
               </svg>
@@ -2115,7 +2141,10 @@
         
         if(show) pushOverlayState();
         
-        if(!show) document.getElementById("urgent-open")?.focus();
+        if(!show){
+          document.getElementById("urgent-open")?.focus();
+          cancelEmergencyConfirm(); // Cancel any pending confirmation
+        }
         el.classList.toggle("active", !!show);
         el.setAttribute("aria-hidden", show ? "false" : "true");
         updateBodyLock();
@@ -2174,6 +2203,7 @@
         
         if(!show){
           stopSpeak();
+          cancelEmergencyConfirm(); // Cancel any pending confirmation
           document.getElementById("query")?.focus();
         }
         el.classList.toggle("active", !!show);
@@ -2343,24 +2373,26 @@
           textEl.textContent = "If things are getting worse, it's okay to get urgent help.";
           textEl.style.marginBottom = "32px"; // More space before buttons
           
-          // Emergency call button
+          // Emergency call button (with confirmation)
           const btn1 = document.createElement("button");
           btn1.className = "pill emergency-call-btn";
           btn1.style.cssText = "width:100%;height:48px;font-size:17px;";
           btn1.textContent = `Call ${emergencyNumber}`;
           btn1.onclick = () => {
-            hideFollowupResponse();
-            exitDeck(true);
-            callEmergency();
+            initiateEmergencyConfirm(btn1, () => {
+              hideFollowupResponse();
+              exitDeck(true);
+              callEmergency();
+            });
           };
           buttonsEl.appendChild(btn1);
           
-          // NHS 111 / Medical advice (UK only)
-          if(emergencyNumber === "999"){
+          // NHS 111 / Medical advice (UK only) - outlined, secondary to 999
+          if(emergencyNumber === "999" && adviceNumber){
             const btn2 = document.createElement("button");
-            btn2.className = "pill nhs-advice-btn";
-            btn2.style.cssText = "width:100%;height:48px;font-size:17px;";
-            btn2.textContent = "Call NHS 111";
+            btn2.className = "pill pill-outline";
+            btn2.style.cssText = "width:100%;height:56px;font-size:16px;flex-direction:column;gap:2px;";
+            btn2.innerHTML = `<span style="font-weight:500;">Call NHS ${adviceNumber}</span><span style="font-size:13px;opacity:0.7;">Medical advice</span>`;
             btn2.onclick = () => {
               hideFollowupResponse();
               exitDeck(true);
@@ -2919,7 +2951,6 @@
          TEXT-TO-SPEECH (Speaker)
       ========================== */
       let speaking = false;
-      let wasSpeaking = false; // Track previous state for transition
       let preferredVoice = null;
 
       function pickVoice(){
@@ -2955,27 +2986,11 @@
           emergencyBtn.classList.toggle("speaking", speaking);
           emergencyBtn.setAttribute("aria-label", speaking ? "Stop listening" : "Listen to this step");
           const emergencyLabel = emergencyBtn.querySelector(".listen-emergency-label");
-          const emergencyIcon = emergencyBtn.querySelector("svg");
+          // Instant text swap - background flash provides visual acknowledgment
           if(emergencyLabel){
-            // Only animate if state actually changed
-            if(speaking !== wasSpeaking){
-              // Smooth text transition: fade out both icon and text → change → fade in
-              emergencyLabel.style.opacity = "0";
-              if(emergencyIcon) emergencyIcon.style.opacity = "0";
-              setTimeout(() => {
-                emergencyLabel.textContent = speaking ? "Stop listening" : "Listen to this step";
-                emergencyLabel.style.opacity = "1";
-                if(emergencyIcon) emergencyIcon.style.opacity = "1";
-              }, 180);
-            } else {
-              // No animation needed, just set text immediately
-              emergencyLabel.textContent = speaking ? "Stop listening" : "Listen to this step";
-              emergencyLabel.style.opacity = "1";
-              if(emergencyIcon) emergencyIcon.style.opacity = "1";
-            }
+            emergencyLabel.textContent = speaking ? "Stop listening" : "Listen to this step";
           }
         }
-        wasSpeaking = speaking; // Update tracked state
       }
 
       function stopSpeak(){
@@ -3171,6 +3186,128 @@
         }
       }
 
+      /* =========================
+         EMERGENCY CONFIRMATION
+         Prevents accidental calls - requires 2 taps within 3 seconds
+      ========================== */
+      let emergencyConfirmTimer = null;
+      let emergencyConfirmCountdown = null;
+      let emergencyConfirmBtn = null;
+      let emergencyConfirmOriginalHTML = null;
+      let emergencyConfirmCallback = null;
+      
+      function initiateEmergencyConfirm(btn, onConfirm){
+        // If already confirming this button, complete the call
+        if(emergencyConfirmBtn === btn){
+          confirmAndCall();
+          return;
+        }
+        
+        // Cancel any existing confirmation on another button
+        cancelEmergencyConfirm();
+        
+        // Store reference, original content, and optional callback
+        emergencyConfirmBtn = btn;
+        emergencyConfirmOriginalHTML = btn.innerHTML;
+        emergencyConfirmCallback = onConfirm || null;
+        
+        // Enter confirmation state
+        btn.classList.add("emergency-confirm");
+        let secondsLeft = 3;
+        updateConfirmText(btn, secondsLeft);
+        
+        // Start countdown
+        emergencyConfirmCountdown = setInterval(() => {
+          secondsLeft--;
+          if(secondsLeft <= 0){
+            cancelEmergencyConfirm();
+          } else {
+            updateConfirmText(btn, secondsLeft);
+          }
+        }, 1000);
+        
+        // Set timeout to auto-cancel after 3 seconds
+        emergencyConfirmTimer = setTimeout(() => {
+          cancelEmergencyConfirm();
+        }, 3100);
+        
+        // Listen for clicks elsewhere to cancel
+        setTimeout(() => {
+          document.addEventListener("click", handleConfirmOutsideClick, true);
+        }, 10);
+      }
+      
+      function updateConfirmText(btn, seconds){
+        // Clear, complete thought: "Tap to call 999" + clean countdown
+        const confirmText = `Tap to call ${emergencyNumber}`;
+        
+        // For main panel button (has nested spans)
+        const numberSpan = btn.querySelector("#emergency-number");
+        if(numberSpan){
+          numberSpan.textContent = confirmText;
+          numberSpan.style.fontSize = "17px";
+          // Update the sublabel to show countdown - make it bold and larger
+          const sublabel = btn.querySelector("span:last-child");
+          if(sublabel && sublabel !== numberSpan){
+            sublabel.textContent = seconds;
+            sublabel.style.fontSize = "20px";
+            sublabel.style.fontWeight = "600";
+            sublabel.style.opacity = "1";
+          }
+        } else {
+          // For stepdown call button (single label span) - bold countdown
+          const label = btn.querySelector("#stepdown-call-label");
+          if(label){
+            label.innerHTML = `${confirmText} <span style="font-weight:700;font-size:22px;margin-left:8px;">${seconds}</span>`;
+          } else {
+            btn.innerHTML = `${confirmText} <span style="font-weight:700;font-size:22px;margin-left:8px;">${seconds}</span>`;
+          }
+        }
+      }
+      
+      function cancelEmergencyConfirm(){
+        if(emergencyConfirmTimer){
+          clearTimeout(emergencyConfirmTimer);
+          emergencyConfirmTimer = null;
+        }
+        if(emergencyConfirmCountdown){
+          clearInterval(emergencyConfirmCountdown);
+          emergencyConfirmCountdown = null;
+        }
+        if(emergencyConfirmBtn){
+          emergencyConfirmBtn.classList.remove("emergency-confirm");
+          emergencyConfirmBtn.innerHTML = emergencyConfirmOriginalHTML;
+          // Restore font size for main button
+          const numberSpan = emergencyConfirmBtn.querySelector("#emergency-number");
+          if(numberSpan){
+            numberSpan.style.fontSize = "";
+          }
+          emergencyConfirmBtn = null;
+          emergencyConfirmOriginalHTML = null;
+        }
+        emergencyConfirmCallback = null;
+        document.removeEventListener("click", handleConfirmOutsideClick, true);
+      }
+      
+      function confirmAndCall(){
+        const callback = emergencyConfirmCallback;
+        cancelEmergencyConfirm();
+        if(callback){
+          callback();
+        } else {
+          callEmergency();
+        }
+      }
+      
+      function handleConfirmOutsideClick(e){
+        // If click is on the confirm button, let the button handler deal with it
+        if(emergencyConfirmBtn && emergencyConfirmBtn.contains(e.target)){
+          return;
+        }
+        // Click was outside - cancel confirmation
+        cancelEmergencyConfirm();
+      }
+
       /* Inject region-safe emergency number into copy strings */
       function injectEmergencyNumber(text){
         if(!text) return text;
@@ -3364,7 +3501,9 @@
             toggleUrgent(true);
           }, SCREEN_DELAY);
         });
-        document.getElementById("stepdown-call").addEventListener("click", callEmergency);
+        document.getElementById("stepdown-call").addEventListener("click", (e) => {
+          initiateEmergencyConfirm(e.currentTarget);
+        });
         document.getElementById("stepdown-emergency").addEventListener("click", (e) => {
           const btn = e.currentTarget;
           btn.style.background = "var(--surface)";
@@ -3406,8 +3545,10 @@
           if(e.target.id === "info-overlay") toggleInfo(false);
         });
 
-        // 999 / 111
-        document.getElementById("call-emergency").addEventListener("click", callEmergency);
+        // 999 / 111 (with confirmation for emergency)
+        document.getElementById("call-emergency").addEventListener("click", (e) => {
+          initiateEmergencyConfirm(e.currentTarget);
+        });
         document.getElementById("call-advice").addEventListener("click", callAdvice);
 
         // View all situations
