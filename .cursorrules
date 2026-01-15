@@ -1,15 +1,41 @@
-You are working on Kerunity as a single-file widget inside the ChatGPT Apps SDK.
+You are working on Kerunity, a crisis-support PWA for carers.
 
-HARD RULES: Read KERUNITY_CONTEXT.md first. Obey CURSOR_RULES.md. Calm-tech only, minimal UI, high accessibility, reduced-motion support, no medical advice, no dependency creep.
+FIRST: Read KERUNITY_SPEC.md — it is the single source of truth.
 
-- Only edit: web/index.html (and optionally web/favicon.ico later).
-- Do NOT introduce frameworks (React/Next/Vite), bundlers, Tailwind CDN, or new dependencies.
-- Do NOT change folder structure.
-- Do NOT touch /server unless explicitly asked.
-- Keep everything plain HTML/CSS/JS in one file.
-- If you propose changes, implement them as minimal patches.
+HARD RULES:
+- Obey CURSOR_RULES.md
+- Calm-tech only, minimal UI, high accessibility
+- Reduced-motion support required
+- No medical advice, no clinical tone
+- No dependency creep
+- Use "Kerunity" (not "KerUnity")
+
+DESIGN PRIORITY (strict order):
+1. Safety
+2. Clarity  
+3. Predictability
+4. Accessibility
+5. Visual calm
+
+DO NOT:
+- Reduce font sizes or weights
+- Reduce touch targets
+- Remove safety guards (disclaimers, confirmations, exit routes)
+- Introduce frameworks (React/Next/Vite), bundlers, or new dependencies
+- Add decorative motion or animation
+- Change folder structure without permission
+
+ONLY EDIT:
+- web/index.html (main app)
+- web/manifest.json (PWA config)
+- web/sw.js (service worker)
+- web/*.png (icons)
 
 WORKFLOW:
-- Make one small change at a time.
-- After each change, verify the UI still loads and buttons still work.
-- If something breaks, revert immediately to the baseline copy.
+- Make one small change at a time
+- After each change, verify UI still loads and all buttons work
+- If something breaks, revert immediately
+- If unsure, propose options with tradeoffs — don't guess silently
+
+GOLDEN RULE:
+If a change does not help a stressed carer in a difficult moment, it does not belong.
