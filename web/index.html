@@ -2,20 +2,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Kerunity</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#161618">
+
+    <!-- iOS support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Kerunity">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Description -->
+    <meta name="description" content="Crisis support for carers - calm guidance when you need it most">
 
     <style>
       :root{
-        --bg:#0e0e0e;
-        --surface:#1a1a1a;
-        --surface-hover:#222222;
-        --border:rgba(255,255,255,0.12);
-        --border-strong:rgba(255,255,255,0.18);
-        --card-border:rgba(255,255,255,0.14);
-        --text:#e8e6e3;
+        --bg:#161618;
+        --surface:#1F1F22;
+        --surface-hover:#2B2B30;
+        --border:rgba(255,255,255,0.08);
+        --border-strong:rgba(255,255,255,0.12);
+        --card-border:rgba(255,255,255,0.10);
+        --text:#F2F2F5;
         --text-soft:#c8c6c3;
-        --text-muted:#8a8a8a;
-        --warm:#c4a882;
+        --text-muted:#9a9a9a;
+        --warm:#d4b892;
         --emergency:#a85a4e;
         --radius:12px;
         /* Spacing tokens (8pt grid) */
@@ -73,10 +88,11 @@
         gap:14px;
       }
       .brand{
-        font-weight:400;
-        font-size:16px;
-        color:var(--text-soft);
-        letter-spacing:0.2px;
+        font-family:"SF Pro Rounded", ui-rounded, "Nunito", system-ui, sans-serif;
+        font-weight:700;
+        font-size:1.25rem;
+        color:var(--text);
+        letter-spacing:-0.01em;
       }
       .header-actions{
         display:flex;
@@ -110,31 +126,37 @@
       
       /* Ghost/outline buttons - transparent bg, subtle border */
       .pill-outline{
-        background:transparent;
+        background:var(--surface);
         border:1px solid var(--border-strong);
       }
-      .pill-outline:active{ background:var(--surface); }
+      .pill-outline:active{ background:var(--surface-hover); }
 
       /* System controls: escape hatches, context, close buttons - border only */
       .pill-ghost{
-        background:transparent;
+        background:var(--surface);
         border:1px solid var(--border-strong);
       }
       .pill-ghost:hover{ opacity:0.9; }
-      .pill-ghost:active{ background:var(--surface); }
+      .pill-ghost:active{ background:var(--surface-hover); }
       .pill-ghost:focus{ outline:none; }
       .pill-ghost:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
 
+      #stepdown-next{
+        background:var(--surface-hover);
+        border:1px solid rgba(255,255,255,0.15);
+      }
+      #stepdown-next:active{ background:var(--surface-hover); }
+
       /* Emergency tab on home - subtle but findable */
       .emergency-tab{
-        background:transparent;
-        border:1px solid rgba(168,90,78,0.25);
+        background:rgba(168, 90, 78, 0.1);
+        border:1px solid rgba(168, 90, 78, 0.3);
         color:var(--emergency);
         font-weight:500;
         gap:6px;
       }
-      .emergency-tab:hover{ background:rgba(168,90,78,0.15); }
-      .emergency-tab:active{ opacity:0.8; }
+      .emergency-tab:hover{ background:rgba(168, 90, 78, 0.15); }
+      .emergency-tab:active{ background:rgba(168, 90, 78, 0.2); }
       .emergency-tab:focus{ outline:none; }
       .emergency-tab:focus-visible{ outline:2px solid var(--emergency); outline-offset:2px; }
 
@@ -169,11 +191,11 @@
       
       /* NHS outline variant - de-emphasized, single hero color (red) dominates */
       .nhs-advice-outline{
-        background:transparent;
+        background:var(--surface);
         border-color:var(--border-strong);
         color:var(--text);
       }
-      .nhs-advice-outline:active{ background:var(--surface); }
+      .nhs-advice-outline:active{ background:var(--surface-hover); }
 
       .emergency-btn{
         color:var(--emergency);
@@ -185,10 +207,10 @@
 
       /* Minimal icon button - just the icon, no background */
       .icon-btn-minimal{
-        background:transparent;
+        background:var(--surface);
         border:none;
         padding:8px;
-        color:var(--text-muted);
+        color:var(--text-soft);
         cursor:pointer;
         border-radius:50%;
         display:flex;
@@ -196,7 +218,10 @@
         justify-content:center;
       }
       .icon-btn-minimal:hover{ color:var(--text); }
-      .icon-btn-minimal:active,.icon-btn-minimal.pressed{ opacity:0.5; transition:none; }
+      .icon-btn-minimal:active,.icon-btn-minimal.pressed{
+        background:var(--surface-hover);
+        transition:none;
+      }
       .icon-btn-minimal:focus{ outline:none; }
       .icon-btn-minimal:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
 
@@ -239,7 +264,7 @@
       .search-input{
         width:100%;
         height:60px;
-        background:transparent;
+        background:var(--surface);
         border:1px solid var(--border-strong);
         border-radius:var(--radius);
         padding:0 56px 0 46px;
@@ -261,15 +286,15 @@
         display:flex;
         align-items:center;
         justify-content:center;
-        background:transparent;
+        background:var(--surface);
         border:none;
         color:var(--text-soft);
         cursor:pointer;
         border-radius:var(--radius);
       }
       .mic-btn{ transition:opacity 0.15s ease-out, background 0.15s ease-out; }
-      .mic-btn:hover{ background:rgba(255,255,255,0.05); }
-      .mic-btn:active{ opacity:0.8; }
+      .mic-btn:hover{ background:var(--surface-hover); }
+      .mic-btn:active{ background:var(--surface-hover); }
       .mic-btn:focus{ outline:none; }
       .mic-btn:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
       .mic-btn.listening{ 
@@ -290,7 +315,7 @@
       /* Sections */
       .section-label{
         display:block;
-        color:var(--text-muted);
+        color:var(--text-soft);
         font-size:14px;
         font-weight:500;
         margin:var(--space-sm) 0 20px;
@@ -306,7 +331,7 @@
       .room-container::before{ display:none; }
 
       .card{
-        background:transparent;
+        background:var(--surface);
         border:1px solid var(--card-border);
         border-radius:var(--radius);
         padding:24px;
@@ -314,7 +339,7 @@
       }
       .card:focus{ outline:none; }
       .card:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
-      .card:active{ background:var(--surface); }
+      .card:active{ background:var(--surface-hover); }
 
       .glyph{ display:none; }
       .card-title{ font-size:22px; font-weight:500; line-height:1.5; color:var(--text); margin-bottom:8px; }
@@ -324,7 +349,7 @@
         width:100%;
         padding:16px;
         margin-top:12px;
-        background:transparent;
+        background:var(--surface);
         border:none;
         border-radius:var(--radius);
         color:var(--text-muted);
@@ -334,13 +359,13 @@
         min-height:48px;
       }
       .view-all-btn{ transition:opacity 0.15s ease-out; }
-      .view-all-btn:active{ opacity:0.8; }
+      .view-all-btn:active{ background:var(--surface-hover); }
 
       /* Bottom Sheet (Info only) */
       .sheet-backdrop{
         position:absolute;
         inset:0;
-        background:#000;
+        background:var(--bg);
         z-index:100;
         opacity:0;
         pointer-events:none;
@@ -351,7 +376,7 @@
       }
       .sheet-backdrop.active{ opacity:1; pointer-events:auto; }
       .sheet{
-        background:transparent;
+        background:var(--surface);
         border:1px solid var(--border-strong);
         border-radius:20px;
         padding:32px 28px;
@@ -407,7 +432,7 @@
         align-items:center;
         gap:16px;
         padding:24px;
-        background:transparent;
+        background:var(--surface);
         border:1px solid var(--card-border);
         border-radius:var(--radius);
         margin-bottom:18px;
@@ -417,7 +442,7 @@
       }
       .urgent-row:focus{ outline:none; }
       .urgent-row:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
-      .urgent-row:active{ background:var(--surface); }
+      .urgent-row:active{ background:var(--surface-hover); }
       .u-icon{ display:none; }
       
       /* Emergency text tokens - higher contrast than crisis cards for panic readability */
@@ -708,7 +733,7 @@
 
       /* Switch link style (used in footer) */
       .switch-link{
-        background:none;
+        background:var(--surface);
         border:none;
         color:var(--text-muted);
         font-size:14px;
@@ -727,7 +752,8 @@
         color:var(--text);
       }
       .switch-link:active,.switch-link.pressed{
-        opacity:0.5;
+        background:var(--surface-hover);
+        opacity:1;
         color:var(--text-muted);
       }
 
@@ -745,7 +771,7 @@
         padding:12px 24px 14px;
         min-width:180px;
         max-width:260px;
-        background:transparent;
+        background:var(--surface);
         border:1px solid var(--border);
         border-bottom:none;
         border-radius:10px 10px 0 0;
@@ -761,7 +787,7 @@
         bottom:0;
         width:8px;
         height:8px;
-        background:transparent;
+        background:var(--surface);
         border-bottom-right-radius:8px;
         box-shadow:4px 0 0 0 var(--bg);
         border-right:1px solid var(--border);
@@ -775,7 +801,7 @@
         bottom:0;
         width:8px;
         height:8px;
-        background:transparent;
+        background:var(--surface);
         border-bottom-left-radius:8px;
         box-shadow:-4px 0 0 0 var(--bg);
         border-left:1px solid var(--border);
@@ -834,7 +860,7 @@
       .resume-backdrop{
         position:fixed;
         inset:0;
-        background:#000;
+        background:var(--bg);
         display:flex;
         align-items:center;
         justify-content:center;
@@ -849,7 +875,7 @@
         pointer-events:auto;
       }
       .resume-sheet{
-        background:transparent;
+        background:var(--surface);
         border:1px solid var(--border-strong);
         border-radius:20px;
         padding:32px 28px;
@@ -886,7 +912,7 @@
       .followup-backdrop{
         position:fixed;
         inset:0;
-        background:#000;
+        background:var(--bg);
         display:flex;
         align-items:center;
         justify-content:center;
@@ -901,7 +927,7 @@
         pointer-events:auto;
       }
       .followup-card{
-        background:transparent;
+        background:var(--surface);
         border:none;
         border-radius:20px;
         padding:36px 32px 40px;
@@ -913,7 +939,7 @@
         position:relative;
       }
       .followup-card-minimal{
-        background:transparent;
+        background:var(--surface);
         border:none;
         padding:20px 28px;
         max-width:280px;
@@ -926,7 +952,7 @@
         height:44px;
         border:none;
         border-radius:50%;
-        background:transparent;
+        background:var(--surface);
         color:var(--text-muted);
         opacity:0.8;
         cursor:pointer;
@@ -935,7 +961,7 @@
         justify-content:center;
       }
       .followup-close:hover{ opacity:1; }
-      .followup-close:active{ opacity:0.6; }
+      .followup-close:active{ background:var(--surface-hover); opacity:1; }
       .followup-close:focus{ outline:none; }
       .followup-close:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
       .followup-title{
@@ -955,7 +981,7 @@
         height:48px;
         border-radius:var(--radius);
         border:1px solid var(--border-strong);
-        background:transparent;
+        background:var(--surface);
         color:var(--text);
         font-size:16px;
         font-weight:500;
@@ -966,7 +992,7 @@
         justify-content:center;
         gap:10px;
       }
-      .followup-btn:active{ background:var(--surface); }
+      .followup-btn:active{ background:var(--surface-hover); }
       .followup-btn::before{
         content:"";
         width:8px;
@@ -990,7 +1016,7 @@
       }
 
       .muted-link{
-        background:none;
+        background:var(--surface);
         border:none;
         width:100%;
         margin-top:16px;
@@ -1006,7 +1032,7 @@
         justify-content:center;
       }
       .muted-link{ transition:opacity 0.15s ease-out; }
-      .muted-link:active{ opacity:0.8; }
+      .muted-link:active{ background:var(--surface-hover); }
 
       .listen-btn{
         display:flex;
@@ -1017,7 +1043,7 @@
         padding:0 16px;
         border-radius:var(--radius);
         border:1px solid var(--border-strong);
-        background:transparent;
+        background:var(--surface);
         color:var(--text);
         font-size:16px;
         font-weight:400;
@@ -1025,17 +1051,17 @@
         white-space:nowrap;
       }
       .listen-btn{ transition:opacity 0.15s ease-out; }
-      .listen-btn:active{ opacity:0.8; }
+      .listen-btn:active{ background:var(--surface-hover); }
       .listen-btn.speaking{ background:rgba(255,255,255,0.05); }
       /* Listen as support role - more subtle */
       .listen-btn.listen-secondary{
         height:44px;
-        background:transparent;
+        background:var(--surface);
         border:1px solid rgba(255,255,255,0.12);
         color:var(--text-muted);
         font-size:15px;
       }
-      .listen-btn.listen-secondary:active{ opacity:0.8; }
+      .listen-btn.listen-secondary:active{ background:var(--surface-hover); }
 
       /* Inline listen button (under SAY text, crisis mode) */
       .listen-inline{
@@ -1048,13 +1074,13 @@
         min-height:44px;
         border-radius:22px;
         border:1px solid var(--border-strong);
-        background:transparent;
+        background:var(--surface);
         color:var(--text);
         font-size:15px;
         cursor:pointer;
       }
       .listen-inline{ transition:opacity 0.15s ease-out; }
-      .listen-inline:active{ opacity:0.8; }
+      .listen-inline:active{ background:var(--surface-hover); }
       .listen-inline.speaking{ background:rgba(255,255,255,0.08); color:var(--text); }
       
       /* Emergency listen button - prominent, full-width, above content */
@@ -1068,7 +1094,7 @@
         margin-bottom:24px;
         border-radius:var(--radius);
         border:1px solid var(--border);
-        background:transparent;
+        background:var(--surface);
         color:var(--text);
         font-size:18px;
         font-weight:500;
@@ -1084,7 +1110,7 @@
         text-align:center;
       }
       .listen-emergency{ transition:background 0.1s ease-out, border-color 0.1s ease-out; }
-      .listen-emergency:active{ background:var(--surface); }
+      .listen-emergency:active{ background:var(--surface-hover); }
       .listen-emergency.speaking{ 
         background:linear-gradient(90deg, 
           rgba(255,255,255,0.04) 0%,
@@ -3683,6 +3709,16 @@
 
         wire();
       });
+    </script>
+
+    <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then((reg) => console.log('SW registered:', reg.scope))
+          .catch((err) => console.log('SW failed:', err));
+      });
+    }
     </script>
   
 </body></html>
