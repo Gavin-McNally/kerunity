@@ -432,6 +432,7 @@
         align-items:center;
         background-color:#242424;
         padding:20px;
+        min-height:80px;
         margin-bottom:12px;
         border-radius:16px;
         border-top:1px solid rgba(255, 255, 255, 0.08);
@@ -478,8 +479,13 @@
         opacity:1;
         flex-shrink:0;
       }
-      .card-title{ font-size:22px; font-weight:500; line-height:1.5; color:var(--text); margin-bottom:8px; }
-      .card-sub{ font-size:16px; font-weight:400; color:var(--text-muted); line-height:1.5; }
+      /* Search suggestions - cards should look identical to main situation cards */
+      #search-suggestions{
+        display:flex;
+        flex-direction:column;
+        gap:0;
+        margin-top:16px;
+      }
 
       .view-all-btn{
         width:100%;
@@ -2090,6 +2096,13 @@
         forgot_face: "👨‍👩‍👧"
       };
       const DEFAULT_ICON = "•";
+      const URGENT_ICONS = {
+        unresponsive: "🆘",
+        breathing: "🫁",
+        stroke: "🚨",
+        fall: "🩹",
+        general_emergency: "⚠️"
+      };
 
       /* HARD EMERGENCY TOKENS - if any match, route to Emergency immediately */
       const EMERGENCY_TOKENS = {
@@ -2313,16 +2326,38 @@
           card.dataset.key = r.key;
           card.dataset.urgent = r.isUrgent;
           
-          const title = document.createElement("div");
+          // Icon
+          const icon = document.createElement("span");
+          icon.className = "card-icon";
+          if(r.isUrgent){
+            icon.textContent = URGENT_ICONS[r.key] || DEFAULT_ICON;
+          } else {
+            icon.textContent = SITUATION_ICONS[r.key] || DEFAULT_ICON;
+          }
+          
+          // Text container
+          const textContainer = document.createElement("div");
+          textContainer.className = "card-text";
+          
+          const title = document.createElement("span");
           title.className = "card-title";
           title.textContent = item.label;
           
-          const sub = document.createElement("div");
-          sub.className = "card-sub";
-          sub.textContent = item.sub;
+          const subtitle = document.createElement("span");
+          subtitle.className = "card-subtitle";
+          subtitle.textContent = item.sub;
           
-          card.appendChild(title);
-          card.appendChild(sub);
+          textContainer.appendChild(title);
+          textContainer.appendChild(subtitle);
+          
+          // Chevron
+          const chevron = document.createElement("span");
+          chevron.className = "card-chevron";
+          chevron.textContent = "›";
+          
+          card.appendChild(icon);
+          card.appendChild(textContainer);
+          card.appendChild(chevron);
           container.appendChild(card);
         });
       }
