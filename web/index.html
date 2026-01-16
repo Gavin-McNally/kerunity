@@ -221,9 +221,23 @@
       }
       .nhs-advice-outline:active{ background:var(--surface-hover); }
 
-      .emergency-btn{
-        color:var(--emergency);
+      #stepdown-emergency{
+        background:transparent;
+        border:1px solid rgba(180, 100, 100, 0.25);
+        color:rgba(235, 130, 130, 0.7);
+        border-radius:100px;
+        padding:12px 24px;
+        width:100%;
         font-weight:500;
+        font-size:15px;
+        letter-spacing:0.5px;
+        margin-top:16px;
+        transition:all 0.2s ease;
+      }
+      #stepdown-emergency:active{
+        background:rgba(235, 87, 87, 0.08);
+        border-color:rgba(235, 87, 87, 0.5);
+        color:#EB5757;
       }
 
 
