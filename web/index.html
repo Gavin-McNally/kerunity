@@ -298,51 +298,61 @@
       }
       .canvas::-webkit-scrollbar{ width:0; height:0; }
 
-      .search-box{ margin:0 0 36px; position:relative; }
+      .search-container{
+        display:flex;
+        align-items:center;
+        background-color:#2C2C2E;
+        border-radius:100px;
+        padding:0 20px;
+        height:56px;
+        margin-bottom:24px;
+        border:none;
+      }
       .search-icon{
-        position:absolute;
-        left:16px;
-        top:50%;
-        transform:translateY(-50%);
-        width:20px;
-        height:20px;
-        color:var(--text-muted);
-        pointer-events:none;
+        color:#9CA3AF;
+        font-size:20px;
+        flex-shrink:0;
       }
       .search-input{
-        width:100%;
-        height:60px;
-        background:var(--surface);
-        border:1px solid var(--border-strong);
-        border-radius:var(--radius);
-        padding:0 56px 0 46px;
-        color:var(--text);
-        font-size:18px;
+        flex-grow:1;
+        background:transparent;
+        border:none;
+        color:#FFF;
+        font-size:17px;
+        height:100%;
+        padding-left:12px;
         font-weight:400;
         outline:none;
-        transition:border-color 0.2s ease;
       }
-      .search-input:focus{ border-color:rgba(255,255,255,0.28); }
-      .search-input::placeholder{ color:var(--text-muted); }
+      .search-input::placeholder{ color:#9CA3AF; }
+      .search-input:focus{ outline:none; }
 
       .mic-btn{
-        position:absolute;
-        right:6px;
-        top:6px;
-        width:48px;
-        height:48px;
+        border-radius:50%;
+        width:40px;
+        height:40px;
         display:flex;
         align-items:center;
         justify-content:center;
-        background:var(--surface);
+        margin-left:auto;
+        background:transparent;
         border:none;
-        color:var(--text-soft);
+        color:#9CA3AF;
+        font-size:20px;
+        padding:0;
         cursor:pointer;
-        border-radius:var(--radius);
+        transition:all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        flex-shrink:0;
       }
-      .mic-btn{ transition:opacity 0.15s ease-out, background 0.15s ease-out; }
-      .mic-btn:hover{ background:var(--surface-hover); }
-      .mic-btn:active{ background:var(--surface-hover); }
+      .mic-btn:hover{
+        background-color:rgba(255, 255, 255, 0.05);
+        color:#FFFFFF;
+        transform:scale(1.1);
+      }
+      .mic-btn:active{
+        transform:scale(0.95);
+        background-color:rgba(255, 255, 255, 0.1);
+      }
       .mic-btn:focus{ outline:none; }
       .mic-btn:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
       .mic-btn.listening{ 
@@ -876,65 +886,54 @@
       /* Continue chip (home screen resume shortcut) - passive memory, not action */
       .continue-chip{
         padding:0 32px;
-        margin-bottom:20px;
-        text-align:center;
+        margin-bottom:0;
+        text-align:left;
       }
-      .continue-btn{
-        display:inline-flex;
-        flex-direction:column;
+      .resume-card{
+        display:flex;
+        justify-content:space-between;
         align-items:center;
-        gap:2px;
-        padding:12px 24px 14px;
-        min-width:180px;
-        max-width:260px;
-        background:var(--surface);
-        border:1px solid var(--border);
-        border-bottom:none;
-        border-radius:10px 10px 0 0;
+        gap:12px;
+        width:100%;
+        padding:14px 20px;
+        margin-bottom:24px;
+        background:linear-gradient(90deg, rgba(247, 225, 198, 0.08), rgba(247, 225, 198, 0.02));
+        border:1px solid rgba(247, 225, 198, 0.4);
+        border-radius:14px;
         cursor:pointer;
-        text-align:center;
+        transition:transform 0.2s ease;
         position:relative;
       }
       /* Left curve - Chrome tab style */
-      .continue-btn::before{
-        content:"";
-        position:absolute;
-        left:-8px;
-        bottom:0;
-        width:8px;
-        height:8px;
-        background:var(--surface);
-        border-bottom-right-radius:8px;
-        box-shadow:4px 0 0 0 var(--bg);
-        border-right:1px solid var(--border);
-        border-bottom:1px solid var(--border);
-      }
+      .continue-btn::before{ content:none; }
       /* Right curve - Chrome tab style */
-      .continue-btn::after{
-        content:"";
-        position:absolute;
-        right:-8px;
-        bottom:0;
-        width:8px;
-        height:8px;
-        background:var(--surface);
-        border-bottom-left-radius:8px;
-        box-shadow:-4px 0 0 0 var(--bg);
-        border-left:1px solid var(--border);
-        border-bottom:1px solid var(--border);
+      .continue-btn::after{ content:none; }
+      .resume-card:active,
+      .resume-card.pressed{
+        transform:scale(0.98);
+        background:rgba(247, 225, 198, 0.12);
       }
-      .continue-btn{ transition:opacity 0.15s ease-out; }
-      .continue-btn:active,
-      .continue-btn.pressed{ background:var(--surface-hover); }
-      .continue-label{
-        font-size:14px;
-        color:var(--text-muted);
-        font-weight:400;
+      .resume-text-group{
+        display:flex;
+        flex-direction:column;
+        gap:2px;
       }
-      .continue-detail{
-        font-size:14px;
-        color:var(--text-muted);
-        font-weight:400;
+      .resume-title{
+        color:#FFFFFF;
+        font-weight:600;
+        font-size:16px;
+      }
+      .resume-subtitle{
+        color:#f7e1c6;
+        font-size:13px;
+        font-weight:500;
+      }
+      .resume-action{
+        color:#f7e1c6;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-shrink:0;
       }
 
       /* Post-emergency reassurance */
@@ -1313,14 +1312,14 @@
         </header>
 
         <div class="canvas">
-          <div class="search-box">
+          <div class="search-container">
             <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="11" cy="11" r="8"></circle>
               <path d="m21 21-4.3-4.3"></path>
             </svg>
             <input id="query" type="text" class="search-input" placeholder="Search situations">
             <button id="mic-btn" class="mic-btn" type="button" aria-label="Speak">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg class="mic-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
                 <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
                 <line x1="12" x2="12" y1="19" y2="22"></line>
@@ -1332,9 +1331,16 @@
 
           <!-- Continue chip: shows if crisis or urgent deck was exited mid-flow -->
           <div id="continue-chip" class="continue-chip" style="display:none;" data-resume-type="">
-            <button id="continue-btn" type="button" class="continue-btn">
-              <span id="continue-label" class="continue-label">Continue this situation</span>
-              <span id="continue-detail" class="continue-detail">Refusing meds · Step 3</span>
+            <button id="continue-btn" type="button" class="continue-btn resume-card">
+              <div class="resume-text-group">
+                <div id="continue-label" class="resume-title">Refusing meds</div>
+                <div id="continue-detail" class="resume-subtitle">Resume Step 3</div>
+              </div>
+              <div class="resume-action" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z"></path>
+                </svg>
+              </div>
             </button>
           </div>
 
@@ -1995,7 +2001,29 @@
       const SITUATION_ICONS = {
         refusing_meds: "💊",
         wants_home: "🏠",
-        asking_mom: "❤️"
+        asking_mom: "❤️",
+        stealing: "🔍",
+        shadowing: "👤",
+        hygiene: "🚿",
+        sundowning: "🌅",
+        wont_eat: "🍽️",
+        repetitive: "🔄",
+        aggression: "✋",
+        sleep: "😴",
+        lost: "❓",
+        wandering: "🚶",
+        hiding: "📦",
+        undressing: "👔",
+        rummaging: "🗄️",
+        hoarding: "🧺",
+        crying: "💙",
+        wont_get_up: "🛏️",
+        refusing_help: "🤝",
+        paranoid: "⚠️",
+        hallucinations: "👁️",
+        inappropriate: "⚡",
+        wont_dress: "👕",
+        forgot_face: "👨‍👩‍👧"
       };
       const DEFAULT_ICON = "•";
 
@@ -2715,8 +2743,8 @@
         if(hasUrgentResumeAvailable()){
           const deck = URGENT_DECKS[urgentResumeState.deckKey];
           if(deck){
-            label.textContent = "Return to emergency";
-            detail.textContent = `${deck.title} · Step ${urgentResumeState.stepIndex + 1}`;
+            label.textContent = deck.title;
+            detail.textContent = `Resume Step ${urgentResumeState.stepIndex + 1}`;
             chip.dataset.resumeType = "urgent";
             chip.style.display = "block";
             return;
@@ -2727,8 +2755,8 @@
         if(hasCrisisResumeAvailable()){
           const deck = CRISIS_DECKS[resumeState.deckKey];
           if(deck){
-            label.textContent = "Continue this situation";
-            detail.textContent = `${deck.title} · Step ${resumeState.stepIndex + 1}`;
+            label.textContent = deck.title;
+            detail.textContent = `Resume Step ${resumeState.stepIndex + 1}`;
             chip.dataset.resumeType = "crisis";
             chip.style.display = "block";
             return;
