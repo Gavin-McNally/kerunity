@@ -142,10 +142,34 @@
       .pill-ghost:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
 
       #stepdown-next{
-        background:var(--surface-hover);
-        border:1px solid rgba(255,255,255,0.15);
+        background-color:#f7e1c6;
+        color:#1a1a1a;
+        border:none;
+        padding:14px 28px;
+        border-radius:100px;
+        font-weight:700;
+        flex:1;
+        text-align:center;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.4),
+          0 4px 12px rgba(0, 0, 0, 0.3);
+        transition:all 0.2s ease;
       }
-      #stepdown-next:active{ background:var(--surface-hover); }
+      #stepdown-next:active{
+        transform:scale(0.97);
+        filter:brightness(0.95);
+      }
+      #stepdown-back{
+        background-color:rgba(255, 255, 255, 0.08);
+        border:1px solid rgba(255, 255, 255, 0.05);
+        color:#E5E5E5;
+        padding:14px 28px;
+        border-radius:100px;
+        font-weight:600;
+        flex:1;
+        text-align:center;
+      }
+      #stepdown-back:active{ background-color:rgba(255, 255, 255, 0.15); }
 
       /* Emergency tab on home - subtle but findable */
       .emergency-tab{
