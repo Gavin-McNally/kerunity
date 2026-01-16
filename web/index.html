@@ -422,62 +422,75 @@
       .room-container{
         display:flex;
         flex-direction:column;
-        gap:20px;
+        gap:0;
         margin-bottom:var(--space-lg);
       }
       .room-container::before{ display:none; }
 
+      /* The Glass Card (Stronger Gradient + Fixed Tall Size) */
       .card{
         display:flex;
         align-items:center;
-        background-color:#242424;
-        padding:20px;
-        min-height:80px;
-        margin-bottom:12px;
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%), #242424;
+        min-height:120px;
+        padding:24px 24px;
+        margin-bottom:16px;
         border-radius:16px;
-        border-top:1px solid rgba(255, 255, 255, 0.08);
+        border-top:1px solid rgba(255, 255, 255, 0.2);
         border-bottom:1px solid rgba(0, 0, 0, 0.4);
-        border-left:none;
-        border-right:none;
-        box-shadow:0 4px 12px rgba(0, 0, 0, 0.2);
+        border-left:1px solid transparent;
+        border-right:1px solid transparent;
+        box-shadow:0 4px 12px rgba(0, 0, 0, 0.3);
         cursor:pointer;
         transition:transform 0.15s ease, background 0.15s;
       }
       .card:focus{ outline:none; }
       .card:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
+      /* Active State (Tactile Press) */
       .card:active{
         transform:scale(0.98);
-        background-color:#2a2a2a;
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%), #2a2a2a;
       }
 
       .glyph{ display:none; }
+      /* The Icon Stabilizer (Scaled up for 120px cards) */
       .card-icon{
-        font-size:24px;
-        opacity:0.8;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        width:48px;
+        height:48px;
+        font-size:32px;
+        opacity:0.9;
+        flex-shrink:0;
       }
+      /* Text Layout (Scaled up for 120px cards) */
       .card-text{
         display:flex;
         flex-direction:column;
+        justify-content:center;
         margin-left:16px;
         margin-right:auto;
       }
       .card-title{
-        margin:0;
-        font-size:17px;
+        margin:0 0 4px 0;
+        font-size:19px;
         font-weight:600;
         color:#F2F2F5;
+        line-height:1.3;
       }
       .card-subtitle{
-        margin:4px 0 0 0;
-        font-size:14px;
+        margin:0;
+        font-size:15px;
         color:#9CA3AF;
       }
       .card-chevron{
         color:#9CA3AF;
-        font-size:24px;
+        font-size:28px;
         font-weight:600;
-        opacity:1;
+        opacity:0.7;
         flex-shrink:0;
+        margin-left:12px;
       }
       /* Search suggestions - cards should look identical to main situation cards */
       #search-suggestions{
@@ -2326,7 +2339,6 @@
           card.dataset.key = r.key;
           card.dataset.urgent = r.isUrgent;
           
-          // Icon
           const icon = document.createElement("span");
           icon.className = "card-icon";
           if(r.isUrgent){
@@ -2334,29 +2346,26 @@
           } else {
             icon.textContent = SITUATION_ICONS[r.key] || DEFAULT_ICON;
           }
-          
-          // Text container
-          const textContainer = document.createElement("div");
-          textContainer.className = "card-text";
-          
+
           const title = document.createElement("span");
           title.className = "card-title";
           title.textContent = item.label;
           
-          const subtitle = document.createElement("span");
-          subtitle.className = "card-subtitle";
-          subtitle.textContent = item.sub;
+          const sub = document.createElement("span");
+          sub.className = "card-subtitle";
+          sub.textContent = item.sub;
           
-          textContainer.appendChild(title);
-          textContainer.appendChild(subtitle);
-          
-          // Chevron
           const chevron = document.createElement("span");
           chevron.className = "card-chevron";
           chevron.textContent = "›";
-          
+
+          const textWrap = document.createElement("div");
+          textWrap.className = "card-text";
+          textWrap.appendChild(title);
+          textWrap.appendChild(sub);
+
           card.appendChild(icon);
-          card.appendChild(textContainer);
+          card.appendChild(textWrap);
           card.appendChild(chevron);
           container.appendChild(card);
         });
