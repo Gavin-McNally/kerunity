@@ -153,7 +153,8 @@ This structure must not be rearranged.
 ### Borders & Surfaces
 - Outlined surfaces, not heavy filled cards
 - Subtle borders, no harsh lines
-- Cards elevated via background colour, not shadows
+- Subtle shadows allowed for depth (max opacity 0.3, soft blur)
+- No heavy drop shadows or hard edges
 - Visual weight stays low
 
 ---
