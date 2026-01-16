@@ -152,38 +152,6 @@
       }
       #stepdown-close:active{ color:#FFF; }
 
-      /* --- 1. The 3D "Next" Button --- */
-      #stepdown-next{
-        background:linear-gradient(180deg, #ffeacc 0%, #f7e1c6 100%) !important;
-        color:#1a1a1a !important;
-        border:none !important;
-        font-weight:700 !important;
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.6),
-          0 4px 12px rgba(247, 225, 198, 0.2) !important;
-        padding:14px 28px;
-        border-radius:100px;
-        flex:1;
-        text-align:center;
-        transition:transform 0.1s ease;
-      }
-      #stepdown-next:active{
-        transform:scale(0.96);
-        filter:brightness(0.95);
-      }
-      /* --- 2. The Dark Glass "Back" Button --- */
-      #stepdown-back{
-        background-color:rgba(255, 255, 255, 0.06) !important;
-        border:1px solid rgba(255, 255, 255, 0.1) !important;
-        color:#F2F2F5 !important;
-        padding:14px 28px;
-        border-radius:100px;
-        font-weight:600;
-        flex:1;
-        text-align:center;
-      }
-      #stepdown-back:active{ background-color:rgba(255, 255, 255, 0.1) !important; }
-
       /* Emergency tab on home - subtle but findable */
       .emergency-tab{
         background:transparent;
@@ -1257,35 +1225,6 @@
       .script-text-container{
         flex:1;
       }
-      /* --- 3. The Play Button (Floating Rounded Triangle) --- */
-      .resume-play-btn,
-      .btn-play-circle{
-        background:transparent !important;
-        border:none !important;
-        box-shadow:none !important;
-        border-radius:0 !important;
-        width:auto !important;
-        height:auto !important;
-        padding:10px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        cursor:pointer;
-        color:#f7e1c6 !important;
-        transition:transform 0.1s ease;
-      }
-      .resume-play-btn svg,
-      .btn-play-circle svg{
-        width:48px !important;
-        height:48px !important;
-        margin:0 !important;
-        fill:currentColor !important;
-        filter:drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
-      }
-      .resume-play-btn:active,
-      .btn-play-circle:active{
-        transform:scale(0.9);
-      }
       .listen-inline.speaking{ background:rgba(255,255,255,0.08); color:var(--text); }
       
       /* Emergency listen button - prominent, full-width, above content */
@@ -1344,6 +1283,158 @@
       .switch-link {
         display:none !important;
         visibility:hidden !important;
+      }
+
+      /* --- 1. The 3D "Next" Button --- */
+      #stepdown-next {
+        background: linear-gradient(180deg, #ffeacc 0%, #f7e1c6 100%);
+        color: #1a1a1a;
+        border: none;
+        font-weight: 700;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 4px 12px rgba(247, 225, 198, 0.2);
+        padding: 14px 28px;
+        border-radius: 100px;
+        flex: 1;
+        text-align: center;
+        transition: transform 0.1s ease;
+      }
+      #stepdown-next:active {
+        transform: scale(0.96);
+        filter: brightness(0.95);
+      }
+
+      /* --- 2. The Dark Glass "Back" Button --- */
+      #stepdown-back {
+        background-color: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #F2F2F5;
+        padding: 14px 28px;
+        border-radius: 100px;
+        font-weight: 600;
+        flex: 1;
+        text-align: center;
+      }
+      #stepdown-back:active {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      /* --- 3. The Play Button (Rounded Triangle - No Circle) --- */
+      .resume-play-btn,
+      .btn-play-circle {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #f7e1c6;
+        transition: transform 0.1s ease;
+      }
+      .resume-play-btn svg,
+      .btn-play-circle svg {
+        width: 48px;
+        height: 48px;
+        margin: 0;
+        fill: currentColor;
+        filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+      }
+      .resume-play-btn:active,
+      .btn-play-circle:active {
+        transform: scale(0.9);
+      }
+
+      /* --- PREMIUM UI OVERRIDES (Final Master Polish) --- */
+
+      /* 1. The "Next" Button - Smooth 3D (No Border Line) */
+      #stepdown-next {
+        background: linear-gradient(180deg, #FFFFFF 0%, #E0C090 100%) !important;
+        color: #1a1a1a !important;
+        border: none !important;
+        font-weight: 800 !important;
+        box-shadow: 
+          inset 0 2px 0 rgba(255, 255, 255, 1), 
+          0 4px 12px rgba(0, 0, 0, 0.25) !important;
+        transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+      #stepdown-next:active {
+        transform: scale(0.96) !important;
+      }
+
+      /* 2. The "Back" Button - Refined Glass */
+      #stepdown-back {
+        background-color: rgba(255, 255, 255, 0.08) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        color: #F2F2F5 !important;
+      }
+
+      /* 3. The Play/Speaker Button - Scaled Down */
+      .resume-play-btn,
+      .btn-play-circle {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        width: 48px !important; 
+        height: 48px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: #f7e1c6 !important; 
+      }
+      .resume-play-btn svg,
+      .btn-play-circle svg {
+        width: 32px !important; 
+        height: 32px !important;
+        margin: 0 !important;
+        fill: none !important; 
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) !important;
+      }
+      .resume-play-btn:active,
+      .btn-play-circle:active {
+        transform: scale(0.9) !important;
+      }
+
+      /* 4. The Vertical Line */
+      .say-text {
+        border-left: none !important;
+        position: relative !important;
+        padding-left: 36px !important;
+      }
+      .say-text::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 6px;
+        bottom: 6px;
+        width: 4px;
+        border-radius: 4px;
+        background: linear-gradient(to bottom, #f7e1c6 0%, rgba(247, 225, 198, 0) 100%) !important;
+        opacity: 0.8;
+      }
+
+      /* 5. Progress Bar - The "Glowing Tip" */
+      .progress-container {
+        background: rgba(0, 0, 0, 0.3) !important;
+        height: 6px !important;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.5) !important;
+      }
+      .progress-fill {
+        background: linear-gradient(90deg, #f7e1c6 0%, #FFF5E6 100%) !important;
+        box-shadow: 0 0 8px rgba(247, 225, 198, 0.4) !important;
+      }
+
+      /* 6. Emergency Button - Tactile Red Glass */
+      #stepdown-emergency {
+        background: rgba(235, 87, 87, 0.08) !important;
+        border: 1px solid rgba(235, 87, 87, 0.25) !important;
+        color: #FF8A80 !important;
+        transition: transform 0.1s ease, background 0.1s !important;
+      }
+      #stepdown-emergency:active {
+        background: rgba(235, 87, 87, 0.15) !important;
+        transform: scale(0.96) !important;
       }
     </style>
   </head>
@@ -1416,7 +1507,7 @@
               <div class="resume-action" aria-hidden="true">
                 <div class="resume-play-btn">
                   <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"/>
+                    <path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 0 1 0 7.07" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                   </svg>
                 </div>
               </div>
@@ -1466,7 +1557,7 @@
                   </div>
                   <button class="btn-play-circle listen-inline" id="listen-inline" type="button" aria-label="Play audio">
                     <svg class="listen-inline-icon" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18c.62-.39.62-1.29 0-1.69L9.54 5.98C8.87 5.55 8 6.03 8 6.82z"/>
+                      <path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 0 1 0 7.07" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                     </svg>
                   </button>
                 </div>
@@ -3316,7 +3407,7 @@
           if(icon){
             icon.innerHTML = speaking
               ? '<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>'
-              : '<path d="M8 5v14l11-7z"/>';
+              : '<path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 0 1 0 7.07" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>';
           }
         }
         // Emergency listen button (prominent, above content)
