@@ -379,17 +379,56 @@
       .room-container::before{ display:none; }
 
       .card{
-        background:var(--surface);
-        border:1px solid var(--card-border);
-        border-radius:var(--radius);
-        padding:24px;
+        display:flex;
+        align-items:center;
+        background-color:#242424;
+        padding:20px;
+        margin-bottom:12px;
+        border-radius:16px;
+        border-top:1px solid rgba(255, 255, 255, 0.08);
+        border-bottom:1px solid rgba(0, 0, 0, 0.4);
+        border-left:none;
+        border-right:none;
+        box-shadow:0 4px 12px rgba(0, 0, 0, 0.2);
         cursor:pointer;
+        transition:transform 0.15s ease, background 0.15s;
       }
       .card:focus{ outline:none; }
       .card:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
-      .card:active{ background:var(--surface-hover); }
+      .card:active{
+        transform:scale(0.98);
+        background-color:#2a2a2a;
+      }
 
       .glyph{ display:none; }
+      .card-icon{
+        font-size:24px;
+        opacity:0.8;
+      }
+      .card-text{
+        display:flex;
+        flex-direction:column;
+        margin-left:16px;
+        margin-right:auto;
+      }
+      .card-title{
+        margin:0;
+        font-size:17px;
+        font-weight:600;
+        color:#F2F2F5;
+      }
+      .card-subtitle{
+        margin:4px 0 0 0;
+        font-size:14px;
+        color:#9CA3AF;
+      }
+      .card-chevron{
+        color:#9CA3AF;
+        font-size:24px;
+        font-weight:600;
+        opacity:1;
+        flex-shrink:0;
+      }
       .card-title{ font-size:22px; font-weight:500; line-height:1.5; color:var(--text); margin-bottom:8px; }
       .card-sub{ font-size:16px; font-weight:400; color:var(--text-muted); line-height:1.5; }
 
@@ -1904,16 +1943,30 @@
           card.setAttribute("tabindex", "0");
           card.dataset.key = k;
           
-          const title = document.createElement("div");
+          const icon = document.createElement("span");
+          icon.className = "card-icon";
+          icon.textContent = SITUATION_ICONS[k] || DEFAULT_ICON;
+
+          const title = document.createElement("span");
           title.className = "card-title";
           title.textContent = item.label;
           
-          const sub = document.createElement("div");
-          sub.className = "card-sub";
+          const sub = document.createElement("span");
+          sub.className = "card-subtitle";
           sub.textContent = item.sub;
           
-          card.appendChild(title);
-          card.appendChild(sub);
+          const chevron = document.createElement("span");
+          chevron.className = "card-chevron";
+          chevron.textContent = "›";
+
+          const textWrap = document.createElement("div");
+          textWrap.className = "card-text";
+          textWrap.appendChild(title);
+          textWrap.appendChild(sub);
+
+          card.appendChild(icon);
+          card.appendChild(textWrap);
+          card.appendChild(chevron);
           grid.appendChild(card);
         });
 
@@ -1939,6 +1992,12 @@
          SEARCH / TYPEAHEAD
       ========================== */
       const SEARCH_THRESHOLD = 4;
+      const SITUATION_ICONS = {
+        refusing_meds: "💊",
+        wants_home: "🏠",
+        asking_mom: "❤️"
+      };
+      const DEFAULT_ICON = "•";
 
       /* HARD EMERGENCY TOKENS - if any match, route to Emergency immediately */
       const EMERGENCY_TOKENS = {
