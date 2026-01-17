@@ -310,6 +310,8 @@
       .search-container{
         display:flex;
         align-items:center;
+        flex-wrap:nowrap;
+        overflow:hidden;
         background-color:#2C2C2E;
         border-radius:100px;
         padding:0 20px;
@@ -323,7 +325,8 @@
         flex-shrink:0;
       }
       .search-input{
-        flex-grow:1;
+        flex:1 1 auto;
+        min-width:0;
         background:transparent;
         border:none;
         color:#FFF;
@@ -343,7 +346,8 @@
         display:flex;
         align-items:center;
         justify-content:center;
-        margin-left:auto;
+        flex-shrink:0;
+        margin-left:8px;
         background:transparent;
         border:none;
         color:#9CA3AF;
@@ -1217,13 +1221,13 @@
       /* Inline listen button (under SAY text, crisis mode) */
       .script-row{
         display:flex;
-        justify-content:space-between;
-        align-items:flex-end;
+        flex-direction:column;
+        align-items:flex-start;
         gap:16px;
         margin-bottom:40px;
       }
       .script-text-container{
-        flex:1;
+        width:100%;
       }
       .listen-inline.speaking{ background:rgba(255,255,255,0.08); color:var(--text); }
       
@@ -1408,9 +1412,10 @@
       /* 3B. PLAY Pill Button */
       .btn-play-circle {
         width: auto !important;
-        height: 36px !important;
-        padding: 0 20px !important;
+        height: 32px !important;
+        padding: 0 16px !important;
         border-radius: 100px !important;
+        margin-top: 20px !important;
         
         background: linear-gradient(180deg, rgba(247, 225, 198, 0.15) 0%, rgba(247, 225, 198, 0.05) 100%) !important;
         border: 1px solid rgba(247, 225, 198, 0.3) !important;
@@ -1422,7 +1427,7 @@
         gap: 10px !important;
         
         color: #f7e1c6 !important;
-        font-size: 13px !important;
+        font-size: 12px !important;
         font-weight: 700 !important;
         letter-spacing: 1px !important;
         text-transform: uppercase !important;
@@ -1446,19 +1451,19 @@
       .say-text {
         border-left: none !important;
         position: relative !important;
-        padding-left: 36px !important;
+        padding-left: 24px !important;
       }
       .say-text::before {
         content: '';
         position: absolute;
-        left: 0;
+        left: -8px;
         top: 4px;
         bottom: 4px;
         width: 4px;
         border-radius: 4px;
         background: linear-gradient(to bottom, #f7e1c6 0%, rgba(247, 225, 198, 0) 100%) !important;
         opacity: 0.6;
-        box-shadow: 0 0 10px rgba(247, 225, 198, 0.2) !important;
+        box-shadow: 0 0 6px rgba(247, 225, 198, 0.1) !important;
       }
 
       /* 5. Progress Bar - Liquid Gold */
@@ -1502,6 +1507,30 @@
         font-size: 13px !important;
         margin-bottom: 16px !important;
         opacity: 1 !important;
+      }
+
+      /* 8. Global Background - The Void */
+      body, #app-frame, .stepdown-screen, .emergency-screen {
+        background-color: #050508 !important;
+        background-image: radial-gradient(circle at 50% 0%, #1a1f35 0%, #050508 100%) !important;
+      }
+
+      /* 9. Search Bar - Glass Pill */
+      .search-container {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+      }
+      .search-input::placeholder {
+        color: rgba(255, 255, 255, 0.4) !important;
+      }
+      .search-icon {
+        color: #f7e1c6 !important;
+        opacity: 0.8 !important;
+      }
+      .mic-btn {
+        color: #f7e1c6 !important;
+        opacity: 0.8 !important;
       }
     </style>
   </head>
