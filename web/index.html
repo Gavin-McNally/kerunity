@@ -1363,14 +1363,14 @@
         letter-spacing: 1px !important;
         font-size: 15px !important;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4) !important;
-        backdrop-filter: blur(8px) !important;
-        -webkit-backdrop-filter: blur(8px) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
         transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease !important;
       }
       #stepdown-next:active {
         transform: scale(0.97) translateY(2px) !important;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6) !important;
-        background: rgba(247, 225, 198, 0.2) !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7) !important;
+        background: rgba(247, 225, 198, 0.25) !important;
       }
 
       /* 2. The "Back" Button - Neutral Glass */
@@ -1384,13 +1384,13 @@
         letter-spacing: 1px !important;
         font-size: 15px !important;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4) !important;
-        backdrop-filter: blur(8px) !important;
-        -webkit-backdrop-filter: blur(8px) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
         transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease !important;
       }
       #stepdown-back:active {
         transform: scale(0.97) translateY(2px) !important;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6) !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7) !important;
       }
 
       /* 3A. Resume Button - Chevron Only */
@@ -1416,7 +1416,7 @@
         stroke-linejoin: round !important;
       }
 
-      /* 3B. PLAY Pill Button */
+      /* 3B. LISTEN Ghost Pill Button */
       .btn-play-circle {
         width: auto !important;
         min-width: 140px !important;
@@ -1425,9 +1425,9 @@
         border-radius: 100px !important;
         margin-top: 20px !important;
         
-        background: linear-gradient(180deg, rgba(247, 225, 198, 0.15) 0%, rgba(247, 225, 198, 0.05) 100%) !important;
+        background: transparent !important;
         border: 1px solid rgba(247, 225, 198, 0.3) !important;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+        box-shadow: none !important;
         
         display: inline-flex !important;
         align-items: center !important;
@@ -1440,15 +1440,17 @@
         letter-spacing: 2px !important;
         text-transform: uppercase !important;
         cursor: pointer;
-        transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.15s ease, box-shadow 0.15s ease !important;
+        transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.15s ease, border-color 0.15s ease !important;
       }
       .btn-play-circle:active {
-        transform: scale(0.93) !important;
+        transform: scale(0.95) !important;
+        background: rgba(247, 225, 198, 0.1) !important;
+        border-color: rgba(247, 225, 198, 0.5) !important;
       }
       
       /* Pause state styling */
       .btn-play-circle.is-playing {
-        background: rgba(247, 225, 198, 0.2) !important;
+        background: rgba(247, 225, 198, 0.15) !important;
         border-color: rgba(247, 225, 198, 0.4) !important;
       }
       
@@ -1469,7 +1471,7 @@
         box-shadow: none !important;
       }
       .resume-card {
-        background: linear-gradient(180deg, rgba(50, 55, 80, 0.6) 0%, rgba(30, 35, 50, 0.7) 100%) !important;
+        background: linear-gradient(180deg, rgba(60, 65, 90, 0.6) 0%, rgba(35, 40, 55, 0.65) 100%) !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
         border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6) !important;
@@ -1480,6 +1482,9 @@
       .resume-card:active {
         transform: scale(0.97) translateY(2px) !important;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7) !important;
+      }
+      .resume-title {
+        margin-bottom: 4px !important;
       }
       .resume-subtitle, #continue-chip .resume-subtitle {
         background: linear-gradient(90deg, #d4af7a 0%, #f7e1c6 50%, #d4af7a 100%) !important;
@@ -1607,7 +1612,7 @@
         backdrop-filter: blur(12px) !important;
         -webkit-backdrop-filter: blur(12px) !important;
         align-items: center !important;
-        gap: 12px !important;
+        gap: 20px !important;
         transition: 
           transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
           box-shadow 0.15s ease-out,
