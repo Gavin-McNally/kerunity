@@ -1348,55 +1348,101 @@
 
       /* --- PREMIUM UI OVERRIDES (Final Master Polish) --- */
 
-      /* 1. The "Next" Button - Smooth 3D (No Border Line) */
+      /* 1. The "Next" Button - Gold Glass */
       #stepdown-next {
-        background: linear-gradient(180deg, #FFFFFF 0%, #E0C090 100%) !important;
-        color: #1a1a1a !important;
-        border: none !important;
-        font-weight: 800 !important;
-        box-shadow: 
-          inset 0 2px 0 rgba(255, 255, 255, 1), 
-          0 4px 12px rgba(0, 0, 0, 0.25) !important;
-        transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        background: linear-gradient(180deg, rgba(247, 225, 198, 0.15) 0%, rgba(247, 225, 198, 0.05) 100%) !important;
+        border: 1px solid rgba(247, 225, 198, 0.3) !important;
+        color: #f7e1c6 !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+        font-size: 15px !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+        transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), background 0.1s !important;
       }
       #stepdown-next:active {
         transform: scale(0.96) !important;
+        background: rgba(247, 225, 198, 0.2) !important;
       }
 
-      /* 2. The "Back" Button - Refined Glass */
+      /* 2. The "Back" Button - Neutral Glass */
       #stepdown-back {
-        background-color: rgba(255, 255, 255, 0.08) !important;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%) !important;
         border: 1px solid rgba(255, 255, 255, 0.15) !important;
-        color: #F2F2F5 !important;
+        color: rgba(255, 255, 255, 0.9) !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+        font-size: 15px !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+        transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), background 0.1s !important;
+      }
+      #stepdown-back:active {
+        transform: scale(0.96) !important;
+        background: rgba(247, 225, 198, 0.2) !important;
       }
 
-      /* 3. The Play/Speaker Button - Scaled Down */
-      .resume-play-btn,
-      .btn-play-circle {
+      /* 3A. Resume Button - Chevron Only */
+      .resume-play-btn {
         background: transparent !important;
         border: none !important;
         box-shadow: none !important;
-        width: 48px !important; 
-        height: 48px !important;
+        width: 40px !important;
+        height: 40px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        color: #f7e1c6 !important; 
+        color: #f7e1c6 !important;
       }
-      .resume-play-btn svg,
-      .btn-play-circle svg {
-        width: 32px !important; 
-        height: 32px !important;
+      .resume-play-btn svg {
+        width: 22px !important;
+        height: 22px !important;
         margin: 0 !important;
-        fill: none !important; 
-        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)) !important;
+        fill: none !important;
+        stroke: currentColor !important;
+        stroke-width: 3px !important;
+        stroke-linecap: round !important;
+        stroke-linejoin: round !important;
       }
-      .resume-play-btn:active,
+
+      /* 3B. PLAY Pill Button */
+      .btn-play-circle {
+        width: auto !important;
+        height: 36px !important;
+        padding: 0 20px !important;
+        border-radius: 100px !important;
+        
+        background: linear-gradient(180deg, rgba(247, 225, 198, 0.15) 0%, rgba(247, 225, 198, 0.05) 100%) !important;
+        border: 1px solid rgba(247, 225, 198, 0.3) !important;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+        
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        
+        color: #f7e1c6 !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        letter-spacing: 1px !important;
+        text-transform: uppercase !important;
+        cursor: pointer;
+      }
       .btn-play-circle:active {
+        transform: scale(0.96) !important;
+        background: rgba(247, 225, 198, 0.2) !important;
+      }
+      .btn-play-circle svg {
+        width: 10px !important;
+        height: 10px !important;
+        fill: currentColor !important;
+        filter: none !important;
+      }
+      .resume-play-btn:active {
         transform: scale(0.9) !important;
       }
 
-      /* 4. The Vertical Line */
+      /* 4. The Vertical Line - Glass Beam */
       .say-text {
         border-left: none !important;
         position: relative !important;
@@ -1406,35 +1452,56 @@
         content: '';
         position: absolute;
         left: 0;
-        top: 6px;
-        bottom: 6px;
+        top: 4px;
+        bottom: 4px;
         width: 4px;
         border-radius: 4px;
         background: linear-gradient(to bottom, #f7e1c6 0%, rgba(247, 225, 198, 0) 100%) !important;
-        opacity: 0.8;
+        opacity: 0.6;
+        box-shadow: 0 0 10px rgba(247, 225, 198, 0.2) !important;
       }
 
-      /* 5. Progress Bar - The "Glowing Tip" */
+      /* 5. Progress Bar - Liquid Gold */
       .progress-container {
-        background: rgba(0, 0, 0, 0.3) !important;
+        background: rgba(0, 0, 0, 0.4) !important;
         height: 6px !important;
+        border-radius: 3px;
         box-shadow: inset 0 1px 2px rgba(0,0,0,0.5) !important;
       }
       .progress-fill {
-        background: linear-gradient(90deg, #f7e1c6 0%, #FFF5E6 100%) !important;
-        box-shadow: 0 0 8px rgba(247, 225, 198, 0.4) !important;
+        background: linear-gradient(90deg, rgba(247, 225, 198, 0.4) 0%, rgba(247, 225, 198, 1) 100%) !important;
+        box-shadow: 0 0 12px rgba(247, 225, 198, 0.4) !important;
       }
 
-      /* 6. Emergency Button - Tactile Red Glass */
+      /* 6. Emergency Button - Muted Red */
       #stepdown-emergency {
-        background: rgba(235, 87, 87, 0.08) !important;
-        border: 1px solid rgba(235, 87, 87, 0.25) !important;
-        color: #FF8A80 !important;
-        transition: transform 0.1s ease, background 0.1s !important;
+        background: transparent !important;
+        border: 1px solid rgba(180, 90, 90, 0.4) !important;
+        color: rgba(180, 90, 90, 0.8) !important;
+        font-weight: 600 !important;
+        font-size: 14px !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        transition: transform 0.1s ease !important;
       }
       #stepdown-emergency:active {
-        background: rgba(235, 87, 87, 0.15) !important;
         transform: scale(0.96) !important;
+        background: rgba(180, 90, 90, 0.08) !important;
+      }
+
+      /* 7. SAY/DO Headers - Gold Foil Text */
+      .kicker {
+        background: linear-gradient(90deg, #f7e1c6 0%, #d4af7a 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        
+        font-weight: 700 !important;
+        letter-spacing: 1px !important;
+        text-transform: uppercase !important;
+        font-size: 13px !important;
+        margin-bottom: 16px !important;
+        opacity: 1 !important;
       }
     </style>
   </head>
@@ -1506,9 +1573,7 @@
               </div>
               <div class="resume-action" aria-hidden="true">
                 <div class="resume-play-btn">
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 0 1 0 7.07" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                  </svg>
+                  <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
                 </div>
               </div>
             </button>
@@ -1556,9 +1621,7 @@
                     <div id="stepdown-say" class="say-text"></div>
                   </div>
                   <button class="btn-play-circle listen-inline" id="listen-inline" type="button" aria-label="Play audio">
-                    <svg class="listen-inline-icon" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 0 1 0 7.07" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                    </svg>
+                    <span>PLAY</span>
                   </button>
                 </div>
                 </div>
