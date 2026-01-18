@@ -219,6 +219,106 @@
       }
       .nhs-advice-outline:active{ background:var(--surface-hover); }
 
+      /* === GLASS CLOSE BUTTON (Circular X Icon) === */
+      .glass-close-btn{
+        width:40px;
+        height:40px;
+        border-radius:50%;
+        background:rgba(255, 255, 255, 0.05);
+        border:1px solid rgba(255, 255, 255, 0.1);
+        color:rgba(255, 255, 255, 0.7);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        cursor:pointer;
+        transition:all 0.15s ease;
+        flex-shrink:0;
+      }
+      .glass-close-btn:hover{
+        background:rgba(255, 255, 255, 0.08);
+        color:rgba(255, 255, 255, 0.9);
+      }
+      .glass-close-btn:active{
+        transform:scale(0.95);
+        background:rgba(255, 255, 255, 0.1);
+      }
+
+      /* === EMERGENCY HERO BUTTONS (Ruby & Void Glass) === */
+      .hero-btn{
+        cursor:pointer;
+        transition:transform 0.1s ease, box-shadow 0.1s ease;
+      }
+      /* 999 Button - Ruby Glass */
+      #call-emergency{
+        background:linear-gradient(180deg, #8a2b3b 0%, #7d2230 45%, #5c1a24 100%) !important;
+        border:1px solid #8b2635 !important;
+        box-shadow:inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 6px 12px rgba(0, 0, 0, 0.4) !important;
+        color:#FFFFFF !important;
+        text-shadow:0 1px 2px rgba(92, 26, 36, 0.5);
+        position:relative;
+        overflow:hidden;
+        min-height:72px !important;
+      }
+      #call-emergency::before{
+        content:"";
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        height:50%;
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
+        border-top:1px solid rgba(255, 255, 255, 0.1);
+        border-radius:15px 15px 0 0;
+        pointer-events:none;
+      }
+      #call-emergency:active{
+        transform:scale(0.97);
+        box-shadow:inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+      }
+      /* 111 Button - Void Glass */
+      #call-advice{
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+        border:1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow:0 4px 12px rgba(0, 0, 0, 0.2) !important;
+        color:#FFFFFF !important;
+        position:relative;
+        overflow:hidden;
+        min-height:72px !important;
+      }
+      #call-advice::before{
+        content:"";
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        height:50%;
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+        border-top:1px solid rgba(255, 255, 255, 0.15);
+        border-radius:15px 15px 0 0;
+        pointer-events:none;
+      }
+      #call-advice:active{
+        transform:scale(0.97);
+        box-shadow:0 2px 6px rgba(0, 0, 0, 0.3) !important;
+      }
+      /* Hero button text styling */
+      #call-emergency span:first-child,
+      #call-advice span:first-child{
+        font-size:20px !important;
+        font-weight:600 !important;
+        color:#FFFFFF !important;
+        position:relative;
+        z-index:1;
+      }
+      #call-emergency span:last-child,
+      #call-advice span:last-child{
+        font-size:13px !important;
+        opacity:0.8 !important;
+        color:#E0E0E0 !important;
+        position:relative;
+        z-index:1;
+      }
+
       /* Emergency Button - Muted, No Red Fill */
       #stepdown-emergency{
         background:transparent;
@@ -567,28 +667,89 @@
         margin-bottom:20px;
       }
 
+      /* Urgent Row - Glass Card Style (Matches Main Screen Cards) */
       .urgent-row{
-        width:100%;
         display:flex;
         align-items:center;
-        gap:16px;
-        padding:24px;
-        background:var(--surface);
-        border:1px solid var(--card-border);
-        border-radius:var(--radius);
-        margin-bottom:18px;
-        text-align:left;
-        color:var(--text);
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%), #1a1a2e;
+        min-height:120px;
+        padding:24px 24px;
+        margin-bottom:16px;
+        border-radius:16px;
+        border-top:1px solid rgba(255, 255, 255, 0.2);
+        border-bottom:1px solid rgba(0, 0, 0, 0.4);
+        border-left:1px solid transparent;
+        border-right:1px solid transparent;
+        box-shadow:0 4px 12px rgba(0, 0, 0, 0.3);
         cursor:pointer;
+        transition:transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), background 0.1s;
       }
       .urgent-row:focus{ outline:none; }
       .urgent-row:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
-      .urgent-row:active{ background:var(--surface-hover); }
-      .u-icon{ display:none; }
-      
-      /* Emergency text tokens - higher contrast than crisis cards for panic readability */
-      .urgent-title{ font-size:22px; font-weight:500; line-height:1.4; color:var(--text); margin-bottom:8px; }
-      .urgent-sub{ font-size:16px; font-weight:400; color:var(--text-muted); line-height:1.5; }
+      .urgent-row:active{
+        transform:scale(0.96);
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%), #1a1a2e;
+        box-shadow:0 2px 6px rgba(0, 0, 0, 0.5);
+      }
+      .urgent-row:active .urgent-icon{
+        background:rgba(247, 225, 198, 0.18);
+        box-shadow:inset 0 1px 4px rgba(247, 225, 198, 0.25), 0 0 12px rgba(247, 225, 198, 0.15);
+      }
+      /* Icon Box (Squircle) - Matches Main Screen Exactly */
+      .urgent-icon{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        width:52px;
+        height:52px;
+        background:rgba(247, 225, 198, 0.1);
+        border:1px solid rgba(247, 225, 198, 0.15);
+        border-radius:16px;
+        flex-shrink:0;
+        box-shadow:inset 0 1px 4px rgba(247, 225, 198, 0.15), 0 0 8px rgba(247, 225, 198, 0.08);
+        filter:none;
+        opacity:1;
+        transition:box-shadow 0.15s ease, background 0.15s ease;
+      }
+      .urgent-icon svg{
+        width:34px;
+        height:34px;
+        stroke:#f7e1c6;
+        stroke-width:2px;
+        fill:none;
+        stroke-linecap:round;
+        stroke-linejoin:round;
+        filter:drop-shadow(0 0 3px rgba(247, 225, 198, 0.2));
+      }
+      /* Text Container - Matches .card-text exactly */
+      .urgent-text{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        margin-left:16px;
+        margin-right:auto;
+      }
+      .urgent-title{
+        margin:0 0 4px 0;
+        font-size:19px;
+        font-weight:600;
+        color:#F2F2F5;
+        line-height:1.3;
+      }
+      .urgent-sub{
+        margin:0;
+        font-size:15px;
+        color:#9CA3AF;
+      }
+      /* Chevron - Matches Main Screen */
+      .urgent-chevron{
+        color:#9CA3AF;
+        font-size:28px;
+        font-weight:600;
+        opacity:0.7;
+        flex-shrink:0;
+        margin-left:12px;
+      }
 
       /* Crisis Card Full Screen */
       .stepdown-backdrop{
@@ -2430,8 +2591,13 @@
             <!-- Header: title left, close right -->
             <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px;">
               <div style="font-size:18px;font-weight:500;color:var(--text);">Emergency</div>
-              <button id="urgent-close" class="pill pill-ghost" type="button" aria-label="Close" style="flex-shrink:0;">Close</button>
-        </div>
+              <button id="urgent-close" class="glass-close-btn" type="button" aria-label="Close">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
 
             <div class="emergency-scroll" style="flex:1;overflow-y:auto;">
               <div id="emergency-hint" style="font-size:17px;color:var(--text);margin-bottom:8px;line-height:1.5;">
@@ -2442,13 +2608,13 @@
             </div>
 
               <div id="call-buttons" style="display:flex;gap:14px;margin-bottom:32px;">
-                <button id="call-emergency" type="button" class="pill emergency-call-btn" style="flex:1;height:72px;flex-direction:column;gap:4px;">
-                  <span id="emergency-number" style="font-size:22px;font-weight:600;"></span>
-                  <span style="font-size:13px;opacity:0.75;">Emergency</span>
+                <button id="call-emergency" type="button" class="hero-btn" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border-radius:16px;">
+                  <span id="emergency-number"></span>
+                  <span>Emergency</span>
                 </button>
-                <button id="call-advice" type="button" class="pill pill-outline nhs-advice-outline" style="flex:1;height:72px;flex-direction:column;gap:4px;">
-                  <span id="advice-number" style="font-size:22px;font-weight:500;"></span>
-                  <span style="font-size:13px;opacity:0.7;">Medical advice</span>
+                <button id="call-advice" type="button" class="hero-btn" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border-radius:16px;">
+                  <span id="advice-number"></span>
+                  <span>Medical advice</span>
                 </button>
               </div>
 
@@ -3360,6 +3526,15 @@
           row.setAttribute("tabindex", "0");
           row.dataset.urgent = it.key;
           
+          // Icon box
+          const iconBox = document.createElement("div");
+          iconBox.className = "urgent-icon";
+          iconBox.innerHTML = URGENT_ICONS[it.key] || DEFAULT_ICON;
+          
+          // Text container
+          const textBox = document.createElement("div");
+          textBox.className = "urgent-text";
+          
           const label = document.createElement("div");
           label.className = "urgent-title";
           label.textContent = it.label;
@@ -3368,8 +3543,17 @@
           sub.className = "urgent-sub";
           sub.textContent = it.sub;
           
-          row.appendChild(label);
-          row.appendChild(sub);
+          textBox.appendChild(label);
+          textBox.appendChild(sub);
+          
+          // Chevron
+          const chevron = document.createElement("span");
+          chevron.className = "urgent-chevron";
+          chevron.textContent = "›";
+          
+          row.appendChild(iconBox);
+          row.appendChild(textBox);
+          row.appendChild(chevron);
           list.appendChild(row);
         });
       }
@@ -4754,9 +4938,9 @@
         });
         document.getElementById("urgent-close").addEventListener("click", (e) => {
           const btn = e.currentTarget;
-          btn.style.background = "var(--surface)";
+          btn.style.transform = "scale(0.9)";
           setTimeout(() => {
-            btn.style.background = "";
+            btn.style.transform = "";
             toggleUrgent(false);
           }, SCREEN_DELAY);
         });
