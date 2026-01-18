@@ -237,7 +237,7 @@
       .glass-close-btn svg{
         width:22px;
         height:22px;
-        stroke:#E8D4B4;
+        stroke:#F3E6D5;
         stroke-width:2px;
         fill:none;
         stroke-linecap:round;
@@ -247,7 +247,7 @@
       }
       .glass-close-btn:hover svg{
         opacity:1;
-        filter:drop-shadow(0 0 4px rgba(232, 212, 180, 0.5));
+        filter:drop-shadow(0 0 4px rgba(243, 230, 213, 0.6));
       }
       .glass-close-btn:active svg{
         opacity:0.8;
@@ -674,6 +674,7 @@
       .emergency-scroll{
         scrollbar-width:none;
         -ms-overflow-style:none;
+        padding-bottom:60px;
       }
       .emergency-scroll::-webkit-scrollbar{ width:0; height:0; }
 
@@ -731,12 +732,12 @@
       .urgent-icon svg{
         width:34px;
         height:34px;
-        stroke:#E8D4B4;
+        stroke:#F3E6D5;
         stroke-width:2px;
         fill:none;
         stroke-linecap:round;
         stroke-linejoin:round;
-        filter:drop-shadow(0 0 3px rgba(232, 212, 180, 0.3));
+        filter:drop-shadow(0 0 4px rgba(243, 230, 213, 0.6));
       }
       /* Text Container - Matches .card-text exactly */
       .urgent-text{
@@ -2666,9 +2667,8 @@
             </div>
 
               <div id="call-buttons" style="display:flex;gap:14px;margin-bottom:32px;">
-                <button id="call-emergency" type="button" class="hero-btn" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border-radius:16px;">
+                <button id="call-emergency" type="button" class="hero-btn" style="flex:1;display:flex;align-items:center;justify-content:center;border-radius:16px;">
                   <span id="emergency-number"></span>
-                  <span>Emergency</span>
                 </button>
                 <button id="call-advice" type="button" class="hero-btn" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border-radius:16px;">
                   <span id="advice-number"></span>
