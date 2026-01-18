@@ -1159,16 +1159,27 @@
       /* Same response buttons - glass slabs */
       .followup-response-same button,
       .followup-card .followup-response-buttons button{
-        background:linear-gradient(180deg, rgba(50, 55, 80, 0.6) 0%, rgba(30, 35, 50, 0.7) 100%) !important;
-        border:1px solid rgba(255, 255, 255, 0.08) !important;
-        border-top:1px solid rgba(255, 255, 255, 0.25) !important;
-        box-shadow:0 8px 20px rgba(0, 0, 0, 0.4) !important;
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%) !important;
+        border:1px solid rgba(255, 255, 255, 0.1) !important;
+        border-top:1px solid rgba(255, 255, 255, 0.3) !important;
+        border-bottom:1px solid rgba(0, 0, 0, 0.3) !important;
+        box-shadow:0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
         color:white !important;
-        padding:16px 24px !important;
+        height:auto !important;
+        min-height:88px !important;
+        padding:22px 24px !important;
         border-radius:16px !important;
-        font-size:16px !important;
+        font-size:17px !important;
+        font-weight:600 !important;
+        line-height:1.4 !important;
         width:100% !important;
         margin-bottom:12px !important;
+        display:flex !important;
+        flex-direction:column !important;
+        align-items:center !important;
+        justify-content:center !important;
+        text-align:center !important;
+        box-sizing:border-box !important;
         transition:transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease !important;
       }
       .followup-response-same button:active,
@@ -1176,12 +1187,35 @@
         transform:scale(0.97) translateY(2px) !important;
         box-shadow:0 4px 12px rgba(0, 0, 0, 0.6) !important;
       }
+      /* Call 999 button - ruby red glass (gemstone physics) */
+      .followup-card .followup-response-buttons .emergency-call-btn{
+        background:linear-gradient(180deg, rgba(90, 30, 40, 0.8) 0%, rgba(120, 40, 50, 0.85) 100%) !important;
+        border:1px solid rgba(255, 80, 80, 0.15) !important;
+        border-top:1px solid rgba(255, 200, 200, 0.6) !important;
+        border-bottom:1px solid rgba(255, 100, 100, 0.2) !important;
+        box-shadow:0 3px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 220, 220, 0.2) !important;
+        color:#FFFFFF !important;
+      }
+      /* Uniform typography for all button primary text */
+      .followup-card .followup-response-buttons button span:first-child{
+        font-weight:600 !important;
+        font-size:17px !important;
+        color:#FFFFFF !important;
+      }
+      /* Subtitle styling (Medical advice, etc.) */
+      .followup-card .followup-response-buttons button span:nth-child(2){
+        font-weight:400 !important;
+        font-size:13px !important;
+        opacity:0.7 !important;
+        margin-top:4px !important;
+      }
       /* Worse response container - void background */
       .followup-card.followup-response-worse{
-        background-color:#050508 !important;
-        background-image:radial-gradient(circle at 50% 0%, #252a45 0%, #050508 100%) !important;
+        background:rgba(15, 20, 35, 0.70) !important;
+        backdrop-filter:blur(40px) !important;
+        -webkit-backdrop-filter:blur(40px) !important;
         border:1px solid rgba(255, 255, 255, 0.08) !important;
-        border-top:1px solid rgba(255, 255, 255, 0.12) !important;
+        border-top:1px solid rgba(255, 255, 255, 0.1) !important;
         box-shadow:0 20px 60px rgba(0, 0, 0, 0.7) !important;
         border-radius:24px !important;
         padding:32px !important;
