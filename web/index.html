@@ -1360,31 +1360,66 @@
       }
       .followup-btn{
         width:100%;
-        height:48px;
-        border-radius:var(--radius);
-        border:1px solid var(--border-strong);
-        background:var(--surface);
-        color:var(--text);
-        font-size:16px;
-        font-weight:500;
+        min-height:72px;
+        border-radius:16px;
+        border:1px solid rgba(255, 255, 255, 0.1);
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+        box-shadow:0 4px 12px rgba(0, 0, 0, 0.2);
+        color:#FFFFFF;
+        font-size:17px;
+        font-weight:600;
         cursor:pointer;
         transition:all 0.15s ease;
+        position:relative;
+        overflow:hidden;
         display:flex;
         align-items:center;
         justify-content:center;
         gap:10px;
       }
-      .followup-btn:active{ background:var(--surface-hover); }
-      .followup-btn::before{
-        content:"";
-        width:8px;
-        height:8px;
-        border-radius:50%;
-        flex-shrink:0;
+      .followup-btn:active{
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+        transform:scale(0.98);
+        box-shadow:0 2px 6px rgba(0, 0, 0, 0.3);
       }
-      .followup-btn.calmer::before{ background:#7ab37a; }
-      .followup-btn.same::before{ background:#b8a86a; }
-      .followup-btn.worse::before{ background:#b36a5a; }
+      /* Gemstone Edge Modifiers - Dark void body with colored accents */
+      .followup-btn.glass-calm{
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+        border:1px solid rgba(255, 255, 255, 0.1) !important;
+        border-top:1px solid #6EE7B7 !important;
+        box-shadow:inset 0 1px 1px rgba(110, 231, 183, 0.5), 0 4px 12px rgba(0,0,0,0.2) !important;
+      }
+      .followup-btn.glass-neutral{
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+        border:1px solid rgba(255, 255, 255, 0.1) !important;
+        border-top:1px solid rgba(255, 255, 255, 0.9) !important;
+        box-shadow:inset 0 1px 1px rgba(255, 255, 255, 0.5), 0 4px 12px rgba(0,0,0,0.2) !important;
+      }
+      .followup-btn.glass-worse{
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+        border:1px solid rgba(255, 255, 255, 0.1) !important;
+        border-top:1px solid rgba(248, 113, 113, 0.7) !important;
+        box-shadow:inset 0 1px 1px rgba(248, 113, 113, 0.3), 0 4px 12px rgba(0,0,0,0.2) !important;
+      }
+      /* Unified typography for outcome button labels */
+      .followup-btn .followup-btn-label{
+        font-weight:600 !important;
+        font-size:17px !important;
+        color:#FFFFFF !important;
+      }
+      /* Glass shine for outcome buttons */
+      .followup-btn::after{
+        content:"";
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        height:50%;
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+        border-top:1px solid rgba(255, 255, 255, 0.15);
+        border-radius:15px 15px 0 0;
+        pointer-events:none;
+      }
       .followup-response-text{
         font-size:18px;
         color:var(--text);
@@ -2448,15 +2483,15 @@
             </button>
             <div class="followup-title">How does it feel now?</div>
             <div class="followup-buttons">
-              <button id="followup-calmer" class="followup-btn calmer" type="button">
+              <button id="followup-calmer" class="followup-btn glass-calm" type="button">
                 <span class="followup-btn-label">Calmer</span>
               </button>
-              <button id="followup-same" class="followup-btn same" type="button">
+              <button id="followup-same" class="followup-btn glass-neutral" type="button">
                 <span class="followup-btn-label">About the same</span>
               </button>
-              <button id="followup-worse" class="followup-btn worse" type="button">
+              <button id="followup-worse" class="followup-btn glass-worse" type="button">
                 <span class="followup-btn-label">Worse</span>
-            </button>
+              </button>
             </div>
               </div>
             </div>
