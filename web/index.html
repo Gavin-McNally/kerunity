@@ -1119,12 +1119,12 @@
         opacity:0.9 !important;
       }
       .followup-card-minimal{
-        background:linear-gradient(180deg, rgba(50, 55, 80, 0.85) 0%, rgba(25, 30, 45, 0.95) 100%) !important;
+        background:rgba(15, 20, 35, 0.70) !important;
         border:1px solid rgba(255, 255, 255, 0.08) !important;
-        border-top:1px solid rgba(255, 255, 255, 0.25) !important;
-        box-shadow:0 20px 60px rgba(0, 0, 0, 0.7) !important;
-        backdrop-filter:blur(16px) !important;
-        -webkit-backdrop-filter:blur(16px) !important;
+        border-top:1px solid rgba(255, 255, 255, 0.12) !important;
+        box-shadow:0 40px 80px rgba(0, 0, 0, 0.8) !important;
+        backdrop-filter:blur(40px) !important;
+        -webkit-backdrop-filter:blur(40px) !important;
         border-radius:24px !important;
         padding:48px 32px !important;
         text-align:center !important;
@@ -1258,6 +1258,52 @@
         box-shadow:0 20px 60px rgba(0, 0, 0, 0.7) !important;
         border-radius:24px !important;
         padding:32px !important;
+      }
+      /* --- SAME CARD: GLASS UNIFICATION --- */
+      .followup-card.followup-response-same{
+        background:rgba(15, 20, 35, 0.70) !important;
+        backdrop-filter:blur(40px) !important;
+        -webkit-backdrop-filter:blur(40px) !important;
+        border:1px solid rgba(255, 255, 255, 0.08) !important;
+        border-top:1px solid rgba(255, 255, 255, 0.12) !important;
+        box-shadow:0 40px 80px rgba(0, 0, 0, 0.8) !important;
+        border-radius:24px !important;
+        padding:32px !important;
+      }
+      /* Same response buttons - Void Glass Slabs */
+      .same-response-btn{
+        width:100% !important;
+        min-height:72px !important;
+        border-radius:16px !important;
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+        border:1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow:0 4px 12px rgba(0, 0, 0, 0.2) !important;
+        color:#FFFFFF !important;
+        font-size:17px !important;
+        font-weight:600 !important;
+        cursor:pointer;
+        position:relative;
+        overflow:hidden;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        transition:all 0.15s ease;
+      }
+      .same-response-btn::before{
+        content:"";
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        height:50%;
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+        border-top:1px solid rgba(255, 255, 255, 0.15);
+        border-radius:15px 15px 0 0;
+        pointer-events:none;
+      }
+      .same-response-btn:active{
+        transform:scale(0.98);
+        box-shadow:0 2px 6px rgba(0, 0, 0, 0.3) !important;
       }
       /* --- WORSE CARD: ROBUST BUTTON FIX --- */
       /* 1. CONTAINER LAYOUT */
@@ -3567,12 +3613,13 @@
             closeFollowupAndExit();
           }, 2000);
         } else if(type === "same"){
+          const card = overlay.querySelector(".followup-card");
+          card.classList.add("followup-response-same");
           textEl.textContent = "Would you like more help?";
           textEl.style.marginBottom = "32px"; // More space before buttons
           
           const btn1 = document.createElement("button");
-          btn1.className = "pill pill-outline";
-          btn1.style.cssText = "width:100%;height:48px;font-size:16px;";
+          btn1.className = "same-response-btn";
           btn1.textContent = "Back to situations";
           btn1.onclick = (e) => {
             const b = e.currentTarget;
@@ -3585,8 +3632,7 @@
           buttonsEl.appendChild(btn1);
           
           const btn2 = document.createElement("button");
-          btn2.className = "pill pill-outline";
-          btn2.style.cssText = "width:100%;height:48px;font-size:16px;";
+          btn2.className = "same-response-btn";
           btn2.textContent = "Stay on this step";
           btn2.onclick = (e) => {
             const b = e.currentTarget;
@@ -3688,7 +3734,7 @@
         overlay.setAttribute("aria-hidden", "true");
         // Clean up response-specific classes
         const card = overlay.querySelector(".followup-card");
-        card.classList.remove("followup-response-worse", "followup-card-minimal");
+        card.classList.remove("followup-response-worse", "followup-card-minimal", "followup-response-same");
       }
       
       function closeFollowupAndExit(){
