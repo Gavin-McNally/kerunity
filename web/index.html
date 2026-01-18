@@ -1105,10 +1105,43 @@
         position:relative;
       }
       .followup-card-minimal{
-        background:var(--surface);
-        border:none;
-        padding:20px 28px;
-        max-width:280px;
+        background:linear-gradient(180deg, rgba(50, 55, 80, 0.85) 0%, rgba(25, 30, 45, 0.95) 100%) !important;
+        border:1px solid rgba(255, 255, 255, 0.08) !important;
+        border-top:1px solid rgba(255, 255, 255, 0.25) !important;
+        box-shadow:0 20px 60px rgba(0, 0, 0, 0.7) !important;
+        backdrop-filter:blur(16px) !important;
+        -webkit-backdrop-filter:blur(16px) !important;
+        border-radius:24px !important;
+        padding:48px 32px !important;
+        text-align:center !important;
+        display:flex !important;
+        flex-direction:column !important;
+        align-items:center !important;
+      }
+      .followup-card-minimal .followup-response-text{
+        display:flex !important;
+        flex-direction:column !important;
+        align-items:center !important;
+      }
+      /* Smile icon - thick stroke + neon glow */
+      .followup-card-minimal svg,
+      .calmer-smile{
+        width:64px !important;
+        height:64px !important;
+        margin-bottom:24px !important;
+        filter:drop-shadow(0 0 8px rgba(247, 225, 198, 0.6)) drop-shadow(0 0 16px rgba(247, 225, 198, 0.3)) !important;
+      }
+      /* Calmer text - pearlescent gradient */
+      .followup-card-minimal .followup-response-text p,
+      .calmer-message{
+        background:linear-gradient(90deg, #FFFFFF 0%, #FFE4B5 50%, #FFFFFF 100%) !important;
+        -webkit-background-clip:text !important;
+        -webkit-text-fill-color:transparent !important;
+        background-clip:text !important;
+        font-size:20px !important;
+        font-weight:600 !important;
+        line-height:1.6 !important;
+        margin:0 !important;
       }
       .followup-close,
       #followup-close,
@@ -3324,8 +3357,8 @@
         buttonsEl.textContent = "";
         
         if(type === "calmer"){
-          // Simple smile arc below text (no face, no eyes, just a gentle curve)
-          textEl.innerHTML = `That's good to hear.<svg width="28" height="14" viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" style="display:block;margin:16px auto 0;opacity:0.7;" aria-hidden="true"><path d="M4 4c2 5 14 5 16 0"/></svg>`;
+          // High-voltage golden glow version
+          textEl.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:48px 0;"><svg width="120" height="60" viewBox="0 0 120 60" fill="none" style="margin-bottom:24px;filter:drop-shadow(0 0 16px rgba(247, 225, 198, 0.8));"><path d="M10 10 C 35 55, 85 55, 110 10" stroke="#f7e1c6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg><span style="margin-bottom:0;background:linear-gradient(90deg, #FFFFFF 0%, #FFE4B5 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:26px;font-weight:700;letter-spacing:-0.5px;text-align:center;">That's good to hear.</span></div>`;
           textEl.style.marginBottom = "0"; // No buttons, so remove bottom margin
           // Make card minimal (no border)
           const card = overlay.querySelector(".followup-card");
