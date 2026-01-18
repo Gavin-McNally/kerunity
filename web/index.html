@@ -45,6 +45,7 @@
       body{
         margin:0;
         height:100vh;
+        height:100dvh;
         background:var(--bg);
         font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
         display:flex;
@@ -59,7 +60,7 @@
       #app-frame{
         width:100%;
         max-width:390px;
-        height:100%;
+        height:100dvh;
         max-height:852px;
         background:var(--bg);
         display:flex;
@@ -630,7 +631,7 @@
         display:flex;
         align-items:center;
         justify-content:center;
-        padding:24px;
+        padding:16px;
       }
       .sheet-backdrop.active{ opacity:1; pointer-events:auto; }
       .sheet{
@@ -649,32 +650,51 @@
 
       /* Emergency: Full screen takeover, solid background */
       .emergency-backdrop{
-        position:absolute;
+        position:fixed;
         inset:0;
-        z-index:120;
+        z-index:1200;
         background:var(--bg);
         opacity:0;
         pointer-events:none;
       }
       .emergency-backdrop.active{
-        opacity:1;
-        pointer-events:auto;
+        opacity:1 !important;
+        pointer-events:auto !important;
+      }
+      #urgent-overlay[aria-hidden="false"]{
+        opacity:1 !important;
+        pointer-events:auto !important;
       }
       .emergency-screen{
-        position:absolute;
+        position:fixed;
         inset:0;
         background:var(--bg);
         display:flex;
         flex-direction:column;
+        pointer-events:none;
+        overflow:hidden;
         padding:32px;
         padding-top:calc(env(safe-area-inset-top) + 32px);
-        padding-bottom:calc(env(safe-area-inset-bottom) + 32px);
+        padding-bottom:0 !important;
+        height:100dvh !important;
+      }
+      #urgent-overlay[aria-hidden="false"] .emergency-screen{
+        pointer-events:auto;
+      }
+      .emergency-fixed{
+        flex-shrink:0;
       }
       /* Hide scrollbar in emergency screen */
       .emergency-scroll{
+        background-color:transparent;
+        background-image:none;
         scrollbar-width:none;
         -ms-overflow-style:none;
-        padding-bottom:60px;
+        flex:1 1 auto;
+        min-height:0;
+        overflow-y:auto;
+        padding-bottom:180px !important;
+        margin-bottom:0 !important;
       }
       .emergency-scroll::-webkit-scrollbar{ width:0; height:0; }
 
@@ -2080,7 +2100,7 @@
       }
 
       /* 8. Global Background - The Void */
-      body, #app-frame, .stepdown-backdrop, .stepdown-screen, .emergency-screen {
+      body, #app-frame, .stepdown-backdrop, .stepdown-screen, .emergency-backdrop, .emergency-screen {
         background-color: #050508 !important;
         background-image: radial-gradient(circle at 50% 0%, #252a45 0%, #050508 100%) !important;
       }
@@ -2195,7 +2215,7 @@
       .urgent-row {
         background: linear-gradient(180deg, rgba(50, 55, 80, 0.6) 0%, rgba(30, 35, 50, 0.7) 100%) !important;
         border: 1px solid rgba(255, 255, 255, 0.05) !important;
-        border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
         box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6) !important;
         border-radius: 20px !important;
         backdrop-filter: blur(12px) !important;
@@ -2658,7 +2678,7 @@
               </button>
             </div>
 
-            <div class="emergency-scroll" style="flex:1;overflow-y:auto;">
+            <div class="emergency-fixed">
               <div id="emergency-hint" style="font-size:17px;color:var(--text);margin-bottom:8px;line-height:1.5;">
                 If someone is in immediate danger, call now.
               </div>
@@ -2675,9 +2695,10 @@
                   <span>Medical advice</span>
                 </button>
               </div>
-
-              <div style="font-size:14px;color:var(--text-muted);margin-bottom:12px;font-weight:500;">Safety checks</div>
-            <div id="urgent-grid-sheet"></div>
+            </div>
+            <div class="emergency-scroll">
+              <div id="urgent-label" style="font-size:14px;color:var(--text-muted);margin-bottom:12px;font-weight:500;">Safety checks</div>
+              <div id="urgent-grid-sheet"></div>
             </div>
           </div>
         </div>
