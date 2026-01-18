@@ -142,15 +142,26 @@
       .pill-ghost:focus{ outline:none; }
       .pill-ghost:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
       #stepdown-close{
-        background:transparent;
-        border:none;
-        color:#9CA3AF;
-        font-size:28px;
-        line-height:1;
-        padding:8px;
+        background:transparent !important;
+        border:none !important;
+        box-shadow:none !important;
+        padding:8px !important;
         cursor:pointer;
       }
-      #stepdown-close:active{ color:#FFF; }
+      #stepdown-close svg{
+        width:22px !important;
+        height:22px !important;
+        stroke:#f7e1c6 !important;
+        stroke-width:2px !important;
+        fill:none !important;
+        stroke-linecap:round !important;
+        stroke-linejoin:round !important;
+        opacity:0.5 !important;
+        transition:opacity 0.15s ease !important;
+      }
+      #stepdown-close:active svg{
+        opacity:0.8 !important;
+      }
 
       /* Emergency tab on home - subtle but findable */
       .emergency-tab{
@@ -1099,26 +1110,46 @@
         padding:20px 28px;
         max-width:280px;
       }
-      .followup-close{
+      .followup-close,
+      #followup-close,
+      .sheet-close{
         position:absolute;
         top:12px;
         right:12px;
         width:44px;
         height:44px;
-        border:none;
-        border-radius:50%;
-        background:var(--surface);
-        color:var(--text-muted);
-        opacity:0.8;
+        background:transparent !important;
+        border:none !important;
+        box-shadow:none !important;
+        padding:8px !important;
         cursor:pointer;
         display:flex;
         align-items:center;
         justify-content:center;
       }
-      .followup-close:hover{ opacity:1; }
-      .followup-close:active{ background:var(--surface-hover); opacity:1; }
-      .followup-close:focus{ outline:none; }
-      .followup-close:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
+      .followup-close svg,
+      #followup-close svg,
+      .sheet-close svg{
+        width:22px !important;
+        height:22px !important;
+        stroke:#f7e1c6 !important;
+        stroke-width:2px !important;
+        fill:none !important;
+        stroke-linecap:round !important;
+        stroke-linejoin:round !important;
+        opacity:0.5 !important;
+        transition:opacity 0.15s ease !important;
+      }
+      .followup-close:active svg,
+      #followup-close:active svg{
+        opacity:0.8 !important;
+      }
+      .followup-close:focus,
+      #followup-close:focus,
+      .sheet-close:focus{ outline:none; }
+      .followup-close:focus-visible,
+      #followup-close:focus-visible,
+      .sheet-close:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
       .followup-title{
         font-size:19px;
         font-weight:500;
@@ -1808,13 +1839,22 @@
       #stepdown-close {
         background: transparent !important;
         border: none !important;
+        box-shadow: none !important;
         padding: 8px !important;
-        opacity: 0.7 !important;
+      }
+      #stepdown-close svg {
+        width: 22px !important;
+        height: 22px !important;
+        stroke: #f7e1c6 !important;
+        stroke-width: 2px !important;
+        fill: none !important;
+        stroke-linecap: round !important;
+        stroke-linejoin: round !important;
+        opacity: 0.5 !important;
         transition: opacity 0.15s ease !important;
       }
-      #stepdown-close:hover,
-      #stepdown-close:active {
-        opacity: 1 !important;
+      #stepdown-close:active svg {
+        opacity: 0.8 !important;
       }
 
       /* Search input text centering */
