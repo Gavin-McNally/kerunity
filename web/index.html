@@ -92,24 +92,6 @@
         position:relative;
       }
       #app-content{ height:100%; display:flex; flex-direction:column; }
-      .sticky-top-bar{
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        background: rgba(5, 5, 8, 0.85);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 0 20px 24px 20px;
-        box-sizing: border-box;
-      }
-      .sticky-top-bar header{
-        padding: 20px 0 16px;
-        padding-top: calc(env(safe-area-inset-top) + 44px);
-      }
-      .sticky-top-bar .search-container{
-        margin-top: 16px;
-      }
       /* Header */
       header{
         padding:20px 24px 16px;
@@ -628,7 +610,7 @@
         color:var(--text-soft);
         font-size:14px;
         font-weight:500;
-        margin:var(--space-sm) 0 20px;
+        margin:var(--space-sm) 0 32px;
       }
       .dot-green{ display:none; }
 
@@ -1060,7 +1042,8 @@
       }
       .stepdown-screen.urgent-mode .listen-emergency{
         margin-bottom:12px;
-        padding:10px 14px;
+        padding:14px 20px;
+        min-height:56px;
       }
       .stepdown-screen.urgent-mode .stepdown-body{
         padding-top:0;
@@ -1924,6 +1907,23 @@
         width:100%;
       }
       .listen-inline.speaking{ background:rgba(255,255,255,0.08); color:var(--text); }
+      .listen-inline{
+        min-height:56px !important;
+        padding:0 20px !important;
+        border-radius:var(--radius) !important;
+        border:1px solid rgba(247, 225, 198, 0.35) !important;
+        background:rgba(247, 225, 198, 0.1) !important;
+        color:#f7e1c6 !important;
+        font-size:18px !important;
+        font-weight:700 !important;
+        text-transform:uppercase !important;
+        letter-spacing:1px !important;
+      }
+      .listen-inline svg{
+        stroke:#f7e1c6 !important;
+        fill:none !important;
+      }
+      .listen-inline:active{ background:rgba(247, 225, 198, 0.16) !important; }
       
       /* Emergency listen button - prominent, full-width, above content */
       .listen-emergency{
@@ -1932,19 +1932,23 @@
         justify-content:center;
         gap:10px;
         width:100%;
-        padding:16px 20px;
+        padding:14px 20px;
         margin-bottom:24px;
+        min-height:56px;
         border-radius:var(--radius);
-        border:1px solid var(--border);
-        background:var(--surface);
-        color:var(--text);
+        border:1px solid rgba(247, 225, 198, 0.35) !important;
+        background:rgba(247, 225, 198, 0.1) !important;
+        color:#f7e1c6 !important;
         font-size:18px;
-        font-weight:500;
+        font-weight:700;
+        text-transform:uppercase;
+        letter-spacing:1px;
         cursor:pointer;
         position:relative;
       }
       .listen-emergency svg{
         flex-shrink:0;
+        stroke:#f7e1c6 !important;
       }
       .listen-emergency-label{
         display:inline-block;
@@ -1952,18 +1956,18 @@
         text-align:center;
       }
       .listen-emergency{ transition:background 0.1s ease-out, border-color 0.1s ease-out; }
-      .listen-emergency:active{ background:var(--surface-hover); }
+      .listen-emergency:active{ background:rgba(247, 225, 198, 0.16); }
       .listen-emergency.speaking{ 
         background:linear-gradient(90deg, 
-          rgba(255,255,255,0.04) 0%,
-          rgba(255,255,255,0.06) 20%,
-          rgba(255,255,255,0.09) 40%,
-          rgba(255,255,255,0.09) 60%,
-          rgba(255,255,255,0.06) 80%,
-          rgba(255,255,255,0.04) 100%
-        );
+          rgba(247, 225, 198, 0.12) 0%,
+          rgba(247, 225, 198, 0.18) 20%,
+          rgba(247, 225, 198, 0.24) 40%,
+          rgba(247, 225, 198, 0.24) 60%,
+          rgba(247, 225, 198, 0.18) 80%,
+          rgba(247, 225, 198, 0.12) 100%
+        ) !important;
         background-size:200% 100%;
-        border-color:var(--border);
+        border-color:rgba(247, 225, 198, 0.45) !important;
         animation:button-shimmer 2.2s linear infinite;
       }
       @keyframes button-shimmer{
@@ -2060,6 +2064,9 @@
         backdrop-filter: blur(10px) !important;
         -webkit-backdrop-filter: blur(10px) !important;
         transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease !important;
+        min-height: 72px !important;
+        height: 72px !important;
+        border-radius: 16px !important;
       }
       #stepdown-next:active {
         transform: scale(0.97) translateY(2px) !important;
@@ -2081,6 +2088,9 @@
         backdrop-filter: blur(10px) !important;
         -webkit-backdrop-filter: blur(10px) !important;
         transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease !important;
+        min-height: 72px !important;
+        height: 72px !important;
+        border-radius: 16px !important;
       }
       #stepdown-back:active {
         transform: scale(0.97) translateY(2px) !important;
@@ -2771,47 +2781,45 @@
   <body>
     <div id="app-frame">
       <div id="app-content">
-        <div class="sticky-top-bar">
-          <header>
-            <div class="header-row">
-              <button class="icon-btn-minimal" id="info-open" type="button" aria-label="Menu">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f7e1c6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M4 7h16"></path>
-                  <path d="M4 12h16"></path>
-                  <path d="M4 17h16"></path>
-                </svg>
-              </button>
-
-              <div class="header-actions">
-                <button class="pill emergency-tab" type="button" id="urgent-open">
-                  <svg viewBox="0 0 24 24" class="phone-icon-svg" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                  <span>Get help</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="hero-section">
-              <h1 class="hero-title">
-                Start here <span class="hero-soft">You don't have to get this right.</span>
-              </h1>
-              
-              <p class="safety-note">
-                Guidance only. Not live monitoring. If anyone is in danger, call 999.
-              </p>
-            </div>
-            
-            <!-- Post-emergency reassurance (hidden by default) -->
-            <div id="reassurance-banner" class="reassurance-banner" style="display:none;">
-              <span>You did the right thing</span>
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <linearGradient id="heart-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="10%" style="stop-color:#f7e1c6;stop-opacity:1" /> <stop offset="90%" style="stop-color:#d4af7a;stop-opacity:1" />  </linearGradient>
-                </defs>
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="url(#heart-gradient)" stroke="none"/>
+        <header>
+          <div class="header-row">
+            <button class="icon-btn-minimal" id="info-open" type="button" aria-label="Menu">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f7e1c6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 7h16"></path>
+                <path d="M4 12h16"></path>
+                <path d="M4 17h16"></path>
               </svg>
+            </button>
+
+            <div class="header-actions">
+              <button class="pill emergency-tab" type="button" id="urgent-open">
+                <svg viewBox="0 0 24 24" class="phone-icon-svg" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <span>Get help</span>
+              </button>
             </div>
-          </header>
+          </div>
+
+          <div class="hero-section">
+            <h1 class="hero-title">
+              Start here <span class="hero-soft">You don't have to get this right.</span>
+            </h1>
+            
+            <p class="safety-note">
+              Guidance only. Not live monitoring. If anyone is in danger, call 999.
+            </p>
+          </div>
+          
+          <!-- Post-emergency reassurance (hidden by default) -->
+          <div id="reassurance-banner" class="reassurance-banner" style="display:none;">
+            <span>You did the right thing</span>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="heart-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="10%" style="stop-color:#f7e1c6;stop-opacity:1" /> <stop offset="90%" style="stop-color:#d4af7a;stop-opacity:1" />  </linearGradient>
+              </defs>
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="url(#heart-gradient)" stroke="none"/>
+            </svg>
+          </div>
 
           <div class="search-container">
             <svg viewBox="0 0 24 24" class="search-icon search-icon-svg" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
@@ -2819,11 +2827,10 @@
             <button id="mic-btn" class="mic-btn" type="button" aria-label="Speak">
               <svg viewBox="0 0 24 24" class="mic-icon mic-icon-svg" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 18v4"/><path d="M8 22h8"/></svg>
             </button>
-            </div>
-        </div>
+          </div>
+        </header>
 
         <div class="canvas">
-
           <div id="search-suggestions" class="room-container" style="display:none;"></div>
 
           <!-- Continue chip: shows if crisis or urgent deck was exited mid-flow -->
