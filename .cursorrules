@@ -1,41 +1,66 @@
-You are working on Kerunity, a crisis-support PWA for carers.
+# Kerunity — Cursor Rules (Midnight Glass v1.2)
 
-FIRST: Read KERUNITY_SPEC.md — it is the single source of truth.
+Read KERUNITY_SPEC.md and DESIGN_SYSTEM_Midnight_Glass_v1.2.md before any changes.
 
-HARD RULES:
-- Obey CURSOR_RULES.md
-- Calm-tech only, minimal UI, high accessibility
-- Reduced-motion support required
-- No medical advice, no clinical tone
-- No dependency creep
-- Use "Kerunity" (not "KerUnity")
+## Design System: Midnight Glass
 
-DESIGN PRIORITY (strict order):
-1. Safety
-2. Clarity  
-3. Predictability
-4. Accessibility
-5. Visual calm
+### Colors (MUST USE)
+- Background: #050508 (void), #0a0a0f (bg)
+- Gold accent: #f7e1c6 (champagne) — use sparingly
+- Emergency: #8a2b3b (deep wine) — 999 button ONLY
+- Text: #FFFFFF, rgba(255,255,255,0.9), rgba(255,255,255,0.75)
 
-DO NOT:
-- Reduce font sizes or weights
-- Reduce touch targets
-- Remove safety guards (disclaimers, confirmations, exit routes)
-- Introduce frameworks (React/Next/Vite), bundlers, or new dependencies
-- Add decorative motion or animation
-- Change folder structure without permission
+### Glass Effects (REQUIRED)
+- Cards: linear-gradient(180deg, rgba(50,55,80,0.6) 0%, rgba(30,35,50,0.7) 100%)
+- Backdrop blur: backdrop-filter: blur(12px)
+- Borders: rgba(255,255,255,0.08), top edge brighter (0.25 or 0.9 for platinum)
 
-ONLY EDIT:
-- web/index.html (main app)
-- web/manifest.json (PWA config)
-- web/sw.js (service worker)
-- web/*.png (icons)
+### Touch Targets
+- Minimum: 48px
+- Standard buttons: 56px
+- Crisis buttons (Next, Back, 999): 72px — "Panic Slabs"
 
-WORKFLOW:
-- Make one small change at a time
-- After each change, verify UI still loads and all buttons work
-- If something breaks, revert immediately
-- If unsure, propose options with tradeoffs — don't guess silently
+### Haptic Motion (ALLOWED)
+- Spring easing: cubic-bezier(0.34, 1.56, 0.64, 1)
+- Press state: scale(0.97) translateY(2px)
+- Transitions: 0.15s micro, 0.3s larger
+- Must respect prefers-reduced-motion
 
-GOLDEN RULE:
-If a change does not help a stressed carer in a difficult moment, it does not belong.
+## Hard Rules
+
+### DO
+- Follow Midnight Glass design system exactly
+- Use glass gradients and backdrop-filter
+- Use spring-based haptic feedback
+- Keep touch targets large (72px for crisis)
+- Preserve all safety guards
+- Test offline functionality
+- Use system fonts only
+
+### DO NOT
+- Use old colors (#161618, #1F1F22, #D4A017, #EB5757)
+- Use pure black #000000 (causes halos)
+- Use bright red for emergency (use deep wine #8a2b3b)
+- Reduce touch targets below minimums
+- Remove disclaimers or safety mechanisms
+- Add external font/icon CDNs
+- Add frameworks or build tools
+
+## Technical
+- Main file: /web/index.html
+- Plain HTML/CSS/JS only
+- PWA with service worker
+- No data collection
+
+## Working Style
+- Smallest safe change
+- Test after each change (Ctrl+Shift+R with cache disabled)
+- If broken, revert immediately
+- Propose options if unsure
+
+## Definition of Done
+- Follows Midnight Glass v1.2
+- Touch targets correct (48/56/72px)
+- Works offline
+- Works with reduced motion
+- All buttons functional
