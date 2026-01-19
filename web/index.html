@@ -173,8 +173,8 @@
         cursor:pointer;
       }
       #stepdown-close svg{
-        width:22px !important;
-        height:22px !important;
+        width:28px !important;
+        height:28px !important;
         stroke:#f7e1c6 !important;
         stroke-width:2px !important;
         fill:none !important;
@@ -906,7 +906,7 @@
         height:6px !important;
         background:rgba(0, 0, 0, 0.3) !important;
         border-radius:4px;
-        margin-bottom:8px;
+        margin-bottom:12px;
         overflow:hidden;
         box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.5);
         border-bottom:1px solid rgba(255, 255, 255, 0.05);
@@ -993,7 +993,7 @@
         height:56px;
         transform:translateY(-50%);
         border-radius:999px;
-        background:rgba(255,255,255,0.10);
+        background:transparent;
         opacity:0;
         pointer-events:none;
         transition:opacity 0.15s ease;
@@ -1006,7 +1006,8 @@
         height:8px;
         transform:translate(-50%, 0);
         border-radius:999px;
-        background:rgba(255,255,255,0.28);
+        background:#f7e1c6;
+        opacity:0.8;
       }
       .stepdown-screen.is-overflowing .scroll-indicator{
         opacity:1;
@@ -1070,13 +1071,14 @@
         letter-spacing:0.02em;
         margin-bottom:12px;
       }
+      #stepdown-say-kicker{
+        margin-top:0;
+      }
       .say-text{
         font-size:28px;
         font-weight:500;
         color:#F2F2F5;
         line-height:1.4;
-        border-left:2px solid rgba(247, 225, 198, 0.6);
-        padding-left:24px;
         margin-bottom:0;
       }
       /* Urgent SAY: large format for panic readability */
@@ -1141,13 +1143,45 @@
       .stepdown-footer{
         position:relative;
         z-index:5;
-        padding-top:8px;
-        padding-bottom:8px;
+        padding-top:4px;
+        padding-bottom:4px;
+      }
+      .stepdown-header{
+        display:flex;
+        flex-direction:column;
+        gap:16px;
+        margin-bottom:32px;
+        padding:6px 0;
+      }
+      .stepdown-controls{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:16px;
+        width:100%;
+      }
+      .stepdown-title-block{
+        margin-top:0;
+        min-width:0;
+      }
+      .stepdown-title{
+        font-size:18px;
+        font-weight:500;
+        color:var(--text);
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+      }
+      .stepdown-progress{
+        font-size:16px;
+        color:var(--text-soft);
+        margin-top:6px;
       }
       .stepdown-emergency-wrap{
         display:flex;
-        justify-content:center;
-        width:100%;
+        justify-content:flex-end;
+        width:auto;
+        margin-left:auto;
         margin-top:0;
       }
       #stepdown-emergency{
@@ -1351,7 +1385,7 @@
       .resume-backdrop{
         position:fixed;
         inset:0;
-        background:var(--bg);
+        background:rgba(5, 5, 8, 0.85);
         display:flex;
         align-items:center;
         justify-content:center;
@@ -1366,8 +1400,8 @@
         pointer-events:auto;
       }
       .resume-sheet{
-        background:var(--surface);
-        border:1px solid var(--border-strong);
+        background:rgba(5, 5, 8, 0.90);
+        border:1px solid rgba(255, 255, 255, 0.1);
         border-radius:20px;
         padding:32px 28px;
         max-width:340px;
@@ -1375,28 +1409,48 @@
         max-height:85vh;
         overflow-y:auto;
         text-align:center;
+        backdrop-filter:blur(16px);
+        -webkit-backdrop-filter:blur(16px);
+        box-shadow:0 20px 40px rgba(0,0,0,0.6);
+      }
+      .resume-icon{
+        width:32px;
+        height:32px;
+        margin:0 auto 12px;
+        color:#f7e1c6;
       }
       .resume-title{
-        font-size:19px;
-        font-weight:500;
-        color:var(--text);
-        margin-bottom:12px;
+        font-size:20px;
+        font-weight:600;
+        color:#FFFFFF;
+        margin-bottom:10px;
       }
       .resume-sub{
-        font-size:16px;
-        color:var(--text-muted);
-        margin-bottom:6px;
+        font-size:14px;
+        color:#f7e1c6;
+        margin-bottom:10px;
       }
       .resume-hint{
         font-size:14px;
-        color:var(--text-muted);
-        opacity:0.8;
-        margin-bottom:28px;
+        color:rgba(255,255,255,0.6);
+        margin-bottom:24px;
       }
       .resume-buttons{
         display:flex;
         flex-direction:column;
-        gap:14px;
+        gap:12px;
+      }
+      #resume-continue{
+        background:linear-gradient(180deg, rgba(247, 225, 198, 0.25) 0%, rgba(247, 225, 198, 0.1) 100%) !important;
+        border:1px solid rgba(247, 225, 198, 0.5) !important;
+        color:#f7e1c6 !important;
+        font-weight:700 !important;
+      }
+      #resume-restart{
+        background:transparent !important;
+        border:1px solid rgba(255, 255, 255, 0.2) !important;
+        color:#FFFFFF !important;
+        font-weight:600 !important;
       }
 
       /* Post-completion follow-up */
@@ -1445,8 +1499,8 @@
       }
       .followup-card-minimal{
         background:rgba(15, 20, 35, 0.70) !important;
-        border:1px solid rgba(255, 255, 255, 0.08) !important;
-        border-top:1px solid rgba(255, 255, 255, 0.12) !important;
+        border:1px solid rgba(247, 225, 198, 0.3) !important;
+        border-top:1px solid rgba(247, 225, 198, 0.3) !important;
         box-shadow:0 40px 80px rgba(0, 0, 0, 0.8) !important;
         backdrop-filter:blur(40px) !important;
         -webkit-backdrop-filter:blur(40px) !important;
@@ -1615,6 +1669,40 @@
         border-radius:24px !important;
         padding:32px !important;
       }
+      .followup-response-worse .btn-crisis-emergency{
+        background:linear-gradient(135deg, rgba(220, 38, 38, 0.6) 0%, rgba(153, 27, 27, 0.4) 100%) !important;
+        border:1px solid rgba(254, 202, 202, 0.5) !important;
+      }
+      .btn-primary-content{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        line-height:1.2;
+      }
+      .btn-primary-title{
+        font-size:20px;
+        font-weight:800;
+        color:#FFFFFF;
+      }
+      .btn-primary-subtitle{
+        font-size:13px;
+        opacity:0.7;
+        font-weight:400;
+        color:#FFFFFF;
+        margin-top:2px;
+      }
+      .followup-back-link{
+        margin-top:24px;
+        font-size:14px;
+        color:rgba(255,255,255,0.7);
+        text-decoration:underline;
+        text-underline-offset:3px;
+        background:transparent;
+        border:none;
+        cursor:pointer;
+        align-self:center;
+      }
       /* --- SAME CARD: GLASS UNIFICATION --- */
       .followup-card.followup-response-same{
         background:rgba(15, 20, 35, 0.70) !important;
@@ -1660,6 +1748,61 @@
       .same-response-btn:active{
         transform:scale(0.98);
         box-shadow:0 2px 6px rgba(0, 0, 0, 0.3) !important;
+      }
+      .followup-response-buttons .same-response-btn.primary{
+        background:linear-gradient(180deg, rgba(247, 225, 198, 0.25) 0%, rgba(247, 225, 198, 0.1) 100%) !important;
+        border:1px solid rgba(247, 225, 198, 0.5) !important;
+        color:#f7e1c6 !important;
+      }
+      .followup-response-buttons .same-response-btn.secondary{
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%) !important;
+        border:1px solid rgba(255, 255, 255, 0.12) !important;
+        color:#FFFFFF !important;
+      }
+      .followup-card.followup-response-same .followup-response-text{
+        font-size:18px;
+        font-weight:600;
+        color:#FFFFFF;
+      }
+      .followup-urgent-link{
+        margin-top:4px;
+        font-size:14px;
+        color:rgba(255,255,255,0.7);
+        text-decoration:underline;
+        text-underline-offset:3px;
+        background:transparent !important;
+        border:none !important;
+        box-shadow:none !important;
+        padding:0 !important;
+        width:auto !important;
+        min-height:auto !important;
+        align-self:center;
+        cursor:pointer;
+      }
+      .same-response-btn.primary{
+        background:linear-gradient(180deg, rgba(247, 225, 198, 0.25) 0%, rgba(247, 225, 198, 0.1) 100%) !important;
+        border:1px solid rgba(247, 225, 198, 0.5) !important;
+        color:#f7e1c6 !important;
+      }
+      .same-response-btn.secondary{
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%) !important;
+        border:1px solid rgba(255, 255, 255, 0.12) !important;
+        color:#FFFFFF !important;
+      }
+      .followup-card.followup-response-same .followup-response-text{
+        font-size:18px;
+        font-weight:600;
+        color:#FFFFFF;
+      }
+      .followup-urgent-link{
+        margin-top:12px;
+        font-size:14px;
+        color:rgba(255,255,255,0.7);
+        text-decoration:underline;
+        text-underline-offset:3px;
+        background:transparent;
+        border:none;
+        cursor:pointer;
       }
       /* --- WORSE CARD: ROBUST BUTTON FIX --- */
       /* 1. CONTAINER LAYOUT */
@@ -1715,6 +1858,51 @@
       /* Active State (Squish) */
       .followup-response-buttons button:active{
         transform:scale(0.97) !important;
+      }
+      .followup-response-worse .followup-response-buttons .followup-back-link{
+        background:transparent !important;
+        border:none !important;
+        box-shadow:none !important;
+        padding:0 !important;
+        width:auto !important;
+        min-height:auto !important;
+        margin-top:24px !important;
+        color:rgba(255,255,255,0.7) !important;
+        text-decoration:underline !important;
+        text-underline-offset:3px !important;
+        align-self:center !important;
+        display:inline-flex !important;
+      }
+      /* Same response hierarchy + urgent link overrides (must come last) */
+      .followup-response-same .followup-response-buttons .same-response-btn.primary{
+        background:linear-gradient(180deg, rgba(247, 225, 198, 0.25) 0%, rgba(247, 225, 198, 0.1) 100%) !important;
+        border:1px solid rgba(247, 225, 198, 0.5) !important;
+        color:#f7e1c6 !important;
+      }
+      .followup-response-same .followup-response-buttons .same-response-btn.secondary{
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%) !important;
+        border:1px solid rgba(255, 255, 255, 0.12) !important;
+        color:#FFFFFF !important;
+      }
+      .followup-response-same .followup-response-text{
+        font-size:18px !important;
+        font-weight:600 !important;
+        color:#FFFFFF !important;
+      }
+      .followup-response-same .followup-response-buttons .followup-urgent-link{
+        margin-top:4px !important;
+        font-size:14px !important;
+        color:rgba(255,255,255,0.7) !important;
+        text-decoration:underline !important;
+        text-underline-offset:3px !important;
+        background:transparent !important;
+        border:none !important;
+        box-shadow:none !important;
+        padding:0 !important;
+        width:auto !important;
+        min-height:auto !important;
+        align-self:center !important;
+        display:inline-flex !important;
       }
       .followup-close,
       #followup-close,
@@ -1789,22 +1977,22 @@
       }
       /* Gemstone Edge Modifiers - Dark void body with colored accents */
       .followup-btn.glass-calm{
-        background:linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+        background:linear-gradient(180deg, rgba(110, 231, 183, 0.06) 0%, rgba(110, 231, 183, 0.02) 100%) !important;
         border:1px solid rgba(255, 255, 255, 0.1) !important;
         border-top:1px solid #6EE7B7 !important;
-        box-shadow:inset 0 1px 1px rgba(110, 231, 183, 0.5), 0 4px 12px rgba(0,0,0,0.2) !important;
+        box-shadow:inset 0 1px 1px rgba(110, 231, 183, 0.5), inset 0 0 0 1px rgba(110, 231, 183, 0.12), 0 4px 12px rgba(0,0,0,0.2) !important;
       }
       .followup-btn.glass-neutral{
-        background:linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%) !important;
         border:1px solid rgba(255, 255, 255, 0.1) !important;
         border-top:1px solid rgba(255, 255, 255, 0.9) !important;
-        box-shadow:inset 0 1px 1px rgba(255, 255, 255, 0.5), 0 4px 12px rgba(0,0,0,0.2) !important;
+        box-shadow:inset 0 1px 1px rgba(255, 255, 255, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 4px 12px rgba(0,0,0,0.2) !important;
       }
       .followup-btn.glass-worse{
-        background:linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
+        background:linear-gradient(180deg, rgba(138, 43, 59, 0.06) 0%, rgba(138, 43, 59, 0.02) 100%) !important;
         border:1px solid rgba(255, 255, 255, 0.1) !important;
         border-top:1px solid rgba(248, 113, 113, 0.7) !important;
-        box-shadow:inset 0 1px 1px rgba(248, 113, 113, 0.3), 0 4px 12px rgba(0,0,0,0.2) !important;
+        box-shadow:inset 0 1px 1px rgba(248, 113, 113, 0.3), inset 0 0 0 1px rgba(138, 43, 59, 0.12), 0 4px 12px rgba(0,0,0,0.2) !important;
       }
       /* Unified typography for outcome button labels */
       .followup-btn .followup-btn-label{
@@ -2220,26 +2408,10 @@
         opacity: 0.5 !important;
       }
 
-      /* 4. The Vertical Line - Glass Beam */
+      /* 4. The Vertical Line - Glass Beam (removed) */
       .say-text {
         border-left: none !important;
-        position: relative !important;
-        padding-left: 24px !important;
-        font-size: 26px !important;
-        line-height: 1.4 !important;
-        font-weight: 500 !important;
-      }
-      .say-text::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 4px;
-        bottom: 4px;
-        width: 4px;
-        border-radius: 4px;
-        background: linear-gradient(to bottom, #f7e1c6 0%, rgba(247, 225, 198, 0) 100%) !important;
-        opacity: 0.7;
-        box-shadow: 0 0 8px rgba(247, 225, 198, 0.15) !important;
+        padding-left: 0 !important;
       }
 
       /* 4B. DO Section Text - Crisp Silver */
@@ -2256,6 +2428,7 @@
         border-radius: 100px !important;
         overflow: hidden !important;
         box-shadow: inset 0 1px 2px rgba(0,0,0,0.5) !important;
+        margin-bottom: 12px !important;
       }
       .progress-fill {
         background: linear-gradient(90deg, rgba(247, 225, 198, 0.4) 0%, rgba(247, 225, 198, 1) 100%) !important;
@@ -2843,13 +3016,21 @@
         <!-- Crisis Card Screen -->
         <div id="stepdown-overlay" class="stepdown-backdrop" aria-hidden="true">
           <div class="stepdown-screen" role="dialog" aria-modal="true" aria-label="Crisis Card">
-            <!-- Header: Title left, Close right. Never wrap. -->
-            <div class="stepdown-header" style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:32px;padding:6px 0;">
-              <div style="flex:1;min-width:0;">
-                <div id="stepdown-title" style="font-size:18px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Situation</div>
-                <div id="stepdown-progress" style="font-size:16px;color:var(--text-soft);margin-top:6px;">Step 1 of 4</div>
+            <!-- Header: Controls row (Close + Get help), then Title -->
+            <div class="stepdown-header">
+              <div class="stepdown-controls">
+                <button id="stepdown-close" class="pill pill-ghost" type="button" aria-label="Close"><svg viewBox="0 0 24 24" class="close-icon-svg"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+                <div id="stepdown-emergency-wrap" class="stepdown-emergency-wrap" style="display:none;">
+                  <button id="stepdown-emergency" class="pill emergency-tab" type="button">
+                    <svg viewBox="0 0 24 24" class="phone-icon-svg" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <span>Get help</span>
+                  </button>
+                </div>
               </div>
-              <button id="stepdown-close" class="pill pill-ghost" type="button" aria-label="Close" style="flex-shrink:0;"><svg viewBox="0 0 24 24" class="close-icon-svg"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+              <div class="stepdown-title-block">
+                <div id="stepdown-title" class="stepdown-title">Situation</div>
+                <div id="stepdown-progress" class="stepdown-progress">Step 1 of 4</div>
+              </div>
             </div>
             <div class="progress-container">
               <div class="progress-fill" id="progress-fill" style="width: 25%;"></div>
@@ -2914,13 +3095,6 @@
               </div>
               <div id="urgent-disclaimer" style="display:none;text-align:center;font-size:13px;color:var(--text-muted);margin-bottom:16px;">If you're unsure, it's okay to call for help.</div>
 
-              <!-- CRISIS MODE: Emergency button -->
-              <div id="stepdown-emergency-wrap" class="stepdown-emergency-wrap" style="display:none;">
-                <button id="stepdown-emergency" class="pill emergency-tab" type="button">
-                  <svg viewBox="0 0 24 24" class="phone-icon-svg" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                  <span>Get help</span>
-                </button>
-              </div>
               <div id="crisis-disclaimer" style="display:none;text-align:center;font-size:12px;color:var(--text-muted);opacity:0.4;margin-top:24px;margin-bottom:0;">Guidance only. Not live monitoring.</div>
             </div>
           </div>
@@ -2993,12 +3167,16 @@
         <!-- Resume prompt (replaces native confirm) -->
         <div id="resume-overlay" class="resume-backdrop" aria-hidden="true">
           <div class="resume-sheet" role="dialog" aria-modal="true" aria-label="Resume">
+            <svg class="resume-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M12 7v5l3 2"></path>
+            </svg>
             <div class="resume-title">Pick up where you left off?</div>
-            <div id="resume-step" class="resume-sub">Step 4</div>
             <div class="resume-hint">Only if this is still the same situation.</div>
+            <div id="resume-step" class="resume-sub">Refusing meds • Step 4</div>
             <div class="resume-buttons">
-              <button id="resume-continue" class="pill pill-outline" type="button" style="width:100%;height:48px;font-size:16px;">Continue</button>
-              <button id="resume-restart" class="pill pill-outline" type="button" style="width:100%;height:48px;font-size:16px;">Start from Step 1</button>
+              <button id="resume-continue" class="pill" type="button" style="width:100%;height:48px;font-size:16px;">Resume Step 3</button>
+              <button id="resume-restart" class="pill" type="button" style="width:100%;height:48px;font-size:16px;">Start from beginning</button>
               </div>
               </div>
               </div>
@@ -4123,11 +4301,11 @@
         } else if(type === "same"){
           const card = overlay.querySelector(".followup-card");
           card.classList.add("followup-response-same");
-          textEl.textContent = "Would you like more help?";
-          textEl.style.marginBottom = "32px"; // More space before buttons
+          textEl.textContent = "What would you like to do?";
+          textEl.style.marginBottom = "24px";
           
           const btn1 = document.createElement("button");
-          btn1.className = "same-response-btn";
+          btn1.className = "same-response-btn primary";
           btn1.textContent = "Back to situations";
           btn1.onclick = (e) => {
             const b = e.currentTarget;
@@ -4140,7 +4318,7 @@
           buttonsEl.appendChild(btn1);
           
           const btn2 = document.createElement("button");
-          btn2.className = "same-response-btn";
+          btn2.className = "same-response-btn secondary";
           btn2.textContent = "Stay on this step";
           btn2.onclick = (e) => {
             const b = e.currentTarget;
@@ -4163,6 +4341,16 @@
             }, 180);
           };
           buttonsEl.appendChild(btn2);
+
+          const urgentLink = document.createElement("button");
+          urgentLink.className = "followup-urgent-link";
+          urgentLink.type = "button";
+          urgentLink.textContent = "I need urgent help";
+          urgentLink.onclick = () => {
+            closeFollowupAndExit();
+            toggleUrgent(true);
+          };
+          buttonsEl.appendChild(urgentLink);
         } else if(type === "worse"){
           // Apply worse card styling
           const card = overlay.querySelector(".followup-card");
@@ -4174,7 +4362,17 @@
           const btn1 = document.createElement("button");
           btn1.className = "hero-btn btn-crisis-emergency";
           btn1.id = "ruby-999";
-          btn1.textContent = `Call ${emergencyNumber}`;
+          const primaryContent = document.createElement("div");
+          primaryContent.className = "btn-primary-content";
+          const primaryTitle = document.createElement("span");
+          primaryTitle.className = "btn-primary-title";
+          primaryTitle.textContent = `Call ${emergencyNumber}`;
+          const primarySubtitle = document.createElement("span");
+          primarySubtitle.className = "btn-primary-subtitle";
+          primarySubtitle.textContent = "For immediate danger";
+          primaryContent.appendChild(primaryTitle);
+          primaryContent.appendChild(primarySubtitle);
+          btn1.appendChild(primaryContent);
           btn1.onclick = () => {
             initiateEmergencyConfirm(btn1, () => {
               hideFollowupResponse();
@@ -4207,34 +4405,12 @@
             buttonsEl.appendChild(btn2);
           }
           
-          // Check emergency situations
-          const btn4 = document.createElement("button");
-          btn4.className = "pill pill-outline";
-          btn4.style.cssText = "width:100%;height:48px;font-size:16px;";
-          btn4.textContent = "Check emergency situations";
-          btn4.onclick = (e) => {
-            const b = e.currentTarget;
-            b.style.background = "var(--surface)";
-            setTimeout(() => {
-              b.style.background = "";
-              closeFollowupAndExit();
-              toggleUrgent(true);
-            }, 180);
-          };
-          buttonsEl.appendChild(btn4);
-          
           // Back to situations
           const btn3 = document.createElement("button");
-          btn3.className = "pill pill-outline";
-          btn3.style.cssText = "width:100%;height:48px;font-size:16px;";
+          btn3.className = "followup-back-link";
           btn3.textContent = "Back to situations";
-          btn3.onclick = (e) => {
-            const b = e.currentTarget;
-            b.style.background = "var(--surface)";
-            setTimeout(() => {
-              b.style.background = "";
-              closeFollowupAndExit();
-            }, 180);
+          btn3.onclick = () => {
+            closeFollowupAndExit();
           };
           buttonsEl.appendChild(btn3);
         }
@@ -4395,7 +4571,9 @@
         resumePromptCallbacks.onContinue = onContinue;
         resumePromptCallbacks.onRestart = onRestart;
         
-        stepEl.textContent = `Step ${stepNum}`;
+        const resumeDeck = resumeState.deckKey ? CRISIS_DECKS[resumeState.deckKey] : null;
+        const resumeTitle = resumeDeck?.title || "Situation";
+        stepEl.textContent = `${resumeTitle} • Step ${stepNum}`;
         overlay.classList.add("active");
         overlay.setAttribute("aria-hidden", "false");
         updateBodyLock(); // Centralized body lock
