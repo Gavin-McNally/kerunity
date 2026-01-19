@@ -1385,7 +1385,8 @@
       .resume-backdrop{
         position:fixed;
         inset:0;
-        background:rgba(5, 5, 8, 0.85);
+        background-color:#050508;
+        background-image:radial-gradient(circle at 50% 0%, #252a45 0%, #050508 100%);
         display:flex;
         align-items:center;
         justify-content:center;
@@ -1400,8 +1401,8 @@
         pointer-events:auto;
       }
       .resume-sheet{
-        background:rgba(5, 5, 8, 0.90);
-        border:1px solid rgba(255, 255, 255, 0.1);
+        background:rgba(15, 20, 35, 0.70);
+        border:1px solid rgba(255, 255, 255, 0.08);
         border-radius:20px;
         padding:32px 28px;
         max-width:340px;
@@ -1414,8 +1415,8 @@
         box-shadow:0 20px 40px rgba(0,0,0,0.6);
       }
       .resume-icon{
-        width:32px;
-        height:32px;
+        width:24px;
+        height:24px;
         margin:0 auto 12px;
         color:#f7e1c6;
       }
@@ -1426,19 +1427,14 @@
         margin-bottom:10px;
       }
       .resume-sub{
-        font-size:14px;
+        font-size:16px;
         color:#f7e1c6;
-        margin-bottom:10px;
-      }
-      .resume-hint{
-        font-size:14px;
-        color:rgba(255,255,255,0.6);
         margin-bottom:24px;
       }
       .resume-buttons{
         display:flex;
         flex-direction:column;
-        gap:12px;
+        gap:16px;
       }
       #resume-continue{
         background:linear-gradient(180deg, rgba(247, 225, 198, 0.25) 0%, rgba(247, 225, 198, 0.1) 100%) !important;
@@ -1451,6 +1447,12 @@
         border:1px solid rgba(255, 255, 255, 0.2) !important;
         color:#FFFFFF !important;
         font-weight:600 !important;
+      }
+      #resume-continue,
+      #resume-restart{
+        height:72px !important;
+        min-height:72px !important;
+        font-size:18px !important;
       }
 
       /* Post-completion follow-up */
@@ -1695,9 +1697,8 @@
       .followup-back-link{
         margin-top:24px;
         font-size:14px;
-        color:rgba(255,255,255,0.7);
-        text-decoration:underline;
-        text-underline-offset:3px;
+        color:rgba(255,255,255,0.6);
+        text-decoration:none;
         background:transparent;
         border:none;
         cursor:pointer;
@@ -1797,9 +1798,8 @@
       .followup-urgent-link{
         margin-top:12px;
         font-size:14px;
-        color:rgba(255,255,255,0.7);
-        text-decoration:underline;
-        text-underline-offset:3px;
+        color:rgba(255,255,255,0.6);
+        text-decoration:none;
         background:transparent;
         border:none;
         cursor:pointer;
@@ -1867,9 +1867,8 @@
         width:auto !important;
         min-height:auto !important;
         margin-top:24px !important;
-        color:rgba(255,255,255,0.7) !important;
-        text-decoration:underline !important;
-        text-underline-offset:3px !important;
+        color:rgba(255,255,255,0.6) !important;
+        text-decoration:none !important;
         align-self:center !important;
         display:inline-flex !important;
       }
@@ -1892,9 +1891,8 @@
       .followup-response-same .followup-response-buttons .followup-urgent-link{
         margin-top:4px !important;
         font-size:14px !important;
-        color:rgba(255,255,255,0.7) !important;
-        text-decoration:underline !important;
-        text-underline-offset:3px !important;
+        color:rgba(255,255,255,0.6) !important;
+        text-decoration:none !important;
         background:transparent !important;
         border:none !important;
         box-shadow:none !important;
@@ -3172,7 +3170,6 @@
               <path d="M12 7v5l3 2"></path>
             </svg>
             <div class="resume-title">Pick up where you left off?</div>
-            <div class="resume-hint">Only if this is still the same situation.</div>
             <div id="resume-step" class="resume-sub">Refusing meds • Step 4</div>
             <div class="resume-buttons">
               <button id="resume-continue" class="pill" type="button" style="width:100%;height:48px;font-size:16px;">Resume Step 3</button>
