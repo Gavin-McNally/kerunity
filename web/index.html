@@ -180,11 +180,6 @@
         fill:none !important;
         stroke-linecap:round !important;
         stroke-linejoin:round !important;
-        opacity:0.5 !important;
-        transition:opacity 0.15s ease !important;
-      }
-      #stepdown-close:active svg{
-        opacity:0.8 !important;
       }
 
       /* Emergency tab on home - calm silver glass */
@@ -212,17 +207,11 @@
 
       /* Emergency confirmation state - armed, waiting for second tap */
       .emergency-confirm{
-        background:var(--emergency);
-        border:2px solid #fff;
-        animation:emergency-pulse 1s ease-in-out infinite;
+        border:2px solid rgba(255, 255, 255, 0.35);
       }
       .emergency-confirm:active{ opacity:1; }
-      @keyframes emergency-pulse{
-        0%, 100%{ box-shadow:0 0 0 0 rgba(168, 90, 78, 0); }
-        50%{ box-shadow:0 0 0 6px rgba(168, 90, 78, 0.4); }
-      }
       @media (prefers-reduced-motion: reduce){
-        .emergency-confirm{ animation:none; border-width:3px; }
+        .emergency-confirm{ border-width:3px; }
       }
 
       .nhs-advice-btn{
@@ -263,23 +252,43 @@
         fill:none;
         stroke-linecap:round;
         stroke-linejoin:round;
-        opacity:0.7;
-        transition:opacity 0.15s ease, filter 0.15s ease;
-      }
-      .glass-close-btn:hover svg{
-        opacity:1;
-        filter:drop-shadow(0 0 4px rgba(243, 230, 213, 0.6));
-      }
-      .glass-close-btn:active svg{
-        opacity:0.8;
       }
       .glass-close-btn:focus{ outline:none; }
       .glass-close-btn:focus-visible{ outline:2px solid var(--warm); outline-offset:2px; }
 
-      #urgent-close svg {
+      #menu-close svg,
+      #urgent-close svg,
+      #stepdown-close svg,
+      #followup-close svg,
+      #info-close svg,
+      .sheet-close svg,
+      .close-icon-svg,
+      .glass-close-btn svg {
         stroke: #f7e1c6 !important;
+        stroke-width: 2px !important;
         opacity: 1 !important;
-        filter: drop-shadow(0 0 8px rgba(247, 225, 198, 0.2));
+        filter: drop-shadow(0 0 5px rgba(247, 225, 198, 0.2)) !important;
+      }
+
+      #menu-close:active,
+      #urgent-close:active,
+      #stepdown-close:active,
+      #followup-close:active,
+      #info-close:active,
+      .glass-close-btn:active {
+        transform: scale(0.92) !important;
+        transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.1s !important;
+        background-color: rgba(247, 225, 198, 0.15) !important;
+        border-radius: 50%;
+      }
+
+      #menu-close,
+      #urgent-close,
+      #stepdown-close,
+      #followup-close,
+      #info-close,
+      .glass-close-btn {
+        -webkit-tap-highlight-color: transparent !important;
       }
 
       /* === EMERGENCY HERO BUTTONS (Ruby & Void Glass) === */
@@ -289,14 +298,27 @@
       }
       /* 999 Button - Ruby Glass */
       #call-emergency{
+        width:100%;
         background:linear-gradient(180deg, #8a2b3b 0%, #7d2230 45%, #5c1a24 100%) !important;
         border:1px solid #8b2635 !important;
+        border-top:1px solid rgba(255, 255, 255, 0.3) !important;
         box-shadow:inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 6px 12px rgba(0, 0, 0, 0.4) !important;
         color:#FFFFFF !important;
-        text-shadow:0 1px 2px rgba(92, 26, 36, 0.5);
+        text-shadow:0 1px 2px rgba(0, 0, 0, 0.3);
         position:relative;
         overflow:hidden;
         min-height:72px !important;
+      }
+      .btn-emergency{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:22px;
+        letter-spacing:0.5px;
+        padding-top:2px;
+        color:#FFFFFF;
+        font-weight:700;
+        text-shadow:0 1px 2px rgba(0, 0, 0, 0.3);
       }
       #call-emergency::before{
         content:"";
@@ -306,7 +328,7 @@
         right:0;
         height:50%;
         background:linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
-        border-top:1px solid rgba(255, 255, 255, 0.1);
+        border-top:1px solid rgba(255, 255, 255, 0.25);
         border-radius:15px 15px 0 0;
         pointer-events:none;
       }
@@ -314,42 +336,41 @@
         transform:scale(0.97);
         box-shadow:inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 2px 6px rgba(0, 0, 0, 0.5) !important;
       }
-      /* 111 Button - Void Glass */
+      /* 111 Button - Platinum Glass */
       #call-advice{
-        background:linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
-        border:1px solid rgba(255, 255, 255, 0.1) !important;
-        box-shadow:0 4px 12px rgba(0, 0, 0, 0.2) !important;
+        width:100%;
+        background:linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%) !important;
+        border:1px solid rgba(255, 255, 255, 0.08) !important;
+        border-top:1px solid #005EB8 !important;
+        box-shadow:0 -2px 4px rgba(0, 94, 184, 0.25), 0 4px 12px rgba(0, 0, 0, 0.2) !important;
         color:#FFFFFF !important;
         position:relative;
         overflow:hidden;
         min-height:72px !important;
       }
       #call-advice::before{
-        content:"";
-        position:absolute;
-        top:0;
-        left:0;
-        right:0;
-        height:50%;
-        background:linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-        border-top:1px solid rgba(255, 255, 255, 0.15);
-        border-radius:15px 15px 0 0;
-        pointer-events:none;
+        content:none;
+      }
+      .btn-secondary-content{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        line-height:1.2;
+      }
+      .btn-secondary-title{
+        font-size:18px;
+        font-weight:700;
+        margin-bottom:2px;
+      }
+      .btn-secondary-subtitle{
+        font-size:13px;
+        opacity:0.7;
+        font-weight:400;
       }
       #call-advice:active{
         transform:scale(0.97);
         box-shadow:0 2px 6px rgba(0, 0, 0, 0.3) !important;
-      }
-      #call-advice {
-        background: linear-gradient(180deg, rgba(247, 225, 198, 0.10) 0%, rgba(247, 225, 198, 0.02) 100%) !important;
-        border: 1px solid rgba(247, 225, 198, 0.2) !important;
-        border-top: 1px solid rgba(247, 225, 198, 0.35) !important;
-        color: #f7e1c6 !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-      }
-      #call-advice span:first-child {
-        color: #f7e1c6 !important;
-        font-weight: 700 !important;
       }
       /* Hero button text styling */
       #call-emergency span:first-child,
@@ -360,22 +381,22 @@
         position:relative;
         z-index:1;
       }
+      #call-emergency span:first-child{
+        font-size:22px !important;
+        font-weight:700 !important;
+        color:#FFFFFF !important;
+        text-shadow:0 1px 2px rgba(0, 0, 0, 0.3);
+      }
       #call-emergency span:last-child{
         font-size:13px !important;
         color:rgba(255, 255, 255, 0.7) !important;
         position:relative;
         z-index:1;
       }
-      #call-emergency {
-        background: linear-gradient(180deg, #9e2a3b 0%, #7d2230 100%) !important;
-        border: 1px solid #b93a4d !important;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 6px 16px rgba(0, 0, 0, 0.5) !important;
-      }
-      #call-emergency span:first-child {
-        font-size: 22px !important;
-        font-weight: 700 !important;
-        letter-spacing: 0.5px !important;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      #call-emergency #emergency-number{
+        color:#FFFFFF !important;
+        font-weight:700 !important;
+        text-shadow:0 1px 2px rgba(0, 0, 0, 0.3);
       }
       #call-advice span:last-child{
         font-size:13px !important;
@@ -741,7 +762,7 @@
         flex:1 1 auto;
         min-height:0;
         overflow-y:auto;
-        padding-bottom:180px !important;
+        padding-bottom:60px !important;
         margin-bottom:0 !important;
       }
       .emergency-scroll::-webkit-scrollbar{ width:0; height:0; }
@@ -1669,12 +1690,6 @@
         fill:none !important;
         stroke-linecap:round !important;
         stroke-linejoin:round !important;
-        opacity:0.5 !important;
-        transition:opacity 0.15s ease !important;
-      }
-      .followup-close:active svg,
-      #followup-close:active svg{
-        opacity:0.8 !important;
       }
       .followup-close:focus,
       #followup-close:focus,
@@ -2535,20 +2550,6 @@
         box-shadow: none !important;
         padding: 8px !important;
       }
-      #stepdown-close svg {
-        width: 22px !important;
-        height: 22px !important;
-        stroke: #f7e1c6 !important;
-        stroke-width: 2px !important;
-        fill: none !important;
-        stroke-linecap: round !important;
-        stroke-linejoin: round !important;
-        opacity: 0.5 !important;
-        transition: opacity 0.15s ease !important;
-      }
-      #stepdown-close:active svg {
-        opacity: 0.8 !important;
-      }
 
       /* Search input text centering */
       .search-input {
@@ -2860,26 +2861,24 @@
             </div>
 
             <div class="emergency-fixed">
-              <div id="emergency-hint" style="font-size:17px;color:var(--text);margin-bottom:8px;line-height:1.5;">
-                If someone is in immediate danger, call now.
-              </div>
-              <div style="font-size:14px;color:var(--text-muted);margin-bottom:28px;line-height:1.5;">
-                Kerunity doesn't contact services for you. These buttons call directly.
-            </div>
-
-              <div id="call-buttons" style="display:flex;gap:14px;margin-bottom:32px;">
-                <button id="call-emergency" type="button" class="hero-btn" style="flex:1;display:flex;align-items:center;justify-content:center;border-radius:16px;">
+              <div id="call-buttons" style="display:flex;flex-direction:column;gap:14px;margin-bottom:32px;">
+                <button id="call-emergency" type="button" class="hero-btn btn-emergency" style="width:100%;border-radius:16px;">
                   <span id="emergency-number"></span>
                 </button>
-                <button id="call-advice" type="button" class="hero-btn" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border-radius:16px;">
-                  <span id="advice-number"></span>
-                  <span>Medical advice</span>
+                <button id="call-advice" type="button" class="hero-btn" style="width:100%;border-radius:16px;">
+                  <div class="btn-secondary-content">
+                    <span id="advice-number" class="btn-secondary-title"></span>
+                    <span class="btn-secondary-subtitle">Medical advice</span>
+                  </div>
                 </button>
               </div>
             </div>
             <div class="emergency-scroll">
               <div id="urgent-label" style="font-size:14px;color:var(--text-muted);margin-bottom:12px;font-weight:500;">Safety checks</div>
               <div id="urgent-grid-sheet"></div>
+              <div style="font-size:12px;color:rgba(255, 255, 255, 0.35);text-align:center;margin-top:32px;line-height:1.4;">
+                Kerunity doesn't contact services for you. These buttons call directly.
+              </div>
             </div>
           </div>
         </div>
@@ -4974,23 +4973,7 @@
         
         // Enter confirmation state
         btn.classList.add("emergency-confirm");
-        let secondsLeft = 3;
-        updateConfirmText(btn, secondsLeft);
-        
-        // Start countdown
-        emergencyConfirmCountdown = setInterval(() => {
-          secondsLeft--;
-          if(secondsLeft <= 0){
-            cancelEmergencyConfirm();
-          } else {
-            updateConfirmText(btn, secondsLeft);
-          }
-        }, 1000);
-        
-        // Set timeout to auto-cancel after 3 seconds
-        emergencyConfirmTimer = setTimeout(() => {
-          cancelEmergencyConfirm();
-        }, 3100);
+        updateConfirmText(btn);
         
         // Listen for clicks elsewhere to cancel
         setTimeout(() => {
@@ -4998,30 +4981,27 @@
         }, 10);
       }
       
-      function updateConfirmText(btn, seconds){
-        // Clear, complete thought: "Tap to call 999" + clean countdown
-        const confirmText = `Tap to call ${emergencyNumber}`;
+      function updateConfirmText(btn){
+        const confirmText = "Tap again to call";
         
         // For main panel button (has nested spans)
         const numberSpan = btn.querySelector("#emergency-number");
         if(numberSpan){
           numberSpan.textContent = confirmText;
-          numberSpan.style.fontSize = "17px";
-          // Update the sublabel to show countdown - make it bold and larger
-          const sublabel = btn.querySelector("span:last-child");
-          if(sublabel && sublabel !== numberSpan){
-            sublabel.textContent = seconds;
-            sublabel.style.fontSize = "20px";
-            sublabel.style.fontWeight = "600";
-            sublabel.style.opacity = "1";
-          }
+          numberSpan.style.fontSize = "20px";
+          numberSpan.style.fontWeight = "700";
+          numberSpan.style.color = "#FFFFFF";
         } else {
-          // For stepdown call button (single label span) - bold countdown
+          // For stepdown call button (single label span)
           const label = btn.querySelector("#stepdown-call-label");
           if(label){
-            label.innerHTML = `${confirmText} <span style="font-weight:700;font-size:22px;margin-left:8px;">${seconds}</span>`;
+            label.textContent = confirmText;
+            label.style.fontWeight = "700";
+            label.style.color = "#FFFFFF";
           } else {
-            btn.innerHTML = `${confirmText} <span style="font-weight:700;font-size:22px;margin-left:8px;">${seconds}</span>`;
+            btn.textContent = confirmText;
+            btn.style.fontWeight = "700";
+            btn.style.color = "#FFFFFF";
           }
         }
       }
@@ -5042,6 +5022,8 @@
           const numberSpan = emergencyConfirmBtn.querySelector("#emergency-number");
           if(numberSpan){
             numberSpan.style.fontSize = "";
+            numberSpan.style.fontWeight = "";
+            numberSpan.style.color = "";
           }
           emergencyConfirmBtn = null;
           emergencyConfirmOriginalHTML = null;
