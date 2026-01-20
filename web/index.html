@@ -2635,7 +2635,8 @@
       .menu-overlay {
         position: fixed;
         inset: 0;
-        z-index: 2000;
+        z-index: 9999;
+        background: linear-gradient(180deg, rgba(50, 55, 80, 0.6) 0%, rgba(30, 35, 50, 0.7) 100%);
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.2s ease;
@@ -2647,9 +2648,7 @@
       .menu-backdrop {
         position: fixed;
         inset: 0;
-        background: rgba(5, 5, 8, 0.8);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
+        background: #050508;
         opacity: 0;
         transition: opacity 0.2s ease;
       }
@@ -2659,17 +2658,17 @@
       .menu-drawer {
         position: fixed;
         top: 0;
-        left: 0;
+        right: 0;
         bottom: 0;
-        width: 85%;
-        max-width: 320px;
-        background: rgba(15, 20, 35, 0.95);
-        border-right: 1px solid rgba(247, 225, 198, 0.15);
-        transform: translateX(-100%);
+        width: 100%;
+        max-width: none;
+        background: linear-gradient(180deg, rgba(50, 55, 80, 0.6) 0%, rgba(30, 35, 50, 0.7) 100%);
+        border-right: none;
+        transform: translateX(100%);
         transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         display: flex;
         flex-direction: column;
-        padding: 22px 24px 18px;
+        padding: calc(env(safe-area-inset-top) + 20px) 0 18px;
         box-sizing: border-box;
       }
       .menu-overlay.active .menu-drawer {
@@ -2680,28 +2679,77 @@
         align-items: center;
         justify-content: space-between;
         gap: 16px;
-        margin-bottom: 18px;
+        padding: 24px;
+        margin-bottom: 8px;
       }
-      .menu-brand {
-        color: #f7e1c6;
-        font-weight: 700;
-        font-size: 20px;
+      .menu-header #menu-close svg{
+        width: 32px !important;
+        height: 32px !important;
+      }
+      .menu-version {
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 14px;
+        font-weight: 500;
       }
       .menu-nav {
         flex: 1;
         overflow-y: auto;
+        padding: 0 0 24px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
       }
+      .menu-nav .menu-divider:last-of-type{
+        margin-bottom:32px;
+      }
+      .menu-nav::-webkit-scrollbar{ display:none; }
       .menu-link {
-        display: block;
+        display: flex;
+        align-items: center;
         width: 100%;
-        padding: 16px 0;
+        min-height: 64px;
+        padding: 20px 24px;
+        gap: 12px;
         background: transparent;
         border: none;
         text-align: left;
-        color: #f2f2f5;
+        color: #FFFFFF;
         font-size: 18px;
+        font-weight: 500;
         border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         cursor: pointer;
+      }
+      .menu-link.section-end{
+        border-bottom: none;
+      }
+      .menu-link.emergency-link{
+        border-bottom: none;
+      }
+      .menu-icon{
+        width:20px;
+        height:20px;
+        stroke:#f7e1c6;
+        stroke-width:2;
+        fill:none;
+        stroke-linecap:round;
+        stroke-linejoin:round;
+        flex-shrink:0;
+      }
+      .menu-link.emergency-link {
+        background: var(--ruby-bg);
+        border: 1px solid var(--ruby-border);
+        border-top: 1px solid var(--ruby-border-top);
+        border-bottom: 1px solid var(--ruby-border-bottom);
+        box-shadow: var(--ruby-shadow);
+        color: #FFFFFF;
+        font-weight: 700;
+        border-radius: 12px;
+        margin: 0 16px 24px 16px;
+        padding: 0 20px;
+        width: calc(100% - 32px);
+        box-sizing: border-box;
+      }
+      .menu-link.notice-link {
+        color: #f7e1c6;
       }
       .menu-link:active,
       .menu-link.active {
@@ -3171,23 +3219,60 @@
           <div class="menu-backdrop"></div>
           <div class="menu-drawer">
             <div class="menu-header">
-              <div class="menu-brand">Kerunity</div>
               <button id="menu-close" class="glass-close-btn" type="button" aria-label="Close menu">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
               </button>
+              <div class="menu-version">v1.0.0</div>
             </div>
             <nav class="menu-nav">
-              <button class="menu-link" data-action="about" type="button">About Kerunity</button>
-              <button class="menu-link" data-action="usage" type="button">How to use</button>
-              <button class="menu-link" data-action="privacy" type="button">Privacy</button>
+              <button class="menu-link emergency-link" data-action="emergency-list" type="button">
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <span>Emergency contacts</span>
+              </button>
+              <button class="menu-link notice-link" data-action="notice" type="button">
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                <span>Important notice</span>
+              </button>
+              <button class="menu-link" data-action="privacy" type="button">
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>Privacy</span>
+              </button>
+              <button class="menu-link section-end" data-action="accessibility" type="button">
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M10 8h4l2 12"/><path d="M8 8l2 12"/><path d="M6 14h12"/></svg>
+                <span>Accessibility</span>
+              </button>
               <div class="menu-divider"></div>
-              <button class="menu-link" data-action="emergency-list" type="button">Emergency contacts</button>
-              <button class="menu-link" data-action="notice" type="button">Important notice</button>
+              <button class="menu-link" data-action="about" type="button">
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                <span>About</span>
+              </button>
+              <button class="menu-link" data-action="usage" type="button">
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M4 4h16v16H6.5A2.5 2.5 0 0 0 4 22z"/></svg>
+                <span>How to use</span>
+              </button>
+              <button class="menu-link section-end" data-action="story" type="button">
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                <span>Our story</span>
+              </button>
               <div class="menu-divider"></div>
-              <button class="menu-link" data-action="share" type="button">Share Kerunity</button>
-              <button class="menu-link" data-action="feedback" type="button">Send feedback</button>
+              <button class="menu-link" data-action="supporters" type="button">
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.6 1.7 7L12 17.8 5.7 21.1l1.7-7L2 9.5l7.1-.6z"/></svg>
+                <span>Founding Supporters</span>
+              </button>
+              <button class="menu-link section-end" data-action="support" type="button">
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-4.35-9-7.35A5.5 5.5 0 0 1 12 5.65a5.5 5.5 0 0 1 9 8.0C18 16.65 12 21 12 21z"/></svg>
+                <span>Support Kerunity</span>
+              </button>
+              <div class="menu-divider"></div>
+              <button class="menu-link" data-action="share" type="button">
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 3.9"/><path d="M15.4 6.6L8.6 10.5"/></svg>
+                <span>Share Kerunity</span>
+              </button>
+              <button class="menu-link section-end" data-action="feedback" type="button">
+                <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>
+                <span>Send feedback</span>
+              </button>
             </nav>
-            <div class="menu-footer">v1.0.0</div>
           </div>
         </div>
 
