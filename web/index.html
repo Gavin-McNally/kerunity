@@ -51,6 +51,25 @@
         --emergency-dark:#5c1a24;
         --emergency-border:#8b2635;
         
+        /* Ruby Glass (999) */
+        --ruby-bg:linear-gradient(180deg, #9e3243 0%, #8a2b3b 40%, #5c1a24 100%);
+        --ruby-border:#75202d;
+        --ruby-border-top:rgba(255, 255, 255, 0.4);
+        --ruby-border-bottom:rgba(0, 0, 0, 0.3);
+        --ruby-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.2),
+          inset 0 20px 20px -10px rgba(255, 255, 255, 0.1),
+          0 8px 20px rgba(0, 0, 0, 0.5);
+        
+        /* Sapphire Glass (111) */
+        --sapphire-bg:linear-gradient(180deg, #005EB8 0%, #003d7a 100%);
+        --sapphire-border:#002f5c;
+        --sapphire-border-top:rgba(255, 255, 255, 0.3);
+        --sapphire-border-bottom:rgba(0, 0, 0, 0.4);
+        --sapphire-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.15),
+          0 4px 12px rgba(0, 0, 0, 0.4);
+        
         /* Radius */
         --radius:12px;
         --radius-lg:16px;
@@ -325,18 +344,11 @@
       }
       /* 999 Button - Ruby Glass */
       .btn-crisis-emergency{
-        background: linear-gradient(180deg, 
-          #9e3243 0%,
-          #8a2b3b 40%,
-          #5c1a24 100%
-        );
-        border: 1px solid #75202d;
-        border-top: 1px solid rgba(255, 255, 255, 0.4);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-        box-shadow: 
-          inset 0 1px 0 rgba(255, 255, 255, 0.2),
-          inset 0 20px 20px -10px rgba(255, 255, 255, 0.1),
-          0 8px 20px rgba(0, 0, 0, 0.5);
+        background: var(--ruby-bg);
+        border: 1px solid var(--ruby-border);
+        border-top: 1px solid var(--ruby-border-top);
+        border-bottom: 1px solid var(--ruby-border-bottom);
+        box-shadow: var(--ruby-shadow);
         min-height: 72px;
         display: flex;
         align-items: center;
@@ -386,16 +398,11 @@
 
       /* 111 Button - Sapphire Glass */
       .btn-crisis-medical{
-        background: linear-gradient(180deg,
-          #005EB8 0%,
-          #003d7a 100%
-        );
-        border: 1px solid #002f5c;
-        border-top: 1px solid rgba(255, 255, 255, 0.3);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.15),
-          0 4px 12px rgba(0, 0, 0, 0.4);
+        background: var(--sapphire-bg);
+        border: 1px solid var(--sapphire-border);
+        border-top: 1px solid var(--sapphire-border-top);
+        border-bottom: 1px solid var(--sapphire-border-bottom);
+        box-shadow: var(--sapphire-shadow);
         color: #FFFFFF;
         min-height: 72px;
         display: flex;
@@ -1024,8 +1031,9 @@
       }
       .stepdown-screen.urgent-mode .listen-emergency{
         margin-bottom:12px;
-        padding:14px 20px;
-        min-height:56px;
+        padding:0 16px;
+        min-height:48px;
+        height:48px;
       }
       .stepdown-screen.urgent-mode .stepdown-body{
         padding-top:0;
@@ -1036,8 +1044,17 @@
         padding-bottom:0;
       }
       .stepdown-screen.urgent-mode #stepdown-call{
-        margin-bottom:22px !important;
+        margin-bottom:40px !important;
         height:72px !important;
+      }
+      .stepdown-screen.urgent-mode #stepdown-do-kicker{
+        margin-bottom:20px !important;
+      }
+      .stepdown-screen.urgent-mode{
+        background-color:#050508;
+        background-image:
+          radial-gradient(circle at top right, rgba(220, 38, 38, 0.15), transparent 50%),
+          radial-gradient(circle at 50% 0%, #252a45 0%, #050508 100%);
       }
       .stepdown-screen.urgent-mode #stepdown-say-section{
         margin-bottom:20px;
@@ -1092,6 +1109,24 @@
         color:var(--text-muted);
         line-height:1.5;
       }
+      .urgent-call-block{
+        display:flex;
+        flex-direction:column;
+        gap:8px;
+      }
+      .urgent-call-headline{
+        font-size:28px;
+        font-weight:800;
+        color:#FFFFFF;
+        line-height:1.2;
+      }
+      .urgent-call-subtitle{
+        font-size:18px;
+        font-weight:400;
+        color:#FFFFFF;
+        opacity:0.9;
+        line-height:1.4;
+      }
       /* DO-only steps: instruction text is largest in app */
       .do-text.do-only{
         font-size:26px;
@@ -1112,17 +1147,22 @@
         display:inline-flex;
         align-items:center;
         justify-content:center;
-        background:rgba(255,255,255,0.04);
-        border:1px solid rgba(255,255,255,0.22);
+        background:transparent;
+        border:none;
         color:var(--text);
         font-weight:700;
-        font-size:inherit;
-        padding:2px 10px;
-        border-radius:10px;
+        font-size:1.02em;
+        padding:0;
+        border-radius:0;
         cursor:pointer;
-        min-height:32px;
+        min-height:auto;
         vertical-align:middle;
         margin:0 2px;
+        text-decoration:none;
+      }
+      .inline-call:hover{
+        text-decoration:underline;
+        text-underline-offset:2px;
       }
       .inline-call:focus-visible{
         outline:2px solid rgba(255,255,255,0.5);
@@ -1592,30 +1632,18 @@
         margin-bottom:12px !important;
       }
       .followup-card .followup-response-buttons .btn-crisis-emergency{
-        background: linear-gradient(180deg,
-          #9e3243 0%,
-          #8a2b3b 40%,
-          #5c1a24 100%
-        ) !important;
-        border: 1px solid #75202d !important;
-        border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.3) !important;
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.2),
-          inset 0 20px 20px -10px rgba(255, 255, 255, 0.1),
-          0 8px 20px rgba(0, 0, 0, 0.5) !important;
+        background: var(--ruby-bg) !important;
+        border: 1px solid var(--ruby-border) !important;
+        border-top: 1px solid var(--ruby-border-top) !important;
+        border-bottom: 1px solid var(--ruby-border-bottom) !important;
+        box-shadow: var(--ruby-shadow) !important;
       }
       .followup-card .followup-response-buttons .btn-crisis-medical{
-        background: linear-gradient(180deg,
-          #005EB8 0%,
-          #003d7a 100%
-        ) !important;
-        border: 1px solid #002f5c !important;
-        border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.4) !important;
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.15),
-          0 4px 12px rgba(0, 0, 0, 0.4) !important;
+        background: var(--sapphire-bg) !important;
+        border: 1px solid var(--sapphire-border) !important;
+        border-top: 1px solid var(--sapphire-border-top) !important;
+        border-bottom: 1px solid var(--sapphire-border-bottom) !important;
+        box-shadow: var(--sapphire-shadow) !important;
       }
       .followup-card .followup-response-buttons .btn-crisis-medical::before{
         content:none !important;
@@ -1677,10 +1705,6 @@
         box-shadow:0 20px 60px rgba(0, 0, 0, 0.7) !important;
         border-radius:24px !important;
         padding:32px !important;
-      }
-      .followup-response-worse .btn-crisis-emergency{
-        background:linear-gradient(135deg, rgba(220, 38, 38, 0.6) 0%, rgba(153, 27, 27, 0.4) 100%) !important;
-        border:1px solid rgba(254, 202, 202, 0.5) !important;
       }
       .btn-primary-content{
         display:flex;
@@ -2113,7 +2137,7 @@
         display:flex;
         align-items:center;
         justify-content:center;
-        gap:10px;
+        gap:12px;
         width:100%;
         padding:14px 20px;
         margin-bottom:24px;
@@ -2131,11 +2155,14 @@
       }
       .listen-emergency svg{
         flex-shrink:0;
-        stroke:#f7e1c6 !important;
+        stroke:none !important;
+        fill:#f7e1c6 !important;
+        width:22px;
+        height:22px;
       }
       .listen-emergency-label{
         display:inline-block;
-        min-width:155px;
+        min-width:auto;
         text-align:center;
       }
       .listen-emergency{ transition:background 0.1s ease-out, border-color 0.1s ease-out; }
@@ -3041,15 +3068,6 @@
               <div class="progress-fill" id="progress-fill" style="width: 25%;"></div>
             </div>
             
-            <!-- Emergency Listen: prominent, fixed position above content -->
-            <button id="listen-emergency" class="listen-emergency" type="button" aria-label="Listen to this step" style="display:none;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M11 5 6 9H2v6h4l5 4V5Z"></path>
-                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-              </svg>
-              <span class="listen-emergency-label">Listen to this step</span>
-            </button>
-
             <div class="stepdown-body">
               <div class="crisis-card">
                 <div id="stepdown-say-section">
@@ -3078,6 +3096,13 @@
             <div class="fade-overlay" aria-hidden="true"></div>
 
             <div class="stepdown-footer">
+              <!-- Emergency Listen: sits between text and call -->
+              <button id="listen-emergency" class="listen-emergency" type="button" aria-label="Listen" style="display:none;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M8 5v14l11-7z"></path>
+                </svg>
+                <span class="listen-emergency-label">LISTEN</span>
+              </button>
               <!-- URGENT MODE: Call + Listen in footer -->
               <button id="stepdown-call" class="hero-btn btn-crisis-emergency" type="button" style="display:none;width:100%;margin-bottom:28px;">
                 <span id="stepdown-call-label"></span>
@@ -5016,11 +5041,16 @@
         const emergencyBtn = document.getElementById("listen-emergency");
         if(emergencyBtn){
           emergencyBtn.classList.toggle("speaking", speaking);
-          emergencyBtn.setAttribute("aria-label", speaking ? "Stop listening" : "Listen to this step");
+          emergencyBtn.setAttribute("aria-label", speaking ? "Pause" : "Listen");
           const emergencyLabel = emergencyBtn.querySelector(".listen-emergency-label");
-          // Instant text swap - background flash provides visual acknowledgment
           if(emergencyLabel){
-            emergencyLabel.textContent = speaking ? "Stop listening" : "Listen to this step";
+            emergencyLabel.textContent = speaking ? "PAUSE" : "LISTEN";
+          }
+          const emergencyIcon = emergencyBtn.querySelector("svg");
+          if(emergencyIcon){
+            emergencyIcon.innerHTML = speaking
+              ? '<path d="M6 4h4v16H6zM14 4h4v16h-4z"></path>'
+              : '<path d="M8 5v14l11-7z"></path>';
           }
         }
       }
@@ -5343,46 +5373,33 @@
         return text.replace(/\{EMERGENCY\}/g, emergencyNumber);
       }
 
-      /* Render DO text with inline tappable emergency number (for urgent decks)
-         Only the FIRST {EMERGENCY} is tappable; subsequent ones are plain text */
+      /* Render DO text for urgent decks as headline + subtitle */
       function renderDoWithInlineEmergency(containerEl, text){
         if(!containerEl) return;
         containerEl.innerHTML = "";
         if(!text) return;
-        
-        // Check if {EMERGENCY} exists in text
-        if(!text.includes("{EMERGENCY}")){
-          containerEl.textContent = text;
-          return;
+
+        const cleanText = injectEmergencyNumber(text);
+        const match = cleanText.match(/Call\s+(\d+)\s+now\.?\s*(.*)/i);
+        const headline = match ? `Call ${match[1]} now` : cleanText;
+        const subtitle = match ? match[2] : "";
+
+        const block = document.createElement("div");
+        block.className = "urgent-call-block";
+
+        const titleEl = document.createElement("div");
+        titleEl.className = "urgent-call-headline";
+        titleEl.textContent = headline;
+        block.appendChild(titleEl);
+
+        if(subtitle){
+          const subEl = document.createElement("div");
+          subEl.className = "urgent-call-subtitle";
+          subEl.textContent = subtitle;
+          block.appendChild(subEl);
         }
-        
-        // Split by {EMERGENCY} and build nodes
-        const parts = text.split("{EMERGENCY}");
-        let firstChipRendered = false;
-        
-        parts.forEach((part, i) => {
-          // Add text part
-          if(part){
-            containerEl.appendChild(document.createTextNode(part));
-          }
-          // Add chip/text (except after last part)
-          if(i < parts.length - 1){
-            if(!firstChipRendered){
-              // First occurrence: tappable button
-              const chip = document.createElement("button");
-              chip.type = "button";
-              chip.className = "inline-call";
-              chip.textContent = emergencyNumber;
-              chip.setAttribute("aria-label", `Call ${emergencyNumber}`);
-              chip.addEventListener("click", callEmergency);
-              containerEl.appendChild(chip);
-              firstChipRendered = true;
-            } else {
-              // Subsequent occurrences: plain text
-              containerEl.appendChild(document.createTextNode(emergencyNumber));
-            }
-          }
-        });
+
+        containerEl.appendChild(block);
       }
 
       /* =========================
