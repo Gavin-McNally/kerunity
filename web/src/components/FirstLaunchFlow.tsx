@@ -43,6 +43,18 @@ const styles = `
   padding-top: 24px;
 }
 
+.pt-4 {
+  padding-top: 16px;
+}
+
+.pt-8 {
+  padding-top: 32px;
+}
+
+.pb-8 {
+  padding-bottom: 32px;
+}
+
 .pb-4 {
   padding-bottom: 16px;
 }
@@ -59,28 +71,96 @@ const styles = `
   scrollbar-width: thin;
 }
 
-.scrollbar-gold {
-  scrollbar-color: #f7e1c6 transparent;
+.scrollbar-track-transparent {
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
 
-.scrollbar-gold::-webkit-scrollbar {
-  width: 6px;
+.scrollbar-thumb-white\/20 {
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
 
-.scrollbar-gold::-webkit-scrollbar-thumb {
-  background: #f7e1c6;
+.scrollbar-thumb-rounded-full::-webkit-scrollbar-thumb {
   border-radius: 9999px;
 }
 
-.scrollbar-gold::-webkit-scrollbar-track {
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-track-transparent::-webkit-scrollbar-track {
   background: transparent;
+}
+
+.scrollbar-thumb-white\/20::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.hover\:scrollbar-thumb-\[\#f7e1c6\]:hover::-webkit-scrollbar-thumb {
+  background: #f7e1c6;
+}
+
+/* Force scrollbar to be visible */
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+}
+
+.custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
 
 .mt-8 {
   margin-top: 32px;
 }
+
+.mt-2 {
+  margin-top: 8px;
+}
+
 .h-full {
   height: 100%;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.gap-10 {
+  gap: 40px;
+}
+
+.gap-3 {
+  gap: 12px;
+}
+
+.min-h-0 {
+  min-height: 0;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.min-h-0 {
+  min-height: 0;
 }
 
 .min-h-screen {
@@ -225,6 +305,10 @@ const styles = `
   font-weight: 700;
 }
 
+.font-extrabold {
+  font-weight: 800;
+}
+
 .text-base {
   font-size: 16px;
 }
@@ -274,6 +358,10 @@ const styles = `
 
 .duration-200 {
   transition-duration: 0.2s;
+}
+
+.duration-500 {
+  transition-duration: 0.5s;
 }
 
 .px-2 {
@@ -689,11 +777,16 @@ export default function FirstLaunchFlow() {
   }
 
   return (
-    <div className="first-launch-flow h-100dvh overflow-y-auto pt-6 pb-4 scrollbar-thin scrollbar-gold" role="dialog" aria-modal="true" aria-live="polite">
+    <div className="first-launch-flow flex-col h-100dvh overflow-y-auto pt-4 pb-4 custom-scroll" role="dialog" aria-modal="true" aria-live="polite">
       <style>{styles}</style>
-      <div className="first-launch-content" style={{ opacity: isExiting ? 0 : 1 }}>
+      <div
+        className={`first-launch-content flex-1 min-h-0 flex flex-col w-full px-6 transition-all duration-500 ${
+          currentStep === 1 ? "justify-center gap-10 items-center" : "justify-between pt-8 pb-8"
+        }`}
+        style={{ opacity: isExiting ? 0 : 1 }}
+      >
         {isVisible && currentStep === 1 && (
-          <div className="first-launch-step">
+          <div className="first-launch-step items-center">
           <div className="first-launch-icon" aria-hidden="true">
             <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#f7e1c6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="10" />
@@ -711,19 +804,9 @@ export default function FirstLaunchFlow() {
         {isVisible && currentStep === 2 && (
           <div className="first-launch-step justify-between h-full min-h-500">
             <div>
-            <div className="first-launch-warning mt-8" aria-hidden="true">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" className="mb-2">
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM10 17L6 13L7.41 11.59L10 14.17L16.59 7.58L18 9L10 17Z"
-                    fill="#f7e1c6"
-                  />
-                </svg>
-              </div>
-              <h2 className="first-launch-headline mb-4">Before you start</h2>
+              <h2 className="first-launch-headline mt-8 mb-2">Before you start</h2>
             </div>
-            <div className="w-full px-6 my-4">
+            <div className="w-full px-6 mt-2 mb-2">
               <div className="bg-white/5 border-white/10 rounded-xl p-4 text-center shadow-lg backdrop-blur-sm max-w-2xl">
                 <p className="text-slate-200 text-lg leading-loose mb-4">
                   Kerunity helps you organize care but is <strong className="text-white font-bold">not a medical device</strong> and is{" "}
@@ -743,7 +826,7 @@ export default function FirstLaunchFlow() {
               </div>
             </div>
             <div>
-            <label className="first-launch-checkbox mt-4 mb-6">
+              <label className="first-launch-checkbox mt-2 mb-6">
                 <input
                   type="checkbox"
                   checked={isConfirmed}
@@ -752,7 +835,7 @@ export default function FirstLaunchFlow() {
                 <span className="first-launch-checkbox-box" aria-hidden="true" />
               <span className="first-launch-checkbox-text text-base ml-3">I understand</span>
               </label>
-              <button className="btn-slab mb-8" type="button" onClick={() => handleNextStep(3)} disabled={!isConfirmed}>
+              <button className="btn-slab mb-4" type="button" onClick={() => handleNextStep(3)} disabled={!isConfirmed}>
                 Continue
               </button>
             </div>
