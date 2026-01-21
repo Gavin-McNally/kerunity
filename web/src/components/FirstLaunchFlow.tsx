@@ -29,6 +29,84 @@ const styles = `
   gap: 32px;
 }
 
+.py-12 {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.py-10 {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.pt-6 {
+  padding-top: 24px;
+}
+
+.pb-4 {
+  padding-bottom: 16px;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.h-100dvh {
+  height: 100dvh;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-gold {
+  scrollbar-color: #f7e1c6 transparent;
+}
+
+.scrollbar-gold::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-gold::-webkit-scrollbar-thumb {
+  background: #f7e1c6;
+  border-radius: 9999px;
+}
+
+.scrollbar-gold::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mt-8 {
+  margin-top: 32px;
+}
+.h-full {
+  height: 100%;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.min-h-60vh {
+  min-height: 60vh;
+}
+.min-h-400 {
+  min-height: 400px;
+}
+
+.min-h-500 {
+  min-height: 500px;
+}
+
+
+.mb-12 {
+  margin-bottom: 48px;
+}
+
 .first-launch-content {
   transition: opacity 0.3s ease;
 }
@@ -37,8 +115,17 @@ const styles = `
   margin-bottom: 24px;
 }
 
+.mb-2 {
+  margin-bottom: 8px;
+}
+
 .mb-8 {
   margin-bottom: 32px;
+}
+
+.my-4 {
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .mt-4 {
@@ -68,6 +155,10 @@ const styles = `
 
 .p-5 {
   padding: 20px;
+}
+
+.p-4 {
+  padding: 16px;
 }
 
 .text-center {
@@ -114,6 +205,22 @@ const styles = `
   color: #ffffff;
 }
 
+.decoration-white-50 {
+  text-decoration-color: rgba(255, 255, 255, 0.5);
+}
+
+.hover\\:decoration-white:hover {
+  text-decoration-color: #ffffff;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .font-bold {
   font-weight: 700;
 }
@@ -143,9 +250,9 @@ const styles = `
   padding-right: 12px;
 }
 
-.py-0\\.5 {
-  padding-top: 2px;
-  padding-bottom: 2px;
+.mx-2 {
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
 .mx-1 {
@@ -157,28 +264,56 @@ const styles = `
   vertical-align: middle;
 }
 
-.bg-red-600\\/80 {
-  background: rgba(220, 38, 38, 0.8);
-}
-
-.hover\\:bg-red-500:hover {
-  background: rgba(239, 68, 68, 1);
-}
-
-.border-red-400\\/50 {
-  border: 1px solid rgba(248, 113, 113, 0.5);
-}
-
-.rounded-full {
-  border-radius: 9999px;
-}
-
-.shadow-red-glow {
-  box-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
-}
-
 .transition-all {
   transition: all 0.2s ease;
+}
+
+.duration-300 {
+  transition-duration: 0.3s;
+}
+
+.duration-200 {
+  transition-duration: 0.2s;
+}
+
+.px-2 {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.py-1 {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.py-0\\.5 {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.rounded-md {
+  border-radius: 8px;
+}
+
+.rounded-lg {
+  border-radius: 12px;
+}
+
+.border-2 {
+  border-width: 2px;
+  border-style: solid;
+}
+
+.border-emergency {
+  border-color: #8a2b3b;
+}
+
+.bg-emergency-10 {
+  background: rgba(138, 43, 59, 0.1);
+}
+
+.shadow-emergency {
+  box-shadow: 0 0 10px rgba(138, 43, 59, 0.5);
 }
 
 .active\\:scale-95:active {
@@ -189,12 +324,12 @@ const styles = `
   text-decoration: none;
 }
 
-.w-3 {
-  width: 12px;
+.w-5 {
+  width: 20px;
 }
 
-.h-3 {
-  height: 12px;
+.h-5 {
+  height: 20px;
 }
 
 .mr-1 {
@@ -203,6 +338,74 @@ const styles = `
 
 .leading-loose {
   line-height: 1.8;
+}
+
+.text-lg {
+  font-size: 18px;
+}
+
+.text-xs {
+  font-size: 12px;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.tracking-wide {
+  letter-spacing: 0.06em;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.decoration-2 {
+  text-decoration-thickness: 2px;
+}
+
+.underline-offset-4 {
+  text-underline-offset: 4px;
+}
+
+.hover\\:text-white:hover {
+  color: #ffffff;
+}
+
+.transition-colors {
+  transition: color 0.2s ease;
+}
+
+.bg-white\\/10 {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.border-white {
+  border: 1px solid #ffffff;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.decoration-white {
+  text-decoration-color: rgba(255, 255, 255, 1);
+}
+
+.decoration-gold-50 {
+  text-decoration-color: rgba(247, 225, 198, 0.5);
+}
+
+.shadow-white-glow {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+.scale-105 {
+  transform: scale(1.05);
+}
+
+.max-w-2xl {
+  max-width: 672px;
 }
 
 .text-center {
@@ -362,8 +565,8 @@ const styles = `
 
 .first-launch-checkbox-text {
   font-size: 18px;
-  color: #f7e1c6;
-  font-weight: 500;
+  color: #ffffff;
+  font-weight: 700;
 }
 
 .first-launch-emergency-card {
@@ -429,6 +632,7 @@ export default function FirstLaunchFlow() {
   const [isExiting, setIsExiting] = useState(false);
   const [isOnboardingComplete, setOnboardingComplete] = useState(false);
   const [emergencyNum, setEmergencyNum] = useState("999");
+  const [confirmCall, setConfirmCall] = useState(false);
 
   useEffect(() => {
     setCurrentStep(1);
@@ -447,6 +651,14 @@ export default function FirstLaunchFlow() {
     }
   }, []);
 
+  useEffect(() => {
+    if (!confirmCall) {
+      return;
+    }
+    const timer = window.setTimeout(() => setConfirmCall(false), 10000);
+    return () => window.clearTimeout(timer);
+  }, [confirmCall]);
+
   const handleNextStep = (nextStep: Step) => {
     setIsExiting(true);
     window.setTimeout(() => {
@@ -464,13 +676,20 @@ export default function FirstLaunchFlow() {
     }, 500);
   };
 
+  const handleEmergencyClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!confirmCall) {
+      event.preventDefault();
+      setConfirmCall(true);
+    }
+  };
+
   console.log("Force rendering FirstLaunchFlow");
   if (isOnboardingComplete) {
     return null;
   }
 
   return (
-    <div className="first-launch-flow" role="dialog" aria-modal="true" aria-live="polite">
+    <div className="first-launch-flow h-100dvh overflow-y-auto pt-6 pb-4 scrollbar-thin scrollbar-gold" role="dialog" aria-modal="true" aria-live="polite">
       <style>{styles}</style>
       <div className="first-launch-content" style={{ opacity: isExiting ? 0 : 1 }}>
         {isVisible && currentStep === 1 && (
@@ -490,56 +709,53 @@ export default function FirstLaunchFlow() {
         )}
 
         {isVisible && currentStep === 2 && (
-          <div className="first-launch-step">
-            <div className="first-launch-warning" aria-hidden="true">
-              <svg width="72" height="72" viewBox="0 0 24 24" fill="none" className="mb-6">
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM10 17L6 13L7.41 11.59L10 14.17L16.59 7.58L18 9L10 17Z"
-                  fill="#f7e1c6"
-                />
-              </svg>
+          <div className="first-launch-step justify-between h-full min-h-500">
+            <div>
+            <div className="first-launch-warning mt-8" aria-hidden="true">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" className="mb-2">
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1ZM10 17L6 13L7.41 11.59L10 14.17L16.59 7.58L18 9L10 17Z"
+                    fill="#f7e1c6"
+                  />
+                </svg>
+              </div>
+              <h2 className="first-launch-headline mb-4">Before you start</h2>
             </div>
-            <h2 className="first-launch-headline mb-6">Before you start</h2>
-            <div className="w-full px-6 mb-8">
-              <div className="bg-white/5 border-white/10 rounded-xl p-5 text-center shadow-lg backdrop-blur-sm">
-                <p className="text-slate-200 text-base leading-relaxed mb-4">
+            <div className="w-full px-6 my-4">
+              <div className="bg-white/5 border-white/10 rounded-xl p-4 text-center shadow-lg backdrop-blur-sm max-w-2xl">
+                <p className="text-slate-200 text-lg leading-loose mb-4">
                   Kerunity helps you organize care but is <strong className="text-white font-bold">not a medical device</strong> and is{" "}
                   <strong className="text-white font-bold">not monitored 24/7</strong>.
                 </p>
-                <p className="text-slate-200 text-base leading-7">
-                  We cannot see your location or send an ambulance. If you are in danger, please call
+                <p className="text-slate-200 text-lg leading-loose">
+                  We cannot see your location or send an ambulance. If you are in danger, please{" "}
                   <a
-                    href={`tel:${emergencyNum}`}
-                    className="inline-flex items-center justify-center px-3 py-0.5 mx-1 align-middle text-white font-bold bg-red-600/80 hover:bg-red-500 border-red-400/50 rounded-full shadow-red-glow transition-all active:scale-95 no-underline"
+                    href={confirmCall ? `tel:${emergencyNum}` : "#"}
+                    onClick={handleEmergencyClick}
+                    className="inline-block mx-1 text-white font-extrabold underline decoration-2 underline-offset-4 decoration-white-50 hover:decoration-white transition-all cursor-pointer"
                   >
-                    <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                      />
-                    </svg>
-                    {emergencyNum}
-                  </a>
+                    {confirmCall ? "TAP AGAIN TO CALL" : `Call ${emergencyNum}`}
+                  </a>{" "}
                   or go to A&amp;E.
                 </p>
               </div>
             </div>
-            <label className="first-launch-checkbox mt-4">
-              <input
-                type="checkbox"
-                checked={isConfirmed}
-                onChange={(event) => setIsConfirmed(event.target.checked)}
-              />
-              <span className="first-launch-checkbox-box" aria-hidden="true" />
+            <div>
+            <label className="first-launch-checkbox mt-4 mb-6">
+                <input
+                  type="checkbox"
+                  checked={isConfirmed}
+                  onChange={(event) => setIsConfirmed(event.target.checked)}
+                />
+                <span className="first-launch-checkbox-box" aria-hidden="true" />
               <span className="first-launch-checkbox-text text-base ml-3">I understand</span>
-            </label>
-            <button className="btn-slab" type="button" onClick={() => handleNextStep(3)} disabled={!isConfirmed}>
-              Continue
-            </button>
+              </label>
+              <button className="btn-slab mb-8" type="button" onClick={() => handleNextStep(3)} disabled={!isConfirmed}>
+                Continue
+              </button>
+            </div>
           </div>
         )}
 
