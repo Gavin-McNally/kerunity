@@ -55,6 +55,10 @@ const styles = `
   padding-bottom: 32px;
 }
 
+.pb-12 {
+  padding-bottom: 48px;
+}
+
 .pb-4 {
   padding-bottom: 16px;
 }
@@ -219,6 +223,10 @@ const styles = `
 .px-6 {
   padding-left: 24px;
   padding-right: 24px;
+}
+
+.pt-12 {
+  padding-top: 48px;
 }
 
 .bg-white\\/5 {
@@ -496,6 +504,22 @@ const styles = `
   max-width: 672px;
 }
 
+.max-w-md {
+  max-width: 448px;
+}
+
+.max-w-lg {
+  max-width: 512px;
+}
+
+.max-w-xl {
+  max-width: 576px;
+}
+
+.drop-shadow-gold {
+  filter: drop-shadow(0 0 15px rgba(247, 225, 198, 0.3));
+}
+
 .text-center {
   text-align: center;
 }
@@ -526,6 +550,70 @@ const styles = `
 
 .text-gold {
   color: #f7e1c6;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.-inset-4 {
+  top: -16px;
+  right: -16px;
+  bottom: -16px;
+  left: -16px;
+}
+
+.bg-gold-glow {
+  background-color: rgba(247, 225, 198, 0.2);
+}
+
+.blur-3xl {
+  filter: blur(64px);
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.group:hover .group-hover\:opacity-30 {
+  opacity: 0.3;
+}
+
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.duration-1000 {
+  transition-duration: 1000ms;
+}
+
+.w-48 {
+  width: 192px;
+}
+
+.h-auto {
+  height: auto;
+}
+
+.object-contain {
+  object-fit: contain;
+}
+
+.drop-shadow-2xl {
+  filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.15));
+}
+
+.z-10 {
+  z-index: 10;
 }
 
 .first-launch-icon {
@@ -584,6 +672,40 @@ const styles = `
 
 .btn-slab:not([disabled]) {
   opacity: 1;
+}
+
+.btn-glass-premium {
+  width: 100%;
+  max-width: 384px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 14px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top-color: rgba(255, 255, 255, 0.2);
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-glass-premium:hover {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+}
+
+.btn-glass-premium:active {
+  transform: scale(0.98);
+}
+
+.btn-glass-premium[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .first-launch-warning {
@@ -663,6 +785,31 @@ const styles = `
   background: linear-gradient(135deg, rgba(220, 38, 38, 0.2), rgba(100, 0, 0, 0.2));
   border: 1px solid rgba(220, 38, 38, 0.4);
   font-weight: 700;
+}
+
+.crisis-team-icon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  color: #f7e1c6;
+  filter: drop-shadow(0 0 12px rgba(247, 225, 198, 0.35));
+}
+
+.crisis-team-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #f7e1c6;
+  margin: 0;
+}
+
+.crisis-team-body {
+  font-size: 18px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
 }
 
 .first-launch-howto {
@@ -788,14 +935,31 @@ export default function FirstLaunchFlow() {
         {isVisible && currentStep === 1 && (
           <div className="first-launch-step items-center">
           <div className="first-launch-icon" aria-hidden="true">
-            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#f7e1c6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10" />
-              <circle cx="12" cy="12" r="4" strokeOpacity="0.5" />
+            <svg
+              viewBox="0 0 200 120"
+              className="w-48 h-auto"
+              style={{ color: "#E2D6CD" }}
+              fill="none"
+              stroke="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 72 70 C 88 80, 112 80, 128 70"
+                strokeWidth="12"
+                strokeLinecap="round"
+                style={{ opacity: 0.72 }}
+              />
+              <path
+                d="M 82 68 C 94 74, 106 74, 118 68"
+                strokeWidth="8.5"
+                strokeLinecap="round"
+                style={{ opacity: 1 }}
+              />
             </svg>
           </div>
           <h1 className="first-launch-title">Kerunity</h1>
           <p className="first-launch-subtitle">Crisis support for carers</p>
-          <button className="btn-slab" type="button" onClick={() => handleNextStep(2)}>
+          <button className="btn-glass-premium" type="button" onClick={() => handleNextStep(2)}>
             Continue
           </button>
           </div>
@@ -835,7 +999,7 @@ export default function FirstLaunchFlow() {
                 <span className="first-launch-checkbox-box" aria-hidden="true" />
               <span className="first-launch-checkbox-text text-base ml-3">I understand</span>
               </label>
-              <button className="btn-slab mb-4" type="button" onClick={() => handleNextStep(3)} disabled={!isConfirmed}>
+              <button className="btn-glass-premium mb-4" type="button" onClick={() => handleNextStep(3)} disabled={!isConfirmed}>
                 Continue
               </button>
             </div>
@@ -843,11 +1007,27 @@ export default function FirstLaunchFlow() {
         )}
 
         {isVisible && currentStep === 3 && (
-          <div className="first-launch-step">
-            <div className="first-launch-emergency-card">
-              Emergency Contacts will appear here.
+          <div className="flex flex-col justify-between h-100dvh pt-12 pb-12 px-6">
+            <div className="flex-1 flex flex-col items-center justify-center">
+              <div className="relative mb-8 group">
+                <div className="absolute -inset-4 bg-gold-glow blur-3xl rounded-full opacity-0 group-hover:opacity-30 transition-opacity duration-1000" />
+                <img
+                  src="/assets/kerunity-crisis-team.png"
+                  alt="Crisis Team Support"
+                  className="relative w-48 h-auto object-contain drop-shadow-2xl z-10"
+                />
+              </div>
+              <h2 className="crisis-team-title text-gold mb-6">Your Crisis Team</h2>
+              <div className="text-center w-full max-w-xl px-4">
+                <p className="text-slate-300 text-lg leading-relaxed mb-4">
+                  In a high-stress moment, you can't waste time searching your phone&nbsp;book.
+                </p>
+                <p className="text-slate-300 text-lg leading-relaxed">
+                  Build a dedicated safety net of family, neighbours, and doctors. Alert them all in one tap when you need&nbsp;backup.
+                </p>
+              </div>
             </div>
-            <button className="btn-slab" type="button" onClick={() => handleNextStep(4)}>
+            <button className="btn-glass-premium" type="button" onClick={() => handleNextStep(4)}>
               Continue
             </button>
           </div>
