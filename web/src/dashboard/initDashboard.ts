@@ -33,20 +33,20 @@
         },
         shadowing: { 
           category: "emotional",
-          label: "Shadowing", sub: "Following you constantly",
+          label: "Following me everywhere", sub: "Following you constantly",
           keywords: ["following", "shadow", "clingy", "attached", "close", "behind", "everywhere", "stuck", "separation", "anxious", "needy", "dependent"],
           aliases: ["follows me everywhere", "won't let me out of sight", "always behind me", "can't leave them alone", "follows me around", "follows me to the toilet", "follows me to bathroom", "won't stay in room alone", "panics when I leave", "attached to my hip", "can't get any space", "follows room to room"]
         },
         hygiene: { 
           category: "medical",
-          label: "Refusing hygiene", sub: "Won't wash/change",
+          label: "Won't wash / shower", sub: "Won't wash/change",
           keywords: ["wash", "bath", "shower", "clean", "hygiene", "smell", "dirty", "change", "clothes", "teeth", "toilet", "bathroom", "loo", "nappy", "diaper", "pad", "incontinence", "wet", "soiled"],
           aliases: ["won't wash", "refusing bath", "won't shower", "hasn't changed clothes", "needs a wash", "refusing to clean", "won't brush teeth", "scared of shower", "afraid of bath", "won't change wet clothes", "sitting in wet pad", "smells bad", "hasn't bathed in days", "refuses personal care", "won't let me wash them"]
         },
         /* Extended - shown on "View all" (19 more = 25 total) - EXPANDED COVERAGE */
         sundowning: { 
           category: "location",
-          label: "Evening upset", sub: "Evening agitation",
+          label: "Worse at night", sub: "Evening agitation",
           keywords: ["evening", "night", "sunset", "agitated", "restless", "worse", "afternoon", "dusk", "dark", "twilight", "late", "shadows", "anxious", "confused", "pacing", "upset"],
           aliases: ["gets worse at night", "evening agitation", "restless at sunset", "anxious in evening", "agitated after dark", "worse in late afternoon", "pacing at night", "confused when it gets dark", "sundown syndrome", "evening confusion", "worse as sun goes down", "unsettled at teatime", "bad every evening"]
         },
@@ -58,7 +58,7 @@
         },
         repetitive: { 
           category: "behavior",
-          label: "Repeating questions", sub: "Asking same thing",
+          label: "Keeps asking same thing", sub: "Asking same thing",
           keywords: ["repeat", "again", "same", "question", "asking", "over", "loop", "constant", "broken", "record", "endless", "nonstop", "obsessive", "stuck"],
           aliases: ["asking same thing", "keeps repeating", "same question", "over and over", "asks constantly", "broken record", "asked this already", "keeps asking same thing", "won't stop asking", "repetitive questions", "stuck in a loop", "asks every five minutes", "endless questions"]
         },
@@ -118,7 +118,7 @@
         },
         wont_get_up: { 
           category: "emotional",
-          label: "Won't get up", sub: "Staying in bed",
+          label: "Won't get out of bed", sub: "Staying in bed",
           keywords: ["bed", "up", "get", "lying", "stay", "morning", "wake"],
           aliases: ["won't get out of bed", "staying in bed", "refuses to get up", "won't wake up"]
         },
@@ -142,7 +142,7 @@
         },
         inappropriate: { 
           category: "behavior",
-          label: "Awkward comments", sub: "Saying unexpected things",
+          label: "Inappropriate behaviour", sub: "Saying unexpected things",
           keywords: ["inappropriate", "rude", "sexual", "comments", "embarrassing", "awkward", "offensive"],
           aliases: ["saying inappropriate things", "rude comments", "embarrassing behaviour", "sexual comments"]
         },
@@ -193,19 +193,19 @@
           { say:"Let’s check the usual safe places first.", do:"Go to 2–3 common spots only. Keep pace slow." },
           { say:"If it's not here, we'll leave it and try again later.", do:"Close without correcting them. Offer a calming reset." }
         ]},
-        shadowing:{ title:"Shadowing", steps:[
+        shadowing:{ title:"Following me everywhere", steps:[
           { say:"You're okay. I'm here. Let's do this together.", do:"Reassure first. Keep tone warm, not hurried." },
           { say:"Could you sit here? I have a job for you.", do:"Give a small task: hold a towel, watch the kettle, fold a cloth." },
           { say:"I'll be back in two minutes. Watch the timer for me.", do:"Use a timer and make a clear promise. Come back when you promised." },
           { say:"Thank you. You did great helping me.", do:"Praise the helper role. Repeat predictable routine." }
         ]},
-        hygiene:{ title:"Refusing hygiene", steps:[
+        hygiene:{ title:"Won't wash / shower", steps:[
           { say:"No problem. We can do this gently.", do:"Remove pressure. No demands." },
           { say:"Would you like a warm cloth wash instead of a full wash?", do:"Offer a smaller option: face/hands first." },
           { say:"Do you want the bathroom warmer, or a towel warmed?", do:"Fix discomfort triggers: cold room, lighting, privacy." },
           { say:"That's enough for now. We'll stop there.", do:"Close early with success. Short wins beat battles." }
         ]},
-        sundowning:{ title:"Evening upset", steps:[
+        sundowning:{ title:"Worse at night", steps:[
           { say:"I can see you're feeling unsettled. I'm here.", do:"Acknowledge their distress. Don't dismiss or argue." },
           { say:"Let's turn on some lights and get cosy.", do:"Close curtains. Turn on more lights." },
           { say:"Would you like to sit with me for a bit?", do:"Gentle distraction: music, photo, simple activity." },
@@ -217,7 +217,7 @@
           { say:"Let's sit together while I have mine.", do:"Eating together can encourage. Keep it social." },
           { say:"You did well. We'll have more later if you want.", do:"Praise any attempt. Make a quiet note for later." }
         ]},
-        repetitive:{ title:"Repeating questions", steps:[
+        repetitive:{ title:"Keeps asking same thing", steps:[
           { say:"That's a good question. Let me help.", do:"Answer as if it's the first time. Stay patient." },
           { say:"I'll write it down so we can check.", do:"Use a whiteboard or note to point to." },
           { say:"Let's do something together while we wait.", do:"Redirect to a simple activity or task." },
@@ -277,7 +277,7 @@
           { say:"Would you like a hug / hand to hold?", do:"Offer comfort. Physical touch if welcome." },
           { say:"I'm not going anywhere. Take your time.", do:"Be present. The feeling will pass." }
         ]},
-        wont_get_up:{ title:"Won't get up", steps:[
+        wont_get_up:{ title:"Won't get out of bed", steps:[
           { say:"Good morning. No rush. Take your time.", do:"Don't force. Check if they're unwell or in pain." },
           { say:"Would you like a cup of tea in bed?", do:"Bring comfort to them first." },
           { say:"The bathroom's ready when you are.", do:"Give a gentle reason to move, not an order." },
@@ -301,7 +301,7 @@
           { say:"Let's turn on more lights / move rooms.", do:"Change environment. Reduce shadows." },
           { say:"I'm here with you. You're safe with me.", do:"Reassure. Don't pretend to see it too." }
         ]},
-        inappropriate:{ title:"Awkward comments", steps:[
+        inappropriate:{ title:"Inappropriate behaviour", steps:[
           { say:"Let's talk about something else.", do:"Redirect calmly. Don't shame or scold." },
           { say:"I know you don't mean to upset anyone.", do:"Assume good intent. They may not understand." },
           { say:"Come with me. I need your help.", do:"Move them away from the situation." },
@@ -419,10 +419,6 @@
           title.className = "card-title";
           title.textContent = item.label;
           
-          const sub = document.createElement("span");
-          sub.className = "card-subtitle";
-          sub.textContent = item.sub;
-          
           const chevron = document.createElement("span");
           chevron.className = "card-chevron";
           chevron.textContent = "›";
@@ -430,7 +426,6 @@
           const textWrap = document.createElement("div");
           textWrap.className = "card-text";
           textWrap.appendChild(title);
-          textWrap.appendChild(sub);
 
           card.appendChild(icon);
           card.appendChild(textWrap);
@@ -793,10 +788,6 @@
           title.className = "card-title";
           title.textContent = item.label;
           
-          const sub = document.createElement("span");
-          sub.className = "card-subtitle";
-          sub.textContent = item.sub;
-          
           const chevron = document.createElement("span");
           chevron.className = "card-chevron";
           chevron.textContent = "›";
@@ -804,7 +795,6 @@
           const textWrap = document.createElement("div");
           textWrap.className = "card-text";
           textWrap.appendChild(title);
-          textWrap.appendChild(sub);
 
           card.appendChild(icon);
           card.appendChild(textWrap);

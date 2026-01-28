@@ -16,7 +16,8 @@ export default function Dashboard() {
     <div id="app-frame">
       <div id="app-content">
         <header>
-          <div className="header-row">
+          {/* Only the nav is sticky */}
+          <div id="top-nav">
             <button className="icon-btn-minimal" id="info-open" type="button" aria-label="Menu">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f7e1c6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M4 7h16" />
@@ -34,29 +35,31 @@ export default function Dashboard() {
               </button>
             </div>
           </div>
+        </header>
 
-          <div className="hero-section">
-            <h1 className="hero-title">
-              Start here <span className="hero-soft">You don't have to get this right.</span>
-            </h1>
+        <div className="canvas">
+          {/* Hero - scrolls naturally */}
+          <div id="hero-text" className="hero-section">
+          <h1 className="hero-title">Start here</h1>
 
             <p className="safety-note">Guidance only. Not live monitoring. If anyone is in danger, call 999.</p>
+
+            {/* Post-emergency reassurance (hidden by default) */}
+            <div id="reassurance-banner" className="reassurance-banner" style={{ display: "none" }}>
+              <span>You did the right thing</span>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="heart-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="10%" stopColor="#f7e1c6" stopOpacity="1" />
+                    <stop offset="90%" stopColor="#d4af7a" stopOpacity="1" />
+                  </linearGradient>
+                </defs>
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="url(#heart-gradient)" stroke="none" />
+              </svg>
+            </div>
           </div>
 
-          {/* Post-emergency reassurance (hidden by default) */}
-          <div id="reassurance-banner" className="reassurance-banner" style={{ display: "none" }}>
-            <span>You did the right thing</span>
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="heart-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="10%" stopColor="#f7e1c6" stopOpacity="1" />
-                  <stop offset="90%" stopColor="#d4af7a" stopOpacity="1" />
-                </linearGradient>
-              </defs>
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="url(#heart-gradient)" stroke="none" />
-            </svg>
-          </div>
-
+          {/* Search - scrolls naturally */}
           <div className="search-container">
             <svg viewBox="0 0 24 24" className="search-icon search-icon-svg" aria-hidden="true">
               <circle cx="11" cy="11" r="7" />
@@ -72,9 +75,7 @@ export default function Dashboard() {
               </svg>
             </button>
           </div>
-        </header>
 
-        <div className="canvas">
           <div id="search-suggestions" className="room-container" style={{ display: "none" }} />
 
           {/* Continue chip: shows if crisis or urgent deck was exited mid-flow */}

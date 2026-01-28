@@ -3151,7 +3151,7 @@
       /* Search Bar — Glass Pill */
       .search-container {
         background: rgba(30, 41, 59, 0.6) !important;
-        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
         border-radius: 99px !important;
         box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
         display: flex !important;
@@ -3257,6 +3257,162 @@
         border: 1px solid rgba(252, 129, 129, 0.5) !important;
         box-shadow: 0 0 20px rgba(252, 129, 129, 0.3) !important;
       }
+
+      /* ================================
+         NATIVE SCROLL - Only nav is sticky
+         ================================ */
+      
+      /* Only the nav is sticky - header stays transparent */
+      header {
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        padding: 0 !important;
+      }
+
+      #top-nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: rgba(15, 23, 42, 0.01);
+        background-image: none;
+        backdrop-filter: blur(24px) saturate(160%);
+        -webkit-backdrop-filter: blur(24px) saturate(160%);
+        mask-image: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 1) 0%,
+          rgba(0, 0, 0, 1) 60%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 1) 0%,
+          rgba(0, 0, 0, 1) 60%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        border: none;
+        box-shadow: none;
+        padding: calc(env(safe-area-inset-top) + 32px) 24px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      @media (min-width:360px){
+        #top-nav{ padding-left:32px; padding-right:32px; }
+      }
+      @media (min-width:400px){
+        #top-nav{ padding-left:40px; padding-right:40px; }
+      }
+
+      /* ================================
+         FINAL POLISH — Button + Typography
+         ================================ */
+
+      /* 1. "Get Help" Button — Make it Pop */
+      .get-help-btn,
+      #top-nav .emergency-tab,
+      #top-nav #urgent-open,
+      button.emergency-tab#urgent-open {
+        background: rgba(40, 50, 70, 0.95) !important;
+        background-image: none !important;
+        background-color: rgba(40, 50, 70, 0.95) !important;
+        color: #FFFFFF !important;
+        font-weight: 600 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        backdrop-filter: blur(4px) !important;
+        -webkit-backdrop-filter: blur(4px) !important;
+      }
+
+      /* 2. Typography — Better Readability */
+      #hero-text p,
+      #hero-text .safety-note,
+      .canvas .safety-note,
+      .guidance-text,
+      .disclaimer {
+        font-size: 15px !important;
+        line-height: 1.5 !important;
+        color: #CBD5E1 !important;
+        margin-top: 8px !important;
+        max-width: 90%;
+      }
+
+      /* 3. Control Grid — uniform cards */
+      #grid-container .card,
+      #common-home-section .card,
+      #search-suggestions .card {
+        height: 160px !important;
+        min-height: 0 !important;
+        aspect-ratio: auto !important;
+      }
+
+      /* 3b. Card layout — center vertically, no subtitles */
+      .card {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+        gap: 16px !important;
+      }
+
+      .card-title {
+        font-size: 17px !important;
+        font-weight: 700 !important;
+        line-height: 1.2;
+        color: #FFFFFF !important;
+      }
+
+      .card-subtitle {
+        display: none !important;
+      }
+
+      .card-icon svg {
+        width: 32px !important;
+        height: 32px !important;
+        stroke-width: 2.5px !important;
+      }
+
+      /* 4. Section label — solid champagne gold */
+      .section-label {
+        background: none !important;
+        -webkit-background-clip: unset !important;
+        background-clip: unset !important;
+        -webkit-text-fill-color: #f7e1c6 !important;
+        color: #f7e1c6 !important;
+        margin-top: 32px !important;
+      }
+
+      /* 5. Hero title — pure white */
+      #hero-text .hero-title {
+        color: #FFFFFF !important;
+      }
+
+      /* 6. Search bar icons — muted + centered */
+      .search-container {
+        display: flex !important;
+        align-items: center !important;
+      }
+
+      .search-container svg,
+      .search-container .search-icon-svg,
+      .search-container .mic-icon-svg {
+        margin: 0 !important;
+        display: block;
+        stroke: #94A3B8 !important;
+        fill: none !important;
+        color: #94A3B8 !important;
+      }
+
+      .search-container .mic-btn {
+        color: #94A3B8 !important;
+      }
+
+      /* Everything else scrolls naturally */
+      #hero-text,
+      .canvas .search-container {
+        position: relative;
+      }
     </style>
   </head>
 
@@ -3265,7 +3421,8 @@
     <div id="app-frame">
       <div id="app-content">
         <header>
-          <div class="header-row">
+          <!-- Only the nav is sticky -->
+          <div id="top-nav">
             <button class="icon-btn-minimal" id="info-open" type="button" aria-label="Menu">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f7e1c6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M4 7h16"></path>
@@ -3281,29 +3438,31 @@
               </button>
             </div>
           </div>
+        </header>
 
-          <div class="hero-section">
-            <h1 class="hero-title">
-              Start here <span class="hero-soft">You don't have to get this right.</span>
-            </h1>
+        <div class="canvas">
+          <!-- Hero - scrolls naturally -->
+          <div id="hero-text" class="hero-section">
+          <h1 class="hero-title">Start here</h1>
             
             <p class="safety-note">
               Guidance only. Not live monitoring. If anyone is in danger, call 999.
             </p>
-          </div>
           
-          <!-- Post-emergency reassurance (hidden by default) -->
-          <div id="reassurance-banner" class="reassurance-banner" style="display:none;">
-            <span>You did the right thing</span>
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="heart-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="10%" style="stop-color:#f7e1c6;stop-opacity:1" /> <stop offset="90%" style="stop-color:#d4af7a;stop-opacity:1" />  </linearGradient>
-              </defs>
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="url(#heart-gradient)" stroke="none"/>
-            </svg>
+            <!-- Post-emergency reassurance (hidden by default) -->
+            <div id="reassurance-banner" class="reassurance-banner" style="display:none;">
+              <span>You did the right thing</span>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="heart-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="10%" style="stop-color:#f7e1c6;stop-opacity:1" /> <stop offset="90%" style="stop-color:#d4af7a;stop-opacity:1" />  </linearGradient>
+                </defs>
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="url(#heart-gradient)" stroke="none"/>
+              </svg>
+            </div>
           </div>
 
+          <!-- Search - scrolls naturally -->
           <div class="search-container">
             <svg viewBox="0 0 24 24" class="search-icon search-icon-svg" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
             <input id="query" type="text" class="search-input" placeholder="Search situations" autocomplete="off">
@@ -3311,9 +3470,7 @@
               <svg viewBox="0 0 24 24" class="mic-icon mic-icon-svg" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 18v4"/><path d="M8 22h8"/></svg>
             </button>
           </div>
-        </header>
 
-        <div class="canvas">
           <div id="search-suggestions" class="room-container" style="display:none;"></div>
 
           <!-- Continue chip: shows if crisis or urgent deck was exited mid-flow -->
