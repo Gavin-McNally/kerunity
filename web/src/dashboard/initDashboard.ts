@@ -32,7 +32,7 @@
           aliases: ["says I stole", "accusing me", "thinks I took", "where's my money", "someone stole", "you took my", "things are missing", "keeps saying I stole it", "accusing carers of theft", "blaming me for stealing", "can't find wallet", "purse is missing", "who took my keys", "someone's been in my things", "money has gone"]
         },
         shadowing: { 
-          category: "behavior",
+          category: "emotional",
           label: "Shadowing", sub: "Following you constantly",
           keywords: ["following", "shadow", "clingy", "attached", "close", "behind", "everywhere", "stuck", "separation", "anxious", "needy", "dependent"],
           aliases: ["follows me everywhere", "won't let me out of sight", "always behind me", "can't leave them alone", "follows me around", "follows me to the toilet", "follows me to bathroom", "won't stay in room alone", "panics when I leave", "attached to my hip", "can't get any space", "follows room to room"]
@@ -45,7 +45,7 @@
         },
         /* Extended - shown on "View all" (19 more = 25 total) - EXPANDED COVERAGE */
         sundowning: { 
-          category: "emotional",
+          category: "location",
           label: "Evening upset", sub: "Evening agitation",
           keywords: ["evening", "night", "sunset", "agitated", "restless", "worse", "afternoon", "dusk", "dark", "twilight", "late", "shadows", "anxious", "confused", "pacing", "upset"],
           aliases: ["gets worse at night", "evening agitation", "restless at sunset", "anxious in evening", "agitated after dark", "worse in late afternoon", "pacing at night", "confused when it gets dark", "sundown syndrome", "evening confusion", "worse as sun goes down", "unsettled at teatime", "bad every evening"]
@@ -117,7 +117,7 @@
           aliases: ["keeps crying", "very upset", "tearful", "crying for no reason", "emotionally distressed"]
         },
         wont_get_up: { 
-          category: "behavior",
+          category: "emotional",
           label: "Won't get up", sub: "Staying in bed",
           keywords: ["bed", "up", "get", "lying", "stay", "morning", "wake"],
           aliases: ["won't get out of bed", "staying in bed", "refuses to get up", "won't wake up"]
@@ -129,13 +129,13 @@
           aliases: ["won't accept help", "refuses care", "pushes me away", "doesn't want help"]
         },
         paranoid: { 
-          category: "emotional",
+          category: "behavior",
           label: "Suspicious / worried", sub: "Worried about others",
           keywords: ["paranoid", "suspicious", "trust", "people", "watching", "spy", "conspiracy", "poison", "plotting", "neighbour", "neighbor", "carer", "staff", "delusion", "persecuted", "threatened"],
           aliases: ["very suspicious", "doesn't trust", "thinks people are watching", "paranoid thoughts", "thinks I'm poisoning food", "says neighbours are spying", "accuses staff of plotting", "doesn't trust anyone", "thinks people want to hurt them", "suspicious of carers", "feels persecuted", "convinced someone is after them", "paranoid about visitors"]
         },
         hallucinations: { 
-          category: "emotional",
+          category: "behavior",
           label: "Seeing things", sub: "Things that aren't there",
           keywords: ["seeing", "hallucination", "vision", "people", "things", "imaginary", "hear", "voices", "children", "intruders", "strangers", "animals", "bugs", "insects", "dead", "deceased", "ghost", "shadow"],
           aliases: ["seeing things", "hearing voices", "people that aren't there", "hallucinating", "sees children in the room", "talking to dead relatives", "sees intruders", "thinks there are strangers here", "seeing animals", "bugs on the wall", "sees shadows moving", "talking to people who aren't there", "says someone is in the house", "visual hallucinations"]
@@ -153,7 +153,7 @@
           aliases: ["won't get dressed", "refusing to dress", "staying in pyjamas", "won't change clothes"]
         },
         forgot_face: { 
-          category: "emotional",
+          category: "location",
           label: "Doesn't know me", sub: "Forgotten who you are",
           keywords: ["know", "recognise", "who", "face", "forget", "stranger", "remember"],
           aliases: ["doesn't recognise me", "forgot who I am", "thinks I'm a stranger", "doesn't know who I am"]

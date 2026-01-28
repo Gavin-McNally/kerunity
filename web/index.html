@@ -680,9 +680,10 @@
       }
       /* Search suggestions - cards should look identical to main situation cards */
       #search-suggestions{
-        display:flex;
-        flex-direction:column;
-        gap:0;
+        display:grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap:16px;
+        padding:16px 0;
         margin-top:16px;
       }
 
@@ -2512,27 +2513,8 @@
         opacity: 0.8 !important;
       }
 
-      /* 10. Situation Cards - Floating Glass */
-      .card {
-        background: linear-gradient(180deg, rgba(50, 55, 80, 0.6) 0%, rgba(30, 35, 50, 0.7) 100%) !important;
-        border: 1px solid rgba(255, 255, 255, 0.05) !important;
-        border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6) !important;
-        border-radius: 20px !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        align-items: center !important;
-        gap: 20px !important;
-        transition: 
-          transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
-          box-shadow 0.15s ease-out,
-          background 0.15s ease !important;
-      }
-      .card:active {
-        transform: scale(0.97) translateY(2px) !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7) !important;
-        background: linear-gradient(180deg, rgba(40, 45, 70, 0.7) 0%, rgba(20, 25, 40, 0.8) 100%) !important;
-      }
+      /* 10. Situation Cards - (REMOVED - see Bioluminescent Glass System below) */
+
       .card-title {
         font-weight: 700 !important;
       }
@@ -2540,21 +2522,11 @@
         margin-left: 0 !important;
       }
 
-      /* Card chevron slide on press */
-      .card .card-chevron {
-        transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.15s ease !important;
-      }
-      .card:active .card-chevron {
-        transform: translateX(4px) !important;
-        opacity: 1 !important;
-      }
-
       /* Card icon glow on press */
       .card .card-icon {
         transition: box-shadow 0.15s ease, background 0.15s ease !important;
       }
       .card:active .card-icon {
-        background: rgba(247, 225, 198, 0.18) !important;
         box-shadow: 
           inset 0 1px 4px rgba(247, 225, 198, 0.25),
           0 0 12px rgba(247, 225, 198, 0.15) !important;
@@ -2815,32 +2787,7 @@
         padding-bottom: 16px !important;
       }
 
-      /* --- 17. PREMIUM ICONS (Gold Wireframes) --- */
-      .card-icon {
-        width: 52px !important;
-        height: 52px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        filter: none !important;
-        opacity: 1 !important;
-        background: rgba(247, 225, 198, 0.1) !important;
-        border: 1px solid rgba(247, 225, 198, 0.15) !important;
-        box-shadow: inset 0 1px 4px rgba(247, 225, 198, 0.15), 0 0 8px rgba(247, 225, 198, 0.08) !important;
-        border-radius: 16px !important;
-        flex-shrink: 0 !important;
-      }
-
-      .card-icon svg {
-        width: 34px !important;
-        height: 34px !important;
-        stroke: #f7e1c6 !important;
-        stroke-width: 2px !important;
-        fill: none !important;
-        stroke-linecap: round !important;
-        stroke-linejoin: round !important;
-        filter: drop-shadow(0 0 3px rgba(247, 225, 198, 0.2)) !important;
-      }
+      /* --- 17. PREMIUM ICONS (REMOVED - see Bioluminescent Glass System below) --- */
 
       /* --- 18. Header Icons (Gold Wireframes) --- */
       .search-icon-svg,
@@ -3041,16 +2988,17 @@
         gap: 16px !important;
       }
 
-      /* 2. Cards — Smoked Glass */
+      /* 2. Cards — Light Leak Effect */
       .card {
-        background: linear-gradient(180deg, rgba(30, 30, 40, 0.6) 0%, rgba(15, 20, 25, 0.8) 100%);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
         border-radius: 20px;
-        border: none;
-        border-top: 1px solid rgba(255, 255, 255, 0.15);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
         padding: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         aspect-ratio: 1 / 1;
         margin-bottom: 0 !important;
         min-height: 0 !important;
@@ -3063,10 +3011,39 @@
         transition: transform 0.2s ease, background 0.2s;
       }
 
+      /* Category-specific light leak backgrounds */
+      .card[data-category="medical"] {
+        background: 
+          radial-gradient(circle at 100% 0%, rgba(246, 173, 85, 0.15) 0%, transparent 50%),
+          linear-gradient(180deg, rgba(30, 30, 40, 0.6) 0%, rgba(15, 20, 25, 0.9) 100%) !important;
+      }
+
+      .card[data-category="location"] {
+        background: 
+          radial-gradient(circle at 100% 0%, rgba(79, 209, 197, 0.15) 0%, transparent 50%),
+          linear-gradient(180deg, rgba(30, 30, 40, 0.6) 0%, rgba(15, 20, 25, 0.9) 100%) !important;
+      }
+
+      .card[data-category="emotional"] {
+        background: 
+          radial-gradient(circle at 100% 0%, rgba(183, 148, 244, 0.15) 0%, transparent 50%),
+          linear-gradient(180deg, rgba(30, 30, 40, 0.6) 0%, rgba(15, 20, 25, 0.9) 100%) !important;
+      }
+
+      .card[data-category="behavior"] {
+        background: 
+          radial-gradient(circle at 100% 0%, rgba(252, 129, 129, 0.15) 0%, transparent 50%),
+          linear-gradient(180deg, rgba(30, 30, 40, 0.6) 0%, rgba(15, 20, 25, 0.9) 100%) !important;
+      }
+
+      .card[data-category="default"],
+      .card:not([data-category]) {
+        background: linear-gradient(180deg, rgba(30, 30, 40, 0.6) 0%, rgba(15, 20, 25, 0.9) 100%) !important;
+      }
+
       /* Interaction: Pressing into glass */
       .card:active {
         transform: scale(0.98);
-        background: rgba(40, 40, 50, 0.8);
       }
 
       /* Remove chevron */
@@ -3077,59 +3054,68 @@
         display: none !important;
       }
 
-      /* 3. Icon Containers — Bioluminescent Glow */
+      /* 3. Icon Containers — Boosted Glow */
       .card-icon {
-        width: 48px;
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 14px;
-        margin-bottom: 4px;
+        width: 48px !important;
+        height: 48px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 14px !important;
+        margin-bottom: 4px !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
       }
 
       .card-icon svg {
-        width: 24px;
-        height: 24px;
-        stroke-width: 2px;
+        width: 32px !important;
+        height: 32px !important;
+        stroke-width: 2.5px !important;
+        stroke-linecap: round;
+        stroke-linejoin: round;
         fill: none;
       }
 
-      /* Medical (Amber) */
+      /* Medical (Amber) — Boosted Bloom */
       .card[data-category="medical"] .card-icon {
-        background: rgba(246, 173, 85, 0.15);
-        border: 1px solid rgba(246, 173, 85, 0.2);
-        border-radius: 14px;
+        background: rgba(246, 173, 85, 0.25) !important;
+        border: 1px solid rgba(246, 173, 85, 0.5) !important;
+        box-shadow: 0 0 20px rgba(246, 173, 85, 0.3) !important;
+        border-radius: 14px !important;
       }
       .card[data-category="medical"] .card-icon svg {
         stroke: #F6AD55 !important;
       }
 
-      /* Location (Teal) */
+      /* Location (Teal) — Boosted Bloom */
       .card[data-category="location"] .card-icon {
-        background: rgba(79, 209, 197, 0.15);
-        border: 1px solid rgba(79, 209, 197, 0.2);
-        border-radius: 14px;
+        background: rgba(79, 209, 197, 0.25) !important;
+        border: 1px solid rgba(79, 209, 197, 0.5) !important;
+        box-shadow: 0 0 20px rgba(79, 209, 197, 0.3) !important;
+        border-radius: 14px !important;
       }
       .card[data-category="location"] .card-icon svg {
         stroke: #4FD1C5 !important;
       }
 
-      /* Emotional (Lavender) */
+      /* Emotional (Lavender) — Boosted Bloom */
       .card[data-category="emotional"] .card-icon {
-        background: rgba(183, 148, 244, 0.15);
-        border: 1px solid rgba(183, 148, 244, 0.2);
-        border-radius: 14px;
+        background: rgba(183, 148, 244, 0.25) !important;
+        border: 1px solid rgba(183, 148, 244, 0.5) !important;
+        box-shadow: 0 0 20px rgba(183, 148, 244, 0.3) !important;
+        border-radius: 14px !important;
       }
       .card[data-category="emotional"] .card-icon svg {
         stroke: #B794F4 !important;
       }
 
-      /* Behavior (Rose) */
+      /* Behavior (Rose) — Boosted Bloom */
       .card[data-category="behavior"] .card-icon {
-        background: rgba(252, 129, 129, 0.15);
-        border: 1px solid rgba(252, 129, 129, 0.2);
-        border-radius: 14px;
+        background: rgba(252, 129, 129, 0.25) !important;
+        border: 1px solid rgba(252, 129, 129, 0.5) !important;
+        box-shadow: 0 0 20px rgba(252, 129, 129, 0.3) !important;
+        border-radius: 14px !important;
       }
       .card[data-category="behavior"] .card-icon svg {
         stroke: #FC8181 !important;
@@ -3166,6 +3152,55 @@
 
       #query::placeholder {
         color: rgba(148, 163, 184, 0.7);
+      }
+
+      /* 5. Search Results — Match Main Grid */
+      #search-suggestions {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 16px !important;
+        padding: 16px 0;
+      }
+
+      #search-suggestions .card {
+        aspect-ratio: 1 / 1;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        padding: 20px;
+        margin-bottom: 0;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      /* Search results inherit category light leak backgrounds */
+      #search-suggestions .card[data-category="medical"] {
+        background: 
+          radial-gradient(circle at 100% 0%, rgba(246, 173, 85, 0.15) 0%, transparent 50%),
+          linear-gradient(180deg, rgba(30, 30, 40, 0.6) 0%, rgba(15, 20, 25, 0.9) 100%) !important;
+      }
+      #search-suggestions .card[data-category="location"] {
+        background: 
+          radial-gradient(circle at 100% 0%, rgba(79, 209, 197, 0.15) 0%, transparent 50%),
+          linear-gradient(180deg, rgba(30, 30, 40, 0.6) 0%, rgba(15, 20, 25, 0.9) 100%) !important;
+      }
+      #search-suggestions .card[data-category="emotional"] {
+        background: 
+          radial-gradient(circle at 100% 0%, rgba(183, 148, 244, 0.15) 0%, transparent 50%),
+          linear-gradient(180deg, rgba(30, 30, 40, 0.6) 0%, rgba(15, 20, 25, 0.9) 100%) !important;
+      }
+      #search-suggestions .card[data-category="behavior"] {
+        background: 
+          radial-gradient(circle at 100% 0%, rgba(252, 129, 129, 0.15) 0%, transparent 50%),
+          linear-gradient(180deg, rgba(30, 30, 40, 0.6) 0%, rgba(15, 20, 25, 0.9) 100%) !important;
       }
     </style>
   </head>
