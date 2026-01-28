@@ -9,7 +9,7 @@
         /* Most common - shown first (6) - EXPANDED COVERAGE */
         refusing_meds: { 
           category: "medical",
-          label: "Refusing meds", sub: "Won't take pills",
+          label: "Won't take medicine", sub: "Won't take pills",
           keywords: ["medication", "pills", "tablets", "medicine", "drugs", "prescription", "dose", "swallow", "spit", "meds", "capsule", "liquid", "syrup", "pharmacy", "chemist", "GP", "doctor"],
           aliases: ["won't take medication", "refusing tablets", "spitting out pills", "hiding medication", "not taking medicine", "refuses to swallow", "won't swallow pills", "spits out tablets", "hiding pills in mouth", "says no to meds", "fighting medication", "won't open mouth for pills", "clamping mouth shut"]
         },
@@ -21,25 +21,25 @@
         },
         asking_mom: { 
           category: "emotional",
-          label: "Asking for mom", sub: "Deceased relative",
+          label: "Asking for someone gone", sub: "Deceased relative",
           keywords: ["mom", "mum", "mother", "dad", "father", "parent", "dead", "deceased", "passed", "gone", "husband", "wife", "spouse", "nan", "grandma", "grandad", "brother", "sister"],
           aliases: ["where's my mum", "wants her mother", "asking for father", "when is mum coming", "I want my mum", "where's mom", "waiting for dad", "when's mum picking me up", "I need my mother", "where's my husband", "have you seen my wife", "asking for dead relative", "wants to see nan"]
         },
         stealing: { 
           category: "behavior",
-          label: "Accusing of stealing", sub: "Items 'missing'",
+          label: "Says I stole something", sub: "Items 'missing'",
           keywords: ["stealing", "stole", "thief", "taken", "missing", "wallet", "money", "purse", "keys", "accuse", "blame", "robbed", "lost", "jewellery", "jewelry", "ring", "watch", "handbag", "bag"],
           aliases: ["says I stole", "accusing me", "thinks I took", "where's my money", "someone stole", "you took my", "things are missing", "keeps saying I stole it", "accusing carers of theft", "blaming me for stealing", "can't find wallet", "purse is missing", "who took my keys", "someone's been in my things", "money has gone"]
         },
         shadowing: { 
           category: "emotional",
-          label: "Following me everywhere", sub: "Following you constantly",
+          label: "Following me around", sub: "Following you constantly",
           keywords: ["following", "shadow", "clingy", "attached", "close", "behind", "everywhere", "stuck", "separation", "anxious", "needy", "dependent"],
           aliases: ["follows me everywhere", "won't let me out of sight", "always behind me", "can't leave them alone", "follows me around", "follows me to the toilet", "follows me to bathroom", "won't stay in room alone", "panics when I leave", "attached to my hip", "can't get any space", "follows room to room"]
         },
         hygiene: { 
           category: "medical",
-          label: "Won't wash / shower", sub: "Won't wash/change",
+          label: "Refusing to wash", sub: "Won't wash/change",
           keywords: ["wash", "bath", "shower", "clean", "hygiene", "smell", "dirty", "change", "clothes", "teeth", "toilet", "bathroom", "loo", "nappy", "diaper", "pad", "incontinence", "wet", "soiled"],
           aliases: ["won't wash", "refusing bath", "won't shower", "hasn't changed clothes", "needs a wash", "refusing to clean", "won't brush teeth", "scared of shower", "afraid of bath", "won't change wet clothes", "sitting in wet pad", "smells bad", "hasn't bathed in days", "refuses personal care", "won't let me wash them"]
         },
@@ -52,37 +52,37 @@
         },
         wont_eat: { 
           category: "medical",
-          label: "Won't eat", sub: "Refusing food/drink",
+          label: "Won't eat or drink", sub: "Refusing food/drink",
           keywords: ["eat", "food", "drink", "hungry", "meal", "appetite", "swallow", "chew", "water", "tea", "coffee", "breakfast", "lunch", "dinner", "snack", "thirsty", "dehydrated", "weight"],
           aliases: ["not eating", "refusing food", "won't drink", "no appetite", "stopped eating", "pushing food away", "spitting food out", "won't open mouth", "not drinking enough", "losing weight", "barely eating", "picks at food", "won't touch meals", "refusing tea", "dehydrated"]
         },
         repetitive: { 
           category: "behavior",
-          label: "Keeps asking same thing", sub: "Asking same thing",
+          label: "Asking the same thing", sub: "Asking same thing",
           keywords: ["repeat", "again", "same", "question", "asking", "over", "loop", "constant", "broken", "record", "endless", "nonstop", "obsessive", "stuck"],
           aliases: ["asking same thing", "keeps repeating", "same question", "over and over", "asks constantly", "broken record", "asked this already", "keeps asking same thing", "won't stop asking", "repetitive questions", "stuck in a loop", "asks every five minutes", "endless questions"]
         },
         aggression: { 
           category: "behavior",
-          label: "Aggression", sub: "Shouting / hitting / throwing things",
+          label: "Getting aggressive", sub: "Shouting / hitting / throwing things",
           keywords: ["aggressive", "hitting", "shouting", "angry", "violent", "punch", "kick", "yelling", "attack", "slap", "bite", "scratch", "push", "shove", "grab", "rage", "fury", "temper"],
           aliases: ["being aggressive", "hit me", "shouting at me", "getting violent", "lashing out", "tried to punch me", "kicked me", "grabbed my arm", "scratched me", "bit me", "pushed me away", "screaming at me", "flew into a rage", "lost their temper", "threatening behaviour"]
         },
         sleep: { 
           category: "medical",
-          label: "Sleep problems", sub: "Up at night",
+          label: "Can't sleep", sub: "Up at night",
           keywords: ["sleep", "night", "awake", "insomnia", "tired", "bed", "rest", "waking", "wandering", "nocturnal", "disturbed", "exhausted", "morning", "routine", "nap", "daytime"],
           aliases: ["can't sleep", "up all night", "won't go to bed", "waking up", "not sleeping", "wandering at night", "awake at 3am", "thinks it's morning", "sleeping all day", "day night reversed", "exhausted but won't sleep", "gets up repeatedly", "disturbed sleep pattern", "night time wandering"]
         },
         lost: { 
           category: "location",
-          label: "Lost / confused", sub: "Doesn't recognise place",
+          label: "Doesn't know where they are", sub: "Doesn't recognise place",
           keywords: ["lost", "confused", "where", "recognise", "place", "room", "house", "disoriented"],
           aliases: ["doesn't know where", "seems lost", "very confused", "doesn't recognise"]
         },
         wandering: { 
           category: "location",
-          label: "Wandering", sub: "Trying to leave",
+          label: "Trying to leave", sub: "Trying to leave",
           keywords: ["wander", "walk", "leave", "door", "outside", "escape", "exit", "roam", "pacing", "restless", "garden", "street", "lost", "front", "back", "gate", "key", "lock"],
           aliases: ["trying to leave", "at the door", "wants to go outside", "keeps wandering", "walking around", "trying to get out", "pacing up and down", "found at front door", "went out the back", "escaped from house", "wandered off", "walking the streets", "let themselves out", "keeps trying door handle", "looking for way out"]
         },
@@ -94,25 +94,25 @@
         },
         undressing: { 
           category: "behavior",
-          label: "Undressing", sub: "Removing clothes",
+          label: "Taking clothes off", sub: "Removing clothes",
           keywords: ["undress", "naked", "clothes", "strip", "remove", "taking off"],
           aliases: ["taking clothes off", "getting undressed", "removing clothes", "keeps undressing"]
         },
         rummaging: { 
           category: "behavior",
-          label: "Rummaging", sub: "Going through drawers",
+          label: "Going through things", sub: "Going through drawers",
           keywords: ["rummage", "drawer", "cupboard", "search", "through", "looking", "mess"],
           aliases: ["going through drawers", "searching cupboards", "making a mess", "rummaging around"]
         },
         hoarding: { 
           category: "behavior",
-          label: "Hoarding", sub: "Collecting / keeping things",
+          label: "Collecting or hoarding", sub: "Collecting / keeping things",
           keywords: ["hoard", "collect", "keep", "save", "pile", "stuff", "junk", "rubbish"],
           aliases: ["collecting things", "won't throw away", "keeping everything", "piling up stuff"]
         },
         crying: { 
           category: "emotional",
-          label: "Crying / tearful", sub: "Upset for no clear reason",
+          label: "Upset or crying", sub: "Upset for no clear reason",
           keywords: ["crying", "tears", "upset", "sad", "weeping", "emotional", "distressed"],
           aliases: ["keeps crying", "very upset", "tearful", "crying for no reason", "emotionally distressed"]
         },
@@ -124,25 +124,25 @@
         },
         refusing_help: { 
           category: "behavior",
-          label: "Refusing help", sub: "Won't accept care",
+          label: "Won't let me help", sub: "Won't accept care",
           keywords: ["help", "refuse", "care", "assist", "support", "independent", "stubborn"],
           aliases: ["won't accept help", "refuses care", "pushes me away", "doesn't want help"]
         },
         paranoid: { 
           category: "behavior",
-          label: "Suspicious / worried", sub: "Worried about others",
+          label: "Thinks people are against them", sub: "Worried about others",
           keywords: ["paranoid", "suspicious", "trust", "people", "watching", "spy", "conspiracy", "poison", "plotting", "neighbour", "neighbor", "carer", "staff", "delusion", "persecuted", "threatened"],
           aliases: ["very suspicious", "doesn't trust", "thinks people are watching", "paranoid thoughts", "thinks I'm poisoning food", "says neighbours are spying", "accuses staff of plotting", "doesn't trust anyone", "thinks people want to hurt them", "suspicious of carers", "feels persecuted", "convinced someone is after them", "paranoid about visitors"]
         },
         hallucinations: { 
           category: "behavior",
-          label: "Seeing things", sub: "Things that aren't there",
+          label: "Seeing or hearing things", sub: "Things that aren't there",
           keywords: ["seeing", "hallucination", "vision", "people", "things", "imaginary", "hear", "voices", "children", "intruders", "strangers", "animals", "bugs", "insects", "dead", "deceased", "ghost", "shadow"],
           aliases: ["seeing things", "hearing voices", "people that aren't there", "hallucinating", "sees children in the room", "talking to dead relatives", "sees intruders", "thinks there are strangers here", "seeing animals", "bugs on the wall", "sees shadows moving", "talking to people who aren't there", "says someone is in the house", "visual hallucinations"]
         },
         inappropriate: { 
           category: "behavior",
-          label: "Inappropriate behaviour", sub: "Saying unexpected things",
+          label: "Saying inappropriate things", sub: "Saying unexpected things",
           keywords: ["inappropriate", "rude", "sexual", "comments", "embarrassing", "awkward", "offensive"],
           aliases: ["saying inappropriate things", "rude comments", "embarrassing behaviour", "sexual comments"]
         },
@@ -154,7 +154,7 @@
         },
         forgot_face: { 
           category: "location",
-          label: "Doesn't know me", sub: "Forgotten who you are",
+          label: "Doesn't recognise me", sub: "Forgotten who you are",
           keywords: ["know", "recognise", "who", "face", "forget", "stranger", "remember"],
           aliases: ["doesn't recognise me", "forgot who I am", "thinks I'm a stranger", "doesn't know who I am"]
         },
@@ -169,7 +169,7 @@
       };
 
       const CRISIS_DECKS = {
-        refusing_meds:{ title:"Refusing meds", steps:[
+        refusing_meds:{ title:"Won't take medicine", steps:[
           { say:"It's okay. We don't have to do this right now.", do:"Take the pressure off. Relax your shoulders. Speak slowly." },
           { say:"Can we take a sip of water first, then decide?", do:"Offer one tiny first step. Give two choices: water or tea." },
           { say:"Would you like to take it with me, or would you prefer later?", do:"Give two acceptable options. No demands or pressure." },
@@ -181,25 +181,25 @@
           { say:"Shall we have a cup of tea first, then we'll decide?", do:"Use a short delay + familiar ritual. Keep it calm and simple." },
           { say:"You're safe with me. We'll sort it together.", do:"Close with safety + togetherness. Reduce stimulation." }
         ]},
-        asking_mom:{ title:"Asking for mom", steps:[
+        asking_mom:{ title:"Asking for someone gone", steps:[
           { say:"You miss her. Tell me about her.", do:"Join the emotion. Don't correct facts." },
           { say:"What would she want you to do right now?", do:"Redirect toward a safe action (sit, tea, photo, music)." },
           { say:"Let’s do something that would make her proud.", do:"Small task: fold towel, water plant, look at album." },
           { say:"I’m here with you. You’re not on your own.", do:"Close with reassurance and presence." }
         ]},
-        stealing:{ title:"Accusing of stealing", steps:[
+        stealing:{ title:"Says I stole something", steps:[
           { say:"That sounds really worrying. Let’s look together.", do:"Validate. Avoid defending yourself or debating." },
           { say:"Where did you last remember seeing it?", do:"Turn it into a shared search with gentle questions." },
           { say:"Let’s check the usual safe places first.", do:"Go to 2–3 common spots only. Keep pace slow." },
           { say:"If it's not here, we'll leave it and try again later.", do:"Close without correcting them. Offer a calming reset." }
         ]},
-        shadowing:{ title:"Following me everywhere", steps:[
+        shadowing:{ title:"Following me around", steps:[
           { say:"You're okay. I'm here. Let's do this together.", do:"Reassure first. Keep tone warm, not hurried." },
           { say:"Could you sit here? I have a job for you.", do:"Give a small task: hold a towel, watch the kettle, fold a cloth." },
           { say:"I'll be back in two minutes. Watch the timer for me.", do:"Use a timer and make a clear promise. Come back when you promised." },
           { say:"Thank you. You did great helping me.", do:"Praise the helper role. Repeat predictable routine." }
         ]},
-        hygiene:{ title:"Won't wash / shower", steps:[
+        hygiene:{ title:"Refusing to wash", steps:[
           { say:"No problem. We can do this gently.", do:"Remove pressure. No demands." },
           { say:"Would you like a warm cloth wash instead of a full wash?", do:"Offer a smaller option: face/hands first." },
           { say:"Do you want the bathroom warmer, or a towel warmed?", do:"Fix discomfort triggers: cold room, lighting, privacy." },
@@ -211,37 +211,37 @@
           { say:"Would you like to sit with me for a bit?", do:"Gentle distraction: music, photo, simple activity." },
           { say:"You're safe. We'll get through the evening together.", do:"Stay calm. Predictable routine helps." }
         ]},
-        wont_eat:{ title:"Won't eat", steps:[
+        wont_eat:{ title:"Won't eat or drink", steps:[
           { say:"That's okay. No rush. We can try again later.", do:"Don't force. Remove pressure around mealtimes." },
           { say:"Would you like something small? Just a few bites?", do:"Offer finger foods, small portions, favourite tastes." },
           { say:"Let's sit together while I have mine.", do:"Eating together can encourage. Keep it social." },
           { say:"You did well. We'll have more later if you want.", do:"Praise any attempt. Make a quiet note for later." }
         ]},
-        repetitive:{ title:"Keeps asking same thing", steps:[
+        repetitive:{ title:"Asking the same thing", steps:[
           { say:"That's a good question. Let me help.", do:"Answer as if it's the first time. Stay patient." },
           { say:"I'll write it down so we can check.", do:"Use a whiteboard or note to point to." },
           { say:"Let's do something together while we wait.", do:"Redirect to a simple activity or task." },
           { say:"I'm here. We're okay.", do:"Reassurance is what they need, not facts." }
         ]},
-        aggression:{ title:"Aggression", steps:[
+        aggression:{ title:"Getting aggressive", steps:[
           { say:"I can see you're upset. I'm going to step back.", do:"Give space. Don't corner or crowd them." },
           { say:"You're safe. I'm here.", do:"Speak slowly. Sit down only if you can get up easily." },
           { say:"Let's take a breath together.", do:"Breathe slowly yourself. Wait for them to calm down." },
           { say:"Thank you. Let's sit down when you're ready.", do:"Don't hold grudges. Reset and move forward." }
         ]},
-        sleep:{ title:"Sleep problems", steps:[
+        sleep:{ title:"Can't sleep", steps:[
           { say:"Can't sleep? That's okay. Let's sit quietly.", do:"Don't argue about time. Join them calmly." },
           { say:"Would you like a warm drink or the radio on?", do:"Offer comfort. Dim lights. Keep voice soft." },
           { say:"We can rest here together for a bit.", do:"Don't force bed. Sitting nearby is fine." },
           { say:"You're safe. I'll be here if you need me.", do:"Reassure and let natural tiredness come." }
         ]},
-        lost:{ title:"Lost / confused", steps:[
+        lost:{ title:"Doesn't know where they are", steps:[
           { say:"You're safe with me.", do:"State location simply. Don't quiz or test them." },
           { say:"This is the kitchen.", do:"Point to familiar objects." },
           { say:"Let's go to your chair / your room.", do:"Guide to a familiar, comfortable spot." },
           { say:"You're safe with me.", do:"Reassurance matters more than facts." }
         ]},
-        wandering:{ title:"Wandering", steps:[
+        wandering:{ title:"Trying to leave", steps:[
           { say:"Where are we going? I'll walk with you.", do:"Don't block or grab. Walk alongside calmly." },
           { say:"Let's check together. What are you looking for?", do:"Make it a shared mission, not a confrontation." },
           { say:"It's cold/dark out there. Let's get a cup of tea first.", do:"Offer distraction before they reach the door." },
@@ -253,25 +253,25 @@
           { say:"Let's keep it safe together.", do:"Create a safe place for important items." },
           { say:"Thank you for showing me.", do:"Don't make it a big deal. Note the hiding spots." }
         ]},
-        undressing:{ title:"Undressing", steps:[
+        undressing:{ title:"Taking clothes off", steps:[
           { say:"Are you feeling too warm?", do:"Check temperature, clothing comfort, toileting needs." },
           { say:"Let's find something more comfortable.", do:"Offer loose, easy clothes they can manage." },
           { say:"Here. This will feel better.", do:"Redirect with a soft blanket or familiar item." },
           { say:"You're okay. Let's get comfy.", do:"Cover them gently. Move to a private room." }
         ]},
-        rummaging:{ title:"Rummaging", steps:[
+        rummaging:{ title:"Going through things", steps:[
           { say:"What are you looking for? I can help.", do:"Join in rather than stopping them." },
           { say:"Let's check this drawer together.", do:"Redirect to a drawer with harmless items." },
           { say:"I've put some things here for you to sort.", do:"Create a rummage box with safe objects." },
           { say:"Thank you for tidying.", do:"Make it purposeful. Praise their effort." }
         ]},
-        hoarding:{ title:"Hoarding", steps:[
+        hoarding:{ title:"Collecting or hoarding", steps:[
           { say:"That looks important. Tell me about it.", do:"Don't throw things away now." },
           { say:"Shall we find a special place for these?", do:"Offer a box or bag to keep things safe." },
           { say:"Let's sort through together when you're ready.", do:"Remove items gradually, not all at once." },
           { say:"You've got some lovely things here.", do:"Validate their attachment. Be patient." }
         ]},
-        crying:{ title:"Crying / tearful", steps:[
+        crying:{ title:"Upset or crying", steps:[
           { say:"I can see you're upset. I'm here.", do:"Sit close. Don't rush to fix or explain." },
           { say:"It's okay to feel this way.", do:"Validate the emotion even if cause is unclear." },
           { say:"Would you like a hug / hand to hold?", do:"Offer comfort. Physical touch if welcome." },
@@ -283,25 +283,25 @@
           { say:"The bathroom's ready when you are.", do:"Give a gentle reason to move, not an order." },
           { say:"Let's just sit up for a bit.", do:"Small steps. Sitting up is progress." }
         ]},
-        refusing_help:{ title:"Refusing help", steps:[
+        refusing_help:{ title:"Won't let me help", steps:[
           { say:"That's okay. I'll be right over here.", do:"Step back. Don't argue or insist." },
           { say:"I'll be nearby if you change your mind.", do:"Give them space but stay available." },
           { say:"Can I help with just this one thing?", do:"Offer help with one tiny task only." },
           { say:"You're doing well. Let me know if you need me.", do:"Praise independence. Try again later." }
         ]},
-        paranoid:{ title:"Suspicious / worried", steps:[
+        paranoid:{ title:"Thinks people are against them", steps:[
           { say:"That sounds frightening. Tell me more.", do:"Listen without dismissing or arguing." },
           { say:"I can see why you're worried.", do:"Validate the feeling, not the belief." },
           { say:"Let's check together. I'll stay with you.", do:"Offer to investigate. Be their ally." },
           { say:"You're safe with me. I'm staying right here.", do:"Reassure. Reduce stimulation." }
         ]},
-        hallucinations:{ title:"Seeing things", steps:[
+        hallucinations:{ title:"Seeing or hearing things", steps:[
           { say:"What can you see? Tell me about it.", do:"Stay calm. Don't argue or dismiss." },
           { say:"That must feel strange.", do:"Acknowledge their experience is real to them." },
           { say:"Let's turn on more lights / move rooms.", do:"Change environment. Reduce shadows." },
           { say:"I'm here with you. You're safe with me.", do:"Reassure. Don't pretend to see it too." }
         ]},
-        inappropriate:{ title:"Inappropriate behaviour", steps:[
+        inappropriate:{ title:"Saying inappropriate things", steps:[
           { say:"Let's talk about something else.", do:"Redirect calmly. Don't shame or scold." },
           { say:"I know you don't mean to upset anyone.", do:"Assume good intent. They may not understand." },
           { say:"Come with me. I need your help.", do:"Move them away from the situation." },
@@ -313,7 +313,7 @@
           { say:"Let's just put this on for now.", do:"One item at a time. Start with easiest piece." },
           { say:"You look comfortable.", do:"Praise any progress. Comfort over perfection." }
         ]},
-        forgot_face:{ title:"Doesn't know me", steps:[
+        forgot_face:{ title:"Doesn't recognise me", steps:[
           { say:"Hello. I'm here to help you.", do:"Avoid testing their memory. Stay calm." },
           { say:"I'm here to help you. You're safe with me.", do:"Reassure with warmth, not facts." },
           { say:"Let me show you some photos.", do:"Pictures may help. Don't quiz or test." },
@@ -329,54 +329,54 @@
 
       const URGENT_ITEMS = [
         { 
-          key:"unresponsive", category:"medical", label:"Unresponsive", sub:"Won't wake up",
+          key:"unresponsive", category:"medical", label:"Won't wake up", sub:"Won't wake up",
           keywords: ["unresponsive", "unconscious", "wake", "passed", "out", "fainted", "collapsed", "limp", "floppy", "not", "responding", "lifeless", "coma", "blackout", "knocked"],
           aliases: ["won't wake up", "passed out", "collapsed on floor", "not responding", "can't wake them", "fainted", "found unconscious", "not moving", "completely limp", "blacked out", "knocked out", "won't respond to voice", "eyes won't open"]
         },
         { 
-          key:"breathing", category:"medical", label:"Breathing trouble", sub:"Gasping / Choking",
+          key:"breathing", category:"medical", label:"Trouble breathing", sub:"Gasping / Choking",
           keywords: ["breathing", "breath", "choking", "choke", "gasp", "wheeze", "cough", "airway", "blue", "lips", "oxygen", "struggling", "suffocate", "throat", "swallow", "aspirate"],
           aliases: ["can't breathe", "struggling to breathe", "choking on food", "gasping for air", "gone blue", "lips are blue", "wheezing badly", "food stuck in throat", "trouble breathing", "short of breath", "breathing problems", "not breathing properly", "coughing and choking"]
         },
         { 
-          key:"stroke", category:"medical", label:"Stroke signs", sub:"Face, Arms, Speech",
+          key:"stroke", category:"medical", label:"Could be a stroke", sub:"Face, Arms, Speech",
           keywords: ["stroke", "face", "droop", "arm", "weak", "speech", "slur", "fast", "paralysis", "numbness", "side", "dizzy", "sudden", "confusion", "vision", "headache"],
           aliases: ["face drooping", "arm weakness", "slurred speech", "think it's a stroke", "can't lift arm", "face looks different", "one side weak", "sudden confusion", "FAST signs", "can't speak properly", "words not making sense", "stroke symptoms"]
         },
         { 
-          key:"fall", category:"medical", label:"Bad fall", sub:"Head injury / Pain",
+          key:"fall", category:"medical", label:"Had a fall", sub:"Head injury / Pain",
           keywords: ["fall", "fell", "fallen", "head", "injury", "hurt", "pain", "hip", "fracture", "broken", "bleeding", "bump", "bruise", "floor", "stairs", "trip"],
           aliases: ["had a fall", "fell over", "hit their head", "fallen on floor", "can't get up after fall", "hurt after falling", "fell down stairs", "tripped and fell", "banged their head", "bleeding from fall", "possible fracture", "fell out of bed", "found on floor"]
         },
         { 
-          key:"general_emergency", category:"medical", label:"Something feels seriously wrong", sub:"Need immediate help",
+          key:"general_emergency", category:"medical", label:"Something feels wrong", sub:"Need immediate help",
           keywords: ["emergency", "urgent", "ambulance", "danger", "unsafe", "serious", "help", "critical", "dying", "999", "112", "911"],
           aliases: ["need ambulance", "call ambulance", "this is an emergency", "urgent help now", "immediate danger", "something is seriously wrong", "can't cope", "can't handle this", "need help now", "feels very wrong", "i think they're dying"]
         }
       ];
 
       const URGENT_DECKS = {
-        unresponsive:{ title:"Unresponsive", steps:[
+        unresponsive:{ title:"Won't wake up", steps:[
           { say:null, do:"Call {EMERGENCY} now. Put phone on speaker. Follow operator instructions." },
           { say:null, do:"Check breathing. If not breathing normally, start CPR. If you're unsure, the {EMERGENCY} operator will tell you what to do." },
           { say:null, do:"If breathing, place in recovery position. Keep warm. Stay with them until help arrives." }
         ]},
-        breathing:{ title:"Breathing trouble", steps:[
+        breathing:{ title:"Trouble breathing", steps:[
           { say:null, do:"If they can't speak or breathe, call {EMERGENCY} now. If you're worried at all, call {EMERGENCY} now. If they're coughing, let them cough." },
           { say:"I'm here with you. You're not alone.", do:"Help them sit upright. Loosen tight clothing. Open a window." },
           { say:null, do:"If they're still struggling to breathe, call {EMERGENCY} now. If you're unsure what to do, call for medical advice." }
         ]},
-        stroke:{ title:"Stroke signs", steps:[
+        stroke:{ title:"Could be a stroke", steps:[
           { say:null, do:"Call {EMERGENCY} immediately. Note the time symptoms started." },
           { say:null, do:"Check FAST: Face drooping? Arm weak? Speech slurred? Call {EMERGENCY} now." },
           { say:"I'm here. Help is coming. Stay still.", do:"Do not give food or drink. Stay with them until help arrives." }
         ]},
-        fall:{ title:"Bad fall", steps:[
+        fall:{ title:"Had a fall", steps:[
           { say:"Don't try to move. I'm going to help you.", do:"If they hit their head, are bleeding, can't move, or you're worried at all, call {EMERGENCY} now." },
           { say:"Take your time. There's no rush.", do:"Check for pain, bleeding, alertness. Keep them warm and still." },
           { say:null, do:"If you're unsure what to do, call for medical advice. If they get worse at any point, call {EMERGENCY} now." }
         ]},
-        general_emergency:{ title:"Something feels seriously wrong", steps:[
+        general_emergency:{ title:"Something feels wrong", steps:[
           { say:null, do:"Trust your instincts. If something feels seriously wrong, call {EMERGENCY} now." },
           { say:"I'm here with you. Help is on the way.", do:"Keep them warm and still. Talk calmly. Note any symptoms." },
           { say:null, do:"You're doing the right thing. It's always OK to call for help." }
@@ -468,8 +468,8 @@
         // Hand reaching
         stealing: `<svg viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v1"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v6"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8V6"/></svg>`,
         
-        // Person silhouette
-        shadowing: `<svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a8.5 8.5 0 0 1 13 0"/></svg>`,
+        // Footprints
+        shadowing: `<svg viewBox="0 0 24 24"><circle cx="7" cy="6" r="2"/><circle cx="17" cy="10" r="2"/><path d="M6 8v5"/><path d="M18 12v5"/><path d="M4 18c0 1.5 1.2 2.5 3 2.5"/><path d="M16 20c0 1.5 1.2 2.5 3 2.5"/></svg>`,
         
         // Water droplet
         hygiene: `<svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`,
@@ -754,7 +754,7 @@
           return;
         }
         
-        container.style.display = "flex";
+        container.style.display = "grid";
         homeSection.style.display = "none";
         
         // XSS-safe: use createElement + textContent instead of innerHTML
@@ -805,7 +805,7 @@
 
       function handleSearchInput(e){
         const query = e.target.value;
-        if(query.trim().length === 0){
+        if(query.trim().length < 2){
           renderSuggestions([]);
         } else {
           const results = searchSituations(query);
@@ -970,6 +970,7 @@
 
       function toggleStepdown(show){
         const el = document.getElementById("stepdown-overlay");
+        const appContent = document.getElementById("app-content");
         if(!el) return;
         
         if(show) pushOverlayState();
@@ -983,6 +984,9 @@
         el.setAttribute("aria-hidden", show ? "false" : "true");
         updateBodyLock();
         if(show) document.getElementById("stepdown-close")?.focus();
+        if(appContent){
+          appContent.classList.toggle("dashboard-exit", !!show);
+        }
         
         // Check after toggle if we should clear history state
         if(!show && !hasAnyOverlayOpen()) clearOverlayState();

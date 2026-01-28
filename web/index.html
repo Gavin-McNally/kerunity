@@ -3182,9 +3182,9 @@
 
       /* 5. Search Results — Match Main Grid */
       #search-suggestions {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 16px !important;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
         padding: 16px 0;
       }
 
@@ -3406,6 +3406,88 @@
 
       .search-container .mic-btn {
         color: #94A3B8 !important;
+      }
+
+      /* 7. Tactile press — glass cards */
+      .card {
+        transform-origin: center;
+        transform: translateZ(0);
+        transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+
+      .card:active {
+        transform: scale(0.96) translateZ(0) !important;
+        border-color: rgba(255, 255, 255, 0.8) !important;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.15) !important;
+      }
+
+      /* 8. HUD Boot — crystallize entrance */
+      @keyframes hud-boot {
+        0% {
+          opacity: 0;
+          transform: translateY(20px) scale(0.98);
+          filter: blur(10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+          filter: blur(0);
+        }
+      }
+
+      header,
+      #top-nav,
+      #hero-text {
+        animation: hud-boot 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
+        opacity: 0;
+      }
+
+      .search-container,
+      #search-container {
+        animation: hud-boot 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
+        animation-delay: 0.1s;
+        opacity: 0;
+      }
+
+      .card {
+        animation: hud-boot 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
+        animation-delay: 0.2s;
+        opacity: 0;
+      }
+
+      /* 9. Depth transition — dashboard recedes */
+      #app-content {
+        transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+      }
+
+      #app-content.dashboard-exit {
+        transform: scale(0.95);
+        opacity: 0;
+        filter: blur(5px);
+      }
+
+      @keyframes depth-in {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+          filter: blur(5px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+          filter: blur(0);
+        }
+      }
+
+      .stepdown-screen {
+        transition: none !important;
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(5px);
+      }
+
+      .stepdown-backdrop.active .stepdown-screen {
+        animation: depth-in 0.4s ease forwards;
       }
 
       /* Everything else scrolls naturally */
