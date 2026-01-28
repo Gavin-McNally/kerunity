@@ -10,6 +10,14 @@ You MUST read `KERUNITY_SPEC.md` and `DESIGN_SYSTEM_Midnight_Glass_v1.2.md` befo
 
 ## Hard Rules
 
+## Design Iteration Mode
+
+When Gavin says "design iteration" or provides new CSS values directly in a prompt:
+- Use the values from the prompt, NOT the locked design system
+- Do not "correct" colors to match existing spec
+- The prompt values are intentional experiments
+- Once approved, Gavin will update the spec separately
+
 ### Design System — Midnight Glass
 - Follow the Midnight Glass design system exactly
 - Use void backgrounds (`#050508`) with radial gradient ambient lighting
@@ -64,6 +72,31 @@ You MUST read `KERUNITY_SPEC.md` and `DESIGN_SYSTEM_Midnight_Glass_v1.2.md` befo
 - No panic language
 - No clinical tone
 - Use "Kerunity" (not "KerUnity")
+
+## Development Workflow
+
+When making UI changes:
+
+1. **Make the change** - Edit the code as requested
+2. **Verify visually** - Use agent-browser to check the result:
+```bash
+   agent-browser open http://localhost:5173
+   agent-browser screenshot verify.png
+```
+3. **Analyze the screenshot** - Describe what you see. Does it match the expected outcome?
+4. **If broken** - Debug and fix before reporting back to me
+5. **If working** - Report success with a summary of what changed
+
+Do NOT report back to me until you have visually verified the changes work. If the dev server isn't running, ask me to start it.
+
+## Browser Automation
+
+Use `agent-browser` for visual verification:
+- `agent-browser open <url>` - Navigate to page
+- `agent-browser screenshot <filename>` - Capture current state
+- `agent-browser snapshot -i` - Get interactive elements
+
+Always take a screenshot after UI changes to verify they worked.
 
 ---
 
