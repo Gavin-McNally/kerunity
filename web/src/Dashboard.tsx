@@ -62,7 +62,7 @@ export default function Dashboard() {
               <circle cx="11" cy="11" r="7" />
               <path d="M21 21l-4.35-4.35" />
             </svg>
-            <input id="query" type="text" className="search-input" placeholder="Search situations" />
+            <input id="query" type="text" className="search-input" placeholder="Search situations" autoComplete="off" />
             <button id="mic-btn" className="mic-btn" type="button" aria-label="Speak">
               <svg viewBox="0 0 24 24" className="mic-icon mic-icon-svg" aria-hidden="true">
                 <rect x="9" y="2" width="6" height="12" rx="3" />

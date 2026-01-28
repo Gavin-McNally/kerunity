@@ -2534,14 +2534,18 @@
 
       /* 11. Hero Title - Pearlescent White */
       .hero-title {
-        background: linear-gradient(90deg, #FFFFFF 0%, #FFE4B5 100%) !important;
-        -webkit-background-clip: text !important;
-        -webkit-text-fill-color: transparent !important;
-        background-clip: text !important;
-        display: inline-block !important;
+        background: none !important;
+        -webkit-background-clip: unset !important;
+        -webkit-text-fill-color: unset !important;
+        background-clip: unset !important;
+        color: #FFFFFF !important;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
       }
       .hero-soft {
-        -webkit-text-fill-color: rgba(255, 255, 255, 0.9) !important;
+        color: rgba(255, 255, 255, 0.85) !important;
+        -webkit-text-fill-color: rgba(255, 255, 255, 0.85) !important;
         background: none !important;
       }
       .safety-note {
@@ -3069,12 +3073,13 @@
       }
 
       .card-icon svg {
-        width: 32px !important;
-        height: 32px !important;
+        width: 28px !important;
+        height: 28px !important;
         stroke-width: 2.5px !important;
         stroke-linecap: round;
         stroke-linejoin: round;
         fill: none;
+        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.4));
       }
 
       /* Medical (Amber) — Boosted Bloom */
@@ -3129,29 +3134,50 @@
 
       /* Typography */
       .card-title {
-        color: #FFFFFF;
+        color: #FFFFFF !important;
         font-size: 16px;
-        font-weight: 600;
-        letter-spacing: 0.3px;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        font-weight: 700 !important;
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
       }
 
       .card-subtitle {
-        color: #94A3B8;
+        color: #CBD5E1 !important;
         font-size: 13px;
-        font-weight: 400;
+        font-weight: 500;
       }
 
       /* 4. Search Bar — Glass Pill */
+      /* Search Bar — Glass Pill */
+      .search-container {
+        background: rgba(30, 41, 59, 0.6) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        border-radius: 99px !important;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+        display: flex !important;
+        align-items: center !important;
+        padding: 0 16px !important;
+      }
+
       #query {
-        background: rgba(30, 41, 59, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 99px;
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+        color: #FFFFFF !important;
+        font-size: 16px;
+        width: 100%;
       }
 
       #query::placeholder {
         color: rgba(148, 163, 184, 0.7);
+      }
+
+      #query:focus {
+        outline: none !important;
+        box-shadow: none !important;
       }
 
       /* 5. Search Results — Match Main Grid */
@@ -3202,6 +3228,35 @@
           radial-gradient(circle at 100% 0%, rgba(252, 129, 129, 0.15) 0%, transparent 50%),
           linear-gradient(180deg, rgba(30, 30, 40, 0.6) 0%, rgba(15, 20, 25, 0.9) 100%) !important;
       }
+
+      /* Search result icon containers */
+      #search-suggestions .card-icon {
+        border-radius: 14px !important;
+      }
+
+      #search-suggestions .card[data-category="medical"] .card-icon {
+        background: rgba(246, 173, 85, 0.25) !important;
+        border: 1px solid rgba(246, 173, 85, 0.5) !important;
+        box-shadow: 0 0 20px rgba(246, 173, 85, 0.3) !important;
+      }
+
+      #search-suggestions .card[data-category="location"] .card-icon {
+        background: rgba(79, 209, 197, 0.25) !important;
+        border: 1px solid rgba(79, 209, 197, 0.5) !important;
+        box-shadow: 0 0 20px rgba(79, 209, 197, 0.3) !important;
+      }
+
+      #search-suggestions .card[data-category="emotional"] .card-icon {
+        background: rgba(183, 148, 244, 0.25) !important;
+        border: 1px solid rgba(183, 148, 244, 0.5) !important;
+        box-shadow: 0 0 20px rgba(183, 148, 244, 0.3) !important;
+      }
+
+      #search-suggestions .card[data-category="behavior"] .card-icon {
+        background: rgba(252, 129, 129, 0.25) !important;
+        border: 1px solid rgba(252, 129, 129, 0.5) !important;
+        box-shadow: 0 0 20px rgba(252, 129, 129, 0.3) !important;
+      }
     </style>
   </head>
 
@@ -3251,7 +3306,7 @@
 
           <div class="search-container">
             <svg viewBox="0 0 24 24" class="search-icon search-icon-svg" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
-            <input id="query" type="text" class="search-input" placeholder="Search situations">
+            <input id="query" type="text" class="search-input" placeholder="Search situations" autocomplete="off">
             <button id="mic-btn" class="mic-btn" type="button" aria-label="Speak">
               <svg viewBox="0 0 24 24" class="mic-icon mic-icon-svg" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 18v4"/><path d="M8 22h8"/></svg>
             </button>
