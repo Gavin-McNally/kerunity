@@ -7,134 +7,160 @@
 
       const DATA = {
         /* Most common - shown first (6) - EXPANDED COVERAGE */
-        refusing_meds: { category: "medical",
+        refusing_meds: { 
+          category: "medical",
           label: "Refusing meds", sub: "Won't take pills",
           keywords: ["medication", "pills", "tablets", "medicine", "drugs", "prescription", "dose", "swallow", "spit", "meds", "capsule", "liquid", "syrup", "pharmacy", "chemist", "GP", "doctor"],
           aliases: ["won't take medication", "refusing tablets", "spitting out pills", "hiding medication", "not taking medicine", "refuses to swallow", "won't swallow pills", "spits out tablets", "hiding pills in mouth", "says no to meds", "fighting medication", "won't open mouth for pills", "clamping mouth shut"]
         },
-        wants_home: { category: "location",
+        wants_home: { 
+          category: "location",
           label: "Wants to go home", sub: "Confused about location",
           keywords: ["home", "leave", "go", "house", "back", "where", "lost", "place", "live", "bus", "taxi", "car", "door", "outside", "family", "parents", "childhood"],
           aliases: ["wants to leave", "going home", "take me home", "where do I live", "this isn't my house", "I want to go", "not my home", "need to get the bus", "waiting for a taxi", "when can I go home", "I don't live here", "where's my house", "wants to see parents", "going back to childhood home", "doesn't recognise house"]
         },
-        asking_mom: { category: "emotional",
+        asking_mom: { 
+          category: "emotional",
           label: "Asking for mom", sub: "Deceased relative",
           keywords: ["mom", "mum", "mother", "dad", "father", "parent", "dead", "deceased", "passed", "gone", "husband", "wife", "spouse", "nan", "grandma", "grandad", "brother", "sister"],
           aliases: ["where's my mum", "wants her mother", "asking for father", "when is mum coming", "I want my mum", "where's mom", "waiting for dad", "when's mum picking me up", "I need my mother", "where's my husband", "have you seen my wife", "asking for dead relative", "wants to see nan"]
         },
-        stealing: { category: "behavior",
+        stealing: { 
+          category: "behavior",
           label: "Accusing of stealing", sub: "Items 'missing'",
           keywords: ["stealing", "stole", "thief", "taken", "missing", "wallet", "money", "purse", "keys", "accuse", "blame", "robbed", "lost", "jewellery", "jewelry", "ring", "watch", "handbag", "bag"],
           aliases: ["says I stole", "accusing me", "thinks I took", "where's my money", "someone stole", "you took my", "things are missing", "keeps saying I stole it", "accusing carers of theft", "blaming me for stealing", "can't find wallet", "purse is missing", "who took my keys", "someone's been in my things", "money has gone"]
         },
-        shadowing: { category: "emotional",
+        shadowing: { 
+          category: "behavior",
           label: "Shadowing", sub: "Following you constantly",
           keywords: ["following", "shadow", "clingy", "attached", "close", "behind", "everywhere", "stuck", "separation", "anxious", "needy", "dependent"],
           aliases: ["follows me everywhere", "won't let me out of sight", "always behind me", "can't leave them alone", "follows me around", "follows me to the toilet", "follows me to bathroom", "won't stay in room alone", "panics when I leave", "attached to my hip", "can't get any space", "follows room to room"]
         },
-        hygiene: { category: "medical",
+        hygiene: { 
+          category: "medical",
           label: "Refusing hygiene", sub: "Won't wash/change",
           keywords: ["wash", "bath", "shower", "clean", "hygiene", "smell", "dirty", "change", "clothes", "teeth", "toilet", "bathroom", "loo", "nappy", "diaper", "pad", "incontinence", "wet", "soiled"],
           aliases: ["won't wash", "refusing bath", "won't shower", "hasn't changed clothes", "needs a wash", "refusing to clean", "won't brush teeth", "scared of shower", "afraid of bath", "won't change wet clothes", "sitting in wet pad", "smells bad", "hasn't bathed in days", "refuses personal care", "won't let me wash them"]
         },
         /* Extended - shown on "View all" (19 more = 25 total) - EXPANDED COVERAGE */
-        sundowning: { category: "location",
+        sundowning: { 
+          category: "emotional",
           label: "Evening upset", sub: "Evening agitation",
           keywords: ["evening", "night", "sunset", "agitated", "restless", "worse", "afternoon", "dusk", "dark", "twilight", "late", "shadows", "anxious", "confused", "pacing", "upset"],
           aliases: ["gets worse at night", "evening agitation", "restless at sunset", "anxious in evening", "agitated after dark", "worse in late afternoon", "pacing at night", "confused when it gets dark", "sundown syndrome", "evening confusion", "worse as sun goes down", "unsettled at teatime", "bad every evening"]
         },
-        wont_eat: { category: "medical",
+        wont_eat: { 
+          category: "medical",
           label: "Won't eat", sub: "Refusing food/drink",
           keywords: ["eat", "food", "drink", "hungry", "meal", "appetite", "swallow", "chew", "water", "tea", "coffee", "breakfast", "lunch", "dinner", "snack", "thirsty", "dehydrated", "weight"],
           aliases: ["not eating", "refusing food", "won't drink", "no appetite", "stopped eating", "pushing food away", "spitting food out", "won't open mouth", "not drinking enough", "losing weight", "barely eating", "picks at food", "won't touch meals", "refusing tea", "dehydrated"]
         },
-        repetitive: { category: "behavior",
+        repetitive: { 
+          category: "behavior",
           label: "Repeating questions", sub: "Asking same thing",
           keywords: ["repeat", "again", "same", "question", "asking", "over", "loop", "constant", "broken", "record", "endless", "nonstop", "obsessive", "stuck"],
           aliases: ["asking same thing", "keeps repeating", "same question", "over and over", "asks constantly", "broken record", "asked this already", "keeps asking same thing", "won't stop asking", "repetitive questions", "stuck in a loop", "asks every five minutes", "endless questions"]
         },
-        aggression: { category: "behavior",
+        aggression: { 
+          category: "behavior",
           label: "Aggression", sub: "Shouting / hitting / throwing things",
           keywords: ["aggressive", "hitting", "shouting", "angry", "violent", "punch", "kick", "yelling", "attack", "slap", "bite", "scratch", "push", "shove", "grab", "rage", "fury", "temper"],
           aliases: ["being aggressive", "hit me", "shouting at me", "getting violent", "lashing out", "tried to punch me", "kicked me", "grabbed my arm", "scratched me", "bit me", "pushed me away", "screaming at me", "flew into a rage", "lost their temper", "threatening behaviour"]
         },
-        sleep: { category: "medical",
+        sleep: { 
+          category: "medical",
           label: "Sleep problems", sub: "Up at night",
           keywords: ["sleep", "night", "awake", "insomnia", "tired", "bed", "rest", "waking", "wandering", "nocturnal", "disturbed", "exhausted", "morning", "routine", "nap", "daytime"],
           aliases: ["can't sleep", "up all night", "won't go to bed", "waking up", "not sleeping", "wandering at night", "awake at 3am", "thinks it's morning", "sleeping all day", "day night reversed", "exhausted but won't sleep", "gets up repeatedly", "disturbed sleep pattern", "night time wandering"]
         },
-        lost: { category: "location",
+        lost: { 
+          category: "location",
           label: "Lost / confused", sub: "Doesn't recognise place",
           keywords: ["lost", "confused", "where", "recognise", "place", "room", "house", "disoriented"],
           aliases: ["doesn't know where", "seems lost", "very confused", "doesn't recognise"]
         },
-        wandering: { category: "location",
+        wandering: { 
+          category: "location",
           label: "Wandering", sub: "Trying to leave",
           keywords: ["wander", "walk", "leave", "door", "outside", "escape", "exit", "roam", "pacing", "restless", "garden", "street", "lost", "front", "back", "gate", "key", "lock"],
           aliases: ["trying to leave", "at the door", "wants to go outside", "keeps wandering", "walking around", "trying to get out", "pacing up and down", "found at front door", "went out the back", "escaped from house", "wandered off", "walking the streets", "let themselves out", "keeps trying door handle", "looking for way out"]
         },
-        hiding: { category: "behavior",
+        hiding: { 
+          category: "behavior",
           label: "Hiding things", sub: "Can't find items",
           keywords: ["hiding", "hidden", "lost", "find", "where", "put", "missing", "moved"],
           aliases: ["hides things", "can't find", "where did I put", "things go missing", "hidden items"]
         },
-        undressing: { category: "behavior",
+        undressing: { 
+          category: "behavior",
           label: "Undressing", sub: "Removing clothes",
           keywords: ["undress", "naked", "clothes", "strip", "remove", "taking off"],
           aliases: ["taking clothes off", "getting undressed", "removing clothes", "keeps undressing"]
         },
-        rummaging: { category: "behavior",
+        rummaging: { 
+          category: "behavior",
           label: "Rummaging", sub: "Going through drawers",
           keywords: ["rummage", "drawer", "cupboard", "search", "through", "looking", "mess"],
           aliases: ["going through drawers", "searching cupboards", "making a mess", "rummaging around"]
         },
-        hoarding: { category: "behavior",
+        hoarding: { 
+          category: "behavior",
           label: "Hoarding", sub: "Collecting / keeping things",
           keywords: ["hoard", "collect", "keep", "save", "pile", "stuff", "junk", "rubbish"],
           aliases: ["collecting things", "won't throw away", "keeping everything", "piling up stuff"]
         },
-        crying: { category: "emotional",
+        crying: { 
+          category: "emotional",
           label: "Crying / tearful", sub: "Upset for no clear reason",
           keywords: ["crying", "tears", "upset", "sad", "weeping", "emotional", "distressed"],
           aliases: ["keeps crying", "very upset", "tearful", "crying for no reason", "emotionally distressed"]
         },
-        wont_get_up: { category: "emotional",
+        wont_get_up: { 
+          category: "behavior",
           label: "Won't get up", sub: "Staying in bed",
           keywords: ["bed", "up", "get", "lying", "stay", "morning", "wake"],
           aliases: ["won't get out of bed", "staying in bed", "refuses to get up", "won't wake up"]
         },
-        refusing_help: { category: "behavior",
+        refusing_help: { 
+          category: "behavior",
           label: "Refusing help", sub: "Won't accept care",
           keywords: ["help", "refuse", "care", "assist", "support", "independent", "stubborn"],
           aliases: ["won't accept help", "refuses care", "pushes me away", "doesn't want help"]
         },
-        paranoid: { category: "behavior",
+        paranoid: { 
+          category: "emotional",
           label: "Suspicious / worried", sub: "Worried about others",
           keywords: ["paranoid", "suspicious", "trust", "people", "watching", "spy", "conspiracy", "poison", "plotting", "neighbour", "neighbor", "carer", "staff", "delusion", "persecuted", "threatened"],
           aliases: ["very suspicious", "doesn't trust", "thinks people are watching", "paranoid thoughts", "thinks I'm poisoning food", "says neighbours are spying", "accuses staff of plotting", "doesn't trust anyone", "thinks people want to hurt them", "suspicious of carers", "feels persecuted", "convinced someone is after them", "paranoid about visitors"]
         },
-        hallucinations: { category: "behavior",
+        hallucinations: { 
+          category: "emotional",
           label: "Seeing things", sub: "Things that aren't there",
           keywords: ["seeing", "hallucination", "vision", "people", "things", "imaginary", "hear", "voices", "children", "intruders", "strangers", "animals", "bugs", "insects", "dead", "deceased", "ghost", "shadow"],
           aliases: ["seeing things", "hearing voices", "people that aren't there", "hallucinating", "sees children in the room", "talking to dead relatives", "sees intruders", "thinks there are strangers here", "seeing animals", "bugs on the wall", "sees shadows moving", "talking to people who aren't there", "says someone is in the house", "visual hallucinations"]
         },
-        inappropriate: { category: "behavior",
+        inappropriate: { 
+          category: "behavior",
           label: "Awkward comments", sub: "Saying unexpected things",
           keywords: ["inappropriate", "rude", "sexual", "comments", "embarrassing", "awkward", "offensive"],
           aliases: ["saying inappropriate things", "rude comments", "embarrassing behaviour", "sexual comments"]
         },
-        wont_dress: { category: "behavior",
+        wont_dress: { 
+          category: "behavior",
           label: "Won't get dressed", sub: "Refusing clothes",
           keywords: ["dress", "clothes", "wear", "outfit", "change", "morning", "pyjamas"],
           aliases: ["won't get dressed", "refusing to dress", "staying in pyjamas", "won't change clothes"]
         },
-        forgot_face: { category: "location",
+        forgot_face: { 
+          category: "emotional",
           label: "Doesn't know me", sub: "Forgotten who you are",
           keywords: ["know", "recognise", "who", "face", "forget", "stranger", "remember"],
           aliases: ["doesn't recognise me", "forgot who I am", "thinks I'm a stranger", "doesn't know who I am"]
         },
         /* FALLBACK - never shown in list */
-        fallback_not_sure: { category: "default",
+        fallback_not_sure: {
+          category: "default",
           label: "Not sure what this is", sub: "Start here. One step at a time.",
           isFallback: true,
           keywords: [],
@@ -303,27 +329,27 @@
 
       const URGENT_ITEMS = [
         { 
-          key:"unresponsive", label:"Unresponsive", sub:"Won't wake up", category:"medical",
+          key:"unresponsive", category:"medical", label:"Unresponsive", sub:"Won't wake up",
           keywords: ["unresponsive", "unconscious", "wake", "passed", "out", "fainted", "collapsed", "limp", "floppy", "not", "responding", "lifeless", "coma", "blackout", "knocked"],
           aliases: ["won't wake up", "passed out", "collapsed on floor", "not responding", "can't wake them", "fainted", "found unconscious", "not moving", "completely limp", "blacked out", "knocked out", "won't respond to voice", "eyes won't open"]
         },
         { 
-          key:"breathing",    label:"Breathing trouble", sub:"Gasping / Choking", category:"medical",
+          key:"breathing", category:"medical", label:"Breathing trouble", sub:"Gasping / Choking",
           keywords: ["breathing", "breath", "choking", "choke", "gasp", "wheeze", "cough", "airway", "blue", "lips", "oxygen", "struggling", "suffocate", "throat", "swallow", "aspirate"],
           aliases: ["can't breathe", "struggling to breathe", "choking on food", "gasping for air", "gone blue", "lips are blue", "wheezing badly", "food stuck in throat", "trouble breathing", "short of breath", "breathing problems", "not breathing properly", "coughing and choking"]
         },
         { 
-          key:"stroke",       label:"Stroke signs", sub:"Face, Arms, Speech", category:"medical",
+          key:"stroke", category:"medical", label:"Stroke signs", sub:"Face, Arms, Speech",
           keywords: ["stroke", "face", "droop", "arm", "weak", "speech", "slur", "fast", "paralysis", "numbness", "side", "dizzy", "sudden", "confusion", "vision", "headache"],
           aliases: ["face drooping", "arm weakness", "slurred speech", "think it's a stroke", "can't lift arm", "face looks different", "one side weak", "sudden confusion", "FAST signs", "can't speak properly", "words not making sense", "stroke symptoms"]
         },
         { 
-          key:"fall",         label:"Bad fall", sub:"Head injury / Pain", category:"medical",
+          key:"fall", category:"medical", label:"Bad fall", sub:"Head injury / Pain",
           keywords: ["fall", "fell", "fallen", "head", "injury", "hurt", "pain", "hip", "fracture", "broken", "bleeding", "bump", "bruise", "floor", "stairs", "trip"],
           aliases: ["had a fall", "fell over", "hit their head", "fallen on floor", "can't get up after fall", "hurt after falling", "fell down stairs", "tripped and fell", "banged their head", "bleeding from fall", "possible fracture", "fell out of bed", "found on floor"]
         },
         { 
-          key:"general_emergency", label:"Something feels seriously wrong", sub:"Need immediate help", category:"medical",
+          key:"general_emergency", category:"medical", label:"Something feels seriously wrong", sub:"Need immediate help",
           keywords: ["emergency", "urgent", "ambulance", "danger", "unsafe", "serious", "help", "critical", "dying", "999", "112", "911"],
           aliases: ["need ambulance", "call ambulance", "this is an emergency", "urgent help now", "immediate danger", "something is seriously wrong", "can't cope", "can't handle this", "need help now", "feels very wrong", "i think they're dying"]
         }

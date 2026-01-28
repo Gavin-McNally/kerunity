@@ -3015,14 +3015,23 @@
       }
 
       /* ================================
-         SMOKED GLASS CARD SYSTEM
+         BIOLUMINESCENT GLASS SYSTEM
          ================================ */
 
-      :root {
-        --rim-medical: #F6AD55;
-        --rim-location: #4FD1C5;
-        --rim-emotional: #B794F4;
-        --rim-behavior: #FC8181;
+      /* 1. Background — Midnight Horizon */
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
+        background-attachment: fixed;
+      }
+
+      /* Make all containers transparent */
+      #app-frame,
+      #app-content,
+      .canvas,
+      header {
+        background: transparent;
       }
 
       /* 2x2 Grid */
@@ -3032,29 +3041,17 @@
         gap: 16px !important;
       }
 
-      /* ════════ THE GLASS CARD ════════ */
+      /* 2. Cards — Smoked Glass */
       .card {
+        background: linear-gradient(180deg, rgba(30, 30, 40, 0.6) 0%, rgba(15, 20, 25, 0.8) 100%);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 20px;
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        padding: 20px;
         aspect-ratio: 1 / 1;
-        
-        /* THE SURFACE: Gradient creates glass volume */
-        background: linear-gradient(
-          180deg, 
-          rgba(30, 30, 40, 0.7) 0%,
-          rgba(20, 20, 25, 0.9) 100%
-        ) !important;
-        
-        /* THE PHYSICS: Blur behind glass */
-        backdrop-filter: blur(16px) !important;
-        -webkit-backdrop-filter: blur(16px) !important;
-        
-        /* THE RIM: Light catching top edge */
-        border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.3) !important;
-        border-left: none !important;
-        border-right: none !important;
-        
-        border-radius: 20px !important;
-        padding: 20px !important;
         margin-bottom: 0 !important;
         min-height: 0 !important;
         display: flex !important;
@@ -3063,13 +3060,13 @@
         gap: 12px !important;
         position: relative;
         overflow: hidden;
-        transition: transform 0.2s ease, background 0.2s !important;
+        transition: transform 0.2s ease, background 0.2s;
       }
 
       /* Interaction: Pressing into glass */
       .card:active {
-        transform: scale(0.98) !important;
-        background: rgba(40, 40, 50, 0.8) !important;
+        transform: scale(0.98);
+        background: rgba(40, 40, 50, 0.8);
       }
 
       /* Remove chevron */
@@ -3080,78 +3077,59 @@
         display: none !important;
       }
 
-      /* ════════ THE BIOLUMINESCENT ICON ════════ */
+      /* 3. Icon Containers — Bioluminescent Glow */
       .card-icon {
-        width: 48px !important;
-        height: 48px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        border-radius: 14px !important;
-        margin-bottom: 4px !important;
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        filter: none !important;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        margin-bottom: 4px;
       }
 
       .card-icon svg {
-        width: 24px !important;
-        height: 24px !important;
-        stroke-width: 2px !important;
-        fill: none !important;
+        width: 24px;
+        height: 24px;
+        stroke-width: 2px;
+        fill: none;
       }
 
-      /* ════════ TYPOGRAPHY ════════ */
-      .card-title {
-        color: #FFFFFF !important;
-        font-size: 16px !important;
-        font-weight: 600 !important;
-        letter-spacing: 0.3px !important;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.5) !important;
-      }
-
-      .card-subtitle {
-        color: #94A3B8 !important;
-        font-size: 13px !important;
-        font-weight: 400 !important;
-      }
-
-      /* ════════ MEDICAL (Amber) ════════ */
+      /* Medical (Amber) */
       .card[data-category="medical"] .card-icon {
-        background: rgba(246, 173, 85, 0.15) !important;
-        box-shadow: 0 0 15px rgba(246, 173, 85, 0.15) !important;
-        border: 1px solid rgba(246, 173, 85, 0.2) !important;
+        background: rgba(246, 173, 85, 0.15);
+        border: 1px solid rgba(246, 173, 85, 0.2);
+        border-radius: 14px;
       }
       .card[data-category="medical"] .card-icon svg {
         stroke: #F6AD55 !important;
       }
 
-      /* ════════ LOCATION (Teal) ════════ */
+      /* Location (Teal) */
       .card[data-category="location"] .card-icon {
-        background: rgba(79, 209, 197, 0.15) !important;
-        box-shadow: 0 0 15px rgba(79, 209, 197, 0.15) !important;
-        border: 1px solid rgba(79, 209, 197, 0.2) !important;
+        background: rgba(79, 209, 197, 0.15);
+        border: 1px solid rgba(79, 209, 197, 0.2);
+        border-radius: 14px;
       }
       .card[data-category="location"] .card-icon svg {
         stroke: #4FD1C5 !important;
       }
 
-      /* ════════ EMOTIONAL (Lavender) ════════ */
+      /* Emotional (Lavender) */
       .card[data-category="emotional"] .card-icon {
-        background: rgba(183, 148, 244, 0.15) !important;
-        box-shadow: 0 0 15px rgba(183, 148, 244, 0.15) !important;
-        border: 1px solid rgba(183, 148, 244, 0.2) !important;
+        background: rgba(183, 148, 244, 0.15);
+        border: 1px solid rgba(183, 148, 244, 0.2);
+        border-radius: 14px;
       }
       .card[data-category="emotional"] .card-icon svg {
         stroke: #B794F4 !important;
       }
 
-      /* ════════ BEHAVIOR (Rose) ════════ */
+      /* Behavior (Rose) */
       .card[data-category="behavior"] .card-icon {
-        background: rgba(252, 129, 129, 0.15) !important;
-        box-shadow: 0 0 15px rgba(252, 129, 129, 0.15) !important;
-        border: 1px solid rgba(252, 129, 129, 0.2) !important;
+        background: rgba(252, 129, 129, 0.15);
+        border: 1px solid rgba(252, 129, 129, 0.2);
+        border-radius: 14px;
       }
       .card[data-category="behavior"] .card-icon svg {
         stroke: #FC8181 !important;
@@ -3163,35 +3141,31 @@
         stroke: #f7e1c6 !important;
       }
 
-      /* Frosted Glass Sticky Header */
-      .sticky-header,
-      header,
-      #app-content > header {
-        position: sticky !important;
-        top: 0 !important;
-        z-index: 100 !important;
-        background: rgba(11, 14, 20, 0.85) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-        padding-bottom: 16px !important;
+      /* Typography */
+      .card-title {
+        color: #FFFFFF;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
       }
 
-      /* Lock the Background Gradient */
-      body {
-        background: linear-gradient(180deg, #12161F 0%, #0D1117 50%, #0B0E14 100%) !important;
-        background-attachment: fixed !important;
-        min-height: 100vh;
+      .card-subtitle {
+        color: #94A3B8;
+        font-size: 13px;
+        font-weight: 400;
       }
 
-      /* Search Bar Glass Match */
-      #query,
-      .search-input,
-      input[type="search"] {
-        background: rgba(20, 25, 35, 0.6) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
+      /* 4. Search Bar — Glass Pill */
+      #query {
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 99px;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      #query::placeholder {
+        color: rgba(148, 163, 184, 0.7);
       }
     </style>
   </head>

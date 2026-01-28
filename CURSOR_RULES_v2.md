@@ -75,29 +75,9 @@ When Gavin says "design iteration" or provides new CSS values directly in a prom
 
 ## Development Workflow
 
-When making UI changes:
-
-1. **Make the change** - Edit the code as requested
-2. **Verify visually** - Use agent-browser to check the result:
-```bash
-   agent-browser open http://localhost:5173
-   agent-browser screenshot verify.png
-```
-3. **Analyze the screenshot** - Describe what you see. Does it match the expected outcome?
-4. **If broken** - Debug and fix before reporting back to me
-5. **If working** - Report success with a summary of what changed
-
-Do NOT report back to me until you have visually verified the changes work. If the dev server isn't running, ask me to start it.
-
-## Browser Automation
-
-Use `agent-browser` for visual verification:
-- `agent-browser open <url>` - Navigate to page
-- `agent-browser screenshot <filename>` - Capture current state
-- `agent-browser snapshot -i` - Get interactive elements
-
-Always take a screenshot after UI changes to verify they worked.
-
+- Make one change at a time
+- Report what you changed
+- Gavin will test and screenshot if needed
 ---
 
 ## Color Quick Reference
