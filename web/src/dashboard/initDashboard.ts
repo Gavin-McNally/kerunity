@@ -303,27 +303,27 @@
 
       const URGENT_ITEMS = [
         { 
-          key:"unresponsive", label:"Unresponsive", sub:"Won't wake up",
+          key:"unresponsive", label:"Unresponsive", sub:"Won't wake up", category:"medical",
           keywords: ["unresponsive", "unconscious", "wake", "passed", "out", "fainted", "collapsed", "limp", "floppy", "not", "responding", "lifeless", "coma", "blackout", "knocked"],
           aliases: ["won't wake up", "passed out", "collapsed on floor", "not responding", "can't wake them", "fainted", "found unconscious", "not moving", "completely limp", "blacked out", "knocked out", "won't respond to voice", "eyes won't open"]
         },
         { 
-          key:"breathing",    label:"Breathing trouble", sub:"Gasping / Choking",
+          key:"breathing",    label:"Breathing trouble", sub:"Gasping / Choking", category:"medical",
           keywords: ["breathing", "breath", "choking", "choke", "gasp", "wheeze", "cough", "airway", "blue", "lips", "oxygen", "struggling", "suffocate", "throat", "swallow", "aspirate"],
           aliases: ["can't breathe", "struggling to breathe", "choking on food", "gasping for air", "gone blue", "lips are blue", "wheezing badly", "food stuck in throat", "trouble breathing", "short of breath", "breathing problems", "not breathing properly", "coughing and choking"]
         },
         { 
-          key:"stroke",       label:"Stroke signs", sub:"Face, Arms, Speech",
+          key:"stroke",       label:"Stroke signs", sub:"Face, Arms, Speech", category:"medical",
           keywords: ["stroke", "face", "droop", "arm", "weak", "speech", "slur", "fast", "paralysis", "numbness", "side", "dizzy", "sudden", "confusion", "vision", "headache"],
           aliases: ["face drooping", "arm weakness", "slurred speech", "think it's a stroke", "can't lift arm", "face looks different", "one side weak", "sudden confusion", "FAST signs", "can't speak properly", "words not making sense", "stroke symptoms"]
         },
         { 
-          key:"fall",         label:"Bad fall", sub:"Head injury / Pain",
+          key:"fall",         label:"Bad fall", sub:"Head injury / Pain", category:"medical",
           keywords: ["fall", "fell", "fallen", "head", "injury", "hurt", "pain", "hip", "fracture", "broken", "bleeding", "bump", "bruise", "floor", "stairs", "trip"],
           aliases: ["had a fall", "fell over", "hit their head", "fallen on floor", "can't get up after fall", "hurt after falling", "fell down stairs", "tripped and fell", "banged their head", "bleeding from fall", "possible fracture", "fell out of bed", "found on floor"]
         },
         { 
-          key:"general_emergency", label:"Something feels seriously wrong", sub:"Need immediate help",
+          key:"general_emergency", label:"Something feels seriously wrong", sub:"Need immediate help", category:"medical",
           keywords: ["emergency", "urgent", "ambulance", "danger", "unsafe", "serious", "help", "critical", "dying", "999", "112", "911"],
           aliases: ["need ambulance", "call ambulance", "this is an emergency", "urgent help now", "immediate danger", "something is seriously wrong", "can't cope", "can't handle this", "need help now", "feels very wrong", "i think they're dying"]
         }
